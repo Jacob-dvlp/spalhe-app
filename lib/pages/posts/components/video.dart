@@ -3,7 +3,7 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
 class VideoApp extends StatefulWidget {
-  final url;
+  final String url;
   const VideoApp(this.url, {Key? key}) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class _VideoAppState extends State<VideoApp> {
   void initState() {
     super.initState();
     _ = VideoPlayerController.network(
-        'https://spalhe.s3-sa-east-1.amazonaws.com/${this.widget.url}')
+        'https://spalhe.s3-sa-east-1.amazonaws.com/${widget.url}')
       ..initialize().then((_) {
         setState(() {});
       });
