@@ -134,7 +134,7 @@ class AuthController extends GetxController {
         auth = res.data;
         registerLoading = false;
         update();
-        Get.to(UsernamePage());
+        Get.to(const UsernamePage());
       } catch (err) {
         print(err);
         registerLoading = false;
@@ -144,7 +144,7 @@ class AuthController extends GetxController {
           'Encontramos um problema ao tentar conectar você',
           backgroundColor: Color(0xffff6b81),
           colorText: Colors.white,
-          margin: EdgeInsets.all(14),
+          margin: const EdgeInsets.all(14),
         );
       }
     }

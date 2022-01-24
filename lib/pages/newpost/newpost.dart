@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:spalhe/components/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth/auth.dart';
 import 'package:spalhe/controllers/posts/posts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
+import 'package:spalhe/theme/colors.dart';
 
 class NewPostPage extends StatelessWidget {
   NewPostPage({Key? key}) : super(key: key);
@@ -33,17 +35,12 @@ class NewPostPage extends StatelessWidget {
           children: [
             Row(
               children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  child: ClipOval(
-                    child: CachedNetworkImage(
-                      imageUrl: user['avatar'],
-                      fit: BoxFit.cover,
-                      width: 30,
-                      height: 30,
-                    ),
-                  ),
+                Avatar(
+                  url: user['avatar'],
+                  width: 35,
+                  height: 35,
                 ),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -74,7 +71,7 @@ class NewPostPage extends StatelessWidget {
                 filled: false,
               ),
               decoratedStyle: const TextStyle(
-                color: Color(0xff009688),
+                color: primary,
                 fontWeight: FontWeight.w500,
                 fontSize: 20,
               ),

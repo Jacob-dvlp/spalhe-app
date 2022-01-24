@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:spalhe/theme/colors.dart';
 
 ThemeData themeLight(context) => ThemeData.light().copyWith(
+      primaryColor: ColorLight.primary,
+      primaryColorLight: Colors.white,
+      primaryColorDark: ColorLight.textColor,
+      //
+      scaffoldBackgroundColor: ColorLight.background,
+      //
+      colorScheme: ColorScheme.light(
+        primary: ColorLight.primary,
+        background: ColorLight.background,
+        error: Colors.redAccent,
+        onBackground: ColorLight.background,
+        onError: Colors.redAccent,
+        brightness: Brightness.light,
+      ),
+      //
       appBarTheme: AppBarTheme(
         color: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.grey[800],
+          color: ColorLight.textColor,
         ),
         elevation: 3,
-        titleTextStyle: const TextStyle(
-          color: Colors.black87,
+        titleTextStyle: TextStyle(
+          color: ColorLight.textColor,
           fontSize: 20,
           fontWeight: FontWeight.w500,
         ),
@@ -17,41 +33,45 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
           color: Colors.black,
         ),
       ),
-      scaffoldBackgroundColor: Colors.grey.shade200,
+      //
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          primary: const Color(0xff009688),
+          primary: ColorLight.primary,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           onPrimary: Colors.white,
-          primary: const Color(0xff009688),
+          primary: ColorLight.primary,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: const Color(0xff009688),
+          primary: ColorLight.primary,
         ),
       ),
       hintColor: Colors.grey.withOpacity(0.4),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.grey.shade200,
+            color: ColorLight.primary,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: ColorLight.primary,
+            width: 2,
           ),
           borderRadius: BorderRadius.circular(12),
         ),
         fillColor: Colors.white,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 18,
+          vertical: 14,
         ),
       ),
       textTheme: GoogleFonts.poppinsTextTheme(
         Theme.of(context).textTheme,
       ),
-      primaryColor: const Color(0xff009688),
-      primaryColorLight: Colors.white,
-      primaryColorDark: Colors.grey[800],
     );

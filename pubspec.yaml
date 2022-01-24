@@ -42,6 +42,7 @@ dependencies:
   salomon_bottom_bar: ^3.2.0
   simple_moment: ^1.1.1
   carousel_slider: ^4.0.0
+  mask_text_input_formatter: ^2.1.0
   
 
 dev_dependencies:

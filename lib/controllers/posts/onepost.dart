@@ -60,17 +60,28 @@ class OnePostController extends GetxController {
   }
 
   void likePost(id) async {
-    if (post['liked'] == null) {
-      post['liked'] = "liked";
-      post['__meta__']['likes_count'] =
-          int.parse(post['__meta__']['likes_count']) + 1;
+    if (post['__meta__']['likes_count'].runtimeType == int) {
+      if (post['liked'] == null) {
+        post['liked'] = "liked";
+        post['__meta__']['likes_count'] = post['__meta__']['likes_count'] + 1;
+      } else {
+        post['liked'] = null;
+        post['__meta__']['likes_count'] = post['__meta__']['likes_count'] - 1;
+      }
+      update();
+      await API.post('/like', {"post_id": post['id']});
     } else {
-      post['liked'] = null;
-      post['__meta__']['likes_count'] =
-          int.parse(post['__meta__']['likes_count']) - 1;
+      if (post['liked'] == null) {
+        post['liked'] = "liked";
+        post['__meta__']['likes_count'] =
+            int.parse(post['__meta__']['likes_count'] ?? '0') + 1;
+      } else {
+        post['liked'] = null;
+        post['__meta__']['likes_count'] =
+            int.parse(post['__meta__']['likes_count'] ?? '0') - 1;
+      }
+      update();
     }
-    update();
-    await API.post('/like', {"post_id": post['id']});
   }
 
   getLikes() async {

@@ -50,7 +50,7 @@ class PostItem extends StatelessWidget {
       init: OnePostController(post: post),
       tag: post['id'].toString(),
       builder: (_) => Container(
-        margin: const EdgeInsets.symmetric(vertical: 2),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         child: !_.deleted
             ? Material(
                 color: Theme.of(context).primaryColorLight,
@@ -58,60 +58,61 @@ class PostItem extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
                     vertical: 10,
-                  ),
+                  ).copyWith(bottom: 2),
                   child: Column(
                     children: <Widget>[
                       //USER COLUMN
                       if (post['share_post'] != null)
                         Column(
                           children: [
-                            InkWell(
+                            GestureDetector(
                               onTap: () => Utils.routeUser(post['user']),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    ClipOval(
-                                      child: Image.network(
-                                        post['user']['avatar'],
-                                        fit: BoxFit.cover,
-                                        width: 20,
-                                        height: 20,
-                                      ),
+                              child: Row(
+                                children: [
+                                  Avatar(
+                                    url: post['user']['avatar'] ?? '',
+                                    width: 16,
+                                    height: 16,
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          children: [
+                                            Text(
+                                              post['user']['name'],
+                                              style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            Text(
+                                              " repostou isso",
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: Theme.of(context)
+                                                    .primaryColorDark
+                                                    .withOpacity(0.5),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Row(
-                                            children: [
-                                              Text(
-                                                post['user']['name'],
-                                                style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              Text(
-                                                " repostou isso",
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Theme.of(context)
-                                                      .primaryColorDark
-                                                      .withOpacity(0.5),
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
+                            ),
+                            const SizedBox(height: 6),
+                            Container(
+                              height: 1,
+                              color: Theme.of(context)
+                                  .primaryColorDark
+                                  .withOpacity(0.1),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,15 +138,13 @@ class PostItem extends StatelessWidget {
                                               post['share_user']['name'],
                                               style: const TextStyle(
                                                 fontSize: 14,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
                                             Text(
-                                              "@" +
-                                                  post['share_user']
-                                                      ['username'],
+                                              post['share_user']['username'],
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 11,
                                                 color: Theme.of(context)
                                                     .primaryColorDark
                                                     .withOpacity(0.8),
@@ -202,7 +201,7 @@ class PostItem extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              "@" + post['user']['username'],
+                                              post['user']['username'],
                                               style: TextStyle(
                                                 fontSize: 11,
                                                 color: Theme.of(context)

@@ -23,9 +23,9 @@ class HomePage extends StatelessWidget {
         body: IndexedStack(
           index: _.tabIndex,
           children: <Widget>[
-            const PostPage(),
+            PostPage(),
             const ExplorePage(),
-            ChatPage(),
+            const ChatPage(),
             NotificationsPage(active: _.tabIndex == 3),
             ProfilePage(),
           ],
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColorLight,
         bottomNavigationBar: SafeArea(
           child: SalomonBottomBar(
-            selectedColorOpacity: 0.08,
+            selectedColorOpacity: 0.04,
             currentIndex: _.tabIndex,
             onTap: (index) => _.changeTab(index),
             items: [
@@ -83,45 +83,40 @@ class HomePage extends StatelessWidget {
                 selectedColor: Colors.red,
               ),
               SalomonBottomBarItem(
-                  icon: GetBuilder<NotificationsController>(
-                    init: NotificationsController(),
-                    builder: (_) => Stack(
-                      children: <Widget>[
-                        const Icon(Icons.favorite_outline),
-                        if (_.getTotal() != '0')
-                          Positioned(
-                            right: 0,
-                            child: Container(
-                              padding: const EdgeInsets.all(1),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              constraints: const BoxConstraints(
-                                minWidth: 14,
-                                minHeight: 14,
-                              ),
-                              child: Text(
-                                _.getTotal(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                icon: GetBuilder<NotificationsController>(
+                  init: NotificationsController(),
+                  builder: (_) => Stack(
+                    children: <Widget>[
+                      const Icon(Icons.favorite_outline),
+                      if (_.getTotal() != '0')
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
                             ),
-                          )
-                      ],
-                    ),
+                            constraints: const BoxConstraints(
+                              minWidth: 14,
+                              minHeight: 14,
+                            ),
+                            child: Text(
+                              _.getTotal(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                    ],
                   ),
-                  title: const Text("Alertas"),
-                  selectedColor: Colors.pink,
-                  activeIcon: const Icon(Icons.favorite)),
-              SalomonBottomBarItem(
-                icon: const Icon(Icons.person_outline),
-                title: const Text("Perfil"),
-                selectedColor: Colors.teal,
-                activeIcon: const Icon(Icons.person),
+                ),
+                title: const Text("Notificações"),
+                selectedColor: Colors.pink,
+                activeIcon: const Icon(Icons.favorite),
               ),
             ],
           ),

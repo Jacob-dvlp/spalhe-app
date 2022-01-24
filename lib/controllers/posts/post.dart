@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class PostController extends GetxController {
-  final id;
+  final int id;
   PostController(this.id);
   var post = {};
   var comments = [];

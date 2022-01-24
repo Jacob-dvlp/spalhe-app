@@ -8,6 +8,7 @@ import 'package:spalhe/pages/profile/preferences.dart';
 import 'package:spalhe/pages/profile/components/photos.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spalhe/theme/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
@@ -78,21 +79,19 @@ class ProfilePage extends StatelessWidget {
                                     '${_auth.auth['user']['name']}',
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   const SizedBox(height: 10),
-                                  TextButton.icon(
-                                    style: TextButton.styleFrom(
-                                      primary: const Color(0xff009688),
+                                  GestureDetector(
+                                    onTap: () => Get.to(
+                                      const EditProfilePage(),
                                     ),
-                                    onPressed: () =>
-                                        Get.to(const EditProfilePage()),
-                                    icon: const Icon(
-                                      Icons.person_pin_outlined,
+                                    child: const Text(
+                                      'Editar informações',
+                                      style: TextStyle(color: primary),
                                     ),
-                                    label: const Text('Editar informações'),
                                   ),
                                 ],
                               ),
