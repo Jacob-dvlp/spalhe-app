@@ -26,7 +26,7 @@ class ReplyPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: CommentsComponent(
                       comment: comment,
-                      reply: null,
+                      reply: false,
                     ),
                   ),
                   Column(

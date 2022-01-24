@@ -57,7 +57,7 @@ class PostPage extends StatelessWidget {
                             _.comments.length,
                             (index) => CommentsComponent(
                               comment: _.comments[index],
-                              reply: null,
+                              reply: false,
                             ),
                           ),
                         ),

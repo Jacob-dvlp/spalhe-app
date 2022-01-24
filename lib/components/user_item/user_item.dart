@@ -3,8 +3,11 @@ import 'package:spalhe/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class UserItem extends StatelessWidget {
-  final user;
-  const UserItem({Key? key, this.user}) : super(key: key);
+  final Map user;
+  const UserItem({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -7,10 +7,13 @@ import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 
 class CommentsComponent extends StatelessWidget {
-  final comment, reply;
-  const CommentsComponent(
-      {Key? key, required this.comment, required this.reply})
-      : super(key: key);
+  final Map comment;
+  final bool reply;
+  const CommentsComponent({
+    Key? key,
+    required this.comment,
+    required this.reply,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class CommentsComponent extends StatelessWidget {
                                 comment['user']['name']
                                     .toString()
                                     .split(' ')[0],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -80,12 +83,11 @@ class CommentsComponent extends StatelessWidget {
                             fontSize: 16,
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
-                          decoratedStyle: TextStyle(
+                          decoratedStyle: const TextStyle(
                             fontSize: 16,
                             color: Colors.purple,
                             fontWeight: FontWeight.w500,
                           ),
-                          onTap: (s) => print(s),
                         ),
                       ),
                     ],
@@ -93,48 +95,47 @@ class CommentsComponent extends StatelessWidget {
                 ),
               ],
             ),
-            reply == null
-                ? Row(
+            if (!reply)
+              Row(
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            padding: EdgeInsets.all(5),
-                            icon: _.comment['liked'] != null
-                                ? Icon(Icons.favorite)
-                                : Icon(Icons.favorite_border),
-                            color: _.comment['liked'] != null
-                                ? Colors.red
-                                : Theme.of(context).primaryColorDark,
-                            iconSize: 18,
-                            onPressed: () => _.likeComment(),
-                          ),
-                          Text(
-                            _.comment['__meta__']['likes_count'].toString(),
-                          ),
-                        ],
+                      IconButton(
+                        padding: const EdgeInsets.all(5),
+                        icon: _.comment['liked'] != null
+                            ? const Icon(Icons.favorite)
+                            : const Icon(Icons.favorite_border),
+                        color: _.comment['liked'] != null
+                            ? Colors.red
+                            : Theme.of(context).primaryColorDark,
+                        iconSize: 18,
+                        onPressed: () => _.likeComment(),
                       ),
-                      Row(
-                        children: [
-                          IconButton(
-                            padding: EdgeInsets.all(5),
-                            icon: Icon(
-                              Icons.repeat,
-                              size: 18,
-                            ),
-                            onPressed: () => Get.to(ReplyPage(
-                              id: comment['id'],
-                              comment: comment,
-                            )),
-                          ),
-                          Text(
-                            _.comment['__meta__']['reply_count'].toString(),
-                          ),
-                        ],
+                      Text(
+                        _.comment['__meta__']['likes_count'].toString(),
                       ),
                     ],
-                  )
-                : Container(),
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        padding: const EdgeInsets.all(5),
+                        icon: const Icon(
+                          Icons.repeat,
+                          size: 18,
+                        ),
+                        onPressed: () => Get.to(ReplyPage(
+                          id: comment['id'],
+                          comment: comment,
+                        )),
+                      ),
+                      Text(
+                        _.comment['__meta__']['reply_count'].toString(),
+                      ),
+                    ],
+                  ),
+                ],
+              )
           ],
         ),
       ),
