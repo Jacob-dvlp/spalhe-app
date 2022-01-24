@@ -2,9 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
-  final url, width, height, border;
-  const Avatar({Key? key, this.height, this.url, this.width, this.border})
-      : super(key: key);
+  final double? width, height, border;
+  final String url;
+
+  const Avatar({
+    Key? key,
+    this.height,
+    required this.url,
+    this.width,
+    this.border,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,10 @@ class Avatar extends StatelessWidget {
             fit: BoxFit.cover,
             width: width,
             height: height,
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            errorWidget: (context, url, error) => CachedNetworkImage(
+              imageUrl:
+                  'https://www.globemoving.com/wp-content/uploads/2015/08/user.jpg',
+            ),
           ),
         ),
       ),

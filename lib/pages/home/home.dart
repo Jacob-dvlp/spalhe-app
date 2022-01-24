@@ -23,8 +23,8 @@ class HomePage extends StatelessWidget {
         body: IndexedStack(
           index: _.tabIndex,
           children: <Widget>[
-            PostPage(),
-            ExplorePage(),
+            const PostPage(),
+            const ExplorePage(),
             ChatPage(),
             NotificationsPage(active: _.tabIndex == 3),
             ProfilePage(),

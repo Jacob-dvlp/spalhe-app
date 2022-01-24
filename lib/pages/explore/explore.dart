@@ -16,14 +16,9 @@ class ExplorePage extends StatelessWidget {
       init: ExploreController(),
       builder: (_) => Scaffold(
           appBar: AppBar(
-            elevation: 0,
             centerTitle: false,
-            title: const Text(
-              'Explorar',
-              style: TextStyle(fontSize: 26),
-            ),
+            title: const Text('Explorar'),
           ),
-          backgroundColor: Theme.of(context).primaryColorLight,
           body: RefreshIndicator(
             onRefresh: () async {
               await _.getImages();

@@ -48,13 +48,13 @@ class OnePostController extends GetxController {
         'Você compartilhou essa publicação no seu perfil',
         backgroundColor: Colors.greenAccent,
         colorText: Colors.white,
-        margin: EdgeInsets.all(14),
+        margin: const EdgeInsets.all(14),
       );
     } catch (e) {
       Get.snackbar(
         'Desculpe',
         'Não foi possivel compartilhar essa publicação',
-        margin: EdgeInsets.all(14),
+        margin: const EdgeInsets.all(14),
       );
     }
   }
@@ -62,10 +62,12 @@ class OnePostController extends GetxController {
   void likePost(id) async {
     if (post['liked'] == null) {
       post['liked'] = "liked";
-      post['__meta__']['likes_count'] = post['__meta__']['likes_count'] + 1;
+      post['__meta__']['likes_count'] =
+          int.parse(post['__meta__']['likes_count']) + 1;
     } else {
       post['liked'] = null;
-      post['__meta__']['likes_count'] = post['__meta__']['likes_count'] - 1;
+      post['__meta__']['likes_count'] =
+          int.parse(post['__meta__']['likes_count']) - 1;
     }
     update();
     await API.post('/like', {"post_id": post['id']});

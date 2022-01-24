@@ -53,14 +53,9 @@ class NotificationsPage extends StatelessWidget {
       init: ntfController,
       builder: (_) => Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Notificações',
-            style: TextStyle(fontSize: 26),
-          ),
-          elevation: 0,
+          title: const Text('Notificações'),
           centerTitle: false,
         ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         body: RefreshIndicator(
           onRefresh: () async {
             _.getAllNotifications();

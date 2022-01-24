@@ -13,8 +13,9 @@ import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 
 class PostItem extends StatelessWidget {
-  final post, type;
-  PostItem({Key? key, @required this.post, this.type}) : super(key: key);
+  final Map post;
+  final String? type;
+  PostItem({Key? key, required this.post, this.type}) : super(key: key);
 
   final AuthController authController = Get.put(AuthController());
 
@@ -44,6 +45,7 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final postUser =
         post['share_post'] != null ? post['share_post']['post'] : post;
+
     return GetBuilder<OnePostController>(
       init: OnePostController(post: post),
       tag: post['id'].toString(),
@@ -53,8 +55,10 @@ class PostItem extends StatelessWidget {
             ? Material(
                 color: Theme.of(context).primaryColorLight,
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
                   child: Column(
                     children: <Widget>[
                       //USER COLUMN
@@ -119,8 +123,8 @@ class PostItem extends StatelessWidget {
                                       ClipOval(
                                         child: Avatar(
                                           url: post['share_user']['avatar'],
-                                          width: 40.0,
-                                          height: 40.0,
+                                          width: 30.0,
+                                          height: 30.0,
                                         ),
                                       ),
                                       Container(
@@ -178,8 +182,8 @@ class PostItem extends StatelessWidget {
                                   ClipOval(
                                     child: Avatar(
                                       url: postUser['user']['avatar'],
-                                      width: 40.0,
-                                      height: 40.0,
+                                      width: 30,
+                                      height: 30,
                                     ),
                                   ),
                                   Container(
@@ -189,7 +193,7 @@ class PostItem extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          post['user']['name'].split(" ")[0],
+                                          post['user']['name'],
                                           style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
@@ -200,7 +204,7 @@ class PostItem extends StatelessWidget {
                                             Text(
                                               "@" + post['user']['username'],
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 11,
                                                 color: Theme.of(context)
                                                     .primaryColorDark
                                                     .withOpacity(0.7),
@@ -261,7 +265,6 @@ class PostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Color(0xff009688),
                             ),
-                            onTap: (s) => print(s),
                           ),
                         )
                       else
@@ -346,75 +349,69 @@ class PostItem extends StatelessWidget {
                                 );
                               })),
                         ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                // LIKES
-                                IconButton(
-                                  icon: _.post['liked'] != null
-                                      ? const Icon(Icons.favorite)
-                                      : const Icon(Icons.favorite_border),
-                                  iconSize: 28,
-                                  color: _.post['liked'] != null
-                                      ? Colors.red
-                                      : Theme.of(context).primaryColorDark,
-                                  onPressed: () => _.likePost(_.post['id']),
-                                ),
-                                InkWell(
-                                  onTap: () => Get.to(LikesPage(
-                                    post: _.post,
-                                  )),
-                                  child: Text(
-                                    "${_.post['__meta__']['likes_count']}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            // COMMENTS
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: const Icon(FeatherIcons.messageCircle),
-                                  onPressed: () => Get.to(PostPage(post['id'])),
-                                ),
-                                Text(
-                                  "${post['__meta__']['comments_count']}",
+                      Row(
+                        children: <Widget>[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                icon: _.post['liked'] != null
+                                    ? const Icon(Icons.favorite)
+                                    : const Icon(Icons.favorite_border),
+                                iconSize: 22,
+                                color: _.post['liked'] != null
+                                    ? Colors.red
+                                    : Theme.of(context).primaryColorDark,
+                                onPressed: () => _.likePost(_.post['id']),
+                              ),
+                              InkWell(
+                                onTap: () => Get.to(LikesPage(
+                                  post: _.post,
+                                )),
+                                child: Text(
+                                  "${_.post['__meta__']['likes_count']}",
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
+                                    fontSize: 12,
                                   ),
-                                )
-                              ],
-                            ),
-                            // SHARES
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: const Icon(FeatherIcons.share),
-                                  onPressed: () => _.sharePost(post['id']),
                                 ),
-                                Text(
-                                  "${post['__meta__']['share_count']}",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(width: 30),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                icon: const Icon(FeatherIcons.messageCircle),
+                                onPressed: () => Get.to(PostPage(post['id'])),
+                                iconSize: 21,
+                              ),
+                              Text(
+                                "${post['__meta__']['comments_count']}",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(width: 30),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                icon: const Icon(FeatherIcons.share),
+                                onPressed: () => _.sharePost(post['id']),
+                                iconSize: 20,
+                              ),
+                              Text(
+                                "${post['__meta__']['share_count']}",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),

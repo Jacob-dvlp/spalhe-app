@@ -6,30 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatPage extends StatelessWidget {
+  const ChatPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ChatController>(
       init: ChatController(),
       builder: (_) => Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Mensagens',
-            style: TextStyle(fontSize: 26),
-          ),
-          elevation: 0,
+          title: const Text('Mensagens'),
           centerTitle: false,
         ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         body: ListView(
           children: [
             Container(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColorDark.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
-                children: [
+                children: const [
                   IconButton(icon: Icon(Icons.search), onPressed: null),
                   Expanded(
                     child: TextField(
@@ -122,26 +119,26 @@ class ChatPage extends StatelessWidget {
                               children: [
                                 Text(
                                   Utils.date(chat['messages']['created_at']),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 11,
                                   ),
                                 ),
                                 if (isMesage && quantity != "0")
                                   Container(
-                                    margin: EdgeInsets.only(top: 2),
-                                    padding: EdgeInsets.symmetric(
+                                    margin: const EdgeInsets.only(top: 2),
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 4, vertical: 2),
                                     alignment: Alignment.center,
                                     child: Text(
                                       quantity,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Color(0xff009688),
+                                      color: const Color(0xff009688),
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),

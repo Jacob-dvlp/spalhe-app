@@ -21,11 +21,12 @@ class ProfilePage extends StatelessWidget {
       builder: (_) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          elevation: 0,
           title: GetBuilder<AuthController>(
             init: AuthController(),
             builder: (_auth) => Column(
-              children: <Widget>[Text('@' + _auth.auth['user']['username'])],
+              children: <Widget>[
+                Text('@' + _auth.auth['user']['username']),
+              ],
             ),
           ),
           actions: <Widget>[
@@ -84,7 +85,7 @@ class ProfilePage extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   TextButton.icon(
                                     style: TextButton.styleFrom(
-                                      primary: Color(0xff009688),
+                                      primary: const Color(0xff009688),
                                     ),
                                     onPressed: () =>
                                         Get.to(const EditProfilePage()),
@@ -248,6 +249,7 @@ class ProfilePage extends StatelessWidget {
                   color: Theme.of(context).primaryColorLight,
                 ),
               ),
+              const SizedBox(height: 10),
               IndexedStack(
                 index: _.tabIndex,
                 children: <Widget>[

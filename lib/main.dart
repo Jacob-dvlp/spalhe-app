@@ -4,6 +4,8 @@ import 'package:spalhe/pages/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:spalhe/theme/dark.dart';
+import 'package:spalhe/theme/light.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Spalhe',
       themeMode: ThemeMode.system,
+      theme: themeLight(context),
+      darkTheme: themeDark(context),
       initialRoute: '/',
       routes: {
         '/': (context) => LandingPage(),

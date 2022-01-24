@@ -14,39 +14,26 @@ class PostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            heroTag: "create",
-            onPressed: () => Get.to(NewPostPage()),
-            child: const Icon(
-              FeatherIcons.edit,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.teal,
-          ),
-          const SizedBox(width: 10),
-          FloatingActionButton(
-            heroTag: "search",
+      appBar: AppBar(
+        title: SizedBox(
+          child: Image.asset('assets/icon.png'),
+          width: 30,
+        ),
+        actions: [
+          IconButton(
             onPressed: () => Get.to(SearchPage()),
-            child: const Icon(
+            icon: const Icon(
               FeatherIcons.search,
-              color: Colors.white,
             ),
-            backgroundColor: Colors.grey.withOpacity(0.6),
+          ),
+          IconButton(
+            onPressed: () => Get.to(NewPostPage()),
+            icon: const Icon(
+              FeatherIcons.edit,
+            ),
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      appBar: AppBar(
-        elevation: 0,
-        title: SizedBox(
-          child: Image.asset('assets/icon.png'),
-          width: 40,
-        ),
-      ),
-      backgroundColor: Theme.of(context).primaryColorLight,
       body: GetBuilder<PostsController>(
         init: PostsController(),
         builder: (_) => RefreshIndicator(
