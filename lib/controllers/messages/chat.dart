@@ -32,10 +32,10 @@ class ChatController extends GetxController {
 
   void clearNotifications() async {
     var list = [];
-    chats.forEach((item) {
+    for (var item in chats) {
       item['messages']['view'] = 1;
       list.add(item);
-    });
+    }
     chats = list;
     update();
     // call api

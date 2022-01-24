@@ -14,18 +14,11 @@ class ReplyController extends GetxController {
     getReplys();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void getReplys() {
     API.get('/reply/$id').then((value) {
       replys = value.data;
       update();
-    }).catchError((err) {
-      print(err);
-    });
+    }).catchError((err) {});
   }
 
   void reply() async {
@@ -35,8 +28,6 @@ class ReplyController extends GetxController {
       });
       textController.text = '';
       getReplys();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 }

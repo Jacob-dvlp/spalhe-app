@@ -12,20 +12,13 @@ class ExploreController extends GetxController {
     getUsers();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   // FETCH POSTS DATA
   Future<void> getImages() async {
     try {
       var value = await API.get('/explore/images');
       images = value.data;
       update();
-    } catch (e) {
-      print('[EXPLORE] => Erro ao buscar usuários');
-    }
+    } catch (e) {}
   }
 
   Future<void> getUsers() async {
@@ -33,8 +26,6 @@ class ExploreController extends GetxController {
       var value = await API.get('/unfollowusers');
       users = value.data;
       update();
-    } catch (e) {
-      print('[EXPLORE] => Erro ao buscar usuários');
-    }
+    } catch (e) {}
   }
 }

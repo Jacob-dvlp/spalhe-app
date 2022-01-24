@@ -28,10 +28,10 @@ class NotificationsController extends GetxController {
 
   void clearNotifications() async {
     var list = [];
-    notifications.forEach((item) {
+    for (var item in notifications) {
       item['view'] = '1';
       list.add(item);
-    });
+    }
     notifications = list;
     update();
     await API.put('/notifications/update', {});

@@ -68,7 +68,9 @@ class MessagesController extends GetxController {
       messages = value.data;
       messageLoading = false;
       update();
-    }).catchError((err) => print('[MESSAGES]=> ocorreu um erro ao buscar'));
+    }).catchError((err) {
+      print('[MESSAGES]=> ocorreu um erro ao buscar');
+    });
   }
 
   Future<void> setViewMessage() async {

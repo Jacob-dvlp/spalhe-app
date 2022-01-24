@@ -4,7 +4,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:spalhe/components/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth/auth.dart';
 import 'package:spalhe/controllers/posts/posts.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';

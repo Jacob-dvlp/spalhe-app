@@ -54,7 +54,7 @@ class PostPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => Get.to(SearchPage()),
+            onPressed: () => Get.to(const SearchPage()),
             icon: const Icon(
               FeatherIcons.search,
             ),

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SearchPage extends StatelessWidget {
+  const SearchPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SearchController>(
@@ -13,7 +15,7 @@ class SearchPage extends StatelessWidget {
           title: TextField(
             autocorrect: false,
             onChanged: (a) => _.getSearch(a),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
               border: InputBorder.none,
               hintText: 'Pesquisar pelo nome de usuário...',

@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 
 class LikesPage extends StatelessWidget {
   final post;
-  const LikesPage({this.post});
+  const LikesPage({Key? key, this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Curtidas'),
+        title: const Text('Curtidas'),
         centerTitle: true,
       ),
       body: GetBuilder<LikeController>(
@@ -32,20 +32,18 @@ class LikesPage extends StatelessWidget {
                       width: 42.0,
                       height: 42.0,
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(child: Text(like['user']['name'])),
-                        Container(
-                          child: Text(
-                            '@${like['user']['username']}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Theme.of(context)
-                                  .primaryColorDark
-                                  .withOpacity(0.6),
-                            ),
+                        Text(like['user']['name']),
+                        Text(
+                          '@${like['user']['username']}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.6),
                           ),
                         ),
                       ],

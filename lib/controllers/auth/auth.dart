@@ -96,7 +96,7 @@ class AuthController extends GetxController {
         box.write('auth', res.data);
         loginLoading = false;
         update();
-        Get.offAll(HomePage());
+        Get.offAll(const HomePage());
       } on dynamic catch (err) {
         loginLoading = false;
         update();
@@ -136,13 +136,12 @@ class AuthController extends GetxController {
         update();
         Get.to(const UsernamePage());
       } catch (err) {
-        print(err);
         registerLoading = false;
         update();
         Get.snackbar(
           'Erro ao criar conta, verifique os dados',
           'Encontramos um problema ao tentar conectar você',
-          backgroundColor: Color(0xffff6b81),
+          backgroundColor: const Color(0xffff6b81),
           colorText: Colors.white,
           margin: const EdgeInsets.all(14),
         );
@@ -166,7 +165,6 @@ class AuthController extends GetxController {
       } catch (err) {
         usernameLoading = false;
         update();
-        print(err);
         Get.snackbar(
           'Desculpe-nos',
           'Parece que o nome de usuário já existe',

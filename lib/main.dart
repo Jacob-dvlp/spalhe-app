@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       darkTheme: themeDark(context),
       initialRoute: '/',
       routes: {
-        '/': (context) => LandingPage(),
+        '/': (context) => const LandingPage(),
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
       },

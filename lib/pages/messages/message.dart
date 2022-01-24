@@ -135,55 +135,53 @@ class MessagePage extends StatelessWidget {
                 color: Theme.of(context).primaryColorLight.withOpacity(0.5),
               ),
               child: SafeArea(
-                child: Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(0.08),
-                            borderRadius: BorderRadius.circular(40)),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.emoji_emotions_outlined),
-                              onPressed: () {
-                                _.showEmojiPicker();
-                                FocusScope.of(context).requestFocus(
-                                  FocusNode(),
-                                );
-                              },
-                            ),
-                            Expanded(
-                              child: TextField(
-                                controller: _.textController,
-                                keyboardType: TextInputType.text,
-                                onTap: _.hideEmojiPicker,
-                                decoration: const InputDecoration(
-                                  hintText: 'Inserir mensagem',
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15,
-                                    vertical: 10,
-                                  ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .primaryColorDark
+                              .withOpacity(0.08),
+                          borderRadius: BorderRadius.circular(40)),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.emoji_emotions_outlined),
+                            onPressed: () {
+                              _.showEmojiPicker();
+                              FocusScope.of(context).requestFocus(
+                                FocusNode(),
+                              );
+                            },
+                          ),
+                          Expanded(
+                            child: TextField(
+                              controller: _.textController,
+                              keyboardType: TextInputType.text,
+                              onTap: _.hideEmojiPicker,
+                              decoration: const InputDecoration(
+                                hintText: 'Inserir mensagem',
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                  vertical: 10,
                                 ),
                               ),
                             ),
-                            // IconButton(
-                            //   icon: Icon(FeatherIcons.paperclip),
-                            //   onPressed: () => {},
-                            // ),
-                            IconButton(
-                              icon: const Icon(Icons.send_rounded),
-                              onPressed: () => _.sendMessage(user['id']),
-                            ),
-                          ],
-                        ),
+                          ),
+                          // IconButton(
+                          //   icon: Icon(FeatherIcons.paperclip),
+                          //   onPressed: () => {},
+                          // ),
+                          IconButton(
+                            icon: const Icon(Icons.send_rounded),
+                            onPressed: () => _.sendMessage(user['id']),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             )

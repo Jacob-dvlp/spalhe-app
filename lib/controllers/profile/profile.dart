@@ -64,18 +64,14 @@ class ProfileController extends GetxController {
       await API.delete('/posts/$id');
       getPosts();
       Get.back();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   void sharePost(id) async {
     try {
       await API.post('/reply/$id', {});
       getPosts();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   void likePost(id) async {

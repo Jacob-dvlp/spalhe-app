@@ -6,15 +6,22 @@ class AvatarGradient extends StatelessWidget {
   final width;
   final height;
   final view;
-  AvatarGradient(this.url, this.width, this.height, this.view);
+
+  const AvatarGradient(
+    this.url,
+    this.width,
+    this.height,
+    this.view, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(2),
+      padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(200),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [
             Color(0xff009688),
             Colors.greenAccent,
@@ -22,20 +29,18 @@ class AvatarGradient extends StatelessWidget {
         ),
       ),
       child: Container(
-        padding: EdgeInsets.all(2),
+        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(200),
           color: Theme.of(context).primaryColorLight,
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(200),
-          child: Container(
-            child: CachedNetworkImage(
-              imageUrl: url,
-              width: width,
-              height: height,
-              fit: BoxFit.cover,
-            ),
+          child: CachedNetworkImage(
+            imageUrl: url,
+            width: width,
+            height: height,
+            fit: BoxFit.cover,
           ),
         ),
       ),

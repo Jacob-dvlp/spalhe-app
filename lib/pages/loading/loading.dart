@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LandingPage extends StatelessWidget {
+  const LandingPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
       init: LoadingController(),
-      builder: (_) => Scaffold(
+      builder: (_) => const Scaffold(
         backgroundColor: Color(0xff009688),
         body: Center(
           child: CircularProgressIndicator(),

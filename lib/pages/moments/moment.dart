@@ -122,7 +122,7 @@ class _MomentsPage extends State<MomentsPage>
             child: Stack(
               children: <Widget>[
                 PageView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   itemCount: moment.length,
                   itemBuilder: (context, index) {
@@ -183,50 +183,50 @@ class _MomentsPage extends State<MomentsPage>
                                 IconButton(
                                   onPressed: () =>
                                       _.likeMoment(moment[_currentIndex]['id']),
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.favorite,
                                     color: Colors.white,
                                   ),
                                 ),
                                 Text(
                                   "${moment[_currentIndex]['__meta__']['likes_count']}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   ),
                                 )
                               ],
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Column(
                               children: [
                                 IconButton(
                                   onPressed: () => {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     FeatherIcons.messageCircle,
                                     color: Colors.white,
                                   ),
                                 ),
                                 Text(
                                   "${moment[_currentIndex]['__meta__']['comments_count']}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   ),
                                 )
                               ],
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Column(
                               children: [
                                 IconButton(
                                   onPressed: () => {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     FeatherIcons.eye,
                                     color: Colors.white,
                                   ),
                                 ),
                                 Text(
                                   "${moment[_currentIndex]['__meta__']['views_count']}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   ),
                                 )
@@ -238,12 +238,12 @@ class _MomentsPage extends State<MomentsPage>
                           children: [
                             IconButton(
                               onPressed: () => {},
-                              icon: Icon(
+                              icon: const Icon(
                                 FeatherIcons.trash,
                                 color: Colors.white,
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Apagar',
                               style: TextStyle(
                                 color: Colors.white,
@@ -327,7 +327,7 @@ class AnimatedBar extends StatelessWidget {
 
 class UserInfo extends StatelessWidget {
   final user, currentIndex;
-  UserInfo(this.user, this.currentIndex);
+  const UserInfo(this.user, this.currentIndex, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -342,14 +342,14 @@ class UserInfo extends StatelessWidget {
             height: 35,
           ),
         ),
-        SizedBox(width: 10.0),
+        const SizedBox(width: 10.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 user['name'],
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14.0,
                   fontWeight: FontWeight.w600,
@@ -365,7 +365,7 @@ class UserInfo extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                     ),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   Text(
                     Utils.date(user['moments'][currentIndex]['created_at']),
                     style: TextStyle(

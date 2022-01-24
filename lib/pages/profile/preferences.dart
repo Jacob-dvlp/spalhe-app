@@ -73,7 +73,7 @@ class PreferencesPage extends StatelessWidget {
             Column(
               children: [
                 TextButton(
-                  onPressed: () => Get.to(ForgotPage()),
+                  onPressed: () => Get.to(const ForgotPage()),
                   child: const Text('Recuperar senha'),
                 ),
                 const SizedBox(height: 14),

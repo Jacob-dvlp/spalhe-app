@@ -31,14 +31,14 @@ class UserMomentsState extends State<UserMomentsPage>
       if (_currentIndex + 1 < widget.moments.length) {
         _pageController.animateToPage(
           _currentIndex + 1,
-          duration: Duration(microseconds: 500),
+          duration: const Duration(microseconds: 500),
           curve: Curves.easeInOut,
         );
       }
     } else {
       _pageController.animateToPage(
         _currentIndex - 1,
-        duration: Duration(microseconds: 500),
+        duration: const Duration(microseconds: 500),
         curve: Curves.easeInOut,
       );
     }
