@@ -1,11 +1,13 @@
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:spalhe/components/gradient_button.dart';
-import 'package:spalhe/controllers/auth/auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spalhe/components/input/input.dart';
+import 'package:spalhe/controllers/auth.dart';
 
 class UsernamePage extends StatelessWidget {
-  const UsernamePage({Key? key}) : super(key: key);
+  UsernamePage({Key? key}) : super(key: key);
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class UsernamePage extends StatelessWidget {
       builder: (_) => Scaffold(
         body: SafeArea(
           child: Form(
-            key: _.formUsername,
+            key: formKey,
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
@@ -28,17 +30,11 @@ class UsernamePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 14),
-                TextFormField(
-                  controller: _.usernameController,
-                  keyboardType: TextInputType.text,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    labelText: 'Nome de usuário',
-                    filled: true,
-                    prefixIcon: Icon(
-                      FeatherIcons.atSign,
-                      size: 20,
-                    ),
+                const Input(
+                  label: 'Nome de usuário',
+                  prefixIcon: Icon(
+                    FeatherIcons.atSign,
+                    size: 20,
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -54,12 +50,6 @@ class UsernamePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 14),
-                GradientButton(
-                  disabled: _.usernameLoading,
-                  loading: _.usernameLoading,
-                  onPress: _.setUserName,
-                  text: 'CRIAR CONTA',
-                ),
               ],
             ),
           ),

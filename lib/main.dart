@@ -1,9 +1,8 @@
 import 'package:spalhe/pages/auth/login.dart';
-import 'package:spalhe/pages/home/home.dart';
-import 'package:spalhe/pages/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:spalhe/pages/loader/loader.dart';
 import 'package:spalhe/theme/dark.dart';
 import 'package:spalhe/theme/light.dart';
 
@@ -28,9 +27,7 @@ class MyApp extends StatelessWidget {
       darkTheme: themeDark(context),
       initialRoute: '/',
       routes: {
-        '/': (context) => const LandingPage(),
-        '/login': (context) => const LoginPage(),
-        '/home': (context) => const HomePage(),
+        '/': (context) => LoaderPage(),
       },
     );
   }

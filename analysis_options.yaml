@@ -11,3 +11,5 @@ linter:
     invalid_return_type_for_catch_error: false
     no_logic_in_create_state: false
     nullable_type_in_catch_clause: false
+    prefer_const_constructors: false
+    prefer_const_literals_to_create_immutables: false

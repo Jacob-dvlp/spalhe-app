@@ -1,11 +1,13 @@
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:spalhe/components/gradient_button.dart';
-import 'package:spalhe/controllers/auth/auth.dart';
+import 'package:spalhe/components/button/button.dart';
+import 'package:spalhe/components/input/input.dart';
+
+import 'package:spalhe/controllers/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SinginPage extends StatelessWidget {
-  const SinginPage({Key? key}) : super(key: key);
+  SinginPage({Key? key}) : super(key: key);
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +16,17 @@ class SinginPage extends StatelessWidget {
       builder: (_) => Scaffold(
         body: SafeArea(
           child: Form(
-            key: _.formSingup,
+            key: formKey,
             child: ListView(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height / 4),
                 Row(
                   children: [
-                    const Text('Já tem uma conta?'),
+                    Text('Já tem uma conta?'),
                     InkWell(
                       onTap: Get.back,
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(6.0),
                         child: Text(
                           'Entar',
@@ -37,63 +39,38 @@ class SinginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Text(
+                Text(
                   'Nova conta',
                   style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 14),
-                TextFormField(
-                  controller: _.nameController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: 'Nome',
-                    filled: true,
-                    prefixIcon: Icon(
-                      Icons.person_outline,
-                    ),
+                SizedBox(height: 14),
+                Input(
+                  label: 'Nome',
+                  prefixIcon: Icon(
+                    Icons.person_outline,
                   ),
                 ),
-                const SizedBox(height: 14),
-                TextFormField(
-                  controller: _.emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    filled: true,
-                    prefixIcon: Icon(
-                      Icons.email_outlined,
-                    ),
+                SizedBox(height: 14),
+                Input(
+                  label: 'Email',
+                  prefixIcon: Icon(
+                    Icons.email_outlined,
                   ),
                 ),
-                const SizedBox(height: 14),
-                TextFormField(
-                  controller: _.passwordController,
-                  keyboardType: TextInputType.text,
-                  obscureText: _.showPass,
-                  decoration: InputDecoration(
-                    labelText: 'Senha',
-                    filled: true,
-                    prefixIcon: const Icon(
-                      Icons.lock_outline,
-                    ),
-                    suffixIcon: GestureDetector(
-                      child: Icon(
-                        _.showPass ? FeatherIcons.eyeOff : FeatherIcons.eye,
-                        size: 20,
-                      ),
-                      onTap: _.showPassword,
-                    ),
+                SizedBox(height: 14),
+                Input(
+                  label: 'Senha',
+                  prefixIcon: Icon(
+                    Icons.lock_outline,
                   ),
                 ),
-                const SizedBox(height: 14),
-                GradientButton(
-                  loading: _.registerLoading,
-                  disabled: _.registerLoading,
-                  onPress: () => _.getRegister(),
-                  text: 'PRÓXIMO',
+                SizedBox(height: 14),
+                Button(
+                  title: 'Cadastrar-me',
+                  onPressed: () {},
                 ),
               ],
             ),
