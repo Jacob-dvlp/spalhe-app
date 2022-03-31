@@ -26,22 +26,22 @@ dependencies:
     sdk: flutter
   image_picker: ^0.8.4+4
   google_fonts: ^2.2.0
-  get: ^4.6.1
   camera: ^0.9.4+6
   get_storage: ^2.0.3
   dio: ^4.0.4
   intl: ^0.17.0
   cupertino_icons: ^1.0.2
-  screenshot: ^1.2.3
-  video_player: ^2.2.14
   cached_network_image: ^3.2.0
   flutter_feather_icons: ^2.0.0+1
-  hashtagable: ^2.0.2+1
+  mask_text_input_formatter: ^2.1.0
   flutter_svg: ^1.0.3
   simple_moment: ^1.1.1
-  mask_text_input_formatter: ^2.1.0
   validatorless: ^1.2.1
-  
+  provider: ^6.0.2
+  stories_editor:
+    git:
+      url: git://github.com/othiagobruno/stories_editor.git
+
 
 dev_dependencies:
   flutter_test:

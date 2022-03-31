@@ -8,6 +8,7 @@ class ColorLight {
   static get primary => const Color(0xff009688);
   static get secondary => primary.withOpacity(0.5);
   static get background => Colors.grey.shade200;
+  static get white => Colors.white;
   static get textColor => Colors.grey.shade800;
   static get inverse => Colors.black;
 }

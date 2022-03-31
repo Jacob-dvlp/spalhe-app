@@ -1,9 +1,11 @@
-import 'package:spalhe/components/button/button.dart';
-import 'package:spalhe/components/input/input.dart';
-import 'package:spalhe/controllers/auth.dart';
+import 'package:provider/provider.dart';
+import 'package:spalhe/components/form/input/input.dart';
+import 'package:spalhe/components/layout/button/button.dart';
+
 import 'package:spalhe/pages/auth/singin.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:spalhe/providers/auth.dart';
+import 'package:spalhe/utils/routes.dart';
 import 'package:validatorless/validatorless.dart';
 import 'forgot.dart';
 
@@ -11,10 +13,10 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
 
-  final AuthController authController = Get.put(AuthController());
-
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+
     final top = MediaQuery.of(context).size.height / 6;
 
     return Scaffold(
@@ -37,7 +39,7 @@ class LoginPage extends StatelessWidget {
                   Input(
                     hint: 'Email',
                     label: 'Email',
-                    onSaved: (v) => authController.loginData['email'] = v,
+                    onSaved: (v) => auth.loginData['email'] = v,
                     keyboardType: TextInputType.emailAddress,
                     prefixIcon: Icon(Icons.email_outlined),
                     validator: Validatorless.multiple([
@@ -47,7 +49,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Input(
-                    onSaved: (v) => authController.loginData['password'] = v,
+                    onSaved: (v) => auth.loginData['password'] = v,
                     label: 'Senha',
                     prefixIcon: Icon(Icons.lock_outline),
                     validator: Validatorless.multiple([
@@ -56,18 +58,16 @@ class LoginPage extends StatelessWidget {
                     ]),
                   ),
                   SizedBox(height: 16),
-                  GetBuilder<AuthController>(builder: (controller) {
-                    return Button(
-                      loading: controller.loading,
-                      title: 'Entrar',
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-                          authController.login();
-                        }
-                      },
-                    );
-                  }),
+                  Button(
+                    loading: false,
+                    title: 'Entrar',
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        auth.login();
+                      }
+                    },
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
                     child: Row(
@@ -90,7 +90,7 @@ class LoginPage extends StatelessWidget {
                               color: Color(0xff009688),
                             ),
                           ),
-                          onTap: () => Get.to(ForgotPage()),
+                          onTap: () => OnRoute.push(ForgotPage()),
                         ),
                       ],
                     ),
@@ -123,7 +123,7 @@ class LoginPage extends StatelessWidget {
                     fontSize: 17,
                   ),
                 ),
-                onPressed: () => Get.to(SinginPage()),
+                onPressed: () => OnRoute.push(SinginPage()),
               ),
             ],
           ),

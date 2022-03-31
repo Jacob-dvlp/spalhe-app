@@ -8,6 +8,7 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
       primaryColorDark: ColorLight.textColor,
       //
       scaffoldBackgroundColor: ColorLight.background,
+      backgroundColor: ColorLight.white,
       //
       colorScheme: ColorScheme.light(
         primary: ColorLight.primary,
@@ -23,7 +24,7 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
         iconTheme: IconThemeData(
           color: ColorLight.textColor,
         ),
-        elevation: 3,
+        elevation: 1,
         titleTextStyle: TextStyle(
           color: ColorLight.textColor,
           fontSize: 20,
@@ -73,5 +74,10 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
       ),
       textTheme: GoogleFonts.poppinsTextTheme(
         Theme.of(context).textTheme,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        elevation: 2,
+        unselectedItemColor: Colors.grey.shade400,
+        selectedItemColor: Colors.grey.shade900,
       ),
     );

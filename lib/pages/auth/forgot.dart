@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spalhe/components/button/button.dart';
+import 'package:spalhe/components/layout/button/button.dart';
 
 class ForgotPage extends StatelessWidget {
   const ForgotPage({Key? key}) : super(key: key);

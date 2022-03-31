@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spalhe/components/loading/loading.dart';
+import 'package:spalhe/components/layout/loading/loading.dart';
 
 class Button extends StatelessWidget {
   const Button({
