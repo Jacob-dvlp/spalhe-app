@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
+import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 import 'package:spalhe/pages/profile/edit_profile.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -42,20 +44,10 @@ class ProfilePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: ImageNetwork(
-                            src: user?.avatar,
-                            width: 120,
-                            height: 120,
-                          ),
-                        ),
+                      Avatar(
+                        user: user,
+                        width: 120,
+                        heigth: 120,
                       ),
                     ],
                   ),

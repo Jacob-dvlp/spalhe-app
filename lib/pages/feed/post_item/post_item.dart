@@ -54,21 +54,39 @@ class PostItem extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(width: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(user?.name ?? ''),
-                  SizedBox(width: 10),
-                  Text(
-                    '12:23',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-                  ),
-                ],
+              SizedBox(width: 14),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(user?.name ?? ''),
+                          Text(
+                            '@${user?.username}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      '12:23',
+                      style:
+                          TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -90,8 +108,7 @@ class PostItem extends StatelessWidget {
                       (index) => ClipRRect(
                         borderRadius: BorderRadius.circular(4),
                         child: ImageNetwork(
-                          src:
-                              'https://blog.portalpos.com.br/app/uploads/2021/05/tipos-de-perfil-profissional.jpg',
+                          src: medias?[index].url,
                           width: Size.infinite.width,
                           height: 300,
                         ),
@@ -105,10 +122,13 @@ class PostItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Ver todos os 10 comentários',
-                style: TextStyle(
-                  fontSize: 12,
+              Opacity(
+                opacity: 0.5,
+                child: Text(
+                  'Ver todos os 10 comentários',
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],

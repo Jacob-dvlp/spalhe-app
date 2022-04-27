@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/components/layout/story_maker/story_maker.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 import 'package:spalhe/pages/profile/profile.dart';
+import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class FeedPage extends StatelessWidget {
@@ -58,8 +64,59 @@ class FeedPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Row(
-            children: [],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: primary, width: 2),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Stack(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          final picker = ImagePicker();
+                          await picker
+                              .pickImage(source: ImageSource.gallery)
+                              .then(
+                            (file) async {
+                              final File editedFile =
+                                  await OnRoute.push(StoryMaker(
+                                filePath: file!.path,
+                              ));
+                            },
+                          );
+                        },
+                        child: Avatar(
+                          user: user,
+                          width: 50,
+                          heigth: 50,
+                          showIcon: false,
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: Container(
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            color: primary,
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           GetBuilder<PostController>(
             init: PostController(),

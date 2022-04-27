@@ -4,7 +4,7 @@ final GlobalKey<NavigatorState> customRoute = GlobalKey<NavigatorState>();
 
 class OnRoute {
   static Future push(Widget page) async {
-    await customRoute.currentState?.push(
+    return await customRoute.currentState?.push(
       MaterialPageRoute(builder: (BuildContext context) => page),
     );
   }
