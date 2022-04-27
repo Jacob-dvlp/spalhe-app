@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:spalhe/components/bottom_bar/bottom_bar.dart';
+import 'package:spalhe/controllers/tabs.controller.dart';
 import 'package:spalhe/pages/feed/feed.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,14 +10,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        children: [
-          FeedPage(),
-          Container(),
-          Container(),
-          Container(),
-        ],
-      ),
+      body: GetBuilder<TabsController>(builder: (tab) {
+        return IndexedStack(
+          index: tab.index,
+          children: [
+            FeedPage(),
+            Container(),
+            Container(),
+            Container(),
+          ],
+        );
+      }),
       bottomNavigationBar: BottomNavigationComponent(),
     );
   }

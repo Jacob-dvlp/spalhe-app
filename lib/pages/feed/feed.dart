@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
-import 'package:spalhe/pages/new_storie/new_storie.dart';
-import 'package:spalhe/utils/routes.dart';
-import 'package:stories_editor/stories_editor.dart';
 
 class FeedPage extends StatelessWidget {
   const FeedPage({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/button/button.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:spalhe/utils/routes.dart';
 
 class SinginPage extends StatelessWidget {
   SinginPage({Key? key}) : super(key: key);
@@ -16,12 +16,12 @@ class SinginPage extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.all(20),
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 4),
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
               Row(
                 children: [
                   Text('Já tem uma conta?'),
                   InkWell(
-                    onTap: Get.back,
+                    onTap: () => OnRoute.back(),
                     child: Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Text(

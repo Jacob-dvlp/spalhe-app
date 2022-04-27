@@ -37,11 +37,7 @@ dependencies:
   flutter_svg: ^1.0.3
   simple_moment: ^1.1.1
   validatorless: ^1.2.1
-  provider: ^6.0.2
-  stories_editor:
-    git:
-      url: git://github.com/othiagobruno/stories_editor.git
-
+  get: ^4.6.1
 
 dev_dependencies:
   flutter_test:

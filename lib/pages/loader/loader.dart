@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spalhe/controllers/auth.controller.dart';
+import 'package:spalhe/pages/auth/login.dart';
 import 'package:spalhe/pages/home/home.dart';
 
 class LoaderPage extends StatelessWidget {
@@ -6,6 +9,14 @@ class LoaderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    return GetBuilder<AuthController>(
+      init: AuthController(),
+      builder: (auth) {
+        if (auth.isAuth) {
+          return HomePage();
+        }
+        return LoginPage();
+      },
+    );
   }
 }

@@ -6,7 +6,7 @@ const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
 class APIConfigure {
   static String baseURL =
-      isProduction ? "http://api.spalhe.com" : 'http://0.0.0.0:3000';
+      isProduction ? "https://api.spalhe.com" : 'http://0.0.0.0:3000';
 
   Dio connect() {
     BaseOptions options = BaseOptions(
