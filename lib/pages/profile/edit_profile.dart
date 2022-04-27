@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
+import 'package:spalhe/theme/colors.dart';
 import 'package:validatorless/validatorless.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -51,14 +51,17 @@ class EditProfilePage extends StatelessWidget {
                     Positioned(
                       bottom: 0,
                       right: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: IconButton(
-                          onPressed: () => _auth.addAvatar(),
-                          icon: Icon(FeatherIcons.image),
+                      child: InkWell(
+                        onTap: () => _auth.addAvatar(),
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: primary,
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Icon(
+                            Icons.add_a_photo_outlined,
+                          ),
                         ),
                       ),
                     )

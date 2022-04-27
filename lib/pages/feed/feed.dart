@@ -43,9 +43,12 @@ class FeedPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'olá',
-                    style: TextStyle(fontSize: 12),
+                  Opacity(
+                    opacity: 0.6,
+                    child: Text(
+                      'olá,',
+                      style: TextStyle(fontSize: 12),
+                    ),
                   ),
                   Text(
                     'Thiago',

@@ -42,7 +42,7 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          onPrimary: Colors.white,
+          onPrimary: Colors.black,
           primary: ColorLight.primary,
         ),
       ),
