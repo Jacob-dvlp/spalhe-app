@@ -43,5 +43,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Precisamos do acesso à camera para poder alterar a imagem do perfil</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Precisamos do acesso à galeria para poder alterar a imagem do perfil</string>
 </dict>
 </plist>

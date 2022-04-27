@@ -69,9 +69,10 @@ class Input extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             labelText: label,
+            alignLabelWithHint: true,
           ),
           validator: validator,
-          // style: TextStyle(),
+          textAlignVertical: TextAlignVertical.top,
         ),
       ],
     );

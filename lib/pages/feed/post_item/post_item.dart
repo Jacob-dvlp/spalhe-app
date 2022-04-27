@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/models/post.model.dart';
 
 class PostItem extends StatelessWidget {
-  const PostItem({Key? key}) : super(key: key);
+  PostItem({Key? key, this.post}) : super(key: key);
+  final PostData? post;
+
+  final _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
+    final user = post?.user;
+    final medias = post?.medias;
+
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(20).copyWith(bottom: 8),
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
@@ -18,21 +25,44 @@ class PostItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: ImageNetwork(
-                  src: '',
-                  width: 20,
-                  height: 20,
-                ),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: ImageNetwork(
+                      src: user?.avatar ?? '',
+                      width: 38,
+                      height: 38,
+                    ),
+                  ),
+                  Positioned(
+                    right: -3,
+                    bottom: -2,
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Colors.blue,
+                      ),
+                      child: Icon(
+                        Icons.check,
+                        size: 12,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
               ),
               SizedBox(width: 10),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('thiagobruno'),
+                  Text(user?.name ?? ''),
+                  SizedBox(width: 10),
                   Text(
                     '12:23',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
                   ),
                 ],
               ),
@@ -42,17 +72,45 @@ class PostItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Nossa equeipe pronta'),
+              Text(
+                post?.text ?? '',
+                style: TextStyle(fontSize: 18),
+              ),
               SizedBox(height: 6),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: ImageNetwork(
-                  src:
-                      'https://blog.portalpos.com.br/app/uploads/2021/05/tipos-de-perfil-profissional.jpg',
-                  width: Size.infinite.width,
-                  height: 300,
+              if ((medias?.length ?? 0) > 0)
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width,
+                  child: PageView(
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    scrollBehavior: ScrollBehavior(),
+                    children: List.generate(
+                      medias?.length ?? 0,
+                      (index) => ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: ImageNetwork(
+                          src:
+                              'https://blog.portalpos.com.br/app/uploads/2021/05/tipos-de-perfil-profissional.jpg',
+                          width: Size.infinite.width,
+                          height: 300,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+            ],
+          ),
+          SizedBox(height: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Ver todos os 10 comentários',
+                style: TextStyle(
+                  fontSize: 12,
                 ),
-              )
+              ),
             ],
           ),
           Row(
@@ -122,17 +180,6 @@ class PostItem extends StatelessWidget {
               )
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Ver todos os 10 comentários',
-                style: TextStyle(
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );

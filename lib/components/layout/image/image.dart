@@ -13,25 +13,24 @@ class ImageNetwork extends StatelessWidget {
   final String? src;
   final double width, height;
   final BoxFit fit;
-  final noImage =
-      'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/07/05/59394a24-6515-45b3-981b-bf2a2177e46a.jpg';
+  final noImage = '';
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: CachedNetworkImage(
-          imageUrl: (src != null && src != '') ? src! : noImage,
-          fit: fit,
-          errorWidget: (ctx, err, _) => CachedNetworkImage(
-            imageUrl: noImage,
-            fit: fit,
-          ),
-        ));
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: src == null || src == ''
+          ? Container()
+          : CachedNetworkImage(
+              imageUrl: (src != null && src != '') ? src! : noImage,
+              fit: fit,
+              errorWidget: (ctx, err, _) => Container(),
+            ),
+    );
   }
 }

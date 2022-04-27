@@ -10,17 +10,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<TabsController>(builder: (tab) {
-        return IndexedStack(
-          index: tab.index,
-          children: [
-            FeedPage(),
-            Container(),
-            Container(),
-            Container(),
-          ],
-        );
-      }),
+      body: GetBuilder<TabsController>(
+        init: TabsController(),
+        builder: (tab) {
+          return IndexedStack(
+            index: tab.index,
+            children: [
+              FeedPage(),
+              Container(),
+              Container(),
+              Container(),
+            ],
+          );
+        },
+      ),
       bottomNavigationBar: BottomNavigationComponent(),
     );
   }
