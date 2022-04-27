@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
-import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
-import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 import 'package:spalhe/pages/profile/edit_profile.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -89,7 +87,7 @@ class ProfilePage extends StatelessWidget {
                               onPrimary: Colors.black87,
                             ),
                             onPressed: () => OnRoute.push(EditProfilePage()),
-                            child: Text('Editar Perfil'),
+                            child: Text('editar perfil'),
                           )
                         ],
                       ),
@@ -118,7 +116,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'Seguindo',
+                            'seguindo',
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 16,
@@ -134,7 +132,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'Seguidores',
+                            'seguidores',
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 16,
@@ -158,7 +156,7 @@ class ProfilePage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 14),
                           child: Text(
-                            'Posts',
+                            'posts',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17,
@@ -172,7 +170,7 @@ class ProfilePage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 14),
                           child: Text(
-                            'Midias',
+                            'midias',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 17,
@@ -186,7 +184,7 @@ class ProfilePage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 14),
                           child: Text(
-                            'Menções',
+                            'menções',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17,

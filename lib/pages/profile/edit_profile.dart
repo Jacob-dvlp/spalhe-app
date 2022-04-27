@@ -18,7 +18,7 @@ class EditProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar perfil'),
+        title: Text('editar perfil'),
       ),
       body: ListView(
         padding: EdgeInsets.all(20),
@@ -66,28 +66,28 @@ class EditProfilePage extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 Input(
-                  label: 'Nome',
+                  label: 'nome',
                   onSaved: (v) => _auth.setValue('name', v),
                   initialValue: user.name,
                   validator: Validatorless.multiple([
-                    Validatorless.required('Nome obrigatório'),
-                    Validatorless.min(10, 'Nome inválido'),
+                    Validatorless.required('nome obrigatório'),
+                    Validatorless.min(10, 'nome inválido'),
                   ]),
                 ),
                 SizedBox(height: 14),
                 Input(
                   onSaved: (v) => _auth.setValue('username', v),
-                  label: 'Nome de usuário',
+                  label: 'nome de usuário',
                   initialValue: user.username,
                   validator: Validatorless.multiple([
-                    Validatorless.required('Nome de usuario obrigatório'),
-                    Validatorless.min(10, 'Nome de usuário inválido'),
+                    Validatorless.required('nome de usuario obrigatório'),
+                    Validatorless.min(10, 'nome de usuário inválido'),
                   ]),
                 ),
                 SizedBox(height: 14),
                 Input(
                   onSaved: (v) => _auth.setValue('biography', v),
-                  label: 'Biografia',
+                  label: 'biografia',
                   initialValue: user.biography,
                   maxLines: 4,
                 ),
@@ -105,7 +105,7 @@ class EditProfilePage extends StatelessWidget {
                         _auth.updateUser();
                       }
                     },
-                    child: Text('Salvar'),
+                    child: Text('salvar'),
                   ),
                 )
               ],

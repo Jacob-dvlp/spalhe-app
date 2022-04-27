@@ -10,6 +10,7 @@ import 'package:spalhe/components/layout/story_maker/story_maker.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
+import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/profile/profile.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -43,7 +44,7 @@ class FeedPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Olá',
+                    'olá',
                     style: TextStyle(fontSize: 12),
                   ),
                   Text(
@@ -57,7 +58,7 @@ class FeedPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => OnRoute.push(NewPostPage()),
             icon: Icon(FeatherIcons.edit),
           ),
         ],
@@ -86,6 +87,7 @@ class FeedPage extends StatelessWidget {
                                   await OnRoute.push(StoryMaker(
                                 filePath: file!.path,
                               ));
+                              print(editedFile);
                             },
                           );
                         },

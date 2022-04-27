@@ -18,7 +18,8 @@ class Input extends StatelessWidget {
       maxLines,
       label,
       fillColor,
-      controller;
+      controller,
+      decoration;
 
   const Input({
     Key? key,
@@ -38,6 +39,7 @@ class Input extends StatelessWidget {
     this.label,
     this.fillColor,
     this.controller,
+    this.decoration,
   }) : super(key: key);
 
   @override
@@ -61,16 +63,17 @@ class Input extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           scrollPadding: const EdgeInsets.all(0),
-          decoration: InputDecoration(
-            focusColor: primary,
-            hoverColor: primary,
-            hintText: hint,
-            filled: true,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            labelText: label,
-            alignLabelWithHint: true,
-          ),
+          decoration: decoration ??
+              InputDecoration(
+                focusColor: primary,
+                hoverColor: primary,
+                hintText: hint,
+                filled: true,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+                labelText: label,
+                alignLabelWithHint: true,
+              ),
           validator: validator,
           textAlignVertical: TextAlignVertical.top,
         ),
