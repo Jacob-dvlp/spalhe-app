@@ -68,19 +68,22 @@ class PostData {
   List<Medias>? medias;
   List<Mentions>? mentions;
   Count? cCount;
+  Location? location;
 
-  PostData(
-      {this.id,
-      this.text,
-      this.published,
-      this.userId,
-      this.locationId,
-      this.createdAt,
-      this.updatedAt,
-      this.user,
-      this.medias,
-      this.mentions,
-      this.cCount});
+  PostData({
+    this.id,
+    this.text,
+    this.published,
+    this.userId,
+    this.locationId,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+    this.medias,
+    this.mentions,
+    this.cCount,
+    this.location,
+  });
 
   PostData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -91,6 +94,9 @@ class PostData {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    location = json['location'] != null
+        ? new Location.fromJson(json['location'])
+        : null;
     if (json['medias'] != null) {
       medias = <Medias>[];
       json['medias'].forEach((v) {
@@ -115,6 +121,9 @@ class PostData {
     data['location_id'] = this.locationId;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    if (this.location != null) {
+      data['location'] = this.location!.toJson();
+    }
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
@@ -127,6 +136,25 @@ class PostData {
     if (this.cCount != null) {
       data['_count'] = this.cCount!.toJson();
     }
+    return data;
+  }
+}
+
+class Location {
+  String? name;
+  int? id;
+
+  Location({this.name, this.id});
+
+  Location.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['id'] = this.id;
     return data;
   }
 }

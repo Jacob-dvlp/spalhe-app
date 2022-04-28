@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
+import 'package:spalhe/components/layout/loading/loading.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
+import 'package:spalhe/pages/new_post/location.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -14,10 +16,14 @@ class NewPostPage extends StatelessWidget {
     return GetBuilder<PostController>(
       init: PostController(),
       builder: (_post) {
+        final postData = _post.postData;
+
         return WillPopScope(
           onWillPop: () async {
             bool returnValue = true;
-            if (_post.images.isNotEmpty) {
+            if (_post.images.isNotEmpty ||
+                postData['location'] != null ||
+                postData['text'] != null) {
               await showDialog(
                 context: context,
                 barrierDismissible: false,
@@ -75,6 +81,7 @@ class NewPostPage extends StatelessWidget {
                   child: Column(
                     children: [
                       HashTagTextField(
+                        onChanged: (value) => _post.setData('text', value),
                         decorateAtSign: true,
                         basicStyle: TextStyle(
                           fontSize: 16,
@@ -108,6 +115,35 @@ class NewPostPage extends StatelessWidget {
                             )
                           ].toList(),
                         ),
+                      SizedBox(height: 10),
+                      if (_post.postData['location']?['name'] != null)
+                        Container(
+                          width: Size.infinite.width,
+                          padding: EdgeInsets.symmetric(horizontal: 14),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  _post.postData['location']['name'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              IconButton(
+                                onPressed: () => _post.clearLocation(),
+                                icon: Icon(FeatherIcons.x),
+                              )
+                            ],
+                          ),
+                        ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -126,7 +162,7 @@ class NewPostPage extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () => OnRoute.push(LocationPage()),
                                 icon: Icon(
                                   FeatherIcons.mapPin,
                                 ),
@@ -136,8 +172,14 @@ class NewPostPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 14),
                             child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text('postar'),
+                              onPressed: _post.postLoading
+                                  ? null
+                                  : () {
+                                      _post.createPost();
+                                    },
+                              child: _post.postLoading
+                                  ? Loading()
+                                  : Text('postar'),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
                                 padding: EdgeInsets.symmetric(

@@ -40,6 +40,7 @@ dependencies:
   get: ^4.6.1
   photo_view: ^0.13.0
   hashtagable: ^2.1.0
+  google_place: ^0.4.7
 
 dev_dependencies:
   flutter_test:

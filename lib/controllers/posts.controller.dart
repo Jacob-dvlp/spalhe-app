@@ -1,15 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:google_place/google_place.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/services/api.dart';
+import 'package:spalhe/utils/routes.dart';
 
 class PostController extends GetxController {
+  List<AutocompletePrediction>? locations = [];
   final picker = ImagePicker();
   PostModel? posts;
   PostModel? userPost;
-
   List<XFile> images = [];
   List<XFile> videos = [];
+  Map postData = {};
 
   @override
   void onReady() {
@@ -43,7 +47,9 @@ class PostController extends GetxController {
   }
 
   void clearPost() {
+    postData = {};
     images = [];
+    videos = [];
     update();
   }
 
@@ -69,6 +75,64 @@ class PostController extends GetxController {
       return;
     }
     videos.add(file);
+    update();
+  }
+
+  bool postLoading = false;
+  void createPost() async {
+    try {
+      postLoading = true;
+      update();
+      final res = await api.post('/posts', data: postData);
+
+      final medias = [...images, ...videos];
+      if (medias.isNotEmpty) {
+        for (int i = 0; medias.length > i; i++) {
+          FormData formData = FormData.fromMap({
+            "files": await MultipartFile.fromFile(
+              images[i].path,
+              filename: images[i].name,
+            ),
+          });
+          try {
+            await api.post(
+              '/posts/${res.data['id']}/upload',
+              data: formData,
+            );
+          } catch (e) {
+            print(e);
+          }
+        }
+      }
+
+      getPosts();
+      postLoading = false;
+      clearPost();
+      update();
+      OnRoute.back();
+    } catch (e) {
+      print(e);
+      postLoading = false;
+      update();
+    }
+  }
+
+  setData(key, value) {
+    if (key == 'location') {
+      locations = [];
+    }
+    postData[key] = value;
+    update();
+  }
+
+  clearLocation() {
+    setData('location', null);
+  }
+
+  getPlaces(String text) async {
+    var googlePlace = GooglePlace("AIzaSyDKaVsPe3W7MgICv6kUx4PiG8LwnezD-_8");
+    var result = await googlePlace.queryAutocomplete.get(text, language: 'pt');
+    locations = result?.predictions;
     update();
   }
 }

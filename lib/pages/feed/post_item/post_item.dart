@@ -66,7 +66,23 @@ class PostItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(user?.name ?? ''),
+                          Row(
+                            children: [
+                              Text(user?.name?.split(' ').first ?? ''),
+                              if (post?.location != null)
+                                Flexible(
+                                  child: Text(
+                                    '  •  ${post?.location?.name}',
+                                    style: TextStyle(
+                                      color: Colors.grey.shade500,
+                                      fontSize: 12,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                            ],
+                          ),
                           Text(
                             '@${user?.username}',
                             style: TextStyle(
@@ -77,11 +93,13 @@ class PostItem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(width: 30),
                     Text(
                       '12:23',
-                      style:
-                          TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade500,
+                      ),
                     ),
                   ],
                 ),
@@ -116,7 +134,7 @@ class PostItem extends StatelessWidget {
                     children: List.generate(
                       medias?.length ?? 0,
                       (index) => ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(6),
                         child: ImageNetwork(
                           src: medias?[index].url,
                           width: Size.infinite.width,
