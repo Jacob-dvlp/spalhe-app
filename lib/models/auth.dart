@@ -1,11 +1,11 @@
 class AuthModel {
-  User? user;
+  UserModel? user;
   String? token;
 
   AuthModel({this.user, this.token});
 
   AuthModel.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    user = json['user'] != null ? UserModel.fromJson(json['user']) : null;
     token = json['token'];
   }
 
@@ -19,47 +19,75 @@ class AuthModel {
   }
 }
 
-class User {
+class UserModel {
+  bool? active;
+  String? biography;
+  String? email;
   int? id;
   String? name;
-  String? email;
   String? username;
+  bool? verified;
   String? avatar;
-  String? biography;
-  bool? private;
-  bool? active;
+  Count? cCount;
 
-  User({
-    this.id,
-    this.name,
-    this.email,
-    this.username,
-    this.biography,
-    this.private,
-    this.active,
-    this.avatar,
-  });
+  UserModel(
+      {this.active,
+      this.biography,
+      this.email,
+      this.id,
+      this.name,
+      this.verified,
+      this.avatar,
+      this.username,
+      this.cCount});
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
+    active = json['active'];
+    biography = json['biography'];
+    email = json['email'];
     id = json['id'];
     name = json['name'];
-    email = json['email'];
-    avatar = json['avatar'];
     username = json['username'];
-    biography = json['biography'];
-    private = json['private'];
-    active = json['active'];
+    verified = json['verified'];
+    avatar = json['avatar'];
+    cCount = json['_count'] != null ? Count.fromJson(json['_count']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['active'] = active;
+    data['biography'] = biography;
+    data['email'] = email;
     data['id'] = id;
     data['name'] = name;
-    data['email'] = email;
     data['username'] = username;
-    data['biography'] = biography;
-    data['private'] = private;
-    data['active'] = active;
+    data['verified'] = verified;
+    data['avatar'] = avatar;
+    if (cCount != null) {
+      data['_count'] = cCount!.toJson();
+    }
+    return data;
+  }
+}
+
+class Count {
+  int? followed;
+  int? followers;
+  int? posts;
+
+  Count({this.followed, this.followers, this.posts});
+
+  Count.fromJson(Map<String, dynamic> json) {
+    followed = json['followed'];
+    followers = json['followers'];
+    posts = json['posts'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['followed'] = followed;
+    data['followers'] = followers;
+    data['posts'] = posts;
     return data;
   }
 }

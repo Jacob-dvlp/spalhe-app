@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:spalhe/theme/colors.dart';
 
 ThemeData themeDark(context) => ThemeData.dark().copyWith(
       appBarTheme: AppBarTheme(
@@ -12,18 +13,18 @@ ThemeData themeDark(context) => ThemeData.dark().copyWith(
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          primary: const Color(0xff009688),
+          primary: primary,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           onPrimary: Colors.white,
-          primary: const Color(0xff009688),
+          primary: primary,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: const Color(0xff009688),
+          primary: primary,
         ),
       ),
       hintColor: Colors.white.withOpacity(0.3),
@@ -40,7 +41,7 @@ ThemeData themeDark(context) => ThemeData.dark().copyWith(
       textTheme: GoogleFonts.poppinsTextTheme(
         Theme.of(context).textTheme.apply(bodyColor: Colors.white),
       ),
-      primaryColor: const Color(0xff009688),
+      primaryColor: primary,
       primaryColorLight: Colors.grey[900],
       primaryColorDark: Colors.white,
     );

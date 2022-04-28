@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:spalhe/theme/colors.dart';
 
 ThemeData themeLight(context) => ThemeData.light().copyWith(
-      primaryColor: ColorLight.primary,
+      primaryColor: primary,
       primaryColorLight: Colors.white,
       primaryColorDark: ColorLight.textColor,
       //
@@ -11,7 +11,7 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
       backgroundColor: ColorLight.white,
       //
       colorScheme: ColorScheme.light(
-        primary: ColorLight.primary,
+        primary: primary,
         background: ColorLight.background,
         error: Colors.redAccent,
         onBackground: ColorLight.background,
@@ -37,31 +37,31 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
       //
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          primary: ColorLight.primary,
+          primary: primary,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           onPrimary: Colors.black,
-          primary: ColorLight.primary,
+          primary: primary,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: ColorLight.primary,
+          primary: primary,
         ),
       ),
       hintColor: Colors.grey.withOpacity(0.4),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderSide: BorderSide(
-            color: ColorLight.primary,
+            color: primary,
           ),
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: ColorLight.primary,
+            color: primary,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(12),

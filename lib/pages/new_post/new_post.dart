@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
-import 'package:spalhe/components/form/input/input.dart';
+import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
+import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class NewPostPage extends StatelessWidget {
@@ -73,8 +74,16 @@ class NewPostPage extends StatelessWidget {
                 Form(
                   child: Column(
                     children: [
-                      Input(
-                        maxLines: 5,
+                      HashTagTextField(
+                        decorateAtSign: true,
+                        basicStyle: TextStyle(
+                          fontSize: 16,
+                        ),
+                        decoratedStyle: TextStyle(
+                          color: primary,
+                          fontSize: 16,
+                        ),
+                        maxLines: 6,
                         decoration: InputDecoration(
                           hintText: 'o que você quer espalhar?',
                           border: InputBorder.none,
@@ -114,12 +123,6 @@ class NewPostPage extends StatelessWidget {
                                 onPressed: () => _post.addVideos(),
                                 icon: Icon(
                                   Icons.video_collection_outlined,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  FeatherIcons.atSign,
                                 ),
                               ),
                               IconButton(

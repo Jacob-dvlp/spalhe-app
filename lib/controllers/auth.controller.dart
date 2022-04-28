@@ -25,7 +25,7 @@ class AuthController extends GetxController {
   getUser() async {
     try {
       final res = await api.get('/users/my_profile');
-      auth.user = User.fromJson(res.data);
+      auth.user = UserModel.fromJson(res.data);
       box.write('auth', auth.toJson());
       update();
     } catch (e) {}
@@ -57,7 +57,7 @@ class AuthController extends GetxController {
   setValue(key, value) {
     final userData = auth.user!.toJson();
     userData[key] = value;
-    auth.user = User.fromJson(userData);
+    auth.user = UserModel.fromJson(userData);
     box.write('auth', auth.toJson());
     update();
   }
@@ -138,5 +138,10 @@ class AuthController extends GetxController {
         print(e);
       }
     }
+  }
+
+  logout() {
+    auth = AuthModel.fromJson({});
+    box.write('auth', null);
   }
 }

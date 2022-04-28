@@ -4,6 +4,7 @@ import 'package:spalhe/components/layout/button/button.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/pages/auth/singin.dart';
 import 'package:flutter/material.dart';
+import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 import 'package:validatorless/validatorless.dart';
 import 'forgot.dart';
@@ -88,7 +89,7 @@ class LoginPage extends StatelessWidget {
                           child: Text(
                             'Recuperar a conta',
                             style: TextStyle(
-                              color: Color(0xff009688),
+                              color: primary,
                             ),
                           ),
                           onTap: () => OnRoute.push(ForgotPage()),
@@ -119,7 +120,7 @@ class LoginPage extends StatelessWidget {
                 child: Text(
                   'Criar minha conta',
                   style: TextStyle(
-                    color: Color(0xff009688),
+                    color: primary,
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
                   ),

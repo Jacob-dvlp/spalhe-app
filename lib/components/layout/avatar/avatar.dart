@@ -3,7 +3,7 @@ import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/models/auth.dart';
 
 class Avatar extends StatelessWidget {
-  final User? user;
+  final UserModel? user;
   final double width;
   final double heigth;
   final bool showIcon;

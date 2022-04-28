@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/models/post.model.dart';
+import 'package:spalhe/theme/colors.dart';
 
 class PostItem extends StatelessWidget {
   PostItem({Key? key, this.post}) : super(key: key);
@@ -90,9 +92,17 @@ class PostItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                post?.text ?? '',
-                style: TextStyle(fontSize: 18),
+              HashTagText(
+                text: post?.text ?? '',
+                decorateAtSign: true,
+                basicStyle: TextStyle(
+                  fontSize: 18,
+                  color: Theme.of(context).primaryColorDark,
+                ),
+                decoratedStyle: TextStyle(
+                  color: primary,
+                  fontSize: 18,
+                ),
               ),
               SizedBox(height: 6),
               if ((medias?.length ?? 0) > 0)

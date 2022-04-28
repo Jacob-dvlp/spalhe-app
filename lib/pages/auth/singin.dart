@@ -1,6 +1,7 @@
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/button/button.dart';
 import 'package:flutter/material.dart';
+import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class SinginPage extends StatelessWidget {
@@ -28,7 +29,7 @@ class SinginPage extends StatelessWidget {
                         'Entar',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color(0xff009688),
+                          color: primary,
                         ),
                       ),
                     ),

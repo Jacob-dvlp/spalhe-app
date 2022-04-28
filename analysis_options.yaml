@@ -5,6 +5,9 @@ linter:
   rules:
     unnecessary_overrides: false
     avoid_print: false
+    unnecessary_this: false
+    unnecessary_new: false
+    prefer_collection_literals: false
     empty_catches: false
     prefer_typing_uninitialized_variables: false
     file_names: false

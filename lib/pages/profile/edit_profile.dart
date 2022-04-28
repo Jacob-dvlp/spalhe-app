@@ -110,6 +110,13 @@ class EditProfilePage extends StatelessWidget {
                     },
                     child: Text('salvar'),
                   ),
+                ),
+                InkWell(
+                  onTap: () => _auth.logout(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Sair'),
+                  ),
                 )
               ],
             ),

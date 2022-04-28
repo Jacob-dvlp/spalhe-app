@@ -6,6 +6,7 @@ import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 import 'package:spalhe/pages/profile/edit_profile.dart';
+import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -37,7 +38,7 @@ class ProfilePage extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: primary,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +109,7 @@ class ProfilePage extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '32',
+                            '${user?.cCount?.followers}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -124,7 +125,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(width: 20),
                           Text(
-                            '3124',
+                            '${user?.cCount?.followed}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
