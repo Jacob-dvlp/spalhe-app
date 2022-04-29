@@ -19,6 +19,7 @@ class FeedPage extends StatelessWidget {
   FeedPage({Key? key}) : super(key: key);
 
   final _auth = Get.put(AuthController());
+  final _post = Get.put(PostController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,78 +67,83 @@ class FeedPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: primary, width: 2),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Stack(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          final picker = ImagePicker();
-                          await picker
-                              .pickImage(source: ImageSource.gallery)
-                              .then(
-                            (file) async {
-                              final File editedFile =
-                                  await OnRoute.push(StoryMaker(
-                                filePath: file!.path,
-                              ));
-                              print(editedFile);
-                            },
-                          );
-                        },
-                        child: Avatar(
-                          user: user,
-                          width: 50,
-                          heigth: 50,
-                          showIcon: false,
-                        ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: Container(
-                          padding: EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: primary,
-                          ),
-                          child: Icon(
-                            Icons.add,
-                            size: 20,
-                            color: Colors.white,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await _post.getPosts();
+        },
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: primary, width: 2),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            final picker = ImagePicker();
+                            await picker
+                                .pickImage(source: ImageSource.gallery)
+                                .then(
+                              (file) async {
+                                final File editedFile =
+                                    await OnRoute.push(StoryMaker(
+                                  filePath: file!.path,
+                                ));
+                                print(editedFile);
+                              },
+                            );
+                          },
+                          child: Avatar(
+                            user: user,
+                            width: 50,
+                            heigth: 50,
+                            showIcon: false,
                           ),
                         ),
-                      )
-                    ],
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              color: primary,
+                            ),
+                            child: Icon(
+                              Icons.add,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          GetBuilder<PostController>(
-            init: PostController(),
-            builder: (_posts) {
-              final posts = _posts.posts?.data;
-              final totalPosts = posts?.length ?? 0;
+            GetBuilder<PostController>(
+              init: PostController(),
+              builder: (_posts) {
+                final posts = _posts.posts?.data;
+                final totalPosts = posts?.length ?? 0;
 
-              return Column(
-                children: List.generate(
-                  totalPosts,
-                  (index) => PostItem(post: posts![index]),
-                ),
-              );
-            },
-          )
-        ],
+                return Column(
+                  children: List.generate(
+                    totalPosts,
+                    (index) => PostItem(post: posts![index]),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }

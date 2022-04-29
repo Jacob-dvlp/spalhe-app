@@ -6,6 +6,7 @@ class Avatar extends StatelessWidget {
   final UserModel? user;
   final double width;
   final double heigth;
+  final double iconSize;
   final bool showIcon;
 
   const Avatar({
@@ -13,6 +14,7 @@ class Avatar extends StatelessWidget {
     this.user,
     this.heigth = 100,
     this.width = 100,
+    this.iconSize = 20,
     this.showIcon = true,
   }) : super(key: key);
 
@@ -47,7 +49,7 @@ class Avatar extends StatelessWidget {
               ),
               child: Icon(
                 Icons.check,
-                size: 20,
+                size: iconSize,
                 color: Colors.white,
               ),
             ),

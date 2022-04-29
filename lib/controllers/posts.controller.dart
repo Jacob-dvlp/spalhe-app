@@ -28,8 +28,11 @@ class PostController extends GetxController {
 
   getPosts() async {
     try {
+      posts = null;
+      update();
       final res = await api.get('/posts');
       posts = PostModel.fromJson(res.data);
+      print(posts);
       update();
     } catch (e) {
       print(e);
