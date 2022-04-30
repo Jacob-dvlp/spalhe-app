@@ -25,7 +25,7 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PostItemController>(
       init: PostItemController(post: post!),
-      tag: post?.id.toString() ?? '',
+      tag: post?.id.toString(),
       builder: (_post) {
         final post = _post.post;
         final user = _post.post.user;
@@ -144,46 +144,85 @@ class PostItem extends StatelessWidget {
                       )
                   ],
                 ),
-                SizedBox(height: 8),
-                if ((post.cCount?.comments ?? 0) > 0)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Opacity(
-                        opacity: 0.5,
-                        child: Text(
-                          'Ver todos os ${post.cCount?.comments} comentários',
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${post.cCount?.likes}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          (post.cCount?.likes ?? 0) > 1 ? 'gosteis' : 'gostei',
                           style: TextStyle(
                             fontSize: 12,
                           ),
+                        )
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${post.cCount?.comments}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        SizedBox(width: 4),
+                        Text(
+                          (post.cCount?.comments ?? 0) > 1
+                              ? 'comentários'
+                              : 'comentário',
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        IconButton(
-                          onPressed: () {
+                        InkWell(
+                          onTap: () {
                             _post.likePost(user.id!);
                           },
-                          icon: Icon(isLiked
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined),
-                          iconSize: 24,
-                          color: isLiked ? Colors.red : Colors.black87,
+                          child: Icon(
+                            isLiked
+                                ? Icons.favorite
+                                : Icons.favorite_border_outlined,
+                            size: 24,
+                            color: isLiked ? Colors.redAccent : Colors.black87,
+                          ),
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(FeatherIcons.messageCircle),
-                          iconSize: 24,
+                        SizedBox(width: 30),
+                        InkWell(
+                          onTap: () {},
+                          child: Icon(
+                            FeatherIcons.messageCircle,
+                            size: 24,
+                          ),
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(FeatherIcons.send),
-                          iconSize: 24,
+                        SizedBox(width: 30),
+                        InkWell(
+                          onTap: () {},
+                          child: Icon(
+                            FeatherIcons.send,
+                            size: 24,
+                          ),
                         ),
                       ],
                     ),
@@ -232,6 +271,7 @@ class PostItem extends StatelessWidget {
                     )
                   ],
                 ),
+                SizedBox(height: 10),
               ],
             ),
           ),

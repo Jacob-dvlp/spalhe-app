@@ -35,7 +35,6 @@ class AuthController extends GetxController {
     try {
       loading = true;
       update();
-      print(loginData);
       final res = await api.post('/auth', data: loginData);
       box.write('auth', res.data);
       auth = AuthModel.fromJson(res.data);

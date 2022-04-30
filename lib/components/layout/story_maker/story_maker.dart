@@ -68,13 +68,11 @@ class _StoryMakerState extends State<StoryMaker> {
   void initState() {
     _init();
 
-    print(_stackData);
     super.initState();
   }
 
   @override
   void dispose() {
-    print('dispose');
     _familyPageController.dispose();
     _textColorsPageController.dispose();
     _gradientsPageController.dispose();

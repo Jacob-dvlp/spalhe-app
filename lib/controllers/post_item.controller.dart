@@ -38,6 +38,7 @@ class PostItemController extends GetxController {
       await api.post('/comments/${post.id}', data: {
         "text": comment,
       });
+      post.cCount!.comments = post.cCount!.comments! + 1;
       getComments();
     } catch (e) {
       print({'comment', e});
@@ -46,13 +47,15 @@ class PostItemController extends GetxController {
 
   likePost(int userId) async {
     try {
-      await api.get('/likes/${post.id}');
+      await api.post('/likes/${post.id}');
       final isLiked =
           (post.likes ?? []).indexWhere((el) => el.userId == userId);
       if (isLiked == -1) {
+        post.cCount!.likes = post.cCount!.likes! + 1;
         final like = Likes(userId: userId);
         post.likes!.add(like);
       } else {
+        post.cCount!.likes = post.cCount!.likes! - 1;
         post.likes!.removeWhere((el) => el.userId == userId);
       }
       update();
