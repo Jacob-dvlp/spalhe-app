@@ -5,6 +5,7 @@ import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
+import 'package:spalhe/pages/profile/components/button_tab.dart';
 import 'package:spalhe/pages/profile/edit_profile.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -151,48 +152,19 @@ class ProfilePage extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 14),
-                          child: Text(
-                            'posts',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
+                      ButtonTabProfile(
+                        title: 'posts',
+                        onPress: () {},
+                        isActive: true,
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 14),
-                          child: Text(
-                            'midias',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
+                      ButtonTabProfile(
+                        title: 'midias',
+                        onPress: () {},
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 14),
-                          child: Text(
-                            'menções',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
-                      )
+                      ButtonTabProfile(
+                        title: 'menções',
+                        onPress: () {},
+                      ),
                     ],
                   ),
                 ),

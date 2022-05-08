@@ -90,8 +90,15 @@ class AuthController extends GetxController {
   }
 
   Map registerData = {"name": '', "email": '', "password": ''};
+
+  void setRegisterData(key, value) {
+    registerData[key] = value;
+    update();
+  }
+
   void register() async {
     try {
+      print(registerData);
       loading = true;
       update();
       await api.post('/users', data: registerData);

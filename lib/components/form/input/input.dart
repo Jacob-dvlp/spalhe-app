@@ -63,6 +63,7 @@ class Input extends StatelessWidget {
           keyboardType: keyboardType,
           initialValue: initialValue,
           scrollPadding: const EdgeInsets.all(0),
+          autocorrect: false,
           decoration: decoration ??
               InputDecoration(
                 focusColor: primary,

@@ -92,12 +92,52 @@ class PostItem extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 30),
-                          Text(
-                            '12:23',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade500,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                '12:23',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext bc) {
+                                      return SafeArea(
+                                        child: Wrap(
+                                          children: <Widget>[
+                                            ListTile(
+                                                leading: Icon(
+                                                  FeatherIcons.edit,
+                                                ),
+                                                title: Text('Editar'),
+                                                onTap: () => {}),
+                                            ListTile(
+                                              leading: Icon(
+                                                FeatherIcons.delete,
+                                              ),
+                                              title: Text('Excluir'),
+                                              onTap: () => {},
+                                            ),
+                                            ListTile(
+                                              leading: Icon(FeatherIcons.save),
+                                              title: Text('Salvar'),
+                                              onTap: () => {},
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.more_vert_rounded,
+                                ),
+                              )
+                            ],
                           ),
                         ],
                       ),

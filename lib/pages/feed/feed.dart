@@ -42,13 +42,16 @@ class FeedPage extends StatelessWidget {
                   Opacity(
                     opacity: 0.6,
                     child: Text(
-                      'olá,',
+                      'Olá,',
                       style: TextStyle(fontSize: 12),
                     ),
                   ),
                   Text(
                     'Thiago',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               )
@@ -81,7 +84,6 @@ class FeedPage extends StatelessWidget {
               builder: (_posts) {
                 final posts = _posts.posts?.data;
                 final totalPosts = posts?.length ?? 0;
-
                 return Column(
                   children: List.generate(
                     totalPosts,

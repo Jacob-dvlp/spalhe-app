@@ -16,7 +16,6 @@ class MomentsComponent extends StatelessWidget {
       init: MomentController(),
       builder: (_moment) {
         final moments = _moment.moments;
-        print(moments);
 
         return SizedBox(
           height: 60,
@@ -35,7 +34,9 @@ class MomentsComponent extends StatelessWidget {
                 child: Stack(
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        _moment.createMoment();
+                      },
                       child: Avatar(
                         user: user,
                         width: 50,
@@ -63,21 +64,23 @@ class MomentsComponent extends StatelessWidget {
                 ),
               ),
               ...List.generate(moments?.length ?? 0, (index) {
-                return Container(
-                  width: 60,
-                  height: 60,
-                  margin: EdgeInsets.only(right: 6),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: primary, width: 2),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Avatar(
-                      user: user,
-                      width: 50,
-                      heigth: 50,
-                      showIcon: false,
+                return GestureDetector(
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    margin: EdgeInsets.only(right: 6),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: primary, width: 2),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Avatar(
+                        user: user,
+                        width: 50,
+                        heigth: 50,
+                        showIcon: false,
+                      ),
                     ),
                   ),
                 );
