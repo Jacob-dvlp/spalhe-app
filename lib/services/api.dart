@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:spalhe/models/auth.dart';
 
-Dio api = APIConfigure().connect();
+Dio api = new APIConfigure().connect();
 
 const bool isProduction = bool.fromEnvironment('dart.vm.product');
 

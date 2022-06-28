@@ -420,7 +420,7 @@ class _StoryMakerState extends State<StoryMaker> {
     final pngBytes = byteData.buffer.asUint8List();
     final imgFile = File('$directory/${DateTime.now()}.png');
     await imgFile.writeAsBytes(pngBytes);
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       Navigator.of(context).pop(imgFile);
     });
   }

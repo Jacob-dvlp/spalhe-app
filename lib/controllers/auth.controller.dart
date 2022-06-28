@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spalhe/models/auth.dart';
-import 'package:spalhe/pages/home/home.dart';
+import 'package:spalhe/pages/loader/loader.dart';
 import 'package:spalhe/services/api.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -38,7 +38,8 @@ class AuthController extends GetxController {
       final res = await api.post('/auth', data: loginData);
       box.write('auth', res.data);
       auth = AuthModel.fromJson(res.data);
-      OnRoute.pushOff(HomePage());
+      update();
+      OnRoute.pushOff(LoaderPage());
     } catch (e) {
       Get.snackbar(
         'Ops..',
@@ -72,15 +73,7 @@ class AuthController extends GetxController {
         "biography": user.biography,
       });
       await getUser();
-      Get.snackbar(
-        'Muito bem!',
-        'Seus dados foram atualizados.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green.shade400,
-        borderRadius: 4,
-        colorText: Colors.white,
-        duration: Duration(milliseconds: 1000),
-      );
+      update();
     } catch (e) {
       print(e);
       loading = false;
@@ -141,7 +134,6 @@ class AuthController extends GetxController {
         print(e);
         loadingAvatar = false;
         update();
-        print(e);
       }
     }
   }

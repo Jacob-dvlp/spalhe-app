@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
@@ -101,8 +99,8 @@ class PostItem extends StatelessWidget {
                                   color: Colors.grey.shade500,
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {
+                              GestureDetector(
+                                onTap: () {
                                   showModalBottomSheet(
                                     context: context,
                                     builder: (BuildContext bc) {
@@ -133,8 +131,11 @@ class PostItem extends StatelessWidget {
                                     },
                                   );
                                 },
-                                icon: Icon(
-                                  Icons.more_vert_rounded,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.more_vert_rounded,
+                                  ),
                                 ),
                               )
                             ],

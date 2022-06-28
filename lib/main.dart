@@ -7,8 +7,8 @@ import 'package:spalhe/theme/light.dart';
 import 'package:spalhe/utils/routes.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
