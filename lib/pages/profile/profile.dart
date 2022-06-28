@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
+import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
 import 'package:spalhe/pages/profile/edit_profile.dart';
@@ -23,6 +24,7 @@ class ProfilePage extends StatelessWidget {
         init: AuthController(),
         builder: (_auth) {
           final user = _auth.auth.user;
+          final postMedias = _posts.postMedias;
 
           return Scaffold(
             appBar: AppBar(
@@ -146,40 +148,65 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 1),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    children: [
-                      ButtonTabProfile(
-                        title: 'posts',
-                        onPress: () {},
-                        isActive: true,
+                GetBuilder<ProfileController>(
+                  init: ProfileController(),
+                  builder: (profile) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
                       ),
-                      ButtonTabProfile(
-                        title: 'midias',
-                        onPress: () {},
+                      child: Row(
+                        children: [
+                          ButtonTabProfile(
+                            title: 'posts',
+                            onPress: () {
+                              profile.changeIndex(0);
+                            },
+                            isActive: profile.tab == 0,
+                          ),
+                          ButtonTabProfile(
+                            title: 'midias',
+                            onPress: () {
+                              profile.changeIndex(1);
+                            },
+                            isActive: profile.tab == 1,
+                          ),
+                          ButtonTabProfile(
+                            title: 'menções',
+                            onPress: () {
+                              profile.changeIndex(2);
+                            },
+                            isActive: profile.tab == 2,
+                          ),
+                        ],
                       ),
-                      ButtonTabProfile(
-                        title: 'menções',
-                        onPress: () {},
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
                 SizedBox(height: 8),
-                GetBuilder<PostController>(
-                  init: PostController(),
-                  builder: (_posts) {
-                    final posts = _posts.userPost?.data;
-                    final totalPosts = posts?.length ?? 0;
+                GetBuilder<ProfileController>(
+                  init: ProfileController(),
+                  builder: (profile) {
+                    return IndexedStack(
+                      index: profile.tab,
+                      children: [
+                        GetBuilder<PostController>(
+                          init: PostController(),
+                          builder: (_posts) {
+                            final posts = _posts.userPost?.data;
+                            final totalPosts = posts?.length ?? 0;
 
-                    return Column(
-                      children: List.generate(
-                        totalPosts,
-                        (index) => PostItem(post: posts![index]),
-                      ),
+                            return Column(
+                              children: List.generate(
+                                totalPosts,
+                                (index) => PostItem(post: posts![index]),
+                              ),
+                            );
+                          },
+                        ),
+                        Container(),
+                        Container(),
+                      ],
                     );
                   },
                 )

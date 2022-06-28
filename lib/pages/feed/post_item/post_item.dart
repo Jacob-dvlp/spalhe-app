@@ -38,6 +38,7 @@ class PostItem extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(16).copyWith(bottom: 6),
             margin: EdgeInsets.only(bottom: 10),
+            color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

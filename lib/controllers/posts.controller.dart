@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_place/google_place.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spalhe/models/post.model.dart';
+import 'package:spalhe/models/post_media.model.dart';
 import 'package:spalhe/services/api.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -13,6 +14,7 @@ class PostController extends GetxController {
   PostModel? userPost;
   List<XFile> images = [];
   List<XFile> videos = [];
+  List<PostMediaModel> postMedias = [];
   Map postData = {};
 
   @override
@@ -32,6 +34,18 @@ class PostController extends GetxController {
       update();
       final res = await api.get('/posts');
       posts = PostModel.fromJson(res.data);
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getPostMedia(int userId) async {
+    try {
+      postMedias = [];
+      update();
+      final res = await api.get('/posts/user/$userId/medias');
+      postMedias = res.data.map((e) => PostMediaModel.fromJson(e)).toList();
       update();
     } catch (e) {
       print(e);

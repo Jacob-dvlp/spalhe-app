@@ -20,20 +20,18 @@ class ButtonTabProfile extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              border: isActive
-                  ? Border(
-                      bottom: BorderSide(
-                        color: primary,
-                        width: 4,
-                        style: BorderStyle.solid,
-                      ),
-                    )
-                  : null,
+              border: Border(
+                bottom: BorderSide(
+                  color: isActive ? primary : Colors.transparent,
+                  width: isActive ? 4 : 4,
+                  style: BorderStyle.solid,
+                ),
+              ),
             ),
             padding: EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 14,
-            ),
+            ).copyWith(bottom: 10),
             child: Text(
               title,
               style: TextStyle(
