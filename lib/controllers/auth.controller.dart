@@ -98,6 +98,7 @@ class AuthController extends GetxController {
       loginData = registerData;
       await login();
     } catch (e) {
+      print(e);
       loading = false;
       update();
       print(e);

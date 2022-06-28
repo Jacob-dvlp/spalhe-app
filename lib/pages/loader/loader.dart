@@ -13,7 +13,7 @@ class LoaderPage extends StatelessWidget {
     return GetBuilder<AuthController>(
       init: AuthController(),
       builder: (auth) {
-        print(auth.auth.user?.username);
+        print(auth.auth.user?.name);
         if (auth.isAuth && auth.auth.user?.username == null) {
           return UsernamePage();
         }

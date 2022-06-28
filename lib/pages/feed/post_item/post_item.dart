@@ -36,11 +36,8 @@ class PostItem extends StatelessWidget {
         return GestureDetector(
           onTap: () => inPostItem ? null : OnRoute.push(PostPage(post: post)),
           child: Container(
-            padding: EdgeInsets.all(20).copyWith(bottom: 8),
+            padding: EdgeInsets.all(16).copyWith(bottom: 6),
             margin: EdgeInsets.only(bottom: 10),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,7 +49,7 @@ class PostItem extends StatelessWidget {
                       heigth: 38,
                       iconSize: 10,
                     ),
-                    SizedBox(width: 14),
+                    SizedBox(width: 8),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

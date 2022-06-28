@@ -1,5 +1,3 @@
-// ignore_for_file: recursive_getters
-
 import 'package:flutter/material.dart';
 
 const primary = Colors.amber;
