@@ -44,6 +44,7 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
         style: ElevatedButton.styleFrom(
           onPrimary: Colors.black,
           primary: primary,
+          elevation: 1,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(

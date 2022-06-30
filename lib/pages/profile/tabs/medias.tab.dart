@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
-import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/utils/routes.dart';
 

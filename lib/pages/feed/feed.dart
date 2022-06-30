@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
@@ -8,6 +9,7 @@ import 'package:spalhe/pages/feed/moments/moments.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/profile/profile.dart';
+import 'package:spalhe/pages/users/users.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class FeedPage extends StatelessWidget {
@@ -84,6 +86,31 @@ class FeedPage extends StatelessWidget {
               builder: (_posts) {
                 final posts = _posts.posts?.data;
                 final totalPosts = posts?.length ?? 0;
+
+                if (totalPosts == 0) {
+                  return Column(
+                    children: [
+                      SizedBox(height: 50),
+                      SvgPicture.asset(
+                        'assets/svg/feed.svg',
+                        width: 200,
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Nenhuma publicação encontrada',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () => OnRoute.push(UsersPage()),
+                        child: Text('encontrar amigos'),
+                      )
+                    ],
+                  );
+                }
+
                 return Column(
                   children: List.generate(
                     totalPosts,
