@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
+
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
@@ -25,13 +26,12 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
-      init: AuthController(),
-      builder: (_auth) {
-        final user = _auth.auth.user;
+      builder: (authController) {
+        final user = authController.auth.user!;
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(user?.name ?? ''),
+            title: Text(user.name ?? ''),
             actions: [
               IconButton(
                 onPressed: () {},
@@ -72,14 +72,14 @@ class ProfilePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              user?.name ?? '',
+                              user.name ?? '',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
-                              '@' + (user?.username ?? ''),
+                              '@' + (user.username ?? ''),
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
@@ -98,12 +98,12 @@ class ProfilePage extends StatelessWidget {
                         )
                       ],
                     ),
-                    if (user?.biography != '')
+                    if (user.biography != '')
                       Column(
                         children: [
                           SizedBox(height: 14),
                           Text(
-                            user?.biography ?? '',
+                            user.biography ?? '',
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
@@ -115,7 +115,7 @@ class ProfilePage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${user?.cCount?.followers}',
+                          '${user.cCount?.followers}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -131,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          '${user?.cCount?.followed}',
+                          '${user.cCount?.followed}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -153,7 +153,7 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: 1),
               GetBuilder<ProfileController>(
                 init: ProfileController(),
-                builder: (profile) {
+                builder: (profileController) {
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -163,23 +163,23 @@ class ProfilePage extends StatelessWidget {
                         ButtonTabProfile(
                           title: 'posts',
                           onPress: () {
-                            profile.changeIndex(0);
+                            profileController.changeIndex(0);
                           },
-                          isActive: profile.tab == 0,
+                          isActive: profileController.tab == 0,
                         ),
                         ButtonTabProfile(
                           title: 'midias',
                           onPress: () {
-                            profile.changeIndex(1);
+                            profileController.changeIndex(1);
                           },
-                          isActive: profile.tab == 1,
+                          isActive: profileController.tab == 1,
                         ),
                         ButtonTabProfile(
                           title: 'menções',
                           onPress: () {
-                            profile.changeIndex(2);
+                            profileController.changeIndex(2);
                           },
-                          isActive: profile.tab == 2,
+                          isActive: profileController.tab == 2,
                         ),
                       ],
                     ),
@@ -189,9 +189,9 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: 8),
               GetBuilder<ProfileController>(
                 init: ProfileController(),
-                builder: (profile) {
+                builder: (profileController) {
                   return IndexedStack(
-                    index: profile.tab,
+                    index: profileController.tab,
                     children: [
                       PostTab(),
                       MediasTab(),
