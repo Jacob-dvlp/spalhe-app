@@ -74,6 +74,7 @@ class Count {
   int? followed;
   int? followers;
   int? posts;
+  int? postsMentions;
 
   Count({this.followed, this.followers, this.posts});
 
@@ -81,6 +82,7 @@ class Count {
     followed = json['followed'];
     followers = json['followers'];
     posts = json['posts'];
+    postsMentions = json['posts_mentions'];
   }
 
   Map<String, dynamic> toJson() {
@@ -88,6 +90,7 @@ class Count {
     data['followed'] = followed;
     data['followers'] = followers;
     data['posts'] = posts;
+    data['posts_mentions'] = postsMentions;
     return data;
   }
 }

@@ -1,18 +1,20 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/services/api.dart';
 
 class ProfileController extends GetxController {
-  int tab = 0;
   static final box = GetStorage();
-  final auth = Get.put(AuthController());
+  AuthModel auth = AuthModel.fromJson(box.read('auth') ?? {});
   UserModel profile = UserModel();
+  int tab = 0;
 
   @override
   void onReady() {
     super.onReady();
+    if (auth.user != null) {
+      profile = auth.user!;
+    }
   }
 
   getUser(int userId) async {
@@ -23,8 +25,24 @@ class ProfileController extends GetxController {
     } catch (e) {}
   }
 
+  follow(int userId) async {
+    try {
+      await api.post(
+        '/follows',
+        data: {"user_id": userId},
+      );
+      getUser(userId);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   changeIndex(int i) {
     tab = i;
     update();
+  }
+
+  reset() {
+    tab = 0;
   }
 }

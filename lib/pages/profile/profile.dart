@@ -16,27 +16,37 @@ import 'package:spalhe/utils/routes.dart';
 
 class ProfilePage extends StatelessWidget {
   final _posts = Get.put(PostController());
+  final _profileController = Get.put(ProfileController());
+  final authController = Get.put(AuthController());
+  final int userId;
 
-  ProfilePage({Key? key}) : super(key: key) {
-    _posts.getByUserId(1);
-    _posts.getPostMedia(1);
-    _posts.getPostMentions(1);
+  ProfilePage({required this.userId, Key? key}) : super(key: key) {
+    _posts.getByUserId(userId);
+    _posts.getPostMedia(userId);
+    _posts.getPostMentions(userId);
+    _profileController.getUser(userId);
+
+    _profileController.reset();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-      builder: (authController) {
-        final user = authController.auth.user!;
+    final myProfile = authController.auth.user?.id == userId;
+
+    return GetBuilder<ProfileController>(
+      init: ProfileController(),
+      builder: (profileController) {
+        final user = profileController.profile;
 
         return Scaffold(
           appBar: AppBar(
             title: Text(user.name ?? ''),
             actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(FeatherIcons.settings),
-              )
+              if (myProfile)
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(FeatherIcons.settings),
+                )
             ],
           ),
           body: ListView(
@@ -87,18 +97,27 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey.shade300,
-                            elevation: 0,
-                            onPrimary: Colors.black87,
+                        if (myProfile)
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.grey.shade300,
+                              elevation: 0,
+                              onPrimary: Colors.black87,
+                            ),
+                            onPressed: () => OnRoute.push(EditProfilePage()),
+                            child: Text('editar perfil'),
                           ),
-                          onPressed: () => OnRoute.push(EditProfilePage()),
-                          child: Text('editar perfil'),
-                        )
+                        if (!myProfile)
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                            ),
+                            onPressed: () => {},
+                            child: Text('seguir'),
+                          ),
                       ],
                     ),
-                    if (user.biography != '')
+                    if (user.biography != '' && user.biography != null)
                       Column(
                         children: [
                           SizedBox(height: 14),
@@ -162,6 +181,7 @@ class ProfilePage extends StatelessWidget {
                       children: [
                         ButtonTabProfile(
                           title: 'posts',
+                          total: user.cCount!.posts!,
                           onPress: () {
                             profileController.changeIndex(0);
                           },
@@ -169,6 +189,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ButtonTabProfile(
                           title: 'midias',
+                          total: user.cCount!.posts!,
                           onPress: () {
                             profileController.changeIndex(1);
                           },
@@ -176,6 +197,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ButtonTabProfile(
                           title: 'menções',
+                          total: user.cCount!.postsMentions!,
                           onPress: () {
                             profileController.changeIndex(2);
                           },

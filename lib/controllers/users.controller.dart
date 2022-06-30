@@ -25,16 +25,4 @@ class UserController extends GetxController {
       print(e);
     }
   }
-
-  follow(int userId) async {
-    try {
-      await api.post(
-        '/follows',
-        data: {"user_id": userId},
-      );
-      getUsers();
-    } catch (e) {
-      print(e);
-    }
-  }
 }
