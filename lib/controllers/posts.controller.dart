@@ -3,7 +3,6 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_place/google_place.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spalhe/models/post.model.dart';
-import 'package:spalhe/models/post_media.model.dart';
 import 'package:spalhe/services/api.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -14,8 +13,9 @@ class PostController extends GetxController {
   PostModel? userPost;
   List<XFile> images = [];
   List<XFile> videos = [];
-  List<PostMediaModel> postMedias = [];
+  List<PostData> postMedias = [];
   Map postData = {};
+  List<PostData> mentions = [];
 
   @override
   void onReady() {
@@ -42,10 +42,26 @@ class PostController extends GetxController {
 
   getPostMedia(int userId) async {
     try {
-      postMedias = [];
-      update();
       final res = await api.get('/posts/user/$userId/medias');
-      postMedias = res.data.map((e) => PostMediaModel.fromJson(e)).toList();
+      List<PostData> list = [];
+      for (var item in res.data) {
+        list.add(PostData.fromJson(item));
+      }
+      postMedias = list;
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getPostMentions(int userId) async {
+    try {
+      final res = await api.get('/posts/user/$userId/mentions');
+      List<PostData> list = [];
+      for (var item in res.data) {
+        list.add(PostData.fromJson(item));
+      }
+      mentions = list;
       update();
     } catch (e) {
       print(e);
