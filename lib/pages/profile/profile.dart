@@ -134,7 +134,7 @@ class ProfilePage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${user.cCount?.followers}',
+                          '${user.profileDetails?.followed}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -150,7 +150,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          '${user.cCount?.followed}',
+                          '${user.profileDetails?.followers}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -181,7 +181,7 @@ class ProfilePage extends StatelessWidget {
                       children: [
                         ButtonTabProfile(
                           title: 'posts',
-                          total: user.cCount!.posts!,
+                          total: user.profileDetails?.posts ?? 0,
                           onPress: () {
                             profileController.changeIndex(0);
                           },
@@ -189,7 +189,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ButtonTabProfile(
                           title: 'midias',
-                          total: user.cCount!.posts!,
+                          total: user.profileDetails?.medias ?? 0,
                           onPress: () {
                             profileController.changeIndex(1);
                           },
@@ -197,7 +197,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ButtonTabProfile(
                           title: 'menções',
-                          total: user.cCount!.postsMentions!,
+                          total: user.profileDetails?.mentions ?? 0,
                           onPress: () {
                             profileController.changeIndex(2);
                           },

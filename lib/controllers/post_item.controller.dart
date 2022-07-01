@@ -6,7 +6,7 @@ import 'package:spalhe/services/api.dart';
 class PostItemController extends GetxController {
   PostItemController({required this.post});
   PostData post;
-  List<CommentsModel>? comments;
+  CommentsModel? comments;
 
   @override
   void onReady() {
@@ -21,11 +21,7 @@ class PostItemController extends GetxController {
   getComments() async {
     try {
       final res = await api.get('/comments/${post.id}');
-      List<CommentsModel> list = [];
-      for (int i = 0; res.data.length > i; i++) {
-        list.add(CommentsModel.fromJson(res.data[i]));
-      }
-      comments = list;
+      comments = CommentsModel.fromJson(res.data);
       update();
     } catch (e) {
       print({'allComments', e});
@@ -46,21 +42,6 @@ class PostItemController extends GetxController {
   }
 
   likePost(int userId) async {
-    try {
-      await api.post('/likes/${post.id}');
-      final isLiked =
-          (post.likes ?? []).indexWhere((el) => el.userId == userId);
-      if (isLiked == -1) {
-        post.cCount!.likes = post.cCount!.likes! + 1;
-        final like = Likes(userId: userId);
-        post.likes!.add(like);
-      } else {
-        post.cCount!.likes = post.cCount!.likes! - 1;
-        post.likes!.removeWhere((el) => el.userId == userId);
-      }
-      update();
-    } catch (e) {
-      print(e);
-    }
+    //
   }
 }

@@ -48,9 +48,9 @@ class PostPage extends StatelessWidget {
                   builder: (_post) {
                     return Column(
                       children: List.generate(
-                        _post.comments?.length ?? 0,
+                        _post.comments?.data.length ?? 0,
                         (index) {
-                          final comment = _post.comments![index];
+                          final comment = _post.comments!.data[index];
                           return Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: 20,
@@ -77,13 +77,13 @@ class PostPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          comment.user?.name ?? '',
+                                          comment.user.name ?? '',
                                           style: TextStyle(),
                                         ),
                                         Opacity(
                                           opacity: .6,
                                           child: Text(
-                                            '@${comment.user?.username}',
+                                            '@${comment.user.username}',
                                             style: TextStyle(
                                               fontSize: 10,
                                             ),
@@ -95,7 +95,7 @@ class PostPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8),
                                 Text(
-                                  comment.text ?? '',
+                                  comment.text,
                                   style: TextStyle(
                                     fontSize: 17,
                                   ),

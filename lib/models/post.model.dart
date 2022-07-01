@@ -1,5 +1,3 @@
-import 'auth.dart';
-
 class PostModel {
   Meta? meta;
   List<PostData>? data;
@@ -29,29 +27,29 @@ class PostModel {
 }
 
 class Meta {
-  int? perPage;
   int? page;
-  String? order;
-  String? orderBy;
+  int? perPage;
   int? total;
+  bool? previusPage;
+  bool? nextPage;
 
-  Meta({this.perPage, this.page, this.order, this.orderBy, this.total});
+  Meta({this.page, this.perPage, this.total, this.previusPage, this.nextPage});
 
   Meta.fromJson(Map<String, dynamic> json) {
-    perPage = json['per_page'];
     page = json['page'];
-    order = json['order'];
-    orderBy = json['order_by'];
+    perPage = json['per_page'];
     total = json['total'];
+    previusPage = json['previus_page'];
+    nextPage = json['next_page'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['per_page'] = this.perPage;
     data['page'] = this.page;
-    data['order'] = this.order;
-    data['order_by'] = this.orderBy;
+    data['per_page'] = this.perPage;
     data['total'] = this.total;
+    data['previus_page'] = this.previusPage;
+    data['next_page'] = this.nextPage;
     return data;
   }
 }
@@ -60,63 +58,45 @@ class PostData {
   int? id;
   String? text;
   bool? published;
-  int? userId;
-  int? locationId;
-  String? createdAt;
-  String? updatedAt;
-  UserModel? user;
-  List<Likes>? likes;
+  bool? isLiked;
   List<Medias>? medias;
-  List<Mentions>? mentions;
-  Count? cCount;
   Location? location;
+  List<Mentions>? mentions;
+  User? user;
+  Count? cCount;
 
-  PostData({
-    this.id,
-    this.text,
-    this.published,
-    this.userId,
-    this.locationId,
-    this.createdAt,
-    this.updatedAt,
-    this.user,
-    this.medias,
-    this.mentions,
-    this.cCount,
-    this.location,
-    this.likes,
-  });
+  PostData(
+      {this.id,
+      this.text,
+      this.published,
+      this.isLiked,
+      this.medias,
+      this.location,
+      this.mentions,
+      this.user,
+      this.cCount});
 
   PostData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     text = json['text'];
     published = json['published'];
-    userId = json['user_id'];
-    locationId = json['location_id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
-    if (json['likes'] != null) {
-      likes = <Likes>[];
-      json['likes'].forEach((v) {
-        likes!.add(new Likes.fromJson(v));
-      });
-    }
-    location = json['location'] != null
-        ? new Location.fromJson(json['location'])
-        : null;
+    isLiked = json['is_liked'];
     if (json['medias'] != null) {
       medias = <Medias>[];
       json['medias'].forEach((v) {
         medias!.add(new Medias.fromJson(v));
       });
     }
+    location = json['location'] != null
+        ? new Location.fromJson(json['location'])
+        : null;
     if (json['mentions'] != null) {
       mentions = <Mentions>[];
       json['mentions'].forEach((v) {
         mentions!.add(new Mentions.fromJson(v));
       });
     }
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
     cCount = json['_count'] != null ? new Count.fromJson(json['_count']) : null;
   }
 
@@ -125,47 +105,22 @@ class PostData {
     data['id'] = this.id;
     data['text'] = this.text;
     data['published'] = this.published;
-    data['user_id'] = this.userId;
-    data['location_id'] = this.locationId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.likes != null) {
-      data['likes'] = this.likes!.map((v) => v.toJson()).toList();
+    data['is_liked'] = this.isLiked;
+    if (this.medias != null) {
+      data['medias'] = this.medias!.map((v) => v.toJson()).toList();
     }
     if (this.location != null) {
       data['location'] = this.location!.toJson();
     }
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
-    }
-    if (this.medias != null) {
-      data['medias'] = this.medias!.map((v) => v.toJson()).toList();
-    }
     if (this.mentions != null) {
       data['mentions'] = this.mentions!.map((v) => v.toJson()).toList();
+    }
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
     }
     if (this.cCount != null) {
       data['_count'] = this.cCount!.toJson();
     }
-    return data;
-  }
-}
-
-class Location {
-  String? name;
-  int? id;
-
-  Location({this.name, this.id});
-
-  Location.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    id = json['id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['id'] = this.id;
     return data;
   }
 }
@@ -192,13 +147,32 @@ class Medias {
   }
 }
 
+class Location {
+  int? id;
+  String? name;
+
+  Location({this.id, this.name});
+
+  Location.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
+  }
+}
+
 class Mentions {
-  UserModel? user;
+  UserMention? user;
 
   Mentions({this.user});
 
   Mentions.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
+    user = json['user'] != null ? new UserMention.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -210,18 +184,52 @@ class Mentions {
   }
 }
 
-class Likes {
-  int? userId;
+class UserMention {
+  int? id;
+  String? name;
+  String? avatar;
 
-  Likes({this.userId});
+  UserMention({this.id, this.name, this.avatar});
 
-  Likes.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
+  UserMention.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    avatar = json['avatar'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['avatar'] = this.avatar;
+    return data;
+  }
+}
+
+class User {
+  int? id;
+  String? name;
+  String? username;
+  String? avatar;
+  bool? verified;
+
+  User({this.id, this.name, this.username, this.avatar, this.verified});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    username = json['username'];
+    avatar = json['avatar'];
+    verified = json['verified'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['username'] = this.username;
+    data['avatar'] = this.avatar;
+    data['verified'] = this.verified;
     return data;
   }
 }

@@ -5,8 +5,8 @@ import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
-import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/post.model.dart';
+import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -29,9 +29,7 @@ class PostItem extends StatelessWidget {
         final user = _post.post.user;
         final medias = _post.post.medias;
 
-        final isLiked = post.likes!.isNotEmpty &&
-            post.likes?.firstWhere((el) => el.userId == user?.id).userId !=
-                null;
+        final isLiked = post.isLiked == true;
 
         return GestureDetector(
           onTap: () => inPostItem ? null : OnRoute.push(PostPage(post: post)),
@@ -62,7 +60,7 @@ class PostItem extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    Text(user.name?.split(' ').first ?? ''),
+                                    Text(user?.name?.split(' ').first ?? ''),
                                     if (post.location != null)
                                       Flexible(
                                         child: Text(
@@ -78,7 +76,7 @@ class PostItem extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  '@${user.username}',
+                                  '@${user?.name}',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey.shade500,
@@ -237,7 +235,7 @@ class PostItem extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            _post.likePost(user.id!);
+                            _post.likePost(user!.id!);
                           },
                           child: Icon(
                             isLiked

@@ -1,11 +1,10 @@
 name: spalhe
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
-
 
 dependencies:
   flutter:
@@ -14,6 +13,7 @@ dependencies:
   google_fonts: ^2.2.0
   camera: ^0.9.8+1
   get_storage: ^2.0.3
+  graphql: ^5.1.1
   dio: ^4.0.4
   intl: ^0.17.0
   cupertino_icons: ^1.0.2

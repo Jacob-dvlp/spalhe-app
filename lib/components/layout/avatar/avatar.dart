@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spalhe/components/layout/image/image.dart';
-import 'package:spalhe/models/auth.dart';
+import 'package:spalhe/models/user.model.dart';
 
 class Avatar extends StatelessWidget {
   final UserModel? user;

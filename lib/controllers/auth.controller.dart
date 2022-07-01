@@ -2,10 +2,14 @@ import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:graphql/client.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spalhe/models/auth.dart';
+import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/pages/loader/loader.dart';
 import 'package:spalhe/services/api.dart';
+import 'package:spalhe/services/gql/hooks.dart';
+import 'package:spalhe/services/gql/queries/auth.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class AuthController extends GetxController {
@@ -35,9 +39,16 @@ class AuthController extends GetxController {
     try {
       loading = true;
       update();
-      final res = await api.post('/auth', data: loginData);
-      box.write('auth', res.data);
-      auth = AuthModel.fromJson(res.data);
+      final res = await useMutation(
+        MutationOptions(
+          document: LOGIN_MUTATION,
+          variables: {
+            "data": loginData,
+          },
+        ),
+      );
+      box.write('auth', res.data?['login']);
+      auth = AuthModel.fromJson(res.data?['login']);
       update();
       OnRoute.pushOff(LoaderPage());
     } catch (e) {
