@@ -21,12 +21,11 @@ class ProfilePage extends StatelessWidget {
   final int userId;
 
   ProfilePage({required this.userId, Key? key}) : super(key: key) {
-    _posts.getByUserId(userId);
+    _profileController.reset();
+    _posts.getUserPosts(userId);
     _posts.getPostMedia(userId);
     _posts.getPostMentions(userId);
     _profileController.getUser(userId);
-
-    _profileController.reset();
   }
 
   @override
@@ -134,7 +133,7 @@ class ProfilePage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${user.profileDetails?.followed}',
+                          '${user.profileDetails?.followed ?? 0}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -150,7 +149,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          '${user.profileDetails?.followers}',
+                          '${user.profileDetails?.followers ?? 0}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

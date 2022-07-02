@@ -100,10 +100,12 @@ class AuthController extends GetxController {
 
   void register() async {
     try {
-      print(registerData);
       loading = true;
       update();
-      await api.post('/users', data: registerData);
+      await useMutation(
+        CREATE_USER_MUTATION,
+        variables: {"data": registerData},
+      );
       loginData = registerData;
       await login();
     } catch (e) {

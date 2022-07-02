@@ -233,9 +233,7 @@ class PostItem extends StatelessWidget {
                     Row(
                       children: [
                         InkWell(
-                          onTap: () {
-                            _post.likePost(user!.id!);
-                          },
+                          onTap: _post.likePost,
                           child: Icon(
                             isLiked
                                 ? Icons.favorite

@@ -13,11 +13,12 @@ class PostController extends GetxController {
   final picker = ImagePicker();
   PostModel? posts;
   PostModel? userPost;
+  PostModel? postMedias;
+  PostModel? mentions;
+
   List<XFile> images = [];
   List<XFile> videos = [];
-  List<PostData> postMedias = [];
   Map postData = {};
-  List<PostData> mentions = [];
 
   @override
   void onReady() {
@@ -46,12 +47,11 @@ class PostController extends GetxController {
 
   getPostMedia(int userId) async {
     try {
-      final res = await api.get('/posts/user/$userId/medias');
-      List<PostData> list = [];
-      for (var item in res.data) {
-        list.add(PostData.fromJson(item));
-      }
-      postMedias = list;
+      final res = await useQuery(GET_POST_MEDIA_QUERY, variables: {
+        "user_id": userId,
+        "filters": {},
+      });
+      postMedias = PostModel.fromJson(res.data?['getPostMedias']);
       update();
     } catch (e) {
       print(e);
@@ -60,22 +60,24 @@ class PostController extends GetxController {
 
   getPostMentions(int userId) async {
     try {
-      final res = await api.get('/posts/user/$userId/mentions');
-      List<PostData> list = [];
-      for (var item in res.data) {
-        list.add(PostData.fromJson(item));
-      }
-      mentions = list;
+      final res = await useQuery(GET_POST_MENTIONS_QUERY, variables: {
+        "user_id": userId,
+        "filters": {},
+      });
+      postMedias = PostModel.fromJson(res.data?['getPostMentions']);
       update();
     } catch (e) {
       print(e);
     }
   }
 
-  getByUserId(int id) async {
+  getUserPosts(int id) async {
     try {
-      final res = await api.get('/posts/user/$id');
-      userPost = PostModel.fromJson(res.data);
+      final res = await useMutation(GET_USER_POSTS_QUERY, variables: {
+        'user_id': id,
+        'filters': {},
+      });
+      userPost = PostModel.fromJson(res.data?['getUserPosts']);
       update();
     } catch (e) {
       print(e);

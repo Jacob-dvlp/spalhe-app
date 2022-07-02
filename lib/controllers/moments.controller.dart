@@ -16,17 +16,17 @@ class MomentController extends GetxController {
   }
 
   getMoments() async {
-    try {
-      final res = await api.get('/moments');
-      List<MomentsModel> list = [];
-      for (int i = 0; res.data.length > i; i++) {
-        list.add(MomentsModel.fromJson(res.data[i]));
-      }
-      moments = list;
-      update();
-    } catch (e) {
-      print(e);
-    }
+    // try {
+    //   final res = await api.get('/moments');
+    //   List<MomentsModel> list = [];
+    //   for (int i = 0; res.data.length > i; i++) {
+    //     list.add(MomentsModel.fromJson(res.data[i]));
+    //   }
+    //   moments = list;
+    //   update();
+    // } catch (e) {
+    //   print(e);
+    // }
   }
 
   createMoment() async {

@@ -1,6 +1,25 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
+final DocumentNode CREATE_USER_MUTATION = gql("""
+  mutation(
+    \$data: ICreateUserDTO! 
+  ) {
+    createUser(
+      data: \$data
+    ) {
+      id
+      name
+      email
+      username
+      avatar
+      biography
+      active
+      verified
+    }
+  }
+""");
+
 final DocumentNode GET_USER_QUERY = gql("""
  query (\$id: Float!) {
 	getUser(id: \$id){
@@ -20,6 +39,8 @@ final DocumentNode GET_USER_QUERY = gql("""
 			mentions
 			medias
 			posts
+      followed
+			followers
 		}
 	}
 }

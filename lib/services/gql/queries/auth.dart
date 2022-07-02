@@ -21,6 +21,8 @@ final DocumentNode LOGIN_MUTATION = gql("""
 				mentions
 				medias
 				posts
+        followed
+				followers
 			}
 		}
 	}

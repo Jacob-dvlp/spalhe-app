@@ -11,8 +11,6 @@ class GQLClient {
     final _box = GetStorage();
     AuthModel auth = AuthModel.fromJson(_box.read('auth') ?? {});
 
-    print(auth.token);
-
     final AuthLink authLink = AuthLink(
       getToken: () async => 'Bearer ${auth.token}',
     );

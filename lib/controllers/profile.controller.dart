@@ -24,7 +24,7 @@ class ProfileController extends GetxController {
   getUser(int userId) async {
     try {
       final res = await useQuery(GET_USER_QUERY, variables: {
-        'id': userId,
+        "id": userId,
       });
       profile = UserModel.fromJson(res.data?['getUser']);
       update();
