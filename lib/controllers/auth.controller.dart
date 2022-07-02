@@ -37,15 +37,14 @@ class AuthController extends GetxController {
 
   Future<void> login() async {
     try {
-      loading = true;
-      update();
+      setLoading(true);
       final res = await useMutation(
         LOGIN_MUTATION,
         variables: {"data": loginData},
       );
       box.write('auth', res.data?['login']);
       auth = AuthModel.fromJson(res.data?['login']);
-      update();
+      setLoading(false);
       OnRoute.pushOff(LoaderPage());
     } catch (e) {
       Get.snackbar(
@@ -56,8 +55,7 @@ class AuthController extends GetxController {
         borderRadius: 4,
         colorText: Colors.white,
       );
-      loading = false;
-      update();
+      setLoading(false);
     }
   }
 
@@ -69,24 +67,37 @@ class AuthController extends GetxController {
     update();
   }
 
+  setLoading(bool value) {
+    loading = value;
+    update();
+  }
+
   void updateUser() async {
     try {
-      loading = true;
-      update();
+      setLoading(true);
       final user = auth.user!;
       await useMutation(UPDATE_USER_MUTATION, variables: {
         "data": {
           "name": user.name,
           "username": user.username,
           "biography": user.biography,
+          "privated": user.privated,
         }
       });
       await getUser();
       update();
+      setLoading(false);
+      Get.snackbar(
+        'Sucesso',
+        'Seus dados foram atualizados.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.shade400,
+        borderRadius: 4,
+        colorText: Colors.white,
+        duration: Duration(seconds: 1),
+      );
     } catch (e) {
-      print(e);
-      loading = false;
-      update();
+      setLoading(false);
       print(e);
     }
   }
@@ -100,19 +111,17 @@ class AuthController extends GetxController {
 
   void register() async {
     try {
-      loading = true;
-      update();
+      setLoading(true);
       await useMutation(
         CREATE_USER_MUTATION,
         variables: {"data": registerData},
       );
       loginData = registerData;
       await login();
+      setLoading(false);
     } catch (e) {
       print(e);
-      loading = false;
-      update();
-      print(e);
+      setLoading(false);
     }
   }
 

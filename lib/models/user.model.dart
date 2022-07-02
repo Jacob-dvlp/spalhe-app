@@ -7,6 +7,7 @@ class UserModel {
   String? biography;
   bool? active;
   bool? verified;
+  bool? privated;
   String? createdAt;
   String? updatedAt;
   ProfileDetails? profileDetails;
@@ -20,6 +21,7 @@ class UserModel {
       this.biography,
       this.active,
       this.verified,
+      this.privated,
       this.createdAt,
       this.updatedAt,
       this.profileDetails});
@@ -32,6 +34,7 @@ class UserModel {
     avatar = json['avatar'];
     biography = json['biography'];
     active = json['active'];
+    privated = json['privated'];
     verified = json['verified'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -49,6 +52,7 @@ class UserModel {
     data['avatar'] = this.avatar;
     data['biography'] = this.biography;
     data['active'] = this.active;
+    data['privated'] = this.privated;
     data['verified'] = this.verified;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;

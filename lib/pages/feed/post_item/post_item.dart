@@ -103,20 +103,16 @@ class PostItem extends StatelessWidget {
                                         child: Wrap(
                                           children: <Widget>[
                                             ListTile(
-                                                leading: Icon(
-                                                  FeatherIcons.edit,
-                                                ),
-                                                title: Text('Editar'),
-                                                onTap: () => {}),
-                                            ListTile(
                                               leading: Icon(
-                                                FeatherIcons.delete,
+                                                Icons.delete_outline_outlined,
                                               ),
                                               title: Text('Excluir'),
                                               onTap: () => {},
                                             ),
                                             ListTile(
-                                              leading: Icon(FeatherIcons.save),
+                                              leading: Icon(
+                                                Icons.bookmark_border_rounded,
+                                              ),
                                               title: Text('Salvar'),
                                               onTap: () => {},
                                             ),

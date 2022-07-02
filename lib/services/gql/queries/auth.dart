@@ -15,6 +15,7 @@ final DocumentNode LOGIN_MUTATION = gql("""
 			username
 			biography
 			active
+      privated
 			verified
 			created_at
 			profile_details {

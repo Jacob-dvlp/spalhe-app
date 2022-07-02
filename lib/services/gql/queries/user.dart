@@ -30,6 +30,7 @@ final DocumentNode GET_USER_QUERY = gql("""
 		avatar
 		biography
 		active
+    privated
 		verified
 		created_at
 		updated_at
@@ -70,6 +71,7 @@ query {
 		avatar
 		biography
 		active
+    privated
 		verified
 		created_at
 		updated_at
