@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/moments.controller.dart';
+import 'package:spalhe/pages/stories/moments.dart';
 import 'package:spalhe/theme/colors.dart';
+import 'package:spalhe/utils/routes.dart';
 
 class MomentsComponent extends StatelessWidget {
   MomentsComponent({Key? key}) : super(key: key);
@@ -65,6 +67,9 @@ class MomentsComponent extends StatelessWidget {
               ),
               ...List.generate(moments?.length ?? 0, (index) {
                 return GestureDetector(
+                  onTap: () => OnRoute.push(
+                    MomentPage(moments: moments!, index: index),
+                  ),
                   child: Container(
                     width: 60,
                     height: 60,
@@ -73,14 +78,11 @@ class MomentsComponent extends StatelessWidget {
                       border: Border.all(color: primary, width: 2),
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Avatar(
-                        user: user,
-                        width: 50,
-                        heigth: 50,
-                        showIcon: false,
-                      ),
+                    child: Avatar(
+                      user: user,
+                      width: 50,
+                      heigth: 50,
+                      showIcon: false,
                     ),
                   ),
                 );

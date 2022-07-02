@@ -77,11 +77,7 @@ class FeedPage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Stack(
-                children: [
-                  MomentsComponent(),
-                ],
-              ),
+              child: MomentsComponent(),
             ),
             GetBuilder<PostController>(
               init: PostController(),

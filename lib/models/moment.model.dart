@@ -1,15 +1,17 @@
-class MomentsModel {
-  String? name;
-  String? avatar;
+class MomentModel {
   int? id;
+  String? avatar;
+  String? username;
+  String? name;
   List<Moments>? moments;
 
-  MomentsModel({this.name, this.avatar, this.id, this.moments});
+  MomentModel({this.id, this.avatar, this.username, this.name, this.moments});
 
-  MomentsModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    avatar = json['avatar'];
+  MomentModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    avatar = json['avatar'];
+    username = json['username'];
+    name = json['name'];
     if (json['moments'] != null) {
       moments = <Moments>[];
       json['moments'].forEach((v) {
@@ -20,9 +22,10 @@ class MomentsModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['avatar'] = this.avatar;
     data['id'] = this.id;
+    data['avatar'] = this.avatar;
+    data['username'] = this.username;
+    data['name'] = this.name;
     if (this.moments != null) {
       data['moments'] = this.moments!.map((v) => v.toJson()).toList();
     }
@@ -31,28 +34,25 @@ class MomentsModel {
 }
 
 class Moments {
-  int? id;
   String? url;
-  String? type;
   String? createdAt;
+  String? type;
   String? subtype;
 
-  Moments({this.id, this.url, this.type, this.createdAt, this.subtype});
+  Moments({this.url, this.createdAt, this.type, this.subtype});
 
   Moments.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     url = json['url'];
-    type = json['type'];
     createdAt = json['created_at'];
+    type = json['type'];
     subtype = json['subtype'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['url'] = this.url;
-    data['type'] = this.type;
     data['created_at'] = this.createdAt;
+    data['type'] = this.type;
     data['subtype'] = this.subtype;
     return data;
   }
