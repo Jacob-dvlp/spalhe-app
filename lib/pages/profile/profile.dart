@@ -11,6 +11,7 @@ import 'package:spalhe/pages/profile/edit_profile.dart';
 import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
+import 'package:spalhe/pages/settings/settings.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -43,7 +44,7 @@ class ProfilePage extends StatelessWidget {
             actions: [
               if (myProfile)
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () => OnRoute.push(SettingsPage()),
                   icon: Icon(FeatherIcons.settings),
                 )
             ],
@@ -69,7 +70,7 @@ class ProfilePage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).backgroundColor,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,7 +185,7 @@ class ProfilePage extends StatelessWidget {
                 builder: (profileController) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).backgroundColor,
                     ),
                     child: Row(
                       children: [

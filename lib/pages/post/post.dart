@@ -58,7 +58,7 @@ class PostPage extends StatelessWidget {
                             ),
                             margin: EdgeInsets.only(bottom: 1.2),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).cardColor,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +114,7 @@ class PostPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               border: Border(
                 top: BorderSide(
                   width: 1,

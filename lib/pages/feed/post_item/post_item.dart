@@ -35,7 +35,7 @@ class PostItem extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(16).copyWith(bottom: 6),
             margin: EdgeInsets.only(bottom: 10),
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -268,7 +268,7 @@ class PostItem extends StatelessWidget {
                               right: 22 + (index * 14.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).cardColor,
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 padding: EdgeInsets.all(2),

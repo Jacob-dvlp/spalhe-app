@@ -6,7 +6,7 @@ import 'package:spalhe/pages/auth/username.dart';
 import 'package:spalhe/pages/home/home.dart';
 
 class LoaderPage extends StatelessWidget {
-  const LoaderPage({Key? key}) : super(key: key);
+  LoaderPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

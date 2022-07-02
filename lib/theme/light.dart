@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spalhe/theme/colors.dart';
 
-ThemeData themeLight(context) => ThemeData.light().copyWith(
+ThemeData themeLight(context) => ThemeData(
       primaryColor: primary,
       primaryColorLight: Colors.white,
       primaryColorDark: ColorLight.textColor,
-      //
       scaffoldBackgroundColor: ColorLight.background,
       backgroundColor: ColorLight.white,
-      //
       colorScheme: ColorScheme.light(
         primary: primary,
         background: ColorLight.background,
@@ -18,7 +16,7 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
         onError: Colors.redAccent,
         brightness: Brightness.light,
       ),
-      //
+      cardColor: Colors.white,
       appBarTheme: AppBarTheme(
         color: Colors.white,
         iconTheme: IconThemeData(
@@ -34,7 +32,10 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
           color: Colors.black,
         ),
       ),
-      //
+      listTileTheme: ListTileTheme.of(context).copyWith(
+        iconColor: Colors.black,
+        tileColor: Colors.white,
+      ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           primary: primary,
@@ -80,5 +81,8 @@ ThemeData themeLight(context) => ThemeData.light().copyWith(
         elevation: 2,
         unselectedItemColor: Colors.grey.shade400,
         selectedItemColor: Colors.grey.shade900,
+      ),
+      iconTheme: IconThemeData(
+        color: Colors.black,
       ),
     );
