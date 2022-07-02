@@ -128,6 +128,8 @@ class PostController extends GetxController {
         },
       );
 
+      getPosts();
+
       final medias = [...images, ...videos];
       if (medias.isNotEmpty) {
         for (int i = 0; medias.length > i; i++) {
