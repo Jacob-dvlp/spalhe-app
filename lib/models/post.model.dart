@@ -1,3 +1,5 @@
+import 'package:spalhe/models/user.model.dart';
+
 class PostModel {
   Meta? meta;
   List<PostData>? data;
@@ -62,7 +64,7 @@ class PostData {
   List<Medias>? medias;
   Location? location;
   List<Mentions>? mentions;
-  User? user;
+  UserModel? user;
   Count? cCount;
 
   PostData(
@@ -96,7 +98,7 @@ class PostData {
         mentions!.add(new Mentions.fromJson(v));
       });
     }
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
     cCount = json['_count'] != null ? new Count.fromJson(json['_count']) : null;
   }
 
@@ -202,34 +204,6 @@ class UserMention {
     data['id'] = this.id;
     data['name'] = this.name;
     data['avatar'] = this.avatar;
-    return data;
-  }
-}
-
-class User {
-  int? id;
-  String? name;
-  String? username;
-  String? avatar;
-  bool? verified;
-
-  User({this.id, this.name, this.username, this.avatar, this.verified});
-
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    username = json['username'];
-    avatar = json['avatar'];
-    verified = json['verified'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['username'] = this.username;
-    data['avatar'] = this.avatar;
-    data['verified'] = this.verified;
     return data;
   }
 }

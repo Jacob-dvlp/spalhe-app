@@ -5,11 +5,13 @@ import 'package:spalhe/models/auth.dart';
 class GQLClient {
   GraphQLClient connect() {
     final HttpLink httpLink = HttpLink(
-      'https://7e64-2804-14d-32a1-8b4a-3d70-4b60-67f-b4dc.ngrok.io/graphql',
+      'http://localhost:3000/graphql',
     );
 
     final _box = GetStorage();
-    AuthModel auth = AuthModel.fromJson(_box.read('@auth') ?? {});
+    AuthModel auth = AuthModel.fromJson(_box.read('auth') ?? {});
+
+    print(auth.token);
 
     final AuthLink authLink = AuthLink(
       getToken: () async => 'Bearer ${auth.token}',

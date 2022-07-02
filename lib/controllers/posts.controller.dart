@@ -4,6 +4,8 @@ import 'package:google_place/google_place.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/services/api.dart';
+import 'package:spalhe/services/gql/hooks.dart';
+import 'package:spalhe/services/gql/queries/posts.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class PostController extends GetxController {
@@ -32,8 +34,10 @@ class PostController extends GetxController {
     try {
       posts = null;
       update();
-      final res = await api.get('/posts');
-      posts = PostModel.fromJson(res.data);
+      final res = await useQuery(GET_POSTS_QUERY, variables: {
+        "filters": {},
+      });
+      posts = PostModel.fromJson(res.data?['getPosts']);
       update();
     } catch (e) {
       print(e);
@@ -115,7 +119,12 @@ class PostController extends GetxController {
     try {
       postLoading = true;
       update();
-      final res = await api.post('/posts', data: postData);
+      final res = await useMutation(
+        CREATE_POST_MUTATION,
+        variables: {
+          "data": postData,
+        },
+      );
 
       final medias = [...images, ...videos];
       if (medias.isNotEmpty) {
@@ -128,7 +137,7 @@ class PostController extends GetxController {
           });
           try {
             await api.post(
-              '/posts/${res.data['id']}/upload',
+              '/posts/${res.data?['createPost']?['id']}/upload',
               data: formData,
             );
           } catch (e) {

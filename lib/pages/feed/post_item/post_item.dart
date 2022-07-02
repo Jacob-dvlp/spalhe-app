@@ -6,7 +6,6 @@ import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
-import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -43,7 +42,7 @@ class PostItem extends StatelessWidget {
                 Row(
                   children: [
                     Avatar(
-                      user: user as UserModel,
+                      user: user,
                       width: 38,
                       heigth: 38,
                       iconSize: 10,

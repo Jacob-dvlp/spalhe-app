@@ -3,6 +3,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/services/api.dart';
+import 'package:spalhe/services/gql/hooks.dart';
+import 'package:spalhe/services/gql/queries/user.dart';
 
 class ProfileController extends GetxController {
   static final box = GetStorage();
@@ -15,13 +17,16 @@ class ProfileController extends GetxController {
     super.onReady();
     if (auth.user != null) {
       profile = auth.user!;
+      update();
     }
   }
 
   getUser(int userId) async {
     try {
-      final res = await api.get('/users/$userId');
-      profile = UserModel.fromJson(res.data);
+      final res = await useQuery(GET_USER_QUERY, variables: {
+        'id': userId,
+      });
+      profile = UserModel.fromJson(res.data?['getUser']);
       update();
     } catch (e) {}
   }

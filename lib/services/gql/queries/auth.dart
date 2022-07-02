@@ -1,7 +1,7 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
-DocumentNode LOGIN_MUTATION = gql("""
+final DocumentNode LOGIN_MUTATION = gql("""
  mutation(\$data: ILoginDTO!) {
 	login(
 		data: \$data
