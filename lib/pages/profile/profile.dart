@@ -107,13 +107,23 @@ class ProfilePage extends StatelessWidget {
                             child: Text('editar perfil'),
                           ),
                         if (!myProfile)
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
+                          if (user.following == 'following')
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                primary: primary.withOpacity(0.2),
+                              ),
+                              onPressed: () => {},
+                              child: Text('deixar de seguir'),
+                            )
+                          else
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                              ),
+                              onPressed: () => {},
+                              child: Text('seguir'),
                             ),
-                            onPressed: () => {},
-                            child: Text('seguir'),
-                          ),
                       ],
                     ),
                     if (user.biography != '' && user.biography != null)
@@ -133,7 +143,7 @@ class ProfilePage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${user.profileDetails?.followed ?? 0}',
+                          '${user.profileDetails?.followers ?? 0}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -149,7 +159,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          '${user.profileDetails?.followers ?? 0}',
+                          '${user.profileDetails?.followed ?? 0}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

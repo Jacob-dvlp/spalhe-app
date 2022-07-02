@@ -85,3 +85,28 @@ query {
 	}
 }
 """);
+
+final GET_USERS_QUERY = gql("""
+  query(\$filters: IFilters!, \$filter_follows: Boolean) {
+    getUsers(filters: \$filters, filter_follows: \$filter_follows) {
+      meta {
+        page
+        per_page
+        previus_page
+        next_page
+        total
+      }
+      data {
+        id
+        name
+        username
+        avatar
+        following
+        verified
+        privated
+        followed
+			  following
+      }
+    }
+  }
+""");

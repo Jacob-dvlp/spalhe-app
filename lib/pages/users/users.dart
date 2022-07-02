@@ -20,7 +20,7 @@ class UsersPage extends StatelessWidget {
       body: GetBuilder<UserController>(
         init: UserController(),
         builder: (userController) {
-          final users = userController.users.data;
+          final users = userController.users?.data;
 
           return GridView(
             padding: EdgeInsets.all(14),

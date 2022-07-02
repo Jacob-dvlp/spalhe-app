@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:spalhe/models/users.model.dart';
-import 'package:spalhe/services/api.dart';
+import 'package:spalhe/services/gql/hooks.dart';
+import 'package:spalhe/services/gql/queries/user.dart';
 
 class UserController extends GetxController {
-  UsersModel users = UsersModel();
+  UsersModel? users;
 
   @override
   void onReady() {
@@ -18,8 +19,11 @@ class UserController extends GetxController {
 
   getUsers() async {
     try {
-      final res = await api.get('/users');
-      users = UsersModel.fromJson(res.data);
+      final res = await useQuery(GET_USERS_QUERY, variables: {
+        'filters': {},
+        // 'filter_follows': true,
+      });
+      users = UsersModel.fromJson(res.data?['getUsers']);
       update();
     } catch (e) {
       print(e);
