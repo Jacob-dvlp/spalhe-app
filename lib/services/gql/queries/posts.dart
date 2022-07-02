@@ -1,6 +1,14 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
+final DocumentNode DELETE_POST_MUTATION = gql("""
+  mutation(\$post_id: Float!) {
+    deletePost(id: \$post_id){
+      id
+    }
+  }
+""");
+
 final DocumentNode GET_POST_MENTIONS_QUERY = gql("""
   query(\$user_id: Float!, \$filters: IFilters!) {
 	getPostMentions(user_id: \$user_id, filters: \$filters) {
@@ -29,8 +37,11 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql("""
 				}
 			}
 			user {
+			  id
 				name
-				biography
+				username
+        avatar
+        verified
 			}
 			_count {
 				mentions
@@ -70,8 +81,11 @@ final DocumentNode GET_POST_MEDIA_QUERY = gql('''
 				}
 			}
 			user {
+        id
 				name
-				biography
+				username
+        avatar
+        verified
 			}
 			_count {
 				mentions
@@ -111,8 +125,11 @@ query(\$user_id: Float!, \$filters: IFilters!) {
 				}
 			}
 			user {
+				id
 				name
-				biography
+				username
+        avatar
+        verified
 			}
 			_count {
 				mentions

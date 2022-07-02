@@ -5,8 +5,8 @@ import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/posts.dart';
 
 class PostItemController extends GetxController {
-  PostItemController({required this.post});
-  PostData post;
+  PostItemController({required this.post}) {}
+  PostData post = PostData();
   CommentsModel? comments;
 
   @override

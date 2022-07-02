@@ -1,7 +1,8 @@
 import 'package:graphql/client.dart';
+import 'package:gql/src/ast/ast.dart';
 import 'package:spalhe/services/gql/gql.dart';
 
-Future<QueryResult<Object?>> useMutation<T>(query,
+Future<QueryResult<Object?>> useMutation<T>(DocumentNode query,
     {Map<String, dynamic>? variables}) async {
   final client = GQLClient().connect();
   final result = await client.mutate(MutationOptions(
@@ -16,7 +17,7 @@ Future<QueryResult<Object?>> useMutation<T>(query,
   return result;
 }
 
-Future<QueryResult> useQuery<T>(query,
+Future<QueryResult> useQuery<T>(DocumentNode query,
     {Map<String, dynamic>? variables}) async {
   final client = GQLClient().connect();
   final result = await client.query(

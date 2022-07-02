@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -10,12 +7,6 @@ import 'package:get_storage/get_storage.dart';
 class SettingsController extends GetxController {
   static final box = GetStorage();
   bool themeDark = box.read('theme') == 'dark' ? true : false;
-
-  @override
-  void onReady() {
-    super.onReady();
-    changeTheme(box.read('theme') ?? 'dark');
-  }
 
   void changeTheme(color) {
     if (color == 'light') {

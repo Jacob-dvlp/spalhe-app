@@ -50,6 +50,11 @@ class SettingsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
                 ListTile(
+                  leading: Icon(Icons.bookmark_border_rounded),
+                  title: Text('publicações salvas'),
+                ),
+                SizedBox(height: 2),
+                ListTile(
                   leading: Icon(Icons.security_rounded),
                   title: Text('dados e privacidade'),
                 ),

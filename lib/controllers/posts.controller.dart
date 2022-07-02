@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:get/get.dart';
 import 'package:google_place/google_place.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/services/api.dart';
 import 'package:spalhe/services/gql/hooks.dart';
@@ -15,6 +16,7 @@ class PostController extends GetxController {
   PostModel? userPost;
   PostModel? postMedias;
   PostModel? mentions;
+  bool loading = false;
 
   List<XFile> images = [];
   List<XFile> videos = [];
@@ -31,16 +33,34 @@ class PostController extends GetxController {
     super.onClose();
   }
 
+  setLoading(bool value) {
+    loading = value;
+    update();
+  }
+
   getPosts() async {
     try {
+      setLoading(true);
       final res = await useQuery(GET_POSTS_QUERY, variables: {
         "filters": {},
       });
       posts = PostModel.fromJson(res.data?['getPosts']);
-      update();
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       print(e);
     }
+  }
+
+  deletePost(int postId) async {
+    try {
+      await useMutation(DELETE_POST_MUTATION, variables: {
+        'post_id': postId,
+      });
+      Get.delete<PostItemController>(tag: postId.toString());
+      getPosts();
+      OnRoute.back();
+    } catch (e) {}
   }
 
   getPostMedia(int userId) async {
@@ -129,8 +149,8 @@ class PostController extends GetxController {
       final medias = [...images, ...videos];
       if (medias.isNotEmpty) {
         for (int i = 0; medias.length > i; i++) {
-          FormData formData = FormData.fromMap({
-            "files": await MultipartFile.fromFile(
+          dio.FormData formData = dio.FormData.fromMap({
+            "files": await dio.MultipartFile.fromFile(
               images[i].path,
               filename: images[i].name,
             ),

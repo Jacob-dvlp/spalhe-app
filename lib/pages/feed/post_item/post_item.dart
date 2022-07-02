@@ -5,6 +5,7 @@ import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
+import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/theme/colors.dart';
@@ -20,14 +21,16 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final postsController = Get.put(PostController());
+
     return GetBuilder<PostItemController>(
-      init: PostItemController(post: post!),
-      tag: post?.id.toString(),
+      init: new PostItemController(post: post!),
+      tag: post!.id.toString(),
+      assignId: true,
       builder: (_post) {
         final post = _post.post;
         final user = _post.post.user;
         final medias = _post.post.medias;
-
         final isLiked = post.isLiked == true;
 
         return GestureDetector(
@@ -75,7 +78,7 @@ class PostItem extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  '@${user?.name}',
+                                  '@${user?.username}',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey.shade500,
@@ -97,19 +100,26 @@ class PostItem extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   showModalBottomSheet(
+                                    backgroundColor:
+                                        Theme.of(context).backgroundColor,
                                     context: context,
                                     builder: (BuildContext bc) {
                                       return SafeArea(
                                         child: Wrap(
                                           children: <Widget>[
                                             ListTile(
+                                              tileColor: Theme.of(context)
+                                                  .backgroundColor,
                                               leading: Icon(
                                                 Icons.delete_outline_outlined,
                                               ),
                                               title: Text('Excluir'),
-                                              onTap: () => {},
+                                              onTap: () => postsController
+                                                  .deletePost(post.id!),
                                             ),
                                             ListTile(
+                                              tileColor: Theme.of(context)
+                                                  .backgroundColor,
                                               leading: Icon(
                                                 Icons.bookmark_border_rounded,
                                               ),
@@ -191,7 +201,7 @@ class PostItem extends StatelessWidget {
                         ),
                         SizedBox(width: 4),
                         Text(
-                          (post.cCount?.likes ?? 0) > 1 ? 'gosteis' : 'gostei',
+                          (post.cCount?.likes ?? 0) > 1 ? 'gosteis' : 'gostou',
                           style: TextStyle(
                             fontSize: 12,
                           ),
@@ -235,7 +245,7 @@ class PostItem extends StatelessWidget {
                                 ? Icons.favorite
                                 : Icons.favorite_border_outlined,
                             size: 24,
-                            color: isLiked ? Colors.redAccent : Colors.black87,
+                            color: isLiked ? Colors.redAccent : null,
                           ),
                         ),
                         SizedBox(width: 30),

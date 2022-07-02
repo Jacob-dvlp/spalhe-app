@@ -39,8 +39,8 @@ class Avatar extends StatelessWidget {
         ),
         if (showIcon)
           Positioned(
-            right: 8,
-            bottom: 6,
+            right: 3,
+            bottom: 3,
             child: Container(
               padding: EdgeInsets.all(2),
               decoration: BoxDecoration(
