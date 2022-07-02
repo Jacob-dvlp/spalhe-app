@@ -21,11 +21,11 @@ class ProfilePage extends StatelessWidget {
   final int userId;
 
   ProfilePage({required this.userId, Key? key}) : super(key: key) {
-    _profileController.reset();
+    _profileController.getUser(userId);
     _posts.getUserPosts(userId);
     _posts.getPostMedia(userId);
     _posts.getPostMentions(userId);
-    _profileController.getUser(userId);
+    _profileController.reset();
   }
 
   @override

@@ -11,7 +11,8 @@ class MediasTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PostController>(
-      builder: (controller) => GridView(
+      init: PostController(),
+      builder: (postController) => GridView(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -21,16 +22,19 @@ class MediasTab extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         children: List.generate(
-          controller.postMedias?.data?.length ?? 0,
+          postController.postMedias?.data?.length ?? 0,
           (index) {
-            final media = controller.postMedias?.data![index];
+            final media = postController.postMedias?.data?[index];
+
             return GestureDetector(
               onTap: () => OnRoute.push(
-                PostPage(post: controller.postMedias!.data![index]),
+                PostPage(post: media!),
               ),
               child: Container(
                 child: ImageNetwork(
-                  src: media?.medias?.first.url,
+                  src: (media?.medias?.length ?? 0) > 0
+                      ? media?.medias?.first.url
+                      : '',
                 ),
               ),
             );

@@ -33,8 +33,6 @@ class PostController extends GetxController {
 
   getPosts() async {
     try {
-      posts = null;
-      update();
       final res = await useQuery(GET_POSTS_QUERY, variables: {
         "filters": {},
       });
@@ -64,7 +62,7 @@ class PostController extends GetxController {
         "user_id": userId,
         "filters": {},
       });
-      postMedias = PostModel.fromJson(res.data?['getPostMentions']);
+      mentions = PostModel.fromJson(res.data?['getPostMentions']);
       update();
     } catch (e) {
       print(e);
@@ -128,8 +126,6 @@ class PostController extends GetxController {
         },
       );
 
-      getPosts();
-
       final medias = [...images, ...videos];
       if (medias.isNotEmpty) {
         for (int i = 0; medias.length > i; i++) {
@@ -150,7 +146,7 @@ class PostController extends GetxController {
         }
       }
 
-      getPosts();
+      await getPosts();
       postLoading = false;
       clearPost();
       update();

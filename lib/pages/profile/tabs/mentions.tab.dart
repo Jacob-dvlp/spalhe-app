@@ -15,6 +15,8 @@ class PostMentionsTab extends StatelessWidget {
           final posts = _posts.mentions;
           final totalPosts = posts?.data?.length ?? 0;
 
+          print(totalPosts);
+
           return Column(
             children: List.generate(
               totalPosts,
