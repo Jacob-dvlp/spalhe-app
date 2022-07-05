@@ -17,7 +17,7 @@ Future<QueryResult<Object?>> useMutation<T>(DocumentNode query,
   return result;
 }
 
-Future<QueryResult> useQuery<T>(DocumentNode query,
+Future<QueryResult> useQuery(DocumentNode query,
     {Map<String, dynamic>? variables}) async {
   final client = GQLClient().connect();
   final result = await client.query(

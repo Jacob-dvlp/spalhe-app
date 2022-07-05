@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/controllers/users.controller.dart';
-import 'package:spalhe/pages/profile/profile.dart';
+import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class UsersPage extends StatelessWidget {
@@ -33,7 +33,7 @@ class UsersPage extends StatelessWidget {
             children: List.generate(
               users?.length ?? 0,
               (index) => GestureDetector(
-                onTap: () => OnRoute.push(ProfilePage(
+                onTap: () => OnRoute.push(UserPage(
                   userId: users![index].id!,
                 )),
                 child: Column(
@@ -56,14 +56,15 @@ class UsersPage extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      '@${users?[index].username ?? ''}',
-                      style: TextStyle(
-                        fontSize: 11,
+                    if (users?[index].username != null)
+                      Text(
+                        '@${users?[index].username ?? ''}',
+                        style: TextStyle(
+                          fontSize: 11,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
                     SizedBox(height: 4),
                     SizedBox(
                       height: 23,

@@ -22,7 +22,7 @@ ThemeData themeDark(context) => ThemeData(
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          onPrimary: Colors.white,
+          onPrimary: Colors.black,
           primary: primary,
           elevation: 1,
         ),

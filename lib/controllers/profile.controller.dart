@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
-import 'package:spalhe/services/api.dart';
 import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/user.dart';
 
@@ -28,15 +27,16 @@ class ProfileController extends GetxController {
       });
       profile = UserModel.fromJson(res.data?['getUser']);
       update();
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   follow(int userId) async {
     try {
-      await api.post(
-        '/follows',
-        data: {"user_id": userId},
-      );
+      await useMutation(FOLLOW_USER_MUTATION, variables: {
+        "followed_id": userId,
+      });
       getUser(userId);
     } catch (e) {
       print(e);

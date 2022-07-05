@@ -32,7 +32,9 @@ class AuthController extends GetxController {
       auth.user = UserModel.fromJson(res.data?['getProfile']);
       box.write('auth', auth.toJson());
       update();
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> login() async {

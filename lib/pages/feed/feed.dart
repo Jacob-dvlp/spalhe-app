@@ -29,10 +29,7 @@ class FeedPage extends StatelessWidget {
       appBar: AppBar(
         titleSpacing: 6,
         title: GestureDetector(
-          onTap: () => OnRoute.push(ProfilePage(
-            userId: user!.id!,
-            myProfile: true,
-          )),
+          onTap: () => OnRoute.push(ProfilePage()),
           child: Row(
             children: [
               ClipRRect(

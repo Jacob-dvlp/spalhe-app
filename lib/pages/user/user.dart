@@ -1,47 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
-import 'package:spalhe/controllers/auth.controller.dart';
-
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
-import 'package:spalhe/pages/profile/edit_profile.dart';
 import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
-import 'package:spalhe/pages/settings/settings.dart';
 import 'package:spalhe/theme/colors.dart';
-import 'package:spalhe/utils/routes.dart';
 
-class ProfilePage extends StatelessWidget {
+class UserPage extends StatelessWidget {
   final _posts = Get.put(PostController());
-  final _auth = Get.put(AuthController());
+  final _profileController = Get.put(ProfileController());
 
-  ProfilePage() {
-    final userId = _auth.auth.user!.id!;
-    _auth.getUser();
+  final int userId;
+
+  UserPage({required this.userId, Key? key}) : super(key: key) {
+    _profileController.getUser(userId);
     _posts.getUserPosts(userId);
     _posts.getPostMedia(userId);
     _posts.getPostMentions(userId);
+    _profileController.reset();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-      builder: (authController) {
-        final user = authController.auth.user!;
+    return GetBuilder<ProfileController>(
+      init: ProfileController(),
+      builder: (profileController) {
+        final user = profileController.profile;
 
         return Scaffold(
           appBar: AppBar(
             title: Text(user.name ?? ''),
-            actions: [
-              IconButton(
-                onPressed: () => OnRoute.push(SettingsPage()),
-                icon: Icon(FeatherIcons.settings),
-              )
-            ],
           ),
           body: ListView(
             children: [
@@ -93,15 +84,39 @@ class ProfilePage extends StatelessWidget {
                               ),
                           ],
                         ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey.shade300,
-                            elevation: 0,
-                            onPrimary: Colors.black87,
+                        if (user.following == 'following')
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.grey.shade300,
+                                  elevation: 0,
+                                  onPrimary: Colors.black87,
+                                ),
+                                onPressed: () =>
+                                    profileController.follow(user.id!),
+                                child: Text('deixar de seguir'),
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  primary: primary,
+                                ),
+                                onPressed: () =>
+                                    profileController.follow(user.id!),
+                                child: Text('enviar mensagem'),
+                              ),
+                            ],
+                          )
+                        else
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                            ),
+                            onPressed: () => profileController.follow(user.id!),
+                            child: Text('seguir'),
                           ),
-                          onPressed: () => OnRoute.push(EditProfilePage()),
-                          child: Text('editar perfil'),
-                        ),
                       ],
                     ),
                     if (user.biography != '' && user.biography != null)

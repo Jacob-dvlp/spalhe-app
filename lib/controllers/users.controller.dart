@@ -21,7 +21,7 @@ class UserController extends GetxController {
     try {
       final res = await useQuery(GET_USERS_QUERY, variables: {
         'filters': {},
-        // 'filter_follows': true,
+        'filter_follows': true,
       });
       users = UsersModel.fromJson(res.data?['getUsers']);
       update();

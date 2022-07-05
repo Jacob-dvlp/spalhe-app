@@ -37,7 +37,7 @@ class Avatar extends StatelessWidget {
             ),
           ),
         ),
-        if (showIcon)
+        if (showIcon && user?.verified == true)
           Positioned(
             right: 3,
             bottom: 3,

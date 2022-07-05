@@ -122,6 +122,7 @@ query(\$user_id: Float!, \$filters: IFilters!) {
 				user {
 					id
 					name
+          avatar
 				}
 			}
 			user {

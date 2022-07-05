@@ -1,6 +1,15 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
+final FOLLOW_USER_MUTATION = gql("""
+  mutation (\$followed_id: Float!) {
+    followUser(followed_id: \$followed_id) {
+      active
+      status
+	  }
+  }
+""");
+
 final DocumentNode CREATE_USER_MUTATION = gql("""
   mutation(
     \$data: ICreateUserDTO! 
