@@ -28,3 +28,15 @@ Future<QueryResult> useQuery(DocumentNode query,
   );
   return result;
 }
+
+Future<Stream<QueryResult<Object?>>> useSubscription(DocumentNode query,
+    {Map<String, dynamic>? variables}) async {
+  final client = GQLClient().connect();
+  final result = await client.subscribe(
+    SubscriptionOptions(
+      document: query,
+      variables: variables ?? {},
+    ),
+  );
+  return result;
+}

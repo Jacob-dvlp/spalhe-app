@@ -1,70 +1,145 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/chat.controller.dart';
-import 'package:spalhe/utils/date.dart';
+import 'package:spalhe/models/user.model.dart';
+import 'package:spalhe/theme/colors.dart';
 
 class ChatPage extends StatelessWidget {
-  const ChatPage({Key? key}) : super(key: key);
+  final _chatController = Get.put(ChatController());
+  final _authController = Get.put(AuthController());
+  final UserModel user;
+  final int chatId;
+
+  ChatPage({required this.user, required this.chatId}) {
+    _chatController.getChatMessages(chatId);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('chat'),
-      ),
-      body: GetBuilder<ChatController>(
-        init: ChatController(),
-        builder: (chatController) {
-          final chats = chatController.chats.getChats;
+    return GetBuilder<ChatController>(
+      init: ChatController(),
+      builder: (chatController) {
+        final _messages = chatController.messages;
+        final authUser = _authController.auth.user;
 
-          return ListView(
-            padding: EdgeInsets.all(10),
-            children: List.generate(
-              chats?.length ?? 0,
-              (index) => Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Avatar(
-                          user: chats?[index].user,
-                          width: 45,
-                          heigth: 45,
-                        ),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+        return Scaffold(
+          appBar: AppBar(
+            leadingWidth: 26,
+            title: Row(
+              children: [
+                Avatar(
+                  user: user,
+                  width: 32,
+                  heigth: 32,
+                ),
+                SizedBox(width: 6),
+                Text(user.name ?? ''),
+              ],
+            ),
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  reverse: true,
+                  padding: EdgeInsets.all(20),
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: List.generate(_messages.length, (index) {
+                      final message = _messages[index];
+                      final byMe = authUser?.id == 1;
+
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment:
+                            byMe ? Alignment.topRight : Alignment.topLeft,
+                        child: Column(
+                          crossAxisAlignment: byMe
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              chats![index].user!.name ?? '',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: !byMe
+                                      ? [
+                                          primary,
+                                          Color.fromARGB(255, 255, 214, 68)
+                                        ]
+                                      : [Colors.grey, Colors.grey],
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                message.text ?? '',
+                                style: TextStyle(
+                                  color: byMe ? Colors.black : null,
+                                ),
                               ),
                             ),
-                            Text(chats[index].messages?[0].text ?? ''),
+                            Opacity(
+                              opacity: 0.6,
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 5),
+                                child: Text(
+                                  '10:20h',
+                                  style: TextStyle(fontSize: 10),
+                                ),
+                              ),
+                            )
                           ],
                         ),
-                      ],
-                    ),
-                    Text(
-                      fromNow(
-                        chats[index].messages?[0].createdAt ?? '',
-                      ),
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    )
-                  ],
+                      );
+                    }),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorLight.withOpacity(0.1),
+                ),
+                child: SafeArea(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: chatController.textController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Inserir mensagem',
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 10,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.send_rounded),
+                        onPressed: () {
+                          chatController.sendMessage(
+                            user.id!,
+                            chatController.textController.text,
+                          );
+                          chatController.textController.text = '';
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
