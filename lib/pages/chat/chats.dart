@@ -64,15 +64,17 @@ class ChatsPage extends StatelessWidget {
                         ],
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             fromNow(
                               chats[index].messages?[0].createdAt ?? '',
                             ),
                             style: TextStyle(
-                              fontSize: 11,
+                              fontSize: 10,
                             ),
                           ),
+                          SizedBox(height: 3),
                           Container(
                             width: 20,
                             height: 20,
@@ -81,7 +83,13 @@ class ChatsPage extends StatelessWidget {
                               color: primary,
                               borderRadius: BorderRadius.circular(50),
                             ),
-                            child: Text('2'),
+                            child: Text(
+                              '2',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           )
                         ],
                       )
