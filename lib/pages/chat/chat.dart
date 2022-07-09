@@ -116,7 +116,10 @@ class ChatPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight.withOpacity(1),
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(25),
+                  ),
                 ),
                 child: SafeArea(
                   child: Row(

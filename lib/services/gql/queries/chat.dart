@@ -85,6 +85,7 @@ final GET_CHATS_QUERY = gql("""
   query {
     getChats{
       id
+      unread
       messages {
         text
         id

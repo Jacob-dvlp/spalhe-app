@@ -21,79 +21,83 @@ class ChatsPage extends StatelessWidget {
         builder: (chatController) {
           final chats = chatController.chats.getChats;
 
-          return ListView(
-            padding: EdgeInsets.all(10),
-            children: List.generate(
-              chats?.length ?? 0,
-              (index) => InkWell(
-                onTap: () => OnRoute.push(
-                  ChatPage(
-                    user: chats![index].user!,
-                    chatId: chats[index].id!,
+          return RefreshIndicator(
+            onRefresh: () => chatController.getChats(),
+            child: ListView(
+              padding: EdgeInsets.all(10),
+              children: List.generate(
+                chats?.length ?? 0,
+                (index) => InkWell(
+                  onTap: () => OnRoute.push(
+                    ChatPage(
+                      user: chats![index].user!,
+                      chatId: chats[index].id!,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Avatar(
-                            user: chats?[index].user,
-                            width: 45,
-                            heigth: 45,
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                chats![index].user!.name ?? '',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Avatar(
+                              user: chats?[index].user,
+                              width: 45,
+                              heigth: 45,
+                            ),
+                            SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  chats![index].user?.name ?? '',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
                                 ),
+                                Text(
+                                  chats[index].messages?[0].text ?? '',
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              fromNow(
+                                chats[index].messages?[0].createdAt ?? '',
                               ),
-                              Text(
-                                chats[index].messages?[0].text ?? '',
-                                style: TextStyle(fontSize: 13),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            fromNow(
-                              chats[index].messages?[0].createdAt ?? '',
-                            ),
-                            style: TextStyle(
-                              fontSize: 10,
-                            ),
-                          ),
-                          SizedBox(height: 3),
-                          Container(
-                            width: 20,
-                            height: 20,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: primary,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Text(
-                              '2',
                               style: TextStyle(
                                 fontSize: 10,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          )
-                        ],
-                      )
-                    ],
+                            SizedBox(height: 3),
+                            if ((chats[index].unread ?? 0) > 0)
+                              Container(
+                                width: 20,
+                                height: 20,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: primary,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Text(
+                                  '${chats[index].unread ?? 0}',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

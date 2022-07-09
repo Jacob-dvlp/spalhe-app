@@ -25,13 +25,15 @@ class ChatModel {
 
 class GetChats {
   int? id;
+  int? unread;
   List<Messages>? messages;
   UserModel? user;
 
-  GetChats({this.id, this.messages, this.user});
+  GetChats({this.id, this.messages, this.unread, this.user});
 
   GetChats.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    unread = json['unread'];
     if (json['messages'] != null) {
       messages = <Messages>[];
       json['messages'].forEach((v) {
@@ -44,6 +46,7 @@ class GetChats {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['unread'] = this.unread;
     if (this.messages != null) {
       data['messages'] = this.messages!.map((v) => v.toJson()).toList();
     }
