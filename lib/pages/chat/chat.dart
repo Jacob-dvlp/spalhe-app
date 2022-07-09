@@ -49,7 +49,7 @@ class ChatPage extends StatelessWidget {
                   child: Column(
                     children: List.generate(_messages.length, (index) {
                       final message = _messages[index];
-                      final byMe = authUser?.id == 1;
+                      final byMe = authUser?.id == message.user?.id;
 
                       return Container(
                         width: MediaQuery.of(context).size.width,
@@ -72,7 +72,10 @@ class ChatPage extends StatelessWidget {
                                           primary,
                                           Color.fromARGB(255, 255, 214, 68)
                                         ]
-                                      : [Colors.grey, Colors.grey],
+                                      : [
+                                          Color.fromARGB(255, 201, 201, 201),
+                                          Color.fromARGB(255, 233, 231, 231)
+                                        ],
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -87,9 +90,19 @@ class ChatPage extends StatelessWidget {
                               opacity: 0.6,
                               child: Padding(
                                 padding: EdgeInsets.only(bottom: 5),
-                                child: Text(
-                                  '10:20h',
-                                  style: TextStyle(fontSize: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '10:20h',
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                    if (message.viewed == true)
+                                      Text(
+                                        ' - visualizada',
+                                        style: TextStyle(fontSize: 10),
+                                      )
+                                  ],
                                 ),
                               ),
                             )
@@ -103,7 +116,7 @@ class ChatPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight.withOpacity(0.1),
+                  color: Theme.of(context).primaryColorLight.withOpacity(1),
                 ),
                 child: SafeArea(
                   child: Row(
@@ -115,6 +128,7 @@ class ChatPage extends StatelessWidget {
                           decoration: InputDecoration(
                             hintText: 'Inserir mensagem',
                             border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
                               horizontal: 15,
                               vertical: 10,

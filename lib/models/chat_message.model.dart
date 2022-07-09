@@ -27,13 +27,16 @@ class ChatMessageModel {
 class GetChatMessages {
   String? text;
   String? createdAt;
+  bool? viewed;
   int? chatId;
   UserModel? user;
 
-  GetChatMessages({this.text, this.createdAt, this.chatId, this.user});
+  GetChatMessages(
+      {this.text, this.createdAt, this.viewed, this.chatId, this.user});
 
   GetChatMessages.fromJson(Map<String, dynamic> json) {
     text = json['text'];
+    viewed = json['viewed'];
     createdAt = json['created_at'];
     chatId = json['chat_id'];
     user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
@@ -42,6 +45,7 @@ class GetChatMessages {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['text'] = this.text;
+    data['viewed'] = this.viewed;
     data['created_at'] = this.createdAt;
     data['chat_id'] = this.chatId;
     if (this.user != null) {

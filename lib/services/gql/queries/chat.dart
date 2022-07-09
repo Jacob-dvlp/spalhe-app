@@ -1,5 +1,34 @@
 import 'package:graphql/client.dart';
 
+final VIEW_MESSAGE_MUTATION = gql(r"""
+  mutation {
+    setMessageViewed(chat_id: 1){
+      id
+      messages {
+        text
+        id
+      }
+      user {
+        id
+        name
+      }
+    }
+  }
+""");
+
+final ON_VIEW_MESSAGE_SUBSCRIPTION = gql(r"""
+  subscription ($chat_id: Float!) {
+    refreshMessageView(chat_id: $chat_id){
+      id
+      messages {
+        id
+        text
+        viewed
+      }
+    }
+  }
+""");
+
 final CHAT_MESSAGE_SUBSCRIPTION = gql(r"""
   subscription ($chat_id: Float!) {
     chatAdded(chat_id: $chat_id) {
@@ -7,6 +36,7 @@ final CHAT_MESSAGE_SUBSCRIPTION = gql(r"""
       messages {
         text
         user_id
+        viewed
         user {
           id
           name
@@ -39,6 +69,7 @@ final GET_CHAT_MESSAGE_QUERY = gql(r"""
       text
       created_at
       chat_id
+      viewed
       user {
         id
         name
@@ -60,6 +91,7 @@ final GET_CHATS_QUERY = gql("""
         medias
         user_id
         created_at
+        viewed
       }
       user {
         id

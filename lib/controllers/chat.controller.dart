@@ -23,11 +23,16 @@ class ChatController extends GetxController {
     super.onClose();
   }
 
-  subscritionChat() async {
+  viewMessages() async {
+    await useMutation(VIEW_MESSAGE_MUTATION, variables: {
+      'chat_id': chatId,
+    });
+  }
+
+  subscritionMessageChat() async {
     final sub = await useSubscription(CHAT_MESSAGE_SUBSCRIPTION, variables: {
       'chat_id': chatId,
     });
-
     sub.listen((message) {
       if (message.data?['chatAdded']?['messages']?[0] != null) {
         chat_messages.getChatMessages?.add(
@@ -35,6 +40,21 @@ class ChatController extends GetxController {
         );
         update();
       }
+    });
+  }
+
+  subscribeToView() async {
+    final sub = await useSubscription(
+      ON_VIEW_MESSAGE_SUBSCRIPTION,
+      variables: {
+        'chat_id': chatId,
+      },
+    );
+    sub.listen((message) {
+      chat_messages.getChatMessages?.map((message) {
+        message.viewed = true;
+      });
+      update();
     });
   }
 
@@ -62,7 +82,8 @@ class ChatController extends GetxController {
         "chat_id": chatId,
       });
       chat_messages = ChatMessageModel.fromJson(res.data ?? {});
-      subscritionChat();
+      subscritionMessageChat();
+      viewMessages();
       update();
     } catch (e) {
       print(e);
