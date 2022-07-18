@@ -10,10 +10,8 @@ import 'package:spalhe/utils/routes.dart';
 void main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-
   final theme = GetStorage().read('theme') ?? 'dark';
   SettingsController().changeTheme(theme);
-
   runApp(const MyApp());
 }
 

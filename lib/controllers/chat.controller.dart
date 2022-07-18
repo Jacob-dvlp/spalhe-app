@@ -7,8 +7,8 @@ import 'package:spalhe/services/gql/queries/chat.dart';
 
 class ChatController extends GetxController {
   ChatModel chats = ChatModel();
-  ChatMessageModel chat_messages = ChatMessageModel();
-  List<GetChatMessages> get messages => chat_messages.getChatMessages ?? [];
+  ChatMessageModel? chat_messages;
+  List<GetChatMessages> get messages => chat_messages?.getChatMessages ?? [];
   final TextEditingController textController = TextEditingController();
   int chatId = 0;
 
@@ -35,7 +35,7 @@ class ChatController extends GetxController {
     });
     sub.listen((message) {
       if (message.data?['chatAdded']?['messages']?[0] != null) {
-        chat_messages.getChatMessages?.add(
+        chat_messages?.getChatMessages?.add(
           GetChatMessages.fromJson(message.data?['chatAdded']?['messages']?[0]),
         );
         update();
@@ -51,7 +51,7 @@ class ChatController extends GetxController {
       },
     );
     sub.listen((message) {
-      chat_messages.getChatMessages?.map((message) {
+      chat_messages?.getChatMessages?.map((message) {
         message.viewed = true;
       });
       update();

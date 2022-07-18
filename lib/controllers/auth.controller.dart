@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
+import 'package:spalhe/pages/auth/login.dart';
 import 'package:spalhe/pages/loader/loader.dart';
 import 'package:spalhe/services/api.dart';
 import 'package:spalhe/services/gql/hooks.dart';
@@ -164,5 +165,6 @@ class AuthController extends GetxController {
   logout() {
     auth = AuthModel.fromJson({});
     box.write('auth', null);
+    Get.offAll(() => LoginPage());
   }
 }

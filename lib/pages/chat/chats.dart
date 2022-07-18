@@ -21,6 +21,8 @@ class ChatsPage extends StatelessWidget {
         builder: (chatController) {
           final chats = chatController.chats.getChats;
 
+          if (chats?.isEmpty == true) return Container();
+
           return RefreshIndicator(
             onRefresh: () => chatController.getChats(),
             child: ListView(
@@ -57,10 +59,11 @@ class ChatsPage extends StatelessWidget {
                                     fontSize: 14,
                                   ),
                                 ),
-                                Text(
-                                  chats[index].messages?[0].text ?? '',
-                                  style: TextStyle(fontSize: 13),
-                                ),
+                                if (chats[index].messages?.isNotEmpty == true)
+                                  Text(
+                                    chats[index].messages?[0].text ?? '',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
                               ],
                             ),
                           ],
@@ -68,14 +71,15 @@ class ChatsPage extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
-                              fromNow(
-                                chats[index].messages?[0].createdAt ?? '',
+                            if (chats[index].messages?.isNotEmpty == true)
+                              Text(
+                                fromNow(
+                                  chats[index].messages?[0].createdAt ?? '',
+                                ),
+                                style: TextStyle(
+                                  fontSize: 10,
+                                ),
                               ),
-                              style: TextStyle(
-                                fontSize: 10,
-                              ),
-                            ),
                             SizedBox(height: 3),
                             if ((chats[index].unread ?? 0) > 0)
                               Container(

@@ -16,7 +16,23 @@ class ExplorePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('descobrir'),
+        title: Container(
+          padding: EdgeInsets.all(2),
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(10)),
+            child: Text(
+              'pesquise pessoas',
+              style: TextStyle(
+                color: Colors.grey.shade400,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
       ),
       body: ListView(
         padding: EdgeInsets.all(20),

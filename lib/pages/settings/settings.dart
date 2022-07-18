@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
+import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
 import 'package:spalhe/theme/colors.dart';
 
@@ -9,6 +10,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
+
     return GetBuilder<SettingsController>(
         init: SettingsController(),
         builder: (settingsController) {
@@ -65,7 +68,9 @@ class SettingsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    authController.logout();
+                  },
                   child: Text('sair da minha conta'),
                 )
               ],
