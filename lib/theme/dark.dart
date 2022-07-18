@@ -38,6 +38,20 @@ ThemeData themeDark(context) => ThemeData(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: primary,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white.withOpacity(0.2),
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        iconColor: Colors.white.withOpacity(0.6),
+        floatingLabelStyle: TextStyle(color: Colors.white),
         fillColor: Colors.white.withOpacity(0.05),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,

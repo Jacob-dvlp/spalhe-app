@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spalhe/components/layout/button/button.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 
 class ForgotPage extends StatelessWidget {
   const ForgotPage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class ForgotPage extends StatelessWidget {
         title: Text('Recuperação de conta'),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body: ListView(
+      body: ListViewWraper(
         padding: EdgeInsets.all(20),
         children: <Widget>[
           SizedBox(height: MediaQuery.of(context).size.height / 5),

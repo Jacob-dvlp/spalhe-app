@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
@@ -74,7 +75,7 @@ class FeedPage extends StatelessWidget {
         onRefresh: () async {
           await _post.getPosts();
         },
-        child: ListView(
+        child: ListViewWraper(
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),

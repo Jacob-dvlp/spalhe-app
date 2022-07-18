@@ -2,6 +2,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -17,7 +18,7 @@ class UsernamePage extends StatelessWidget {
       body: SafeArea(
         child: Form(
           key: formKey,
-          child: ListView(
+          child: ListViewWraper(
             padding: EdgeInsets.all(20),
             children: [
               SizedBox(height: MediaQuery.of(context).size.height / 4),

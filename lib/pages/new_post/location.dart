@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:spalhe/components/form/input/input.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -15,7 +16,7 @@ class LocationPage extends StatelessWidget {
       ),
       body: GetBuilder<PostController>(
         builder: (_post) {
-          return ListView(
+          return ListViewWraper(
             padding: EdgeInsets.all(20),
             children: [
               Input(

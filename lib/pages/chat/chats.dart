@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/pages/chat/chat.dart';
 import 'package:spalhe/theme/colors.dart';
@@ -25,7 +26,7 @@ class ChatsPage extends StatelessWidget {
 
           return RefreshIndicator(
             onRefresh: () => chatController.getChats(),
-            child: ListView(
+            child: ListViewWraper(
               padding: EdgeInsets.all(10),
               children: List.generate(
                 chats?.length ?? 0,

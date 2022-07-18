@@ -7,7 +7,7 @@ ThemeData themeLight(context) => ThemeData(
       primaryColorLight: Colors.white,
       primaryColorDark: ColorLight.textColor,
       scaffoldBackgroundColor: ColorLight.background,
-      backgroundColor: ColorLight.white,
+      backgroundColor: ColorLight.background,
       colorScheme: ColorScheme.light(
         primary: primary,
         background: ColorLight.background,
@@ -16,7 +16,7 @@ ThemeData themeLight(context) => ThemeData(
         onError: Colors.redAccent,
         brightness: Brightness.light,
       ),
-      cardColor: Colors.white,
+      cardColor: ColorDark.inverse,
       appBarTheme: AppBarTheme(
         color: Colors.white,
         iconTheme: IconThemeData(
@@ -65,6 +65,12 @@ ThemeData themeLight(context) => ThemeData(
           borderSide: BorderSide(
             color: primary,
             width: 2,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: primary,
           ),
           borderRadius: BorderRadius.circular(12),
         ),

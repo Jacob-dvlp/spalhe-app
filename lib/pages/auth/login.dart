@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/button/button.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/pages/auth/singin.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: ListView(
+        child: ListViewWraper(
           padding: EdgeInsets.all(20),
           children: [
             Form(

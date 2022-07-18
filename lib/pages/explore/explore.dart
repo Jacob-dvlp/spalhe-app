@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/controllers/users.controller.dart';
+import 'package:spalhe/pages/search/search.dart';
 import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -18,23 +19,26 @@ class ExplorePage extends StatelessWidget {
       appBar: AppBar(
         title: Container(
           padding: EdgeInsets.all(2),
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              'pesquise pessoas',
-              style: TextStyle(
-                color: Colors.grey.shade400,
-                fontSize: 16,
+          child: GestureDetector(
+            onTap: () => Get.to(() => SearchPage()),
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                'pesquise pessoas',
+                style: TextStyle(
+                  color: Colors.grey.shade400,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
         ),
       ),
-      body: ListView(
+      body: ListViewWraper(
         padding: EdgeInsets.all(20),
         children: [
           Text(

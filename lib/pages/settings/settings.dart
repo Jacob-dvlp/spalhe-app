@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
 import 'package:spalhe/theme/colors.dart';
@@ -19,7 +20,7 @@ class SettingsPage extends StatelessWidget {
             appBar: AppBar(
               title: Text('minha conta'),
             ),
-            body: ListView(
+            body: ListViewWraper(
               padding: EdgeInsets.symmetric(vertical: 20),
               children: [
                 Padding(

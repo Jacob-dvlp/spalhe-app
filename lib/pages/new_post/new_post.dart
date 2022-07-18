@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/components/layout/loading/loading.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/new_post/location.dart';
@@ -74,7 +75,7 @@ class NewPostPage extends StatelessWidget {
               title: Text('nova publicação'),
             ),
             backgroundColor: Theme.of(context).backgroundColor,
-            body: ListView(
+            body: ListViewWraper(
               padding: EdgeInsets.all(0),
               children: [
                 Form(

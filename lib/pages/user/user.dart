@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
@@ -34,7 +35,7 @@ class UserPage extends StatelessWidget {
           appBar: AppBar(
             title: Text(user.name ?? ''),
           ),
-          body: ListView(
+          body: ListViewWraper(
             children: [
               Container(
                 padding: EdgeInsets.all(20),

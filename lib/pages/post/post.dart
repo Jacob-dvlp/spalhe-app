@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
@@ -37,7 +38,7 @@ class PostPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
+            child: ListViewWraper(
               children: [
                 PostItem(
                   post: post,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:validatorless/validatorless.dart';
@@ -20,7 +21,7 @@ class EditProfilePage extends StatelessWidget {
       body: GetBuilder<AuthController>(
         builder: (_auth) {
           final user = _auth.auth.user!;
-          return ListView(
+          return ListViewWraper(
             padding: EdgeInsets.all(20),
             children: [
               Form(

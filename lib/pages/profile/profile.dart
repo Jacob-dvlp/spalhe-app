@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 
 import 'package:spalhe/controllers/posts.controller.dart';
@@ -43,7 +44,7 @@ class ProfilePage extends StatelessWidget {
               )
             ],
           ),
-          body: ListView(
+          body: ListViewWraper(
             children: [
               Container(
                 padding: EdgeInsets.all(20),
