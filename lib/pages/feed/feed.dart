@@ -76,6 +76,7 @@ class FeedPage extends StatelessWidget {
           await _post.getPosts();
         },
         child: ListViewWraper(
+          padding: EdgeInsets.all(0),
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),

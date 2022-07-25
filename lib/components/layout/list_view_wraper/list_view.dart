@@ -4,7 +4,7 @@ class ListViewWraper extends StatelessWidget {
   const ListViewWraper({
     Key? key,
     required this.children,
-    this.padding = const EdgeInsets.all(16),
+    this.padding = const EdgeInsets.all(0),
   }) : super(key: key);
 
   final EdgeInsets padding;

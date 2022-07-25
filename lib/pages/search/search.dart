@@ -22,6 +22,7 @@ class SearchPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
+            leadingWidth: 20,
             title: Container(
               child: Input(
                 hint: 'pesquise',
@@ -39,7 +40,12 @@ class SearchPage extends StatelessWidget {
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   ),
-                  contentPadding: EdgeInsets.all(0),
+                  filled: true,
+                  fillColor: Get.theme.primaryColorDark.withOpacity(0.1),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 2,
+                  ),
                 ),
               ),
             ),

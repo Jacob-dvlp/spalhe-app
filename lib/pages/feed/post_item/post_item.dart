@@ -256,59 +256,16 @@ class PostItem extends StatelessWidget {
                             size: 24,
                           ),
                         ),
-                        SizedBox(width: 30),
-                        InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            FeatherIcons.send,
-                            size: 24,
-                          ),
-                        ),
+                        // SizedBox(width: 30),
+                        // InkWell(
+                        //   onTap: () {},
+                        //   child: Icon(
+                        //     FeatherIcons.send,
+                        //     size: 24,
+                        //   ),
+                        // ),
                       ],
                     ),
-                    SizedBox(
-                      height: 30,
-                      width: 80,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          ...List.generate(
-                            3,
-                            (index) => Positioned(
-                              right: 22 + (index * 14.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).cardColor,
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                padding: EdgeInsets.all(2),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: ImageNetwork(
-                                    src: '',
-                                    width: 20,
-                                    height: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.all(3),
-                              child: Text(
-                                '+10',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
                   ],
                 ),
                 SizedBox(height: 10),

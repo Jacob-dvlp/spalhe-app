@@ -5,7 +5,7 @@ import 'package:spalhe/theme/colors.dart';
 ThemeData themeLight(context) => ThemeData(
       primaryColor: primary,
       primaryColorLight: Colors.white,
-      primaryColorDark: ColorLight.textColor,
+      primaryColorDark: Colors.black,
       scaffoldBackgroundColor: ColorLight.background,
       backgroundColor: ColorLight.background,
       colorScheme: ColorScheme.light(
