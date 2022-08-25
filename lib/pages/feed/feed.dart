@@ -99,15 +99,16 @@ class FeedPage extends StatelessWidget {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Row(
                               children: [
                                 SizedBox(width: 8),
                                 SkeletonLine(
                                   style: SkeletonLineStyle(
-                                      height: 45,
-                                      width: 45,
-                                      borderRadius: BorderRadius.circular(60)),
+                                    height: 45,
+                                    width: 45,
+                                    borderRadius: BorderRadius.circular(60),
+                                  ),
                                 ),
                                 SizedBox(width: 14),
                                 Column(
@@ -115,18 +116,18 @@ class FeedPage extends StatelessWidget {
                                   children: [
                                     SkeletonLine(
                                       style: SkeletonLineStyle(
-                                          height: 8,
-                                          width: 200,
-                                          borderRadius:
-                                              BorderRadius.circular(60)),
+                                        height: 8,
+                                        width: 200,
+                                        borderRadius: BorderRadius.circular(60),
+                                      ),
                                     ),
                                     SizedBox(height: 6),
                                     SkeletonLine(
                                       style: SkeletonLineStyle(
-                                          height: 6,
-                                          width: 100,
-                                          borderRadius:
-                                              BorderRadius.circular(60)),
+                                        height: 6,
+                                        width: 100,
+                                        borderRadius: BorderRadius.circular(60),
+                                      ),
                                     ),
                                   ],
                                 )
@@ -135,9 +136,10 @@ class FeedPage extends StatelessWidget {
                           ),
                           SkeletonLine(
                             style: SkeletonLineStyle(
-                                height: 400,
-                                width: MediaQuery.of(context).size.width,
-                                borderRadius: BorderRadius.circular(0)),
+                              height: 400,
+                              width: MediaQuery.of(context).size.width,
+                              borderRadius: BorderRadius.circular(0),
+                            ),
                           ),
                         ],
                       ),
@@ -146,26 +148,28 @@ class FeedPage extends StatelessWidget {
                 }
 
                 if (totalPosts == 0) {
-                  return Column(
-                    children: [
-                      SizedBox(height: 50),
-                      SvgPicture.asset(
-                        'assets/svg/feed.svg',
-                        width: 200,
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        'Nenhuma publicação encontrada',
-                        style: TextStyle(
-                          fontSize: 16,
+                  return Center(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 50),
+                        SvgPicture.asset(
+                          'assets/svg/feed.svg',
+                          width: 200,
                         ),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () => OnRoute.push(UsersPage()),
-                        child: Text('encontrar amigos'),
-                      )
-                    ],
+                        SizedBox(height: 20),
+                        Text(
+                          'Nenhuma publicação encontrada',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () => OnRoute.push(UsersPage()),
+                          child: Text('encontrar amigos'),
+                        )
+                      ],
+                    ),
                   );
                 }
 

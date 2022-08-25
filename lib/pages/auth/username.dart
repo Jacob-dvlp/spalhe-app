@@ -57,6 +57,7 @@ class UsernamePage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               SizedBox(
+                width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(elevation: 0),

@@ -14,9 +14,12 @@ class ListViewWraper extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
       ),
     );
   }

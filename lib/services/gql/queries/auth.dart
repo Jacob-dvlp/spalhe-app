@@ -1,11 +1,9 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
-final DocumentNode LOGIN_MUTATION = gql("""
- mutation(\$data: ILoginDTO!) {
-	login(
-		data: \$data
-	){
+final DocumentNode LOGIN_MUTATION = gql(r"""
+ mutation ($data: ILoginDTO!) {
+	login(data: $data) {
 		token
 		user {
 			id
@@ -15,17 +13,18 @@ final DocumentNode LOGIN_MUTATION = gql("""
 			username
 			biography
 			active
-      privated
+			privated
 			verified
 			created_at
 			profile_details {
 				mentions
 				medias
 				posts
-        followed
+				followed
 				followers
 			}
 		}
 	}
 }
+
 """);

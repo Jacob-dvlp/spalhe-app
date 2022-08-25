@@ -78,8 +78,13 @@ class ProfileDetails {
   int? followed;
   int? followers;
 
-  ProfileDetails(
-      {this.mentions, this.medias, this.posts, this.followed, this.followers});
+  ProfileDetails({
+    this.mentions,
+    this.medias,
+    this.posts,
+    this.followed,
+    this.followers,
+  });
 
   ProfileDetails.fromJson(Map<String, dynamic> json) {
     mentions = json['mentions'];

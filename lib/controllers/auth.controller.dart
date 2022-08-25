@@ -43,13 +43,19 @@ class AuthController extends GetxController {
       setLoading(true);
       final res = await useMutation(
         LOGIN_MUTATION,
-        variables: {"data": loginData},
+        variables: {
+          "data": {
+            "email": loginData['email'],
+            "password": loginData['password'],
+          }
+        },
       );
       box.write('auth', res.data?['login']);
       auth = AuthModel.fromJson(res.data?['login']);
       setLoading(false);
       OnRoute.pushOff(LoaderPage());
     } catch (e) {
+      print(e);
       Get.snackbar(
         'Ops..',
         'Seus dados parecem incorretos.',
@@ -115,10 +121,9 @@ class AuthController extends GetxController {
   void register() async {
     try {
       setLoading(true);
-      await useMutation(
-        CREATE_USER_MUTATION,
-        variables: {"data": registerData},
-      );
+      await useMutation(CREATE_USER_MUTATION, variables: {
+        "data": registerData,
+      });
       loginData = registerData;
       await login();
       setLoading(false);
