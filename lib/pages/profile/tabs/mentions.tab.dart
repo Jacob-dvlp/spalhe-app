@@ -11,6 +11,8 @@ class PostMentionsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: GetBuilder<PostController>(
+        global: true,
+        autoRemove: false,
         init: PostController(),
         builder: (_posts) {
           final posts = _posts.mentions;

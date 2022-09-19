@@ -85,7 +85,7 @@ class UserPage extends StatelessWidget {
                               ),
                           ],
                         ),
-                        if (user.following == 'following')
+                        if (user.followed == 'following')
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [

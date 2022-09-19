@@ -19,6 +19,8 @@ class EditProfilePage extends StatelessWidget {
         title: Text('editar perfil'),
       ),
       body: GetBuilder<AuthController>(
+        global: true,
+        autoRemove: false,
         builder: (_auth) {
           final user = _auth.auth.user!;
           return ListViewWraper(

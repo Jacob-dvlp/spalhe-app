@@ -24,6 +24,8 @@ class PostItem extends StatelessWidget {
     final postsController = Get.put(PostController());
 
     return GetBuilder<PostItemController>(
+      global: true,
+      autoRemove: false,
       init: new PostItemController(post: post!),
       tag: post!.id.toString(),
       assignId: true,

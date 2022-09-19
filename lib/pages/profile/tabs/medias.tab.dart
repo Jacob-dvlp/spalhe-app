@@ -11,6 +11,8 @@ class MediasTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PostController>(
+      global: true,
+      autoRemove: false,
       init: PostController(),
       builder: (postController) => GridView(
         shrinkWrap: true,

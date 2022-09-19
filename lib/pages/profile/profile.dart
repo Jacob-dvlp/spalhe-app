@@ -31,6 +31,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
+      global: true,
+      autoRemove: false,
       builder: (authController) {
         final user = authController.auth.user!;
 
@@ -122,7 +124,7 @@ class ProfilePage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${user.profileDetails?.followers ?? 0}',
+                          '${user.profileDetails?.followed ?? 0}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -138,7 +140,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          '${user.profileDetails?.followed ?? 0}',
+                          '${user.profileDetails?.followers ?? 0}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -159,6 +161,8 @@ class ProfilePage extends StatelessWidget {
               ),
               SizedBox(height: 1),
               GetBuilder<ProfileController>(
+                global: true,
+                autoRemove: false,
                 init: ProfileController(),
                 builder: (profileController) {
                   return Container(
@@ -198,6 +202,8 @@ class ProfilePage extends StatelessWidget {
               ),
               SizedBox(height: 8),
               GetBuilder<ProfileController>(
+                global: true,
+                autoRemove: false,
                 init: ProfileController(),
                 builder: (profileController) {
                   return IndexedStack(

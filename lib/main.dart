@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      defaultGlobalState: true,
       navigatorKey: customRoute,
       debugShowCheckedModeBanner: false,
       title: 'Spalhe',
