@@ -7,15 +7,6 @@ ThemeData themeLight(context) => ThemeData(
       primaryColorLight: Colors.white,
       primaryColorDark: Colors.black,
       scaffoldBackgroundColor: ColorLight.background,
-      backgroundColor: ColorLight.background,
-      colorScheme: ColorScheme.light(
-        primary: primary,
-        background: ColorLight.background,
-        error: Colors.redAccent,
-        onBackground: ColorLight.background,
-        onError: Colors.redAccent,
-        brightness: Brightness.light,
-      ),
       cardColor: ColorDark.inverse,
       appBarTheme: AppBarTheme(
         color: Colors.white,
@@ -38,19 +29,19 @@ ThemeData themeLight(context) => ThemeData(
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          primary: primary,
+          foregroundColor: primary,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          onPrimary: Colors.black,
-          primary: primary,
+          foregroundColor: Colors.black,
+          backgroundColor: primary,
           elevation: 1,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: primary,
+          foregroundColor: primary,
         ),
       ),
       hintColor: Colors.grey.withOpacity(0.4),
@@ -91,4 +82,12 @@ ThemeData themeLight(context) => ThemeData(
       iconTheme: IconThemeData(
         color: Colors.black,
       ),
+      colorScheme: ColorScheme.light(
+        primary: primary,
+        background: ColorLight.background,
+        error: Colors.redAccent,
+        onBackground: ColorLight.background,
+        onError: Colors.redAccent,
+        brightness: Brightness.light,
+      ).copyWith(background: ColorLight.background),
     );

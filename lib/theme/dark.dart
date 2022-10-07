@@ -17,22 +17,21 @@ ThemeData themeDark(context) => ThemeData(
       cardColor: Color.fromARGB(255, 19, 19, 19),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          primary: primary,
+          foregroundColor: primary,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          onPrimary: Colors.black,
-          primary: primary,
+          foregroundColor: Colors.black,
+          backgroundColor: primary,
           elevation: 1,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: primary,
+          foregroundColor: primary,
         ),
       ),
-      backgroundColor: Colors.black,
       hintColor: Colors.white.withOpacity(0.4),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
