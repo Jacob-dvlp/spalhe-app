@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 
 class PostMentionsTab extends StatelessWidget {
-  const PostMentionsTab({Key? key}) : super(key: key);
+  final PostController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: GetBuilder<PostController>(
-        global: true,
-        autoRemove: false,
-        init: PostController(),
-        builder: (_posts) {
-          final posts = _posts.mentions;
+      child: Builder(
+        builder: (context) {
+          final posts = controller.mentions;
           final totalPosts = posts?.data?.length ?? 0;
 
           if (totalPosts == 0) {

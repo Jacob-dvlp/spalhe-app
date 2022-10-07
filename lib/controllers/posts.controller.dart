@@ -91,6 +91,8 @@ class PostController extends GetxController {
 
   getUserPosts(int id) async {
     try {
+      userPost = null;
+      update();
       final res = await useMutation(GET_USER_POSTS_QUERY, variables: {
         'user_id': id,
         'filters': {},

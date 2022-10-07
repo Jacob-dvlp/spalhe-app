@@ -67,7 +67,7 @@ class ProfilePage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).colorScheme.background,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,9 +98,9 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.grey.shade300,
+                            foregroundColor: Colors.black87,
+                            backgroundColor: Colors.grey.shade300,
                             elevation: 0,
-                            onPrimary: Colors.black87,
                           ),
                           onPressed: () => OnRoute.push(EditProfilePage()),
                           child: Text('editar perfil'),
@@ -167,7 +167,7 @@ class ProfilePage extends StatelessWidget {
                 builder: (profileController) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).colorScheme.background,
                     ),
                     child: Row(
                       children: [

@@ -51,5 +51,7 @@
 	<string>Precisamos do acesso à galeria para poder alterar a imagem do perfil</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

@@ -74,7 +74,7 @@ class NewPostPage extends StatelessWidget {
             appBar: AppBar(
               title: Text('nova publicação'),
             ),
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             body: ListViewWraper(
               padding: EdgeInsets.all(0),
               children: [

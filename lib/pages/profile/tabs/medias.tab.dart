@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class MediasTab extends StatelessWidget {
-  const MediasTab({Key? key}) : super(key: key);
+  final PostController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PostController>(
-      global: true,
-      autoRemove: false,
-      init: PostController(),
-      builder: (postController) => GridView(
+    return Builder(
+      builder: (context) => GridView(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -24,9 +21,9 @@ class MediasTab extends StatelessWidget {
           mainAxisSpacing: 0.5,
         ),
         children: List.generate(
-          postController.postMedias?.data?.length ?? 0,
+          controller.postMedias?.data?.length ?? 0,
           (index) {
-            final media = postController.postMedias?.data?[index];
+            final media = controller.postMedias?.data?[index];
 
             return GestureDetector(
               onTap: () => OnRoute.push(

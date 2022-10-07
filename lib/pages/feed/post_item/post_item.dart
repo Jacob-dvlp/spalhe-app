@@ -102,8 +102,9 @@ class PostItem extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   showModalBottomSheet(
-                                    backgroundColor:
-                                        Theme.of(context).backgroundColor,
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .background,
                                     context: context,
                                     builder: (BuildContext bc) {
                                       return SafeArea(
@@ -111,7 +112,8 @@ class PostItem extends StatelessWidget {
                                           children: <Widget>[
                                             ListTile(
                                               tileColor: Theme.of(context)
-                                                  .backgroundColor,
+                                                  .colorScheme
+                                                  .background,
                                               leading: Icon(
                                                 Icons.delete_outline_outlined,
                                               ),
@@ -121,7 +123,8 @@ class PostItem extends StatelessWidget {
                                             ),
                                             ListTile(
                                               tileColor: Theme.of(context)
-                                                  .backgroundColor,
+                                                  .colorScheme
+                                                  .background,
                                               leading: Icon(
                                                 Icons.bookmark_border_rounded,
                                               ),
