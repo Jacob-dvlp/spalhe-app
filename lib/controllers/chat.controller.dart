@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/models/chat.model.dart';
 import 'package:spalhe/models/chat_message.model.dart';
-import 'package:spalhe/services/gql/hooks.dart';
-import 'package:spalhe/services/gql/queries/chat.dart';
 
 class ChatController extends GetxController {
   ChatModel chats = ChatModel();
@@ -23,70 +21,19 @@ class ChatController extends GetxController {
     super.onClose();
   }
 
-  viewMessages() async {
-    await useMutation(VIEW_MESSAGE_MUTATION, variables: {
-      'chat_id': chatId,
-    });
-  }
+  viewMessages() async {}
 
-  subscritionMessageChat() async {
-    final sub = await useSubscription(CHAT_MESSAGE_SUBSCRIPTION, variables: {
-      'chat_id': chatId,
-    });
-    sub.listen((message) {
-      if (message.data?['chatAdded']?['messages']?[0] != null) {
-        chat_messages?.getChatMessages?.add(
-          GetChatMessages.fromJson(message.data?['chatAdded']?['messages']?[0]),
-        );
-        update();
-      }
-    });
-  }
+  subscritionMessageChat() async {}
 
-  subscribeToView() async {
-    final sub = await useSubscription(
-      ON_VIEW_MESSAGE_SUBSCRIPTION,
-      variables: {
-        'chat_id': chatId,
-      },
-    );
-    sub.listen((message) {
-      chat_messages?.getChatMessages?.map((message) {
-        message.viewed = true;
-      });
-      update();
-    });
-  }
+  subscribeToView() async {}
 
-  sendMessage(int userId, String message) async {
-    try {
-      await useMutation(SEND_MESSAGE_MUTATION, variables: {
-        "user_id": userId,
-        "message": message,
-      });
-    } catch (e) {}
-  }
+  sendMessage(int userId, String message) async {}
 
   getChats() async {
-    try {
-      final res = await useQuery(GET_CHATS_QUERY);
-      chats = ChatModel.fromJson(res.data!);
-      update();
-    } catch (e) {}
-  }
-
-  getChatMessages(int id) async {
-    try {
-      chatId = id;
-      final res = await useQuery(GET_CHAT_MESSAGE_QUERY, variables: {
-        "chat_id": chatId,
-      });
-      chat_messages = ChatMessageModel.fromJson(res.data ?? {});
-      subscritionMessageChat();
-      viewMessages();
-      update();
-    } catch (e) {
+    try {} catch (e) {
       print(e);
     }
   }
+
+  getChatMessages(int id) async {}
 }

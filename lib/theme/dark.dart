@@ -32,6 +32,10 @@ ThemeData themeDark(context) => ThemeData(
           foregroundColor: primary,
         ),
       ),
+      colorScheme: ColorScheme.dark(
+        background: Colors.black,
+        primary: primary,
+      ),
       hintColor: Colors.white.withOpacity(0.4),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
