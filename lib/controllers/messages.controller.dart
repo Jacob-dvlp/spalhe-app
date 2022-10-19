@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/models/chat_message.model.dart';
 import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/chat.dart';
@@ -8,6 +9,7 @@ class MessagesController extends GetxController {
   ChatMessageModel? chat_messages;
   List<Messages> get messages => (chat_messages?.getChatMessages?.data ?? []);
   final TextEditingController textController = TextEditingController();
+  final _chatController = Get.put(ChatController());
 
   String? chatId;
 
@@ -49,7 +51,17 @@ class MessagesController extends GetxController {
         'chat_id': chatId,
         'message': message,
       });
-      // await getChatMessages(chatId);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  setViewedMessages() async {
+    try {
+      await useMutation(SET_VIEWED_MESSAGES, variables: {
+        'chat_id': chatId,
+      });
+      _chatController.getChats();
     } catch (e) {
       print(e);
     }

@@ -1,5 +1,13 @@
 import 'package:graphql/client.dart';
 
+final SET_VIEWED_MESSAGES = gql(r"""
+mutation setViewedMessages($chat_id: String!) {
+  setViewedMessages(chat_id: $chat_id){
+    id
+  }
+}
+""");
+
 final CHAT_ADD_SUBSCRIPTION = gql(r'''
  subscription chatAdded($user_id: Float!) {
   chatAdded(user_id: $user_id) {
@@ -93,7 +101,6 @@ final GET_CHATS_QUERY = gql("""
           url
         }
       }
-      viewed
       count_unread_messages
     }
   }

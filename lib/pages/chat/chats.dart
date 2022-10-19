@@ -44,6 +44,7 @@ class ChatsPage extends StatelessWidget {
                 for (GetChats chat in chats)
                   ListTile(
                     tileColor: Colors.transparent,
+                    textColor: Get.theme.textTheme.bodyLarge?.color,
                     leading: CircleAvatar(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),

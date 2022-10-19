@@ -15,6 +15,7 @@ class ChatPage extends StatelessWidget {
   ChatPage({required this.chat}) {
     _messageController.setChatId(chat.id);
     _messageController.getChatMessages(chat.id!);
+    _messageController.setViewedMessages();
   }
 
   @override
@@ -69,7 +70,7 @@ class ChatPage extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: 10,
-                              vertical: 4,
+                              vertical: 5,
                             ),
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -83,15 +84,16 @@ class ChatPage extends StatelessWidget {
                                         Color.fromARGB(255, 233, 231, 231)
                                       ],
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(15),
                             ),
                             child: Text(
                               message.message ?? '',
                               style: TextStyle(
-                                color: byMe ? Colors.black : null,
+                                color: Colors.black,
                               ),
                             ),
                           ),
+                          SizedBox(height: 2),
                           Row(
                             mainAxisAlignment: byMe
                                 ? MainAxisAlignment.end
