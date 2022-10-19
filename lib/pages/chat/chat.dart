@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
-import 'package:spalhe/controllers/chat.controller.dart';
-import 'package:spalhe/models/user.model.dart';
+import 'package:spalhe/controllers/messages.controller.dart';
+import 'package:spalhe/models/chat.model.dart';
 import 'package:spalhe/theme/colors.dart';
+import 'package:spalhe/utils/date.dart';
 
 class ChatPage extends StatelessWidget {
-  final _chatController = Get.put(ChatController());
+  final GetChats chat;
   final _authController = Get.put(AuthController());
-  final UserModel user;
-  final int chatId;
+  final _messageController = Get.put(MessagesController());
 
-  ChatPage({required this.user, required this.chatId}) {
-    _chatController.getChatMessages(chatId);
+  ChatPage({required this.chat}) {
+    _messageController.setChatId(chat.id);
+    _messageController.getChatMessages(chat.id!);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ChatController>(
-      init: ChatController(),
+    final user = chat.user;
+
+    return GetBuilder<MessagesController>(
+      init: _messageController,
+      autoRemove: true,
+      global: false,
       builder: (chatController) {
         final _messages = chatController.messages;
         final authUser = _authController.auth.user;
@@ -29,13 +34,18 @@ class ChatPage extends StatelessWidget {
             leadingWidth: 26,
             title: Row(
               children: [
-                Avatar(
-                  user: user,
-                  width: 32,
-                  heigth: 32,
+                CircleAvatar(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: ImageNetwork(
+                      src: chat.isGroup == true
+                          ? chat.avatar
+                          : chat.user?.avatar,
+                    ),
+                  ),
                 ),
                 SizedBox(width: 6),
-                Text(user.name ?? ''),
+                Text(user?.name ?? ''),
               ],
             ),
           ),
@@ -51,63 +61,52 @@ class ChatPage extends StatelessWidget {
                       final message = _messages[index];
                       final byMe = authUser?.id == message.user?.id;
 
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        alignment:
-                            byMe ? Alignment.topRight : Alignment.topLeft,
-                        child: Column(
-                          crossAxisAlignment: byMe
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
+                      return Column(
+                        crossAxisAlignment: byMe
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: !byMe
+                                    ? [
+                                        primary,
+                                        Color.fromARGB(255, 255, 214, 68)
+                                      ]
+                                    : [
+                                        Color.fromARGB(255, 201, 201, 201),
+                                        Color.fromARGB(255, 233, 231, 231)
+                                      ],
                               ),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: !byMe
-                                      ? [
-                                          primary,
-                                          Color.fromARGB(255, 255, 214, 68)
-                                        ]
-                                      : [
-                                          Color.fromARGB(255, 201, 201, 201),
-                                          Color.fromARGB(255, 233, 231, 231)
-                                        ],
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                message.text ?? '',
-                                style: TextStyle(
-                                  color: byMe ? Colors.black : null,
-                                ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              message.message ?? '',
+                              style: TextStyle(
+                                color: byMe ? Colors.black : null,
                               ),
                             ),
-                            Opacity(
-                              opacity: 0.6,
-                              child: Padding(
-                                padding: EdgeInsets.only(bottom: 5),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      '10:20h',
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                    if (message.viewed == true)
-                                      Text(
-                                        ' - visualizada',
-                                        style: TextStyle(fontSize: 10),
-                                      )
-                                  ],
+                          ),
+                          Row(
+                            mainAxisAlignment: byMe
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  fromNow(message.createdAt),
+                                  style: TextStyle(fontSize: 10),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                            ],
+                          )
+                        ],
                       );
                     }),
                   ),
@@ -143,7 +142,7 @@ class ChatPage extends StatelessWidget {
                         icon: Icon(Icons.send_rounded),
                         onPressed: () {
                           chatController.sendMessage(
-                            user.id!,
+                            chat.id!,
                             chatController.textController.text,
                           );
                           chatController.textController.text = '';

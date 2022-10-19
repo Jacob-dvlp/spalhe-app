@@ -1,62 +1,31 @@
 import 'package:graphql/client.dart';
 
-final VIEW_MESSAGE_MUTATION = gql(r"""
-  mutation {
-    setMessageViewed(chat_id: 1){
-      id
-      messages {
-        text
-        id
-      }
-      user {
-        id
-        name
-      }
-    }
-  }
-""");
-
-final ON_VIEW_MESSAGE_SUBSCRIPTION = gql(r"""
-  subscription ($chat_id: Float!) {
-    refreshMessageView(chat_id: $chat_id){
-      id
-      messages {
-        id
-        text
-        viewed
-      }
-    }
-  }
-""");
-
-final CHAT_MESSAGE_SUBSCRIPTION = gql(r"""
-  subscription ($chat_id: Float!) {
-    chatAdded(chat_id: $chat_id) {
-      id
-      messages {
-        text
-        user_id
-        viewed
-        user {
-          id
-          name
-          username
-          avatar
-          verified
-        }
-        medias
-        chat_id
-        created_at
-        id
-      }
-    }
-  }
-""");
+final MESSAGE_ADD_SUBSCRIPTION = gql(r'''
+ subscription messageAdded($chat_id: String!) {
+  messageAdded(chat_id: $chat_id){
+    id
+			message
+			created_at
+			user_id
+			files {
+				id
+				type
+				url
+			}
+			user {
+				id
+				name
+				status
+				username
+			}
+  } 
+}
+''');
 
 final SEND_MESSAGE_MUTATION = gql(r"""
-  mutation ($user_id: Float!, $message: String!) {
-    createChatMessage(user_id: $user_id, message: {
-      text: $message,
+  mutation createChatMessage($chat_id: String!, $message: String!) {
+    createChatMessage(data: {
+      chat_id: $chat_id, message: $message
     }){
       id
     }
@@ -64,42 +33,61 @@ final SEND_MESSAGE_MUTATION = gql(r"""
 """);
 
 final GET_CHAT_MESSAGE_QUERY = gql(r"""
-  query ($chat_id: Float!) {
-    getChatMessages(chat_id: $chat_id){
-      text
-      created_at
-      chat_id
-      viewed
-      user {
+ query getChatMessages($chat_id: String!){
+    getChatMessages(
+      chat_id: $chat_id,
+      filters: {}
+    ) {
+      meta {
+        next_page
+        previus_page
+      }
+      data {
         id
-        name
-        username
-        avatar
-        verified
+        message
+        created_at
+        user_id
+        files {
+          id
+          type
+          url
+        }
+        user {
+          id
+          name
+          status
+          username
+        }
       }
     }
   }
 """);
 
 final GET_CHATS_QUERY = gql("""
-  query {
-    getChats{
+  query getChats {
+    getChats {
       id
-      unread
-      messages {
-        text
-        id
-        medias
-        user_id
-        created_at
-        viewed
-      }
+      name
+      avatar
+      is_group
+      exit_users_ids
       user {
         id
         name
+        status
         avatar
-        verified
       }
+      last_message {
+        message
+        created_at
+        files {
+          id
+          url
+        }
+      }
+      viewed
+      count_unread_messages
     }
   }
+
 """);
