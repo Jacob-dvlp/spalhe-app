@@ -6,7 +6,7 @@ import 'package:spalhe/services/gql/queries/chat.dart';
 
 class MessagesController extends GetxController {
   ChatMessageModel? chat_messages;
-  List<Messages> get messages => chat_messages?.getChatMessages?.data ?? [];
+  List<Messages> get messages => (chat_messages?.getChatMessages?.data ?? []);
   final TextEditingController textController = TextEditingController();
 
   String? chatId;

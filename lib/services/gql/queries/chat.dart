@@ -1,5 +1,13 @@
 import 'package:graphql/client.dart';
 
+final CHAT_ADD_SUBSCRIPTION = gql(r'''
+ subscription chatAdded($user_id: Float!) {
+  chatAdded(user_id: $user_id) {
+    id
+  }
+}
+''');
+
 final MESSAGE_ADD_SUBSCRIPTION = gql(r'''
  subscription messageAdded($chat_id: String!) {
   messageAdded(chat_id: $chat_id){

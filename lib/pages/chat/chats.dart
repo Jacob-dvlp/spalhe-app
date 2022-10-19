@@ -15,6 +15,7 @@ class ChatsPage extends StatelessWidget {
     return GetBuilder<ChatController>(
       init: ChatController(),
       builder: (chatController) {
+        final chats = chatController.chats.getChats ?? [];
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             backgroundColor: primary,
@@ -40,7 +41,7 @@ class ChatsPage extends StatelessWidget {
             onRefresh: () => ChatController().getChats(),
             child: ListView(
               children: [
-                for (GetChats chat in chatController.chats.getChats ?? [])
+                for (GetChats chat in chats)
                   ListTile(
                     tileColor: Colors.transparent,
                     leading: CircleAvatar(
