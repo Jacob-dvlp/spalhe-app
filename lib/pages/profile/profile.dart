@@ -67,7 +67,7 @@ class ProfilePage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Get.theme.primaryColorLight,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +167,7 @@ class ProfilePage extends StatelessWidget {
                 builder: (profileController) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Get.theme.primaryColorLight,
                     ),
                     child: Row(
                       children: [

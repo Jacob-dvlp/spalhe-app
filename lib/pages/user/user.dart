@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
@@ -23,6 +24,8 @@ class UserPage extends StatelessWidget {
     _posts.getPostMentions(userId);
     _profileController.reset();
   }
+
+  sendMessage() {}
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class UserPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Get.theme.primaryColorLight,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,39 +88,6 @@ class UserPage extends StatelessWidget {
                               ),
                           ],
                         ),
-                        if (user.followed == 'following')
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.black87,
-                                  backgroundColor: Colors.grey.shade300,
-                                  elevation: 0,
-                                ),
-                                onPressed: () =>
-                                    profileController.follow(user.id!),
-                                child: Text('deixar de seguir'),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  elevation: 0,
-                                  backgroundColor: primary,
-                                ),
-                                onPressed: () =>
-                                    profileController.follow(user.id!),
-                                child: Text('enviar mensagem'),
-                              ),
-                            ],
-                          )
-                        else
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                            ),
-                            onPressed: () => profileController.follow(user.id!),
-                            child: Text('seguir'),
-                          ),
                       ],
                     ),
                     if (user.biography != '' && user.biography != null)
@@ -168,7 +138,82 @@ class UserPage extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (user.followed == 'following')
+                          Flexible(
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.black87,
+                                        backgroundColor: Colors.grey.shade300,
+                                        elevation: 0,
+                                      ),
+                                      onPressed: () =>
+                                          profileController.follow(user.id!),
+                                      child: Text('deixar de seguir'),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Flexible(
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor: primary,
+                                      ),
+                                      onPressed: sendMessage,
+                                      child: Text('mensagem'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (user.followed != 'following')
+                          Flexible(
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                      ),
+                                      onPressed: () =>
+                                          profileController.follow(user.id!),
+                                      child: Text('Seguir ${user.name}'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        SizedBox(width: 10),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor:
+                                Get.theme.primaryColorDark.withOpacity(0.1),
+                          ),
+                          onPressed: () {},
+                          child: Icon(
+                            FeatherIcons.userPlus,
+                            size: 20,
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -178,7 +223,7 @@ class UserPage extends StatelessWidget {
                 builder: (profileController) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Get.theme.primaryColorLight,
                     ),
                     child: Row(
                       children: [

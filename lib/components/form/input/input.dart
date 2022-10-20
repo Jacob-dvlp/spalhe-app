@@ -53,6 +53,7 @@ class Input extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          autofocus: true,
           controller: controller,
           inputFormatters: [maskFormatter],
           onSaved: onSaved,

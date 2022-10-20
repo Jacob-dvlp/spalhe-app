@@ -4,7 +4,6 @@ import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/models/chat.model.dart';
 import 'package:spalhe/pages/chat/chat.dart';
-import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
 
 class ChatsPage extends StatelessWidget {
@@ -17,25 +16,8 @@ class ChatsPage extends StatelessWidget {
       builder: (chatController) {
         final chats = chatController.chats.getChats ?? [];
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: primary,
-            onPressed: () {
-              Get.toNamed('/chat');
-            },
-            child: Icon(Icons.message),
-          ),
           appBar: AppBar(
             title: Text('chats'),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.search),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.more_vert_rounded),
-              ),
-            ],
           ),
           body: RefreshIndicator(
             onRefresh: () => ChatController().getChats(),

@@ -9,7 +9,7 @@ import 'package:spalhe/utils/debouncer.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,27 +24,30 @@ class SearchPage extends StatelessWidget {
           appBar: AppBar(
             leadingWidth: 20,
             title: Container(
-              child: Input(
-                hint: 'pesquise',
-                onChanged: (search) {
-                  _debouncer.run(() {
-                    searchController.getUsers(search);
-                  });
-                },
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  hintText: 'pesquise pessoas',
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  filled: true,
-                  fillColor: Get.theme.primaryColorDark.withOpacity(0.1),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 2,
+              height: 48,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Input(
+                  onChanged: (search) {
+                    _debouncer.run(() {
+                      searchController.getUsers(search);
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    hintText: 'busque pelo nome ou nome de usuário',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    filled: true,
+                    fillColor: Get.theme.scaffoldBackgroundColor,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 1,
+                    ),
                   ),
                 ),
               ),
@@ -53,12 +56,23 @@ class SearchPage extends StatelessWidget {
           body: ListViewWraper(
             children: List.generate(
               users.length,
-              (index) => GestureDetector(
+              (index) => InkWell(
                 onTap: () => OnRoute.push(UserPage(
                   userId: users[index].id!,
                 )),
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 14),
+                  decoration: BoxDecoration(
+                    color: Get.theme.primaryColorLight,
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Get.theme.dividerColor.withOpacity(0.05),
+                      ),
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
                   child: Row(
                     children: [
                       Avatar(

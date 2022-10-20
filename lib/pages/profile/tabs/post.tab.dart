@@ -5,13 +5,12 @@ import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/pages/feed/post_item/post_item.dart';
 
 class PostTab extends StatelessWidget {
-  final PostController controller = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Builder(
-        builder: (context) {
+      child: GetBuilder<PostController>(
+        init: PostController(),
+        builder: (controller) {
           final posts = controller.userPost?.data;
           final totalPosts = posts?.length ?? 0;
 

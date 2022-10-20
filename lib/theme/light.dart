@@ -36,7 +36,7 @@ ThemeData themeLight(context) => ThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: primary,
-          elevation: 1,
+          elevation: 0,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(

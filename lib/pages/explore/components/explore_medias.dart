@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/explore.controller.dart';
+import 'package:spalhe/pages/feed/post_item/post_item.dart';
 
 class ExploreMidias extends StatelessWidget {
   const ExploreMidias({Key? key}) : super(key: key);
@@ -17,31 +16,28 @@ class ExploreMidias extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Novidades',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(height: 14),
-            Container(
-              child: StaggeredGrid.count(
-                crossAxisCount: 4,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
-                children: List.generate(
-                  medias.length,
-                  (index) => StaggeredGridTile.count(
-                    crossAxisCellCount: (index / 2) == 0 ? 4 : 2,
-                    mainAxisCellCount: (index / 2) == 0 ? 2 : 2,
-                    child: Container(
-                      child: ImageNetwork(src: medias[index].medias?[0].url),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '+ fotos e vídeos',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
+                  TextButton(onPressed: () {}, child: Text('ver mais'))
+                ],
+              ),
+            ),
+            Divider(),
+            Column(
+              children: List.generate(
+                medias.length,
+                (index) => new PostItem(post: medias[index]),
               ),
             ),
           ],

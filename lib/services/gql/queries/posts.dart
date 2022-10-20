@@ -1,6 +1,20 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
+final GET_HASHTAGS = gql(r'''
+  query {
+    getHastags {
+      id
+      hastag
+      _count {
+        hashtags_on_post
+      }
+      created_at
+      updated_at
+    }
+  }
+''');
+
 final DocumentNode DELETE_POST_MUTATION = gql("""
   mutation(\$post_id: Float!) {
     deletePost(id: \$post_id){
