@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: customRoute,
       debugShowCheckedModeBanner: false,
       title: 'Spalhe',
+      themeMode: ThemeMode.system,
       theme: themeLight(context),
       darkTheme: themeDark(context),
       home: LoaderPage(),

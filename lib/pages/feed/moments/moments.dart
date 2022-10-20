@@ -28,7 +28,7 @@ class MomentsComponent extends StatelessWidget {
               Container(
                 width: 60,
                 height: 60,
-                margin: EdgeInsets.only(right: 6),
+                margin: EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
                   border: Border.all(color: primary, width: 2),
                   borderRadius: BorderRadius.circular(100),
@@ -58,7 +58,7 @@ class MomentsComponent extends StatelessWidget {
                         child: Icon(
                           Icons.add,
                           size: 20,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     )
@@ -73,7 +73,7 @@ class MomentsComponent extends StatelessWidget {
                   child: Container(
                     width: 60,
                     height: 60,
-                    margin: EdgeInsets.only(right: 6),
+                    margin: EdgeInsets.only(right: 10),
                     decoration: BoxDecoration(
                       border: Border.all(color: primary, width: 2),
                       borderRadius: BorderRadius.circular(100),

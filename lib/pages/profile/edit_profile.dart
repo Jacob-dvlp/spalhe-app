@@ -60,6 +60,7 @@ class EditProfilePage extends StatelessWidget {
                               ),
                               child: Icon(
                                 Icons.add_a_photo_outlined,
+                                color: Colors.black,
                               ),
                             ),
                           ),

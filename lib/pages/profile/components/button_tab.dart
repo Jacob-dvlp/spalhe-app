@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spalhe/theme/colors.dart';
+import 'package:spalhe/utils/numbers.dart';
 
 class ButtonTabProfile extends StatelessWidget {
   const ButtonTabProfile({
@@ -43,23 +44,25 @@ class ButtonTabProfile extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(width: 6),
-                Container(
-                  width: 20,
-                  height: 20,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: primary.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    total.toString(),
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                SizedBox(width: 8),
+                if (total > 0)
+                  Container(
+                    height: 22,
+                    padding: EdgeInsets.symmetric(horizontal: 6),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: primary,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  ),
-                )
+                    child: Text(
+                      formatToNumberString(total),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
               ],
             ),
           ),

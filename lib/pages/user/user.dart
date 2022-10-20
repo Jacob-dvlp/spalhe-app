@@ -10,6 +10,7 @@ import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
 import 'package:spalhe/theme/colors.dart';
+import 'package:spalhe/utils/numbers.dart';
 
 class UserPage extends StatelessWidget {
   final _posts = Get.put(PostController());
@@ -107,7 +108,7 @@ class UserPage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${user.profileDetails?.followers ?? 0}',
+                          '${formatToNumberString(user.profileDetails?.followers ?? 0)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -123,7 +124,7 @@ class UserPage extends StatelessWidget {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          '${user.profileDetails?.followed ?? 0}',
+                          '${formatToNumberString(user.profileDetails?.followed ?? 0)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -210,6 +211,7 @@ class UserPage extends StatelessWidget {
                           child: Icon(
                             FeatherIcons.userPlus,
                             size: 20,
+                            color: Get.theme.primaryColorDark,
                           ),
                         )
                       ],

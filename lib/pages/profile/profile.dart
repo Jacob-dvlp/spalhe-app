@@ -14,6 +14,7 @@ import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
 import 'package:spalhe/pages/settings/settings.dart';
 import 'package:spalhe/theme/colors.dart';
+import 'package:spalhe/utils/numbers.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -124,7 +125,7 @@ class ProfilePage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${user.profileDetails?.followed ?? 0}',
+                          '${formatToNumberString(user.profileDetails?.followed ?? 0)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -140,7 +141,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          '${user.profileDetails?.followers ?? 0}',
+                          '${formatToNumberString(user.profileDetails?.followers ?? 0)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -167,7 +168,7 @@ class ProfilePage extends StatelessWidget {
                 builder: (profileController) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: Get.theme.primaryColorLight,
+                      color: Theme.of(context).primaryColorLight,
                     ),
                     child: Row(
                       children: [

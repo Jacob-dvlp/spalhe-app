@@ -33,6 +33,7 @@ class FeedPage extends StatelessWidget {
           onTap: () => OnRoute.push(ProfilePage()),
           child: Row(
             children: [
+              SizedBox(width: 8),
               ClipRRect(
                 borderRadius: BorderRadius.circular(40),
                 child: ImageNetwork(
@@ -79,7 +80,7 @@ class FeedPage extends StatelessWidget {
           padding: EdgeInsets.all(0),
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(20.0),
               child: MomentsComponent(),
             ),
             GetBuilder<PostController>(
