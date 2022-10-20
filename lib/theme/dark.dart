@@ -4,7 +4,7 @@ import 'package:spalhe/theme/colors.dart';
 
 ThemeData themeDark(context) => ThemeData(
       appBarTheme: AppBarTheme(
-        color: Colors.black,
+        color: ColorDark.cardColor,
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
@@ -14,7 +14,7 @@ ThemeData themeDark(context) => ThemeData(
         ),
       ),
       scaffoldBackgroundColor: ColorDark.background,
-      cardColor: Color.fromARGB(255, 19, 19, 19),
+      cardColor: ColorDark.cardColor,
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: primary,
@@ -71,13 +71,13 @@ ThemeData themeDark(context) => ThemeData(
         ),
       ),
       primaryColor: primary,
-      primaryColorLight: Colors.white,
+      primaryColorLight: ColorDark.cardColor,
       primaryColorDark: Colors.white,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        elevation: 5,
-        unselectedItemColor: Colors.white.withOpacity(0.4),
+        elevation: 20,
+        unselectedItemColor: Colors.white.withOpacity(0.2),
         selectedItemColor: primary,
-        backgroundColor: Color.fromARGB(255, 18, 18, 18),
+        backgroundColor: ColorDark.cardColor,
       ),
       iconTheme: IconThemeData(
         color: Colors.white,

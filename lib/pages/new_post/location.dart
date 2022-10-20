@@ -12,7 +12,7 @@ class LocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Escolher Localização'),
+        title: Text('escolher localização'),
       ),
       body: GetBuilder<PostController>(
         builder: (_post) {
@@ -20,7 +20,7 @@ class LocationPage extends StatelessWidget {
             padding: EdgeInsets.all(20),
             children: [
               Input(
-                label: 'Pesquisar',
+                label: 'digite o endereço',
                 onChanged: (v) => _post.getPlaces(v),
               ),
               SizedBox(height: 14),
