@@ -7,6 +7,7 @@ import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/components/layout/post_item/post_item.dart';
+import 'package:spalhe/pages/post/replies.post.dart';
 
 class PostPage extends StatelessWidget {
   final _inputController = TextEditingController();
@@ -52,148 +53,163 @@ class PostPage extends StatelessWidget {
                         _post.comments?.length ?? 0,
                         (index) {
                           final comment = _post.comments![index];
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 10,
+                          return GestureDetector(
+                            onTap: () => Get.to(
+                              () => RepliesCommntPostPage(
+                                comment: comment,
+                              ),
                             ),
-                            margin: EdgeInsets.only(bottom: 3),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).cardColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Avatar(
-                                      user: comment.user,
-                                      width: 32,
-                                      heigth: 32,
-                                      iconSize: 8,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            comment.user?.name ?? '',
-                                            style: TextStyle(),
-                                          ),
-                                          Opacity(
-                                            opacity: .6,
-                                            child: Text(
-                                              '@${comment.user?.username}',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              margin: EdgeInsets.only(bottom: 3),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Avatar(
+                                        user: comment.user,
+                                        width: 32,
+                                        heigth: 32,
+                                        iconSize: 8,
                                       ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          comment.cCount?.likes?.toString() ??
-                                              '',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Icon(
-                                          FeatherIcons.heart,
-                                          size: 16,
-                                        ),
-                                        SizedBox(width: 20),
-                                        Text(
-                                          comment.cCount?.replies?.toString() ??
-                                              '',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Icon(
-                                          FeatherIcons.messageSquare,
-                                          size: 16,
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 6),
-                                Text(
-                                  comment.text ?? '',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Column(
-                                  children: [
-                                    ...List.generate(
-                                      comment.replies?.length ?? 0,
-                                      (idx) => Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                          vertical: 10,
-                                        ),
-                                        child: Row(
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Avatar(
-                                              user: comment.replies?[idx].user,
-                                              width: 32,
-                                              heigth: 32,
-                                              iconSize: 8,
+                                            Text(
+                                              comment.user?.name ?? '',
+                                              style: TextStyle(),
                                             ),
-                                            SizedBox(width: 10),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  comment.replies?[idx].user
-                                                          ?.name ??
-                                                      '',
-                                                  style: TextStyle(),
+                                            Opacity(
+                                              opacity: .6,
+                                              child: Text(
+                                                '@${comment.user?.username}',
+                                                style: TextStyle(
+                                                  fontSize: 10,
                                                 ),
-                                                Opacity(
-                                                  opacity: .6,
-                                                  child: Text(
-                                                    '@${comment.replies?[idx].user?.username ?? ''}',
-                                                    style: TextStyle(
-                                                      fontSize: 10,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                Text(
-                                                  comment.replies?[idx].text ??
-                                                      '',
-                                                  style: TextStyle(),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                    if ((comment.cCount?.replies ?? 0) > 3)
-                                      TextButton(
-                                        onPressed: () {
-                                          print(post.id);
-                                        },
-                                        child: Text(
-                                          'ver todos os ${comment.cCount?.replies} comentários',
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            comment.cCount?.likes?.toString() ??
+                                                '',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Icon(
+                                            FeatherIcons.heart,
+                                            size: 16,
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text(
+                                            comment.cCount?.replies
+                                                    ?.toString() ??
+                                                '',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Icon(
+                                            FeatherIcons.messageSquare,
+                                            size: 16,
+                                          ),
+                                        ],
                                       )
-                                  ],
-                                )
-                              ],
+                                    ],
+                                  ),
+                                  SizedBox(height: 6),
+                                  Text(
+                                    comment.text ?? '',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Column(
+                                    children: [
+                                      ...List.generate(
+                                        comment.replies?.length ?? 0,
+                                        (idx) => Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 16,
+                                            vertical: 10,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Avatar(
+                                                user:
+                                                    comment.replies?[idx].user,
+                                                width: 32,
+                                                heigth: 32,
+                                                iconSize: 8,
+                                              ),
+                                              SizedBox(width: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    comment.replies?[idx].user
+                                                            ?.name ??
+                                                        '',
+                                                    style: TextStyle(),
+                                                  ),
+                                                  Opacity(
+                                                    opacity: .6,
+                                                    child: Text(
+                                                      '@${comment.replies?[idx].user?.username ?? ''}',
+                                                      style: TextStyle(
+                                                        fontSize: 10,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 6),
+                                                  Text(
+                                                    comment.replies?[idx]
+                                                            .text ??
+                                                        '',
+                                                    style: TextStyle(),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      if ((comment.cCount?.replies ?? 0) > 3)
+                                        TextButton(
+                                          onPressed: () {
+                                            Get.to(
+                                              () => RepliesCommntPostPage(
+                                                comment: comment,
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            'ver todos os ${comment.cCount?.replies} comentários',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },
