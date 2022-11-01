@@ -1,5 +1,4 @@
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:spalhe/models/comments.model.dart';
 import 'package:spalhe/models/likes_in_post.model.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/services/gql/hooks.dart';
@@ -9,9 +8,6 @@ class PostItemController extends GetxController {
   PostItemController({required this.post}) {}
   PostData post = PostData();
   LikesInPostModel userLikes = LikesInPostModel();
-  CommentsModel commentsList = CommentsModel();
-
-  List<IComment>? get comments => commentsList.getCommentsPost?.data ?? [];
 
   @override
   void onReady() {
@@ -21,31 +17,6 @@ class PostItemController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-  }
-
-  getComments() async {
-    try {
-      final res = await useQuery(GET_POST_COMMENTS_QUERY, variables: {
-        'post_id': post.id,
-        'filters': {'page': 1}
-      });
-      commentsList = CommentsModel.fromJson(res.data!);
-      update();
-    } catch (e) {}
-  }
-
-  String comment = '';
-  commentPost() async {
-    try {
-      await useMutation(COMMENT_POST_MUTATION, variables: {
-        'post_id': post.id,
-        'data': {
-          'text': comment,
-        }
-      });
-      post.cCount!.comments = post.cCount!.comments! + 1;
-      getComments();
-    } catch (e) {}
   }
 
   likePost() async {

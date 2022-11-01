@@ -78,22 +78,26 @@ class IComment {
   String? text;
   String? createdAt;
   Count? cCount;
+  bool? isLiked;
   UserModel? user;
   List<Replies>? replies;
 
-  IComment(
-      {this.id,
-      this.text,
-      this.createdAt,
-      this.cCount,
-      this.user,
-      this.replies});
+  IComment({
+    this.id,
+    this.text,
+    this.createdAt,
+    this.cCount,
+    this.user,
+    this.replies,
+    this.isLiked,
+  });
 
   IComment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     text = json['text'];
     createdAt = json['created_at'];
     cCount = json['_count'] != null ? new Count.fromJson(json['_count']) : null;
+    isLiked = json['is_liked'];
     user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
     if (json['replies'] != null) {
       replies = <Replies>[];
@@ -108,6 +112,7 @@ class IComment {
     data['id'] = this.id;
     data['text'] = this.text;
     data['created_at'] = this.createdAt;
+    data['is_liked'] = this.isLiked;
     if (this.cCount != null) {
       data['_count'] = this.cCount!.toJson();
     }

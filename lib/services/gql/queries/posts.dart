@@ -29,7 +29,7 @@ final GET_HASHTAGS = gql(r'''
   }
 ''');
 
-final DocumentNode DELETE_POST_MUTATION = gql("""
+final DELETE_POST_MUTATION = gql("""
   mutation(\$post_id: Float!) {
     deletePost(id: \$post_id){
       id
@@ -37,9 +37,9 @@ final DocumentNode DELETE_POST_MUTATION = gql("""
   }
 """);
 
-final DocumentNode GET_POST_MENTIONS_QUERY = gql("""
-  query(\$user_id: Float!, \$filters: IFilters!) {
-	getPostMentions(user_id: \$user_id, filters: \$filters) {
+final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
+  query($user_id: Float!, $filters: IFilters!) {
+	getPostMentions(user_id: $user_id, filters: $filters) {
 		meta {
 			page
 			per_page
@@ -81,9 +81,9 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql("""
 }
 """);
 
-final DocumentNode GET_POST_MEDIA_QUERY = gql('''
-  query(\$user_id: Float!, \$filters: IFilters!) {
-	getPostMedias(user_id: \$user_id, filters: \$filters) {
+final GET_POST_MEDIA_QUERY = gql(r'''
+  query($user_id: Float!, $filters: IFilters!) {
+	getPostMedias(user_id: $user_id, filters: $filters) {
 		meta {
 			page
 			per_page
@@ -125,9 +125,9 @@ final DocumentNode GET_POST_MEDIA_QUERY = gql('''
 }
 ''');
 
-final DocumentNode GET_USER_POSTS_QUERY = gql("""
-query(\$user_id: Float!, \$filters: IFilters!) {
-	getUserPosts(filters: \$filters, user_id: \$user_id) {
+final GET_USER_POSTS_QUERY = gql(r"""
+query($user_id: Float!, $filters: IFilters!) {
+	getUserPosts(filters: $filters, user_id: $user_id) {
 		meta {
 			page
 			per_page
@@ -168,60 +168,6 @@ query(\$user_id: Float!, \$filters: IFilters!) {
 		}
 	}
 }
-""");
-
-final DocumentNode GET_POST_COMMENTS_QUERY = gql("""
-  query (\$filters: IFilters!, \$post_id: Float!) {
-	getCommentsPost(post_id: \$post_id, filters: \$filters){
-		meta {
-			next_page
-			previus_page
-			total
-			page
-		}
-		data {
-			id
-			text
-			created_at
-			_count {
-				likes
-				replies
-			}
-			user {
-				id
-				username
-				avatar
-				name
-				verified
-			}
-			replies {
-				id
-				text
-				created_at
-				user {
-					id
-					name
-					username
-					avatar
-				}
-			}
-		}
-	}
-}
-""");
-
-final DocumentNode COMMENT_POST_MUTATION = gql("""
-  mutation (\$post_id: Float!, \$data: ICreateCommentDTO!) {
-    commentPost(post_id: \$post_id, data: \$data) {
-      id
-      text
-      user {
-        id
-        name
-        avatar
-      }
-    }
-  }
 """);
 
 final DocumentNode LIKE_POST_MUTATION = gql("""

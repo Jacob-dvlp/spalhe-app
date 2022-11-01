@@ -264,7 +264,7 @@ class PostItem extends StatelessWidget {
                                 ? Icons.favorite
                                 : Icons.favorite_border_outlined,
                             size: 24,
-                            color: isLiked ? Colors.redAccent : null,
+                            color: isLiked ? Colors.red : null,
                           ),
                         ),
                         SizedBox(width: 30),

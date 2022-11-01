@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
-import 'package:spalhe/controllers/post_item.controller.dart';
+import 'package:spalhe/controllers/comments.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/components/layout/post_item/post_item.dart';
 import 'package:spalhe/pages/post/replies.post.dart';
@@ -12,23 +12,19 @@ import 'package:spalhe/pages/post/replies.post.dart';
 class PostPage extends StatelessWidget {
   final _inputController = TextEditingController();
   PostPage({Key? key, required this.post}) : super(key: key) {
-    final _postItem = Get.put(
-      PostItemController(
-        post: post,
-      ),
+    final commentsController = Get.put(
+      CommentsController(),
       tag: post.id.toString(),
     );
-    _postItem.getComments();
+    commentsController.getComments(post.id);
   }
 
   final PostData post;
 
   @override
   Widget build(BuildContext context) {
-    final _postItem = Get.put(
-      PostItemController(
-        post: post,
-      ),
+    final commentsController = Get.put(
+      CommentsController(),
       tag: post.id.toString(),
     );
 
@@ -45,7 +41,7 @@ class PostPage extends StatelessWidget {
                   post: post,
                   inPostItem: true,
                 ),
-                GetBuilder<PostItemController>(
+                GetBuilder<CommentsController>(
                   tag: post.id.toString(),
                   builder: (_post) {
                     return Column(
@@ -57,6 +53,7 @@ class PostPage extends StatelessWidget {
                             onTap: () => Get.to(
                               () => RepliesCommntPostPage(
                                 comment: comment,
+                                postId: post.id,
                               ),
                             ),
                             child: Container(
@@ -101,36 +98,6 @@ class PostPage extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            comment.cCount?.likes?.toString() ??
-                                                '',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Icon(
-                                            FeatherIcons.heart,
-                                            size: 16,
-                                          ),
-                                          SizedBox(width: 20),
-                                          Text(
-                                            comment.cCount?.replies
-                                                    ?.toString() ??
-                                                '',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Icon(
-                                            FeatherIcons.messageSquare,
-                                            size: 16,
-                                          ),
-                                        ],
-                                      )
                                     ],
                                   ),
                                   SizedBox(height: 6),
@@ -139,6 +106,54 @@ class PostPage extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 17,
                                     ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          commentsController.toggleLike(
+                                            comment.id,
+                                            post.id,
+                                          );
+                                        },
+                                        icon: Icon(
+                                          comment.isLiked == true
+                                              ? Icons.favorite
+                                              : FeatherIcons.heart,
+                                          size: 16,
+                                          color: comment.isLiked == true
+                                              ? Colors.red
+                                              : null,
+                                        ),
+                                      ),
+                                      Text(
+                                        comment.cCount?.likes?.toString() ?? '',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      IconButton(
+                                        onPressed: () => Get.to(
+                                          () => RepliesCommntPostPage(
+                                            comment: comment,
+                                            postId: post.id,
+                                          ),
+                                        ),
+                                        icon: Icon(
+                                          FeatherIcons.repeat,
+                                          size: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        comment.cCount?.replies?.toString() ??
+                                            '',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(height: 10),
                                   Column(
@@ -168,23 +183,19 @@ class PostPage extends StatelessWidget {
                                                     comment.replies?[idx].user
                                                             ?.name ??
                                                         '',
-                                                    style: TextStyle(),
-                                                  ),
-                                                  Opacity(
-                                                    opacity: .6,
-                                                    child: Text(
-                                                      '@${comment.replies?[idx].user?.username ?? ''}',
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                      ),
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 6),
                                                   Text(
                                                     comment.replies?[idx]
                                                             .text ??
                                                         '',
-                                                    style: TextStyle(),
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -198,11 +209,12 @@ class PostPage extends StatelessWidget {
                                             Get.to(
                                               () => RepliesCommntPostPage(
                                                 comment: comment,
+                                                postId: post.id,
                                               ),
                                             );
                                           },
                                           child: Text(
-                                            'ver todos os ${comment.cCount?.replies} comentários',
+                                            'ver todas as ${comment.cCount?.replies} respostas',
                                             style: TextStyle(fontSize: 12),
                                           ),
                                         )
@@ -237,7 +249,7 @@ class PostPage extends StatelessWidget {
                   Flexible(
                     child: Input(
                       controller: _inputController,
-                      onChanged: (v) => _postItem.comment = v,
+                      onChanged: (v) => commentsController.comment = v,
                       decoration: InputDecoration(
                         hintText: 'Insira seu comentário',
                         border: InputBorder.none,
@@ -248,7 +260,7 @@ class PostPage extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      _postItem.commentPost();
+                      commentsController.commentPost(post.id);
                       _inputController.clear();
                     },
                     icon: Icon(FeatherIcons.send),
