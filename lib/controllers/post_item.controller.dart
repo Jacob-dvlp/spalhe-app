@@ -8,8 +8,10 @@ import 'package:spalhe/services/gql/queries/posts.dart';
 class PostItemController extends GetxController {
   PostItemController({required this.post}) {}
   PostData post = PostData();
-  CommentsModel? comments;
   LikesInPostModel userLikes = LikesInPostModel();
+  CommentsModel commentsList = CommentsModel();
+
+  List<IComment>? get comments => commentsList.getCommentsPost?.data ?? [];
 
   @override
   void onReady() {
@@ -27,7 +29,7 @@ class PostItemController extends GetxController {
         'post_id': post.id,
         'filters': {'page': 1}
       });
-      comments = CommentsModel.fromJson(res.data?['getCommentsPost']);
+      commentsList = CommentsModel.fromJson(res.data!);
       update();
     } catch (e) {}
   }

@@ -1,37 +1,60 @@
 import 'package:spalhe/models/user.model.dart';
 
 class CommentsModel {
-  CommentsModel({
-    required this.meta,
-    required this.data,
-  });
-  late final Meta meta;
-  late final List<Data> data;
+  GetCommentsPost? getCommentsPost;
+
+  CommentsModel({this.getCommentsPost});
 
   CommentsModel.fromJson(Map<String, dynamic> json) {
-    meta = Meta.fromJson(json['meta']);
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    getCommentsPost = json['getCommentsPost'] != null
+        ? new GetCommentsPost.fromJson(json['getCommentsPost'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['meta'] = meta.toJson();
-    _data['data'] = data.map((e) => e.toJson()).toList();
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.getCommentsPost != null) {
+      data['getCommentsPost'] = this.getCommentsPost!.toJson();
+    }
+    return data;
+  }
+}
+
+class GetCommentsPost {
+  Meta? meta;
+  List<IComment>? data;
+
+  GetCommentsPost({this.meta, this.data});
+
+  GetCommentsPost.fromJson(Map<String, dynamic> json) {
+    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    if (json['data'] != null) {
+      data = <IComment>[];
+      json['data'].forEach((v) {
+        data!.add(new IComment.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.meta != null) {
+      data['meta'] = this.meta!.toJson();
+    }
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
 class Meta {
-  Meta({
-    required this.nextPage,
-    required this.previusPage,
-    required this.total,
-    required this.page,
-  });
-  late final bool nextPage;
-  late final bool previusPage;
-  late final int total;
-  late final int page;
+  bool? nextPage;
+  bool? previusPage;
+  int? total;
+  int? page;
+
+  Meta({this.nextPage, this.previusPage, this.total, this.page});
 
   Meta.fromJson(Map<String, dynamic> json) {
     nextPage = json['next_page'];
@@ -41,36 +64,105 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['next_page'] = nextPage;
-    _data['previus_page'] = previusPage;
-    _data['total'] = total;
-    _data['page'] = page;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['next_page'] = this.nextPage;
+    data['previus_page'] = this.previusPage;
+    data['total'] = this.total;
+    data['page'] = this.page;
+    return data;
   }
 }
 
-class Data {
-  Data({
-    required this.id,
-    required this.text,
-    required this.user,
-  });
-  late final int id;
-  late final String text;
-  late final UserModel user;
+class IComment {
+  int? id;
+  String? text;
+  String? createdAt;
+  Count? cCount;
+  UserModel? user;
+  List<Replies>? replies;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  IComment(
+      {this.id,
+      this.text,
+      this.createdAt,
+      this.cCount,
+      this.user,
+      this.replies});
+
+  IComment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     text = json['text'];
-    user = UserModel.fromJson(json['user']);
+    createdAt = json['created_at'];
+    cCount = json['_count'] != null ? new Count.fromJson(json['_count']) : null;
+    user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
+    if (json['replies'] != null) {
+      replies = <Replies>[];
+      json['replies'].forEach((v) {
+        replies!.add(new Replies.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['text'] = text;
-    _data['user'] = user.toJson();
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['text'] = this.text;
+    data['created_at'] = this.createdAt;
+    if (this.cCount != null) {
+      data['_count'] = this.cCount!.toJson();
+    }
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    if (this.replies != null) {
+      data['replies'] = this.replies!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Count {
+  int? likes;
+  int? replies;
+
+  Count({this.likes, this.replies});
+
+  Count.fromJson(Map<String, dynamic> json) {
+    likes = json['likes'];
+    replies = json['replies'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['likes'] = this.likes;
+    data['replies'] = this.replies;
+    return data;
+  }
+}
+
+class Replies {
+  int? id;
+  String? text;
+  String? createdAt;
+  UserModel? user;
+
+  Replies({this.id, this.text, this.createdAt, this.user});
+
+  Replies.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    text = json['text'];
+    createdAt = json['created_at'];
+    user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['text'] = this.text;
+    data['created_at'] = this.createdAt;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    return data;
   }
 }

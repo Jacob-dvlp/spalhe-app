@@ -275,7 +275,7 @@ class PostItem extends StatelessWidget {
                         InkWell(
                           onTap: () {},
                           child: Icon(
-                            FeatherIcons.messageCircle,
+                            FeatherIcons.messageSquare,
                             size: 24,
                           ),
                         ),

@@ -182,12 +182,28 @@ final DocumentNode GET_POST_COMMENTS_QUERY = gql("""
 		data {
 			id
 			text
+			created_at
+			_count {
+				likes
+				replies
+			}
 			user {
 				id
 				username
 				avatar
 				name
 				verified
+			}
+			replies {
+				id
+				text
+				created_at
+				user {
+					id
+					name
+					username
+					avatar
+				}
 			}
 		}
 	}
