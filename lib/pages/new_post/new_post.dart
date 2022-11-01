@@ -4,13 +4,17 @@ import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/components/layout/loading/loading.dart';
+import 'package:spalhe/components/layout/post_item/post_item.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
+import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/pages/new_post/location.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class NewPostPage extends StatelessWidget {
-  const NewPostPage({Key? key}) : super(key: key);
+  const NewPostPage({Key? key, this.post}) : super(key: key);
+
+  final PostData? post;
 
   @override
   Widget build(BuildContext context) {
@@ -149,18 +153,20 @@ class NewPostPage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              IconButton(
-                                onPressed: () => _post.addImages(),
-                                icon: Icon(
-                                  FeatherIcons.image,
+                              if (post == null)
+                                IconButton(
+                                  onPressed: () => _post.addImages(),
+                                  icon: Icon(
+                                    FeatherIcons.image,
+                                  ),
                                 ),
-                              ),
-                              IconButton(
-                                onPressed: () => _post.addVideos(),
-                                icon: Icon(
-                                  Icons.video_collection_outlined,
+                              if (post == null)
+                                IconButton(
+                                  onPressed: () => _post.addVideos(),
+                                  icon: Icon(
+                                    Icons.video_collection_outlined,
+                                  ),
                                 ),
-                              ),
                               IconButton(
                                 onPressed: () => OnRoute.push(LocationPage()),
                                 icon: Icon(
@@ -175,6 +181,9 @@ class NewPostPage extends StatelessWidget {
                               onPressed: _post.postLoading
                                   ? null
                                   : () {
+                                      if (post?.id != null) {
+                                        _post.postData['post_id'] = post?.id;
+                                      }
                                       _post.createPost();
                                     },
                               child: _post.postLoading
@@ -192,7 +201,20 @@ class NewPostPage extends StatelessWidget {
                       )
                     ],
                   ),
-                )
+                ),
+                if (post != null)
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: PostItem(
+                          post: post,
+                          showActions: false,
+                          inPostItem: true,
+                        ),
+                      ),
+                    ],
+                  )
               ],
             ),
           ),

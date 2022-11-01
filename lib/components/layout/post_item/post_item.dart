@@ -8,15 +8,23 @@ import 'package:spalhe/components/layout/post_item/components/showLikesInPostMod
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/models/post.model.dart';
+import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/theme/colors.dart';
+import 'package:spalhe/utils/date.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class PostItem extends StatelessWidget {
-  PostItem({Key? key, this.post, this.inPostItem = false}) : super(key: key);
+  PostItem({
+    Key? key,
+    this.post,
+    this.inPostItem = false,
+    this.showActions = true,
+  }) : super(key: key);
 
   final PostData? post;
   final bool inPostItem;
+  final bool showActions;
 
   final _pageController = PageController(initialPage: 0);
 
@@ -40,7 +48,7 @@ class PostItem extends StatelessWidget {
           onTap: () => inPostItem ? null : OnRoute.push(PostPage(post: post)),
           child: Container(
             padding: EdgeInsets.all(16).copyWith(bottom: 6),
-            margin: EdgeInsets.only(bottom: 10),
+            margin: showActions ? EdgeInsets.only(bottom: 10) : null,
             color: Theme.of(context).cardColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,70 +102,71 @@ class PostItem extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                '12:23',
+                                fromNow(post.createdAt),
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey.shade500,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    backgroundColor:
-                                        Theme.of(context).cardColor,
-                                    context: context,
-                                    builder: (BuildContext bc) {
-                                      return SafeArea(
-                                        child: Wrap(
-                                          children: [
-                                            ListTile(
-                                              tileColor:
-                                                  Theme.of(context).cardColor,
-                                              leading: Icon(
-                                                Icons.favorite_border,
+                              if (showActions)
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      backgroundColor:
+                                          Theme.of(context).cardColor,
+                                      context: context,
+                                      builder: (BuildContext bc) {
+                                        return SafeArea(
+                                          child: Wrap(
+                                            children: [
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
+                                                  Icons.favorite_border,
+                                                ),
+                                                title: Text('quem gostou'),
+                                                onTap: () async {
+                                                  Get.back();
+                                                  _post.getLikesInPost();
+                                                  ShowLikesInPostModal(
+                                                    post: post,
+                                                    context: context,
+                                                  );
+                                                },
                                               ),
-                                              title: Text('quem gostou'),
-                                              onTap: () async {
-                                                Get.back();
-                                                _post.getLikesInPost();
-                                                ShowLikesInPostModal(
-                                                  post: post,
-                                                  context: context,
-                                                );
-                                              },
-                                            ),
-                                            ListTile(
-                                              tileColor:
-                                                  Theme.of(context).cardColor,
-                                              leading: Icon(
-                                                Icons.bookmark_border_rounded,
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
+                                                  Icons.bookmark_border_rounded,
+                                                ),
+                                                title: Text('salvar'),
+                                                onTap: () => {},
                                               ),
-                                              title: Text('salvar'),
-                                              onTap: () => {},
-                                            ),
-                                            ListTile(
-                                              tileColor:
-                                                  Theme.of(context).cardColor,
-                                              leading: Icon(
-                                                Icons.delete_outline_outlined,
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
+                                                  Icons.delete_outline_outlined,
+                                                ),
+                                                title: Text('excluir'),
+                                                onTap: () => postsController
+                                                    .deletePost(post.id!),
                                               ),
-                                              title: Text('excluir'),
-                                              onTap: () => postsController
-                                                  .deletePost(post.id!),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.more_vert_rounded,
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Icons.more_vert_rounded,
+                                    ),
                                   ),
-                                ),
-                              )
+                                )
                             ],
                           ),
                         ],
@@ -169,18 +178,36 @@ class PostItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    HashTagText(
-                      text: post.text ?? '',
-                      decorateAtSign: true,
-                      basicStyle: TextStyle(
-                        fontSize: 18,
-                        color: Theme.of(context).primaryColorDark,
+                    if (post.text != null && post.text != '')
+                      HashTagText(
+                        text: post.text ?? '',
+                        decorateAtSign: true,
+                        basicStyle: TextStyle(
+                          fontSize: 18,
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                        decoratedStyle: TextStyle(
+                          color: primary,
+                          fontSize: 18,
+                        ),
                       ),
-                      decoratedStyle: TextStyle(
-                        color: primary,
-                        fontSize: 18,
+                    if (post.repost != null)
+                      Container(
+                        margin: !(post.text != null && post.text != '')
+                            ? null
+                            : EdgeInsets.only(top: 16),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey.withOpacity(0.6),
+                            width: 0.5,
+                          ),
+                        ),
+                        child: PostItem(
+                          post: post.repost,
+                          inPostItem: true,
+                          showActions: false,
+                        ),
                       ),
-                    ),
                     SizedBox(height: 6),
                     if ((medias?.length ?? 0) > 0)
                       SizedBox(
@@ -205,89 +232,120 @@ class PostItem extends StatelessWidget {
                       )
                   ],
                 ),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                if (showActions) SizedBox(height: 16),
+                if (showActions)
+                  Opacity(
+                    opacity: 0.7,
+                    child: Row(
                       children: [
-                        Text(
-                          '${post.cCount?.likes}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${post.cCount?.likes}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              (post.cCount?.likes ?? 0) > 1
+                                  ? 'gosteis'
+                                  : 'gostou',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(width: 4),
-                        Text(
-                          (post.cCount?.likes ?? 0) > 1 ? 'gosteis' : 'gostou',
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        )
+                        SizedBox(width: 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${post.cCount?.comments}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              (post.cCount?.comments ?? 0) > 1
+                                  ? 'comentários'
+                                  : 'comentário',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                    SizedBox(width: 20),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${post.cCount?.comments}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  ),
+                if (showActions) SizedBox(height: 16),
+                if (showActions)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: _post.likePost,
+                              child: Icon(
+                                isLiked
+                                    ? Icons.favorite
+                                    : Icons.favorite_border_outlined,
+                                size: 24,
+                                color: isLiked ? Colors.red : null,
+                              ),
+                            ),
+                            SizedBox(width: 30),
+                            InkWell(
+                              onTap: () {},
+                              child: Icon(
+                                FeatherIcons.messageSquare,
+                                size: 24,
+                              ),
+                            ),
+                            SizedBox(width: 30),
+                            InkWell(
+                              onTap: () {
+                                Get.to(
+                                  () => NewPostPage(
+                                    post: post.repost != null
+                                        ? post.repost
+                                        : post,
+                                  ),
+                                );
+                              },
+                              child: Icon(
+                                FeatherIcons.repeat,
+                                size: 24,
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Icon(
+                                      Icons.bookmark_border_rounded,
+                                      size: 26,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 4),
-                        Text(
-                          (post.cCount?.comments ?? 0) > 1
-                              ? 'comentários'
-                              : 'comentário',
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: _post.likePost,
-                          child: Icon(
-                            isLiked
-                                ? Icons.favorite
-                                : Icons.favorite_border_outlined,
-                            size: 24,
-                            color: isLiked ? Colors.red : null,
-                          ),
-                        ),
-                        SizedBox(width: 30),
-                        InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            FeatherIcons.messageSquare,
-                            size: 24,
-                          ),
-                        ),
-                        // SizedBox(width: 30),
-                        // InkWell(
-                        //   onTap: () {},
-                        //   child: Icon(
-                        //     FeatherIcons.send,
-                        //     size: 24,
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
+                      ),
+                    ],
+                  ),
+                if (showActions) SizedBox(height: 10),
               ],
             ),
           ),

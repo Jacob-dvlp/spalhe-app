@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
+import 'package:spalhe/pages/account/pages/liked_posts/liked_posts.dart';
 import 'package:spalhe/theme/colors.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+class AccountPage extends StatelessWidget {
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,7 @@ class SettingsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ListTile(
+                  onTap: () => Get.to(() => LikedPostsPage()),
                   leading: Icon(Icons.favorite_border),
                   title: Text('publicações que eu curti'),
                 ),

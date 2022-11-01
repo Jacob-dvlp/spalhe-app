@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
-
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
@@ -12,7 +11,7 @@ import 'package:spalhe/pages/profile/edit_profile.dart';
 import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
-import 'package:spalhe/pages/settings/settings.dart';
+import 'package:spalhe/pages/account/account.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/numbers.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -42,7 +41,7 @@ class ProfilePage extends StatelessWidget {
             title: Text(user.name ?? ''),
             actions: [
               IconButton(
-                onPressed: () => OnRoute.push(SettingsPage()),
+                onPressed: () => OnRoute.push(AccountPage()),
                 icon: Icon(FeatherIcons.settings),
               )
             ],

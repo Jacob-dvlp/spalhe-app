@@ -202,8 +202,8 @@ final DocumentNode GET_POSTS_QUERY = gql("""
       data {
         id
         text
-        published
         is_liked
+        created_at
         medias {
           url
           type
@@ -231,6 +231,34 @@ final DocumentNode GET_POSTS_QUERY = gql("""
           mentions
           likes
           comments
+          reposts
+        }
+        repost {
+          id
+          text
+          created_at
+          medias {
+            url
+            type
+            subtype
+          }
+          location {
+            id
+            name
+          }
+          mentions {
+            user {
+              id
+              name
+              avatar
+            }
+          }
+          user {
+            id
+            name
+            username
+            avatar
+          }
         }
       }
     }

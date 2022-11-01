@@ -65,18 +65,23 @@ class PostData {
   Location? location;
   List<Mentions>? mentions;
   UserModel? user;
+  PostData? repost;
   Count? cCount;
+  String? createdAt;
 
-  PostData(
-      {this.id,
-      this.text,
-      this.published,
-      this.isLiked,
-      this.medias,
-      this.location,
-      this.mentions,
-      this.user,
-      this.cCount});
+  PostData({
+    this.id,
+    this.text,
+    this.published,
+    this.isLiked,
+    this.medias,
+    this.location,
+    this.mentions,
+    this.user,
+    this.cCount,
+    this.repost,
+    this.createdAt,
+  });
 
   PostData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -100,6 +105,9 @@ class PostData {
     }
     user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
     cCount = json['_count'] != null ? new Count.fromJson(json['_count']) : null;
+    repost =
+        json['repost'] != null ? new PostData.fromJson(json['repost']) : null;
+    createdAt = json['created_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -123,6 +131,10 @@ class PostData {
     if (this.cCount != null) {
       data['_count'] = this.cCount!.toJson();
     }
+    if (this.repost != null) {
+      data['repost'] = this.repost!.toJson();
+    }
+    data['created_at'] = this.createdAt;
     return data;
   }
 }
