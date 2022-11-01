@@ -33,7 +33,7 @@ class HashtagsWidget extends StatelessWidget {
           child: GetBuilder<HashtagsController>(
             init: HashtagsController(),
             builder: (context) {
-              final hashs = context.hashtags.getHastags ?? [];
+              final hashs = context.hashtags.getHashtags ?? [];
               return ListView(
                 scrollDirection: Axis.horizontal,
                 children: List.generate(

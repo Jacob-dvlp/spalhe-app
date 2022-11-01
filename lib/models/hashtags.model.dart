@@ -1,21 +1,21 @@
 class HashtagsModel {
-  List<GetHastags>? getHastags;
+  List<GetHastags>? getHashtags;
 
-  HashtagsModel({this.getHastags});
+  HashtagsModel({this.getHashtags});
 
   HashtagsModel.fromJson(Map<String, dynamic> json) {
-    if (json['getHastags'] != null) {
-      getHastags = <GetHastags>[];
-      json['getHastags'].forEach((v) {
-        getHastags!.add(new GetHastags.fromJson(v));
+    if (json['getHashtags'] != null) {
+      getHashtags = <GetHastags>[];
+      json['getHashtags'].forEach((v) {
+        getHashtags!.add(new GetHastags.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.getHastags != null) {
-      data['getHastags'] = this.getHastags!.map((v) => v.toJson()).toList();
+    if (this.getHashtags != null) {
+      data['getHashtags'] = this.getHashtags!.map((v) => v.toJson()).toList();
     }
     return data;
   }

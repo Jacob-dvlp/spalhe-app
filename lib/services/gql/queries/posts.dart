@@ -16,10 +16,10 @@ query getPostLikes($id: Float!) {
 ''');
 
 final GET_HASHTAGS = gql(r'''
-  query {
-    getHastags {
+  query getHashtags {
+    getHashtags {
       id
-      hastag
+      hashtag
       _count {
         hashtags_on_post
       }
