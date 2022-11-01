@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/controllers/explore.controller.dart';
-import 'package:spalhe/pages/feed/post_item/post_item.dart';
+import 'package:spalhe/components/layout/post_item/post_item.dart';
 
 class ExploreMidias extends StatelessWidget {
   const ExploreMidias({Key? key}) : super(key: key);

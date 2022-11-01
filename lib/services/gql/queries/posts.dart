@@ -1,6 +1,20 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
+final GET_POST_LIKES_QUERY = gql(r'''
+query getPostLikes($id: Float!) {
+	getPostLikes(post_id: $id) {
+		id
+		user {
+			id
+			name
+      username
+			avatar
+		}
+	}
+}
+''');
+
 final GET_HASHTAGS = gql(r'''
   query {
     getHastags {

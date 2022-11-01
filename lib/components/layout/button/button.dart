@@ -32,7 +32,10 @@ class Button extends StatelessWidget {
                 children: [
                   if (icon != null)
                     Row(
-                      children: [Icon(icon), SizedBox(width: 10)],
+                      children: [
+                        Icon(icon),
+                        SizedBox(width: 10),
+                      ],
                     ),
                   Text(title),
                 ],

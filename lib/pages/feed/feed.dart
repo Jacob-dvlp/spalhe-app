@@ -9,11 +9,12 @@ import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
 import 'package:spalhe/pages/feed/moments/moments.dart';
-import 'package:spalhe/pages/feed/post_item/post_item.dart';
 import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/profile/profile.dart';
 import 'package:spalhe/pages/users/users.dart';
 import 'package:spalhe/utils/routes.dart';
+
+import '../../components/layout/post_item/post_item.dart';
 
 class FeedPage extends StatelessWidget {
   FeedPage({Key? key}) : super(key: key);
@@ -177,7 +178,7 @@ class FeedPage extends StatelessWidget {
                 return Column(
                   children: List.generate(
                     totalPosts,
-                    (index) => new PostItem(post: posts![index]),
+                    (index) => PostItem(post: posts![index]),
                   ),
                 );
               },

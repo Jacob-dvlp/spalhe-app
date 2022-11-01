@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
-import 'package:spalhe/pages/feed/post_item/post_item.dart';
+import 'package:spalhe/components/layout/post_item/post_item.dart';
 
 class PostMentionsTab extends StatelessWidget {
   final PostController controller = Get.find();

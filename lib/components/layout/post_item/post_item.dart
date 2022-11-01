@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/components/layout/post_item/components/showLikesInPostModal.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/models/post.model.dart';
@@ -109,17 +110,23 @@ class PostItem extends StatelessWidget {
                                     builder: (BuildContext bc) {
                                       return SafeArea(
                                         child: Wrap(
-                                          children: <Widget>[
+                                          children: [
                                             ListTile(
                                               tileColor: Theme.of(context)
                                                   .colorScheme
                                                   .background,
                                               leading: Icon(
-                                                Icons.delete_outline_outlined,
+                                                Icons.favorite_border,
                                               ),
-                                              title: Text('Excluir'),
-                                              onTap: () => postsController
-                                                  .deletePost(post.id!),
+                                              title: Text('quem gostou'),
+                                              onTap: () async {
+                                                Get.back();
+                                                _post.getLikesInPost();
+                                                ShowLikesInPostModal(
+                                                  post: post,
+                                                  context: context,
+                                                );
+                                              },
                                             ),
                                             ListTile(
                                               tileColor: Theme.of(context)
@@ -128,8 +135,19 @@ class PostItem extends StatelessWidget {
                                               leading: Icon(
                                                 Icons.bookmark_border_rounded,
                                               ),
-                                              title: Text('Salvar'),
+                                              title: Text('salvar'),
                                               onTap: () => {},
+                                            ),
+                                            ListTile(
+                                              tileColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              leading: Icon(
+                                                Icons.delete_outline_outlined,
+                                              ),
+                                              title: Text('excluir'),
+                                              onTap: () => postsController
+                                                  .deletePost(post.id!),
                                             ),
                                           ],
                                         ),

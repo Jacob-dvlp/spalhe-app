@@ -6,7 +6,7 @@ import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
-import 'package:spalhe/pages/feed/post_item/post_item.dart';
+import 'package:spalhe/components/layout/post_item/post_item.dart';
 
 class PostPage extends StatelessWidget {
   final _inputController = TextEditingController();
