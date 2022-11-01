@@ -103,18 +103,16 @@ class PostItem extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   showModalBottomSheet(
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .background,
+                                    backgroundColor:
+                                        Theme.of(context).cardColor,
                                     context: context,
                                     builder: (BuildContext bc) {
                                       return SafeArea(
                                         child: Wrap(
                                           children: [
                                             ListTile(
-                                              tileColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
+                                              tileColor:
+                                                  Theme.of(context).cardColor,
                                               leading: Icon(
                                                 Icons.favorite_border,
                                               ),
@@ -129,9 +127,8 @@ class PostItem extends StatelessWidget {
                                               },
                                             ),
                                             ListTile(
-                                              tileColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
+                                              tileColor:
+                                                  Theme.of(context).cardColor,
                                               leading: Icon(
                                                 Icons.bookmark_border_rounded,
                                               ),
@@ -139,9 +136,8 @@ class PostItem extends StatelessWidget {
                                               onTap: () => {},
                                             ),
                                             ListTile(
-                                              tileColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
+                                              tileColor:
+                                                  Theme.of(context).cardColor,
                                               leading: Icon(
                                                 Icons.delete_outline_outlined,
                                               ),

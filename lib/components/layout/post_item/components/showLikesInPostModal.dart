@@ -7,6 +7,7 @@ import 'package:spalhe/models/post.model.dart';
 ShowLikesInPostModal({required PostData post, required BuildContext context}) {
   return showModalBottomSheet(
     context: context,
+    backgroundColor: Theme.of(context).cardColor,
     builder: (BuildContext bc) {
       return GetBuilder<PostItemController>(
           global: true,
@@ -19,6 +20,7 @@ ShowLikesInPostModal({required PostData post, required BuildContext context}) {
 
             return SafeArea(
               child: Container(
+                color: Theme.of(context).cardColor,
                 padding: EdgeInsets.all(30),
                 child: Wrap(
                   children: List.generate(
