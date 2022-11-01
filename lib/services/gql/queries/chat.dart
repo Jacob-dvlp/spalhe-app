@@ -1,5 +1,32 @@
 import 'package:graphql/client.dart';
 
+final CREATE_CHAT_MUTATION = gql(r'''
+  mutation createChat($data: ICreateChat!) {
+    createChat(data: $data){
+      id
+      name
+      avatar
+      is_group
+      exit_users_ids
+      user {
+        id
+        name
+        status
+        avatar
+      }
+      last_message {
+        message
+        created_at
+        files {
+          id
+          url
+        }
+      }
+      count_unread_messages
+    }
+  }
+''');
+
 final SET_VIEWED_MESSAGES = gql(r"""
 mutation setViewedMessages($chat_id: String!) {
   setViewedMessages(chat_id: $chat_id){

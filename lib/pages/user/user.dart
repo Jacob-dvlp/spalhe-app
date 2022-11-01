@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
+import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
@@ -26,7 +27,10 @@ class UserPage extends StatelessWidget {
     _profileController.reset();
   }
 
-  sendMessage() {}
+  sendMessage() {
+    final ChatController chatController = Get.put(ChatController());
+    chatController.createChat(userId);
+  }
 
   @override
   Widget build(BuildContext context) {
