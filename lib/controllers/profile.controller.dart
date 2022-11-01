@@ -37,6 +37,7 @@ class ProfileController extends GetxController {
       await useMutation(FOLLOW_USER_MUTATION, variables: {
         "followed_id": userId,
       });
+
       getUser(userId);
     } catch (e) {
       print(e);

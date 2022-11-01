@@ -32,7 +32,7 @@ class NewUsers extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text('ver mais'))
+              // TextButton(onPressed: () {}, child: Text('ver mais'))
             ],
           ),
         ),
@@ -42,62 +42,76 @@ class NewUsers extends StatelessWidget {
           height: 150,
           child: GetBuilder<UserController>(
             init: UserController(),
-            builder: (usesrsController) {
-              final users = usesrsController.users?.data;
+            builder: (usersController) {
+              final users = usersController.users?.data;
               return ListView(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 scrollDirection: Axis.horizontal,
                 children: List.generate(
                   users?.length ?? 0,
-                  (index) => GestureDetector(
-                    onTap: () => OnRoute.push(UserPage(
-                      userId: users![index].id!,
-                    )),
-                    child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      width: 130,
-                      child: Column(
-                        children: [
-                          Avatar(
-                            user: users![index],
-                            width: 60,
-                            heigth: 60,
-                            iconSize: 14,
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            users[index].name ?? '',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                  (index) {
+                    final followed = users?[index].followed == 'following';
+
+                    return GestureDetector(
+                      onTap: () => OnRoute.push(UserPage(
+                        userId: users![index].id!,
+                      )),
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        width: 130,
+                        child: Column(
+                          children: [
+                            Avatar(
+                              user: users![index],
+                              width: 60,
+                              heigth: 60,
+                              iconSize: 14,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          if (users[index].username != null)
+                            SizedBox(height: 4),
                             Text(
-                              '@${users[index].username ?? ''}',
+                              users[index].name ?? '',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              users[index].username != null
+                                  ? '@${users[index].username}'
+                                  : '',
                               style: TextStyle(
                                 fontSize: 11,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
-                          SizedBox(height: 8),
-                          SizedBox(
-                            height: 23,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                profileController.follow(users[index].id!);
-                              },
-                              child: Text('seguir'),
-                            ),
-                          )
-                        ],
+                            SizedBox(height: 8),
+                            SizedBox(
+                              height: 23,
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor:
+                                      followed ? Colors.black87 : null,
+                                  backgroundColor:
+                                      followed ? Colors.grey.shade300 : null,
+                                ),
+                                onPressed: () {
+                                  usersController.followUser(
+                                      users[index].id!, index);
+                                },
+                                child: followed
+                                    ? Text('seguindo')
+                                    : Text('seguir'),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               );
             },

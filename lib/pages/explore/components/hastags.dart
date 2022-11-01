@@ -23,7 +23,7 @@ class HashtagsWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text('ver mais'))
+              // TextButton(onPressed: () {}, child: Text('ver mais'))
             ],
           ),
         ),
