@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:spalhe/components/layout/button/button.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
 import 'package:spalhe/pages/account/pages/liked_posts/liked_posts.dart';
-import 'package:spalhe/pages/account/pages/plan_pro/plan_pro.dart';
 import 'package:spalhe/theme/colors.dart';
 
 class AccountPage extends StatelessWidget {
@@ -58,13 +56,6 @@ class AccountPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: 20),
-                Button(
-                  title: 'assinar o plano pro',
-                  onPressed: () {
-                    Get.to(() => PlanProPage());
-                  },
                 ),
                 SizedBox(height: 20),
                 ListTile(
