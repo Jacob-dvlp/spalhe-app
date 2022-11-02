@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:spalhe/theme/colors.dart';
 
 class SettingsController extends GetxController {
   static final box = GetStorage();
@@ -20,7 +21,7 @@ class SettingsController extends GetxController {
       themeDark = true;
       Get.changeThemeMode(ThemeMode.dark);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.grey[900],
+        statusBarColor: ColorDark.background,
         statusBarIconBrightness: Brightness.light,
       ));
     }

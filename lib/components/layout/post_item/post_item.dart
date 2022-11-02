@@ -328,7 +328,7 @@ class PostItem extends StatelessWidget {
                               onTap: () {},
                               child: Icon(
                                 FeatherIcons.messageSquare,
-                                size: 24,
+                                size: 22,
                               ),
                             ),
                             SizedBox(width: 30),
@@ -344,7 +344,7 @@ class PostItem extends StatelessWidget {
                               },
                               child: Icon(
                                 FeatherIcons.repeat,
-                                size: 24,
+                                size: 22,
                               ),
                             ),
                             Expanded(
@@ -355,7 +355,7 @@ class PostItem extends StatelessWidget {
                                     onTap: () {},
                                     child: Icon(
                                       Icons.bookmark_border_rounded,
-                                      size: 26,
+                                      size: 24,
                                     ),
                                   ),
                                 ],

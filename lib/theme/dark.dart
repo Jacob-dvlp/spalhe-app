@@ -12,6 +12,7 @@ ThemeData themeDark(context) => ThemeData(
         actionsIconTheme: IconTheme.of(context).copyWith(
           color: Colors.white,
         ),
+        centerTitle: true,
       ),
       scaffoldBackgroundColor: ColorDark.background,
       cardColor: ColorDark.cardColor,

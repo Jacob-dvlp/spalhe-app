@@ -22,6 +22,7 @@ ThemeData themeLight(context) => ThemeData(
         actionsIconTheme: IconTheme.of(context).copyWith(
           color: Colors.black,
         ),
+        centerTitle: true,
       ),
       listTileTheme: ListTileTheme.of(context).copyWith(
         iconColor: Colors.black,
