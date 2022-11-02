@@ -16,9 +16,11 @@ void main() async {
   final theme = GetStorage().read('theme') ?? 'dark';
   SettingsController().changeTheme(theme);
 
-  await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  // await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
   await OneSignal.shared.setAppId("e888ff4c-1b79-4b66-82d1-5a73c713f22d");
-  OneSignal.shared.promptUserForPushNotificationPermission();
+  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+    print("Accepted permission: $accepted");
+  });
 
   runApp(const MyApp());
 }

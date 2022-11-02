@@ -12,6 +12,7 @@ Future<QueryResult<Object?>> useMutation<T>(
     variables: variables ?? {},
   ));
   if (result.exception?.linkException != null) {
+    print('[GRAPHQL ERROR]: ');
     throw result.exception?.linkException ?? {};
   }
   return result;
@@ -29,6 +30,7 @@ Future<QueryResult> useQuery(
     ),
   );
   if (result.exception?.linkException != null) {
+    print('[GRAPHQL ERROR]: ');
     throw result.exception?.linkException ?? {};
   }
   return result;
