@@ -1,13 +1,13 @@
 class HashtagsModel {
-  List<GetHastags>? getHashtags;
+  List<GetHashtags>? getHashtags;
 
   HashtagsModel({this.getHashtags});
 
   HashtagsModel.fromJson(Map<String, dynamic> json) {
     if (json['getHashtags'] != null) {
-      getHashtags = <GetHastags>[];
+      getHashtags = <GetHashtags>[];
       json['getHashtags'].forEach((v) {
-        getHashtags!.add(new GetHastags.fromJson(v));
+        getHashtags!.add(new GetHashtags.fromJson(v));
       });
     }
   }
@@ -21,19 +21,19 @@ class HashtagsModel {
   }
 }
 
-class GetHastags {
+class GetHashtags {
   int? id;
-  String? hastag;
+  String? hashtag;
   Count? cCount;
   String? createdAt;
   String? updatedAt;
 
-  GetHastags(
-      {this.id, this.hastag, this.cCount, this.createdAt, this.updatedAt});
+  GetHashtags(
+      {this.id, this.hashtag, this.cCount, this.createdAt, this.updatedAt});
 
-  GetHastags.fromJson(Map<String, dynamic> json) {
+  GetHashtags.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    hastag = json['hastag'];
+    hashtag = json['hashtag'];
     cCount = json['_count'] != null ? new Count.fromJson(json['_count']) : null;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -42,7 +42,7 @@ class GetHastags {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['hastag'] = this.hastag;
+    data['hashtag'] = this.hashtag;
     if (this.cCount != null) {
       data['_count'] = this.cCount!.toJson();
     }

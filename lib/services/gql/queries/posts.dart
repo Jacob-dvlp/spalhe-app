@@ -75,6 +75,7 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
 				mentions
 				likes
 				comments
+        reposts
 			}
 		}
 	}
@@ -119,6 +120,7 @@ final GET_POST_MEDIA_QUERY = gql(r'''
 				mentions
 				likes
 				comments
+        reposts
 			}
 		}
 	}
@@ -164,6 +166,7 @@ query($user_id: Float!, $filters: IFilters!) {
 				mentions
 				likes
 				comments
+        reposts
 			}
 		}
 	}
@@ -227,6 +230,7 @@ final DocumentNode GET_POSTS_QUERY = gql("""
           likes
           comments
           reposts
+          medias
         }
         repost {
           id

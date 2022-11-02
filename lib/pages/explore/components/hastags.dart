@@ -45,7 +45,7 @@ class HashtagsWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '#${hashs[index].hastag}',
+                            '#${hashs[index].hashtag}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,

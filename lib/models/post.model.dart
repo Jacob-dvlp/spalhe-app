@@ -224,13 +224,20 @@ class Count {
   int? mentions;
   int? likes;
   int? comments;
+  int? reposts;
 
-  Count({this.mentions, this.likes, this.comments});
+  Count({
+    this.mentions,
+    this.likes,
+    this.comments,
+    this.reposts,
+  });
 
   Count.fromJson(Map<String, dynamic> json) {
     mentions = json['mentions'];
     likes = json['likes'];
     comments = json['comments'];
+    reposts = json['reposts'];
   }
 
   Map<String, dynamic> toJson() {
@@ -238,6 +245,7 @@ class Count {
     data['mentions'] = this.mentions;
     data['likes'] = this.likes;
     data['comments'] = this.comments;
+    data['reposts'] = this.reposts;
     return data;
   }
 }

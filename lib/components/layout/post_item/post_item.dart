@@ -277,6 +277,28 @@ class PostItem extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 12,
                               ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${post.cCount?.reposts ?? 0}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              (post.cCount?.reposts ?? 0) > 1
+                                  ? 'spalharam'
+                                  : 'spalhou',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
                             )
                           ],
                         ),
