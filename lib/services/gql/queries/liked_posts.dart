@@ -37,7 +37,6 @@ query getLikedPosts($user_id: Float!, $filters: IFilters!) {
 					name
 					id
 					avatar
-          verified
 				}
 			}
 		}

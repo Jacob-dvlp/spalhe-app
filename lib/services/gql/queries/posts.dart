@@ -62,7 +62,6 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
 				user {
 					id
 					name
-          verified
 				}
 			}
 			user {
@@ -214,7 +213,6 @@ final DocumentNode GET_POSTS_QUERY = gql("""
             id
             name
             avatar
-            verified
           }
         }
         user {

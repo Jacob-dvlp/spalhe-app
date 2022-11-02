@@ -25,7 +25,6 @@ final EXPLORE_MEDIAS_QUERY = gql(r"""
 				user {
 					id
 					name
-          verified
 				}
 			}
 			user {
