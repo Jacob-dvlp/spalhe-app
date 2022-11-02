@@ -7,9 +7,8 @@ class PlanProPage extends StatelessWidget {
   const PlanProPage({Key? key}) : super(key: key);
 
   handleCheckout() async {
-    const Set<String> _kIds = <String>{'product1', 'product2'};
-    final ProductDetailsResponse response =
-        await InAppPurchase.instance.queryProductDetails(_kIds);
+    final _kIds = <String>{'spalhe_pro'};
+    final response = await InAppPurchase.instance.queryProductDetails(_kIds);
     if (response.notFoundIDs.isNotEmpty) {
       print('not found');
     }
@@ -17,20 +16,20 @@ class PlanProPage extends StatelessWidget {
 
     print(products);
 
-    final ProductDetails productDetails = ProductDetails(
-      currencyCode: 'BRL',
-      id: 'spalhe_pro',
-      price: 'R\$ 9,99',
-      rawPrice: 9990000,
-      currencySymbol: 'BRL',
-      title: 'Spalhe Pro',
-      description: 'Spalhe Pro',
-    );
+    // final ProductDetails productDetails = ProductDetails(
+    //   currencyCode: 'BRL',
+    //   id: 'spalhe_pro',
+    //   price: 'R\$ 9,99',
+    //   rawPrice: 9990000,
+    //   currencySymbol: 'BRL',
+    //   title: 'Spalhe Pro',
+    //   description: 'Spalhe Pro',
+    // );
 
-    final PurchaseParam purchaseParam =
-        PurchaseParam(productDetails: productDetails);
+    // final PurchaseParam purchaseParam =
+    //     PurchaseParam(productDetails: productDetails);
 
-    InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+    // InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
   }
 
   @override
