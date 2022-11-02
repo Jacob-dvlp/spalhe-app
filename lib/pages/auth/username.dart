@@ -42,17 +42,14 @@ class UsernamePage extends StatelessWidget {
                 ),
                 onSaved: (v) => auth.setValue('username', v),
                 validator: Validatorless.multiple([
-                  Validatorless.required('Nome de usuário obrigatório'),
-                  Validatorless.min(4, 'Precisa ter pelo menos 4 caracteres'),
-                  (value) {
-                    String patttern =
-                        r'(^[a-z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-z0-9]){2,18}[a-z0-9]$)';
-                    RegExp regExp = new RegExp(patttern);
-                    if (!regExp.hasMatch(value!)) {
-                      return "Nome de usuário inválido";
-                    }
-                    return null;
-                  }
+                  Validatorless.required('nome de usuario obrigatório'),
+                  Validatorless.regex(
+                    RegExp(
+                      r'^[a-z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-z0-9]){3,18}[a-z0-9]$',
+                      caseSensitive: false,
+                    ),
+                    'nome de usuário inválido',
+                  ),
                 ]),
               ),
               SizedBox(height: 20),

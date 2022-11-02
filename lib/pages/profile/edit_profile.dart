@@ -84,7 +84,13 @@ class EditProfilePage extends StatelessWidget {
                       initialValue: user.username,
                       validator: Validatorless.multiple([
                         Validatorless.required('nome de usuario obrigatório'),
-                        Validatorless.min(10, 'nome de usuário inválido'),
+                        Validatorless.regex(
+                          RegExp(
+                            r'^[a-z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-z0-9]){3,18}[a-z0-9]$',
+                            caseSensitive: false,
+                          ),
+                          'nome de usuário inválido',
+                        ),
                       ]),
                     ),
                     SizedBox(height: 14),
