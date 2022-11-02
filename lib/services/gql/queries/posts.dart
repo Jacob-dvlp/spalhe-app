@@ -259,6 +259,13 @@ final DocumentNode GET_POSTS_QUERY = gql("""
             username
             avatar
           }
+          _count {
+            mentions
+            likes
+            comments
+            reposts
+            medias
+          }
         }
       }
     }

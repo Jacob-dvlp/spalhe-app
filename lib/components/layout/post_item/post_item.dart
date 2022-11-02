@@ -204,7 +204,6 @@ class PostItem extends StatelessWidget {
                         ),
                         child: PostItem(
                           post: post.repost,
-                          inPostItem: true,
                           showActions: false,
                         ),
                       ),

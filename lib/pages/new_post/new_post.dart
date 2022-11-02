@@ -62,9 +62,7 @@ class NewPostPage extends StatelessWidget {
                         },
                         child: const Text(
                           'Descartar',
-                          style: TextStyle(
-                            color: Colors.black87,
-                          ),
+                          style: TextStyle(),
                         ),
                       ),
                     ],
@@ -213,6 +211,7 @@ class NewPostPage extends StatelessWidget {
                           inPostItem: true,
                         ),
                       ),
+                      SizedBox(height: 100),
                     ],
                   )
               ],
