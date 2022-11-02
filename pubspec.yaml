@@ -11,7 +11,6 @@ dependencies:
     sdk: flutter
   image_picker: ^0.8.4+4
   google_fonts: ^2.2.0
-  camera: ^0.9.8+1
   get_storage: ^2.0.3
   graphql: ^5.1.1
   dio: ^4.0.4
