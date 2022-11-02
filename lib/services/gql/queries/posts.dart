@@ -1,6 +1,91 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
+final GET_POSTS_BY_HASHTAG = gql(r'''
+ query getPostsByHashtags($hashtag: String!) {
+	getPostsByHashtags(hashtag: $hashtag, filters: {}) {
+		meta {
+			page
+			per_page
+			total
+			previus_page
+			next_page
+		}
+		data {
+			id
+			text
+			is_liked
+			created_at
+			medias {
+				url
+				type
+				subtype
+			}
+			location {
+				id
+				name
+			}
+			mentions {
+				user {
+					id
+					name
+					avatar
+				}
+			}
+			user {
+				id
+				name
+				username
+				avatar
+				verified
+			}
+			_count {
+				mentions
+				likes
+				comments
+				reposts
+				medias
+			}
+			repost {
+				id
+				text
+				created_at
+				medias {
+					url
+					type
+					subtype
+				}
+				location {
+					id
+					name
+				}
+				mentions {
+					user {
+						id
+						name
+						avatar
+					}
+				}
+				user {
+					id
+					name
+					username
+					avatar
+					verified
+				}
+				_count {
+					mentions
+					likes
+					comments
+					reposts
+					medias
+				}
+			}
+		}
+	}
+}
+''');
+
 final GET_POST_LIKES_QUERY = gql(r'''
 query getPostLikes($id: Float!) {
 	getPostLikes(post_id: $id) {
@@ -40,44 +125,84 @@ final DELETE_POST_MUTATION = gql("""
 final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
   query($user_id: Float!, $filters: IFilters!) {
 	getPostMentions(user_id: $user_id, filters: $filters) {
-		meta {
-			page
-			per_page
-			total
-			previus_page
-			next_page
-		}
-		data {
-			id
-			text
-			published
-			is_liked
-			medias {
-				url
-			}
-			location {
-				name
-			}
-			mentions {
-				user {
-					id
-					name
-				}
-			}
-			user {
-			  id
-				name
-				username
-        avatar
-        verified
-			}
-			_count {
-				mentions
-				likes
-				comments
-        reposts
-			}
-		}
+		 meta {
+        page
+        per_page
+        total
+        previus_page
+        next_page
+      }
+      data {
+        id
+        text
+        is_liked
+        created_at
+        medias {
+          url
+          type
+          subtype
+        }
+        location {
+          id
+          name
+        }
+        mentions {
+          user {
+            id
+            name
+            avatar
+          }
+        }
+        user {
+          id
+          name
+          username
+          avatar
+          verified
+        }
+        _count {
+          mentions
+          likes
+          comments
+          reposts
+          medias
+        }
+        repost {
+          id
+          text
+          created_at
+          medias {
+            url
+            type
+            subtype
+          }
+          location {
+            id
+            name
+          }
+          mentions {
+            user {
+              id
+              name
+              avatar
+            }
+          }
+          user {
+            id
+            name
+            username
+            avatar
+            verified
+          }
+          _count {
+            mentions
+            likes
+            comments
+            reposts
+            medias
+          }
+        }
+      }
 	}
 }
 """);
@@ -85,44 +210,84 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
 final GET_POST_MEDIA_QUERY = gql(r'''
   query($user_id: Float!, $filters: IFilters!) {
 	getPostMedias(user_id: $user_id, filters: $filters) {
-		meta {
-			page
-			per_page
-			total
-			previus_page
-			next_page
-		}
-		data {
-			id
-			text
-			published
-			is_liked
-			medias {
-				url
-			}
-			location {
-				name
-			}
-			mentions {
-				user {
-					id
-					name
-				}
-			}
-			user {
+		 meta {
+        page
+        per_page
+        total
+        previus_page
+        next_page
+      }
+      data {
         id
-				name
-				username
-        avatar
-        verified
-			}
-			_count {
-				mentions
-				likes
-				comments
-        reposts
-			}
-		}
+        text
+        is_liked
+        created_at
+        medias {
+          url
+          type
+          subtype
+        }
+        location {
+          id
+          name
+        }
+        mentions {
+          user {
+            id
+            name
+            avatar
+          }
+        }
+        user {
+          id
+          name
+          username
+          avatar
+          verified
+        }
+        _count {
+          mentions
+          likes
+          comments
+          reposts
+          medias
+        }
+        repost {
+          id
+          text
+          created_at
+          medias {
+            url
+            type
+            subtype
+          }
+          location {
+            id
+            name
+          }
+          mentions {
+            user {
+              id
+              name
+              avatar
+            }
+          }
+          user {
+            id
+            name
+            username
+            avatar
+            verified
+          }
+          _count {
+            mentions
+            likes
+            comments
+            reposts
+            medias
+          }
+        }
+      }
 	}
 }
 ''');
@@ -130,45 +295,84 @@ final GET_POST_MEDIA_QUERY = gql(r'''
 final GET_USER_POSTS_QUERY = gql(r"""
 query($user_id: Float!, $filters: IFilters!) {
 	getUserPosts(filters: $filters, user_id: $user_id) {
-		meta {
-			page
-			per_page
-			total
-			previus_page
-			next_page
-		}
-		data {
-			id
-			text
-			published
-			is_liked
-			medias {
-				url
-			}
-			location {
-				name
-			}
-			mentions {
-				user {
-					id
-					name
+		 meta {
+        page
+        per_page
+        total
+        previus_page
+        next_page
+      }
+      data {
+        id
+        text
+        is_liked
+        created_at
+        medias {
+          url
+          type
+          subtype
+        }
+        location {
+          id
+          name
+        }
+        mentions {
+          user {
+            id
+            name
+            avatar
+          }
+        }
+        user {
+          id
+          name
+          username
           avatar
-				}
-			}
-			user {
-				id
-				name
-				username
-        avatar
-        verified
-			}
-			_count {
-				mentions
-				likes
-				comments
-        reposts
-			}
-		}
+          verified
+        }
+        _count {
+          mentions
+          likes
+          comments
+          reposts
+          medias
+        }
+        repost {
+          id
+          text
+          created_at
+          medias {
+            url
+            type
+            subtype
+          }
+          location {
+            id
+            name
+          }
+          mentions {
+            user {
+              id
+              name
+              avatar
+            }
+          }
+          user {
+            id
+            name
+            username
+            avatar
+            verified
+          }
+          _count {
+            mentions
+            likes
+            comments
+            reposts
+            medias
+          }
+        }
+      }
 	}
 }
 """);

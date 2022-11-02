@@ -21,7 +21,11 @@ class NotificationsPage extends StatelessWidget {
             title: Text('notificações'),
           ),
           body: VisibilityDetector(
-            onVisibilityChanged: (info) => print(info.visibleBounds.right),
+            onVisibilityChanged: (info) {
+              if (info.visibleBounds.right == 0) {
+                ntf.readAll();
+              }
+            },
             key: Key("unique key"),
             child: ListViewWraper(
               padding: EdgeInsets.all(16),

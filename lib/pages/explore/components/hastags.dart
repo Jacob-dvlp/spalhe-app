@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/controllers/hashtags.controller.dart';
+import 'package:spalhe/pages/explore/pages/hashtags_posts/hashtags_posts.dart';
 import 'package:spalhe/theme/colors.dart';
 
 class HashtagsWidget extends StatelessWidget {
@@ -39,6 +40,9 @@ class HashtagsWidget extends StatelessWidget {
                 children: List.generate(
                   hashs.length,
                   (index) => GestureDetector(
+                    onTap: () => Get.to(
+                      () => HashtagsPostsPage(hashtag: hashs[index].hashtag!),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
