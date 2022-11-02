@@ -275,7 +275,8 @@ class UserPage extends StatelessWidget {
                     ],
                   );
                 },
-              )
+              ),
+              SizedBox(height: 50),
             ],
           ),
         );
