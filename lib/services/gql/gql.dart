@@ -1,6 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:graphql/client.dart';
 import 'package:spalhe/models/auth.dart';
+import 'package:spalhe/services/api.dart';
 
 class GQLClient {
   GraphQLClient connect() {
@@ -8,14 +9,14 @@ class GQLClient {
     AuthModel auth = AuthModel.fromJson(_box.read('auth') ?? {});
 
     final HttpLink httpLink = HttpLink(
-      'http://localhost:3000/graphql',
+      '${baseURL}/graphql',
     );
 
     final WebSocketLink websocketLink = WebSocketLink(
-      'ws://localhost:3000/graphql',
+      'ws://${baseURL.replaceAll('https://', '')}/graphql',
       config: SocketClientConfig(
         autoReconnect: true,
-        inactivityTimeout: Duration(seconds: 30),
+        inactivityTimeout: Duration(seconds: 20),
       ),
     );
 

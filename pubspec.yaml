@@ -29,6 +29,7 @@ dependencies:
   skeletons: ^0.0.3
   in_app_purchase: ^3.0.8
   onesignal_flutter: ^3.4.2
+  visibility_detector: ^0.3.3
 
 dev_dependencies:
   flutter_test:

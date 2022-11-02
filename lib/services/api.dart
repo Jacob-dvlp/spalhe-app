@@ -6,19 +6,20 @@ Dio api = new APIConfigure().connect();
 
 const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
+final String baseURL = "https://clownfish-app-42zzg.ondigitalocean.app";
+
 class APIConfigure {
   static final box = GetStorage();
   AuthModel auth = AuthModel.fromJson(box.read('auth') ?? {});
-
-  static String baseURL =
-      isProduction ? "https://api.spalhe.com" : 'http://0.0.0.0:3000';
 
   Dio connect() {
     BaseOptions options = BaseOptions(
       baseUrl: baseURL,
       connectTimeout: 5000,
       receiveTimeout: 3000,
-      headers: {"Authorization": "Bearer ${auth.token}"},
+      headers: {
+        "Authorization": "Bearer ${auth.token}",
+      },
     );
 
     return Dio(options);

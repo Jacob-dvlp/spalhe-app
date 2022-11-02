@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:spalhe/controllers/chat.controller.dart';
+import 'package:spalhe/controllers/notification.controller.dart';
 import 'package:spalhe/controllers/tabs.controller.dart';
 
 class BottomNavigationComponent extends StatelessWidget {
@@ -30,11 +32,83 @@ class BottomNavigationComponent extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             label: '',
-            icon: Icon(FeatherIcons.messageCircle),
+            icon: GetBuilder<ChatController>(
+                init: ChatController(),
+                builder: (chatController) {
+                  final chats = chatController.chats.getChats ?? [];
+                  final chatUnread = chats
+                      .where((el) => (el.countUnreadMessages ?? 0) > 0)
+                      .toList();
+                  return Stack(
+                    children: <Widget>[
+                      Icon(FeatherIcons.messageCircle),
+                      if (chatUnread.length > 0)
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            padding: EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 12,
+                              minHeight: 12,
+                            ),
+                            child: Text(
+                              '${chatUnread.length}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                    ],
+                  );
+                }),
           ),
           BottomNavigationBarItem(
             label: '',
-            icon: Icon(FeatherIcons.bell),
+            icon: GetBuilder<NotificationController>(
+                init: NotificationController(),
+                builder: (notificationControlelr) {
+                  final notifications = notificationControlelr.notifications;
+
+                  final notificationsUnread = notifications
+                      .where((el) => (el.viewed ?? false) == false)
+                      .toList();
+
+                  return Stack(
+                    children: <Widget>[
+                      Icon(FeatherIcons.bell),
+                      if (notificationsUnread.length > 0)
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            padding: EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 12,
+                              minHeight: 12,
+                            ),
+                            child: Text(
+                              '${notificationsUnread.length}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                    ],
+                  );
+                }),
           ),
         ],
       );
