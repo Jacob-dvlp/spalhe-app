@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
@@ -8,7 +9,15 @@ import 'package:spalhe/pages/account/pages/liked_posts/liked_posts.dart';
 import 'package:spalhe/theme/colors.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  AccountPage({Key? key}) : super(key: key) {
+    getAvailable();
+  }
+
+  getAvailable() async {
+    final bool available = await InAppPurchase.instance.isAvailable();
+    print({available});
+    if (!available) {}
+  }
 
   @override
   Widget build(BuildContext context) {

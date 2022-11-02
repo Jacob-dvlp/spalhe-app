@@ -13,6 +13,7 @@ final CREATE_CHAT_MUTATION = gql(r'''
         name
         status
         avatar
+        verified
       }
       last_message {
         message
@@ -58,8 +59,10 @@ final MESSAGE_ADD_SUBSCRIPTION = gql(r'''
 			user {
 				id
 				name
-				status
+        status
 				username
+				avatar
+        verified
 			}
   } 
 }
@@ -99,7 +102,9 @@ final GET_CHAT_MESSAGE_QUERY = gql(r"""
           id
           name
           status
+          avatar
           username
+          verified
         }
       }
     }
@@ -119,6 +124,7 @@ final GET_CHATS_QUERY = gql("""
         name
         status
         avatar
+        verified
       }
       last_message {
         message

@@ -26,6 +26,7 @@ query ($filters: IFilters!) {
 				id
 				username
 				avatar
+        verified
 			}
 		}
 	}
