@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/pages/auth/login.dart';
@@ -52,6 +53,11 @@ class AuthController extends GetxController {
       );
       box.write('auth', res.data?['login']);
       auth = AuthModel.fromJson(res.data?['login']);
+      OneSignal.shared
+          .setExternalUserId(auth.user?.id.toString() ?? '')
+          .catchError((e) {
+        print({'OneSignal setUserID:', e});
+      });
       setLoading(false);
       OnRoute.pushOff(LoaderPage());
     } catch (e) {
