@@ -146,37 +146,40 @@ class _MomentsPage extends State<StoreStoriesPage>
                           fit: BoxFit.contain,
                         ),
                       ),
-                      Positioned(
-                        bottom: 30,
-                        left: 20,
-                        right: 20,
-                        child: SafeArea(
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.white,
+                      Visibility(
+                        visible: false,
+                        child: Positioned(
+                          bottom: 30,
+                          left: 20,
+                          right: 20,
+                          child: SafeArea(
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              SizedBox(width: 20),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.tag_faces_outlined,
-                                  color: Colors.white,
+                                Text(
+                                  '2',
+                                  style: TextStyle(color: Colors.white),
                                 ),
-                              ),
-                              Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
+                                SizedBox(width: 20),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.tag_faces_outlined,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  '2',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -191,31 +194,34 @@ class _MomentsPage extends State<StoreStoriesPage>
               top: 40.0,
               left: 10.0,
               right: 10.0,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: story
-                        .asMap()
-                        .map((i, e) {
-                          return MapEntry(
-                            i,
-                            AnimatedBar(
-                              animController: _animtionController!,
-                              position: i,
-                              currentIndex: _currentIndex,
-                            ),
-                          );
-                        })
-                        .values
-                        .toList(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 2.0,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: story
+                          .asMap()
+                          .map((i, e) {
+                            return MapEntry(
+                              i,
+                              AnimatedBar(
+                                animController: _animtionController!,
+                                position: i,
+                                currentIndex: _currentIndex,
+                              ),
+                            );
+                          })
+                          .values
+                          .toList(),
                     ),
-                    child: UserInfo(widget.moment, _currentIndex),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 2.0,
+                      ),
+                      child: UserInfo(widget.moment, _currentIndex),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

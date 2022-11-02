@@ -6,7 +6,8 @@ Dio api = new APIConfigure().connect();
 
 const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
-final String baseURL = "https://clownfish-app-42zzg.ondigitalocean.app";
+final String baseURL =
+    isProduction ? "https://api.spalhe.com.br" : "http://localhost:3333";
 
 class APIConfigure {
   static final box = GetStorage();
