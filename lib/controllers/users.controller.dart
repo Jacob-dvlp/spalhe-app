@@ -17,10 +17,10 @@ class UserController extends GetxController {
     super.onClose();
   }
 
-  getUsers() async {
+  getUsers({Map? filters}) async {
     try {
       final res = await useQuery(GET_USERS_QUERY, variables: {
-        'filters': {},
+        'filters': filters ?? {},
         'filter_follows': true,
       });
       users = UsersModel.fromJson(res.data?['getUsers']);

@@ -44,6 +44,7 @@ class NewUsers extends StatelessWidget {
             init: UserController(),
             builder: (usersController) {
               final users = usersController.users?.data;
+
               return ListView(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 scrollDirection: Axis.horizontal,

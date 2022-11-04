@@ -5,6 +5,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:spalhe/components/layout/dialog/dialog.dart';
+import 'package:spalhe/controllers/post_item.controller.dart';
+import 'package:spalhe/controllers/posts.controller.dart';
+import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/pages/auth/login.dart';
@@ -191,6 +194,10 @@ class AuthController extends GetxController {
   logout() {
     auth = AuthModel.fromJson({});
     box.write('auth', null);
+    Get.delete<PostController>(force: true);
+    Get.delete<AuthController>(force: true);
+    Get.delete<ProfileController>(force: true);
+    Get.delete<PostItemController>(force: true);
     Get.offAll(() => LoginPage());
   }
 }
