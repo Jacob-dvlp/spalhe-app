@@ -6,12 +6,14 @@ import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
+import 'package:spalhe/controllers/users.controller.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
 import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/numbers.dart';
+import 'package:spalhe/utils/routes.dart';
 
 class UserPage extends StatelessWidget {
   final _posts = Get.put(PostController());
@@ -20,11 +22,11 @@ class UserPage extends StatelessWidget {
   final int userId;
 
   UserPage({required this.userId, Key? key}) : super(key: key) {
+    _profileController.reset();
     _profileController.getUser(userId);
     _posts.getUserPosts(userId);
     _posts.getPostMedia(userId);
     _posts.getPostMentions(userId);
-    _profileController.reset();
   }
 
   sendMessage() {
@@ -38,10 +40,76 @@ class UserPage extends StatelessWidget {
       init: ProfileController(),
       builder: (profileController) {
         final user = profileController.profile;
+        final isLoading = profileController.isLoading;
+
+        if (user.id == null && isLoading == false) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(user.name ?? ''),
+            ),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Sentimos muito!',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Esse perfil não está disponível pra você.',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        if (user.id == null && isLoading) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(user.name ?? ''),
+            ),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
 
         return Scaffold(
           appBar: AppBar(
             title: Text(user.name ?? ''),
+            actions: [
+              IconButton(
+                onPressed: () => showModalBottomSheet(
+                  backgroundColor: Theme.of(context).cardColor,
+                  context: context,
+                  builder: (BuildContext bc) {
+                    return SafeArea(
+                      child: Wrap(
+                        children: [
+                          ListTile(
+                            tileColor: Theme.of(context).cardColor,
+                            leading: Icon(
+                              FeatherIcons.userX,
+                            ),
+                            title: Text('bloquear usuário'),
+                            onTap: () => profileController.blockUser(userId),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                icon: Icon(FeatherIcons.moreVertical),
+              ),
+            ],
           ),
           body: ListViewWraper(
             children: [
@@ -208,18 +276,105 @@ class UserPage extends StatelessWidget {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor:
-                                Get.theme.primaryColorDark.withOpacity(0.1),
+                            backgroundColor: profileController.showMoreUsers
+                                ? Get.theme.primaryColorDark.withOpacity(0.4)
+                                : Get.theme.primaryColorDark.withOpacity(0.1),
                           ),
-                          onPressed: () {},
+                          onPressed: profileController.toggleShowMoreUsers,
                           child: Icon(
-                            FeatherIcons.userPlus,
+                            profileController.showMoreUsers
+                                ? FeatherIcons.userMinus
+                                : FeatherIcons.userPlus,
                             size: 20,
                             color: Get.theme.primaryColorDark,
                           ),
                         )
                       ],
                     ),
+                    if (profileController.showMoreUsers) SizedBox(height: 20),
+                    if (profileController.showMoreUsers)
+                      SizedBox(
+                        height: 150,
+                        child: GetBuilder<UserController>(
+                          init: UserController(),
+                          builder: (usersController) {
+                            final users = usersController.users?.data;
+                            return ListView(
+                              padding: EdgeInsets.symmetric(horizontal: 0),
+                              scrollDirection: Axis.horizontal,
+                              children: List.generate(
+                                users?.length ?? 0,
+                                (index) {
+                                  final followed =
+                                      users?[index].followed == 'following';
+
+                                  return GestureDetector(
+                                    onTap: () => OnRoute.push(UserPage(
+                                      userId: users![index].id!,
+                                    )),
+                                    child: Container(
+                                      margin: EdgeInsets.only(right: 10),
+                                      width: 130,
+                                      child: Column(
+                                        children: [
+                                          Avatar(
+                                            user: users![index],
+                                            width: 60,
+                                            heigth: 60,
+                                            iconSize: 14,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            users[index].name ?? '',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            users[index].username != null
+                                                ? '@${users[index].username}'
+                                                : '',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          SizedBox(height: 8),
+                                          SizedBox(
+                                            height: 23,
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                foregroundColor: followed
+                                                    ? Colors.black87
+                                                    : null,
+                                                backgroundColor: followed
+                                                    ? Colors.grey.shade300
+                                                    : null,
+                                              ),
+                                              onPressed: () {
+                                                usersController.followUser(
+                                                    users[index].id!, index);
+                                              },
+                                              child: followed
+                                                  ? Text('seguindo')
+                                                  : Text('seguir'),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                   ],
                 ),
               ),

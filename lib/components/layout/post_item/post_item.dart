@@ -10,6 +10,7 @@ import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/post/post.dart';
+import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -58,11 +59,16 @@ class PostItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Avatar(
-                    user: user,
-                    width: 38,
-                    heigth: 38,
-                    iconSize: 10,
+                  GestureDetector(
+                    onTap: () => OnRoute.push(UserPage(
+                      userId: user!.id!,
+                    )),
+                    child: Avatar(
+                      user: user,
+                      width: 38,
+                      heigth: 38,
+                      iconSize: 10,
+                    ),
                   ),
                   SizedBox(width: 8),
                   Expanded(

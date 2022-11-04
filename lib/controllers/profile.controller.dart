@@ -9,7 +9,20 @@ class ProfileController extends GetxController {
   static final box = GetStorage();
   AuthModel auth = AuthModel.fromJson(box.read('auth') ?? {});
   UserModel profile = UserModel();
+
   int tab = 0;
+  bool showMoreUsers = false;
+  bool isLoading = false;
+
+  toggleShowMoreUsers() {
+    showMoreUsers = !showMoreUsers;
+    update();
+  }
+
+  setLoading(bool value) {
+    isLoading = value;
+    update();
+  }
 
   @override
   void onReady() {
@@ -20,14 +33,27 @@ class ProfileController extends GetxController {
     }
   }
 
+  blockUser(int userId) async {
+    try {
+      await useMutation(BLOCK_USER_MUTATION, variables: {
+        'user_id': userId,
+      });
+      Get.back();
+      Get.back();
+    } catch (e) {}
+  }
+
   getUser(int userId) async {
     try {
+      profile = UserModel();
+      setLoading(true);
       final res = await useQuery(GET_USER_QUERY, variables: {
         "id": userId,
       });
       profile = UserModel.fromJson(res.data?['getUser']);
-      update();
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       print(e);
     }
   }
@@ -50,6 +76,7 @@ class ProfileController extends GetxController {
   }
 
   reset() {
+    profile = UserModel();
     tab = 0;
   }
 }

@@ -1,7 +1,13 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
-final FOLLOW_USER_MUTATION = gql("""
+final BLOCK_USER_MUTATION = gql(r"""
+ mutation blockUser($user_id: Float!) {
+	blockUser(user_id: $user_id)
+}
+""");
+
+final FOLLOW_USER_MUTATION = gql(r"""
   mutation (\$followed_id: Float!) {
     followUser(followed_id: \$followed_id) {
       active
@@ -10,7 +16,7 @@ final FOLLOW_USER_MUTATION = gql("""
   }
 """);
 
-final DocumentNode CREATE_USER_MUTATION = gql("""
+final DocumentNode CREATE_USER_MUTATION = gql(r"""
   mutation(
     \$data: ICreateUserDTO! 
   ) {

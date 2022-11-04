@@ -21,7 +21,7 @@ class SettingsController extends GetxController {
       themeDark = true;
       Get.changeThemeMode(ThemeMode.dark);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ColorDark.background,
+        statusBarColor: ColorDark.cardColor,
         statusBarIconBrightness: Brightness.light,
       ));
     }
