@@ -1,4 +1,5 @@
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
+import 'package:spalhe/components/layout/dialog/dialog.dart';
 import 'package:spalhe/models/likes_in_post.model.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/services/gql/hooks.dart';
@@ -34,14 +35,20 @@ class PostItemController extends GetxController {
   }
 
   reportPost(int postId) async {
-    try {
-      await useMutation(REPORT_POST_MUTATION, variables: {
-        'post_id': postId,
-      });
-      deleted = true;
-      update();
-      OnRoute.back();
-    } catch (e) {}
+    return showDialogModal(
+      context: Get.context!,
+      title: 'Denunciar publicação',
+      description: 'Tem certeza que deseja denunciar essa publicação?',
+      confirmText: 'Denunciar',
+      onConfirm: () async {
+        try {
+          await useMutation(REPORT_POST_MUTATION, variables: {
+            'post_id': postId,
+          });
+          OnRoute.back();
+        } catch (e) {}
+      },
+    );
   }
 
   savePost() async {
