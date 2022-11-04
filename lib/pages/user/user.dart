@@ -38,7 +38,6 @@ class UserPage extends StatelessWidget {
 
   blockUser() {
     showDialogModal(
-      context: Get.context!,
       title: 'Bloquear usuário',
       description: 'Deseja bloquear este usuário?',
       onConfirm: () {

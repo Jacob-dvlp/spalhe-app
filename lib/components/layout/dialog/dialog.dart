@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:spalhe/utils/routes.dart';
 
 showDialogModal({
-  required BuildContext context,
   required String title,
   required String description,
   required Function() onConfirm,
@@ -10,7 +10,7 @@ showDialogModal({
   String? confirmText,
 }) {
   return showDialog(
-    context: context,
+    context: Get.context!,
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
