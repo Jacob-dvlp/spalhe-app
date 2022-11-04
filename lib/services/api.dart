@@ -9,6 +9,10 @@ const bool isProduction = bool.fromEnvironment('dart.vm.product');
 final String baseURL =
     isProduction ? "https://api.spalhe.com.br" : "http://localhost:3333";
 
+final webSoketBaseURL = isProduction
+    ? "wss://api.spalhe.com.br/graphql"
+    : "ws://localhost:3333/graphql";
+
 class APIConfigure {
   static final box = GetStorage();
   AuthModel auth = AuthModel.fromJson(box.read('auth') ?? {});

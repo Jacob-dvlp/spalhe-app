@@ -5,8 +5,8 @@ import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/components/layout/post_item/components/showLikesInPostModal.dart';
+import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
-import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/post/post.dart';
@@ -30,7 +30,8 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final postsController = Get.put(PostController());
+    final authController = Get.put(AuthController());
+    final authuser = authController.auth.user;
 
     return GetBuilder<PostItemController>(
       global: true,
@@ -43,6 +44,10 @@ class PostItem extends StatelessWidget {
         final user = _post.post.user;
         final medias = _post.post.medias;
         final isLiked = post.isLiked == true;
+
+        final deleted = _post.deleted == true;
+
+        if (deleted) return Container();
 
         return GestureDetector(
           onTap: () => inPostItem ? null : OnRoute.push(PostPage(post: post)),
@@ -144,16 +149,29 @@ class PostItem extends StatelessWidget {
                                                 title: Text('salvar'),
                                                 onTap: () => {},
                                               ),
-                                              ListTile(
-                                                tileColor:
-                                                    Theme.of(context).cardColor,
-                                                leading: Icon(
-                                                  Icons.delete_outline_outlined,
+                                              if (authuser?.id != post.user?.id)
+                                                ListTile(
+                                                  tileColor: Theme.of(context)
+                                                      .cardColor,
+                                                  leading: Icon(
+                                                    FeatherIcons.alertTriangle,
+                                                  ),
+                                                  title: Text('denunciar'),
+                                                  onTap: () => _post
+                                                      .reportPost(post.id!),
                                                 ),
-                                                title: Text('excluir'),
-                                                onTap: () => postsController
-                                                    .deletePost(post.id!),
-                                              ),
+                                              if (authuser?.id == post.user?.id)
+                                                ListTile(
+                                                  tileColor: Theme.of(context)
+                                                      .cardColor,
+                                                  leading: Icon(
+                                                    Icons
+                                                        .delete_outline_outlined,
+                                                  ),
+                                                  title: Text('excluir'),
+                                                  onTap: () => _post
+                                                      .deletePost(post.id!),
+                                                ),
                                             ],
                                           ),
                                         );

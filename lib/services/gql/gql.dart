@@ -13,7 +13,7 @@ class GQLClient {
     );
 
     final WebSocketLink websocketLink = WebSocketLink(
-      'ws://${baseURL.replaceAll('https://', '')}/graphql',
+      '$webSoketBaseURL',
       config: SocketClientConfig(
         autoReconnect: true,
         inactivityTimeout: Duration(seconds: 20),

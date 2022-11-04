@@ -114,9 +114,18 @@ final GET_HASHTAGS = gql(r'''
   }
 ''');
 
-final DELETE_POST_MUTATION = gql("""
-  mutation(\$post_id: Float!) {
-    deletePost(id: \$post_id){
+final REPORT_POST_MUTATION = gql(r"""
+ mutation reportPost($post_id: Float!) {
+	reportPost(post_id: $post_id) {
+		id
+	}
+}
+
+""");
+
+final DELETE_POST_MUTATION = gql(r"""
+  mutation($post_id: Float!) {
+    deletePost(id: $post_id){
       id
     }
   }

@@ -3,11 +3,14 @@ import 'package:spalhe/models/likes_in_post.model.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/posts.dart';
+import 'package:spalhe/utils/routes.dart';
 
 class PostItemController extends GetxController {
   PostItemController({required this.post}) {}
   PostData post = PostData();
   LikesInPostModel userLikes = LikesInPostModel();
+
+  bool deleted = false;
 
   @override
   void onReady() {
@@ -17,6 +20,28 @@ class PostItemController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  deletePost(int postId) async {
+    try {
+      await useMutation(DELETE_POST_MUTATION, variables: {
+        'post_id': postId,
+      });
+      deleted = true;
+      update();
+      OnRoute.back();
+    } catch (e) {}
+  }
+
+  reportPost(int postId) async {
+    try {
+      await useMutation(REPORT_POST_MUTATION, variables: {
+        'post_id': postId,
+      });
+      deleted = true;
+      update();
+      OnRoute.back();
+    } catch (e) {}
   }
 
   likePost() async {

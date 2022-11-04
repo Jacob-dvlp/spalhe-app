@@ -2,7 +2,6 @@ import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:google_place/google_place.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/services/api.dart';
 import 'package:spalhe/services/gql/hooks.dart';
@@ -50,17 +49,6 @@ class PostController extends GetxController {
       setLoading(false);
       print(e);
     }
-  }
-
-  deletePost(int postId) async {
-    try {
-      await useMutation(DELETE_POST_MUTATION, variables: {
-        'post_id': postId,
-      });
-      Get.delete<PostItemController>(tag: postId.toString());
-      getPosts();
-      OnRoute.back();
-    } catch (e) {}
   }
 
   getPostMedia(int userId) async {
