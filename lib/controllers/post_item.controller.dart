@@ -44,16 +44,29 @@ class PostItemController extends GetxController {
     } catch (e) {}
   }
 
+  savePost() async {
+    try {
+      post.isSaved = !(post.isSaved ?? false);
+      update();
+      await useMutation(SAVE_POST_MUTATION, variables: {
+        'post_id': post.id,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   likePost() async {
     try {
-      print(post.id);
       post.isLiked = !(post.isLiked ?? false);
       post.cCount!.likes = post.cCount!.likes! + (post.isLiked! ? 1 : -1);
       update();
       await useMutation(LIKE_POST_MUTATION, variables: {
         'postId': post.id,
       });
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   getLikesInPost() async {

@@ -15,6 +15,7 @@ final GET_POSTS_BY_HASHTAG = gql(r'''
 			id
 			text
 			is_liked
+      is_saved
 			created_at
 			medias {
 				url
@@ -120,7 +121,12 @@ final REPORT_POST_MUTATION = gql(r"""
 		id
 	}
 }
+""");
 
+final SAVE_POST_MUTATION = gql(r"""
+ mutation savePost($post_id: Float!) {
+	savePost(id: $post_id)
+}
 """);
 
 final DELETE_POST_MUTATION = gql(r"""
@@ -145,6 +151,7 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
         id
         text
         is_liked
+        is_saved
         created_at
         medias {
           url
@@ -230,6 +237,7 @@ final GET_POST_MEDIA_QUERY = gql(r'''
         id
         text
         is_liked
+        is_saved
         created_at
         medias {
           url
@@ -315,6 +323,7 @@ query($user_id: Float!, $filters: IFilters!) {
         id
         text
         is_liked
+        is_saved
         created_at
         medias {
           url
@@ -414,6 +423,7 @@ final DocumentNode GET_POSTS_QUERY = gql("""
         id
         text
         is_liked
+        is_saved
         created_at
         medias {
           url

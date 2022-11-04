@@ -61,6 +61,7 @@ class PostData {
   String? text;
   bool? published;
   bool? isLiked;
+  bool? isSaved;
   List<Medias>? medias;
   Location? location;
   List<Mentions>? mentions;
@@ -74,6 +75,7 @@ class PostData {
     this.text,
     this.published,
     this.isLiked,
+    this.isSaved,
     this.medias,
     this.location,
     this.mentions,
@@ -88,6 +90,7 @@ class PostData {
     text = json['text'];
     published = json['published'];
     isLiked = json['is_liked'];
+    isSaved = json['is_saved'];
     if (json['medias'] != null) {
       medias = <Medias>[];
       json['medias'].forEach((v) {
@@ -116,6 +119,7 @@ class PostData {
     data['text'] = this.text;
     data['published'] = this.published;
     data['is_liked'] = this.isLiked;
+    data['is_saved'] = this.isSaved;
     if (this.medias != null) {
       data['medias'] = this.medias!.map((v) => v.toJson()).toList();
     }

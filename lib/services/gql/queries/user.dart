@@ -95,9 +95,9 @@ query {
 }
 """);
 
-final GET_USERS_QUERY = gql("""
-  query(\$filters: IFilters!, \$filter_follows: Boolean) {
-    getUsers(filters: \$filters, filter_follows: \$filter_follows) {
+final GET_USERS_QUERY = gql(r"""
+  query($filters: IFilters!, $filter_follows: Boolean) {
+    getUsers(filters: $filters, filter_follows: $filter_follows) {
       meta {
         page
         per_page
