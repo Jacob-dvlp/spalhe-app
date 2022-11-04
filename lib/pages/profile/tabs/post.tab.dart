@@ -11,7 +11,7 @@ class PostTab extends StatelessWidget {
       child: GetBuilder<PostController>(
         init: PostController(),
         builder: (controller) {
-          final posts = controller.userPost?.data;
+          final posts = controller.userPost.data;
           final totalPosts = posts?.length ?? 0;
 
           if (totalPosts == 0) {

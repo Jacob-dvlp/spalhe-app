@@ -21,9 +21,9 @@ class MediasTab extends StatelessWidget {
           mainAxisSpacing: 0.5,
         ),
         children: List.generate(
-          controller.postMedias?.data?.length ?? 0,
+          controller.postMedias.data?.length ?? 0,
           (index) {
-            final media = controller.postMedias?.data?[index];
+            final media = controller.postMedias.data?[index];
 
             return GestureDetector(
               onTap: () => OnRoute.push(

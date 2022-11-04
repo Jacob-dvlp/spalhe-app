@@ -13,7 +13,7 @@ class PostMentionsTab extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final posts = controller.mentions;
-          final totalPosts = posts?.data?.length ?? 0;
+          final totalPosts = posts.data?.length ?? 0;
 
           if (totalPosts == 0) {
             return Column(
@@ -41,7 +41,7 @@ class PostMentionsTab extends StatelessWidget {
           return Column(
             children: List.generate(
               totalPosts,
-              (index) => PostItem(post: posts!.data![index]),
+              (index) => PostItem(post: posts.data![index]),
             ),
           );
         },
