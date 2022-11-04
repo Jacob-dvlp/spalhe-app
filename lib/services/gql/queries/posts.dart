@@ -194,9 +194,7 @@ final GET_HASHTAGS = gql(r'''
 
 final REPORT_POST_MUTATION = gql(r"""
  mutation reportPost($post_id: Float!) {
-	reportPost(post_id: $post_id) {
-		id
-	}
+	reportPost(post_id: $post_id)
 }
 """);
 

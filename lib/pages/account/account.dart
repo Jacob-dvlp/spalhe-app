@@ -5,6 +5,7 @@ import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
 import 'package:spalhe/pages/account/pages/liked_posts/liked_posts.dart';
+import 'package:spalhe/pages/account/pages/policy/policy.dart';
 import 'package:spalhe/pages/account/pages/saved_posts/saved_posts.dart';
 import 'package:spalhe/theme/colors.dart';
 
@@ -61,6 +62,7 @@ class AccountPage extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
                 ListTile(
+                  onTap: () => Get.to(() => PolicyPage()),
                   leading: Icon(Icons.security_rounded),
                   title: Text('dados e privacidade'),
                 ),

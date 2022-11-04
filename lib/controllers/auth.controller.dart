@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:spalhe/components/layout/dialog/dialog.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/pages/auth/login.dart';
@@ -69,6 +70,22 @@ class AuthController extends GetxController {
         colorText: Colors.white,
       );
       setLoading(false);
+    }
+  }
+
+  deleteAccount() async {
+    try {
+      showDialogModal(
+        title: 'Tem certeza?',
+        description: 'Você não poderá desfazer essa ação.',
+        confirmText: 'Sim, tenho certeza',
+        onConfirm: () async {
+          await useMutation(DELETE_ACCOUNT_MUTATION);
+          logout();
+        },
+      );
+    } catch (e) {
+      print(e);
     }
   }
 
