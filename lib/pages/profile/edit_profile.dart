@@ -101,24 +101,27 @@ class EditProfilePage extends StatelessWidget {
                       maxLines: 4,
                     ),
                     SizedBox(height: 20),
-                    Row(
-                      children: [
-                        CupertinoSwitch(
-                          activeColor: primary,
-                          value: user.privated == true,
-                          onChanged: (isPrivated) {
-                            _auth.setValue('privated', isPrivated);
-                          },
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'conta privada',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                    Visibility(
+                      visible: false,
+                      child: Row(
+                        children: [
+                          CupertinoSwitch(
+                            activeColor: primary,
+                            value: user.privated == true,
+                            onChanged: (isPrivated) {
+                              _auth.setValue('privated', isPrivated);
+                            },
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 10),
+                          Text(
+                            'conta privada',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 20),
                     SizedBox(
