@@ -45,14 +45,11 @@ class PostController extends GetxController {
       });
       PostModel postsData = PostModel.fromJson(res.data?['getPosts']);
 
-      // if (postsData.data != null) {
-      //   return [];
-      // }
-
-      // print(postsData.data?.length);
+      if (postsData.data?.isEmpty == true) {
+        return;
+      }
 
       posts.meta = postsData.meta;
-
       posts.data = [...posts.data ?? [], ...postsData.data!];
 
       setLoading(false);

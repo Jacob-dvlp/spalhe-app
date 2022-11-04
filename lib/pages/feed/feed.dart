@@ -87,7 +87,6 @@ class FeedPage extends StatelessWidget {
               everythingLoaded: _posts.posts.meta?.nextPage == false,
               onLoadingStart: (page) async {
                 debouncer.run(() async {
-                  print(_posts.posts.meta?.toJson());
                   if (_posts.posts.meta?.nextPage == false) return;
                   await _post.getPosts(
                     filters: {

@@ -53,11 +53,9 @@ class AuthController extends GetxController {
       );
       box.write('auth', res.data?['login']);
       auth = AuthModel.fromJson(res.data?['login']);
-      OneSignal.shared
-          .setExternalUserId(auth.user?.id.toString() ?? '')
-          .catchError((e) {
-        print({'OneSignal setUserID:', e});
-      });
+
+      OneSignal.shared.setExternalUserId(auth.user?.id.toString() ?? '');
+
       setLoading(false);
       OnRoute.pushOff(LoaderPage());
     } catch (e) {

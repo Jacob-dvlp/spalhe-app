@@ -10,16 +10,6 @@ import 'package:spalhe/pages/account/pages/saved_posts/saved_posts.dart';
 import 'package:spalhe/theme/colors.dart';
 
 class AccountPage extends StatelessWidget {
-  AccountPage({Key? key}) : super(key: key) {
-    getAvailable();
-  }
-
-  getAvailable() async {
-    final bool available = await InAppPurchase.instance.isAvailable();
-    print({available});
-    if (!available) {}
-  }
-
   @override
   Widget build(BuildContext context) {
     final authController = Get.find<AuthController>();
