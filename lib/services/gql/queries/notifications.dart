@@ -12,9 +12,7 @@ query ($filters: IFilters!) {
 			id
 			title
 			body
-			type
-			type_id
-			
+			type	
 			post_id
 			comment_id
 			moment_id

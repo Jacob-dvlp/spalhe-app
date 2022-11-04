@@ -8,8 +8,8 @@ final BLOCK_USER_MUTATION = gql(r"""
 """);
 
 final FOLLOW_USER_MUTATION = gql(r"""
-  mutation (\$followed_id: Float!) {
-    followUser(followed_id: \$followed_id) {
+  mutation ($followed_id: Float!) {
+    followUser(followed_id: $followed_id) {
       active
       status
 	  }
@@ -18,10 +18,10 @@ final FOLLOW_USER_MUTATION = gql(r"""
 
 final DocumentNode CREATE_USER_MUTATION = gql(r"""
   mutation(
-    \$data: ICreateUserDTO! 
+    $data: ICreateUserDTO! 
   ) {
     createUser(
-      data: \$data
+      data: $data
     ) {
       id
       name
@@ -35,9 +35,9 @@ final DocumentNode CREATE_USER_MUTATION = gql(r"""
   }
 """);
 
-final DocumentNode GET_USER_QUERY = gql("""
- query (\$id: Float!) {
-	getUser(id: \$id){
+final DocumentNode GET_USER_QUERY = gql(r"""
+ query ($id: Float!) {
+	getUser(id: $id){
 		id
 		email
 		name
@@ -62,12 +62,12 @@ final DocumentNode GET_USER_QUERY = gql("""
 }
 """);
 
-final DocumentNode UPDATE_USER_MUTATION = gql("""
+final DocumentNode UPDATE_USER_MUTATION = gql(r"""
  mutation(
-	\$data: IUpdateUserDTO! 
+	$data: IUpdateUserDTO! 
 ) {
 	updateProfile(
-		data: \$data
+		data: $data
 	) {
 		id
 		name
@@ -76,7 +76,7 @@ final DocumentNode UPDATE_USER_MUTATION = gql("""
 }
 """);
 
-final DocumentNode GET_PROFILE = gql("""
+final DocumentNode GET_PROFILE = gql(r"""
 query {
 	getProfile {
 		id

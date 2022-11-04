@@ -31,6 +31,7 @@ dependencies:
   onesignal_flutter: ^3.4.2
   visibility_detector: ^0.3.3
   flutter_hooks: ^0.18.5+1
+  infinite_scroll: ^1.1.1
 
 dev_dependencies:
   flutter_test:

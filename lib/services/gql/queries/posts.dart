@@ -1,6 +1,83 @@
 import 'package:gql/src/ast/ast.dart';
 import 'package:graphql/client.dart';
 
+final GET_SAVED_POSTS = gql(r'''
+  query getSavedPosts($filters: IFilters!) {
+	getSavedPosts (filters: $filters) {
+		meta {
+			page
+			per_page
+			total
+			previus_page
+			next_page
+		}
+		data {
+			id
+			text
+			is_liked
+			is_saved
+			repost {
+				id
+				text
+				created_at
+				medias {
+					url
+					type
+					subtype
+				}
+				location {
+					id
+					name
+				}
+				mentions {
+					user {
+						id
+						name
+						avatar
+					}
+				}
+				user {
+					id
+					name
+					username
+					avatar
+				}
+			}
+			medias {
+				url
+				type
+				subtype
+			}
+			location {
+				id
+				name
+			}
+			mentions {
+				user {
+					id
+					name
+					avatar
+				}
+			}
+			user {
+				id
+				name
+				username
+				avatar
+				verified
+			}
+			_count {
+				mentions
+				likes
+				comments
+				reposts
+				medias
+			}
+		}
+	}
+}
+''');
+
 final GET_POSTS_BY_HASHTAG = gql(r'''
  query getPostsByHashtags($hashtag: String!) {
 	getPostsByHashtags(hashtag: $hashtag, filters: {}) {
@@ -395,23 +472,23 @@ query($user_id: Float!, $filters: IFilters!) {
 }
 """);
 
-final DocumentNode LIKE_POST_MUTATION = gql("""
-  mutation(\$postId: Float!) {
-    likePost(post_id: \$postId)
+final DocumentNode LIKE_POST_MUTATION = gql(r"""
+  mutation($postId: Float!) {
+    likePost(post_id: $postId)
   }
 """);
 
-final DocumentNode CREATE_POST_MUTATION = gql("""
-  mutation(\$data: ICreatePostDTO!) {
-    createPost(data: \$data){
+final DocumentNode CREATE_POST_MUTATION = gql(r"""
+  mutation($data: ICreatePostDTO!) {
+    createPost(data: $data){
       id
     }
   }
 """);
 
-final DocumentNode GET_POSTS_QUERY = gql("""
-  query(\$filters: IFilters!) {
-    getPosts(filters: \$filters) {
+final DocumentNode GET_POSTS_QUERY = gql(r"""
+  query getPosts($filters: IFilters!) {
+    getPosts(filters: $filters) {
       meta {
         page
         per_page

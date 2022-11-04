@@ -15,6 +15,8 @@ import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/numbers.dart';
 import 'package:spalhe/utils/routes.dart';
 
+import '../../components/layout/dialog/dialog.dart';
+
 class UserPage extends StatelessWidget {
   final _posts = Get.put(PostController());
   final _profileController = Get.put(ProfileController());
@@ -32,6 +34,17 @@ class UserPage extends StatelessWidget {
   sendMessage() {
     final ChatController chatController = Get.put(ChatController());
     chatController.createChat(userId);
+  }
+
+  blockUser() {
+    showDialogModal(
+      context: Get.context!,
+      title: 'Bloquear usuário',
+      description: 'Deseja bloquear este usuário?',
+      onConfirm: () {
+        _profileController.blockUser(userId);
+      },
+    );
   }
 
   @override
@@ -100,7 +113,7 @@ class UserPage extends StatelessWidget {
                               FeatherIcons.userX,
                             ),
                             title: Text('bloquear usuário'),
-                            onTap: () => profileController.blockUser(userId),
+                            onTap: blockUser,
                           ),
                         ],
                       ),

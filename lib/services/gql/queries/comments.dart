@@ -40,9 +40,9 @@ final GET_ALL_REPLIES_COMMENT_QUERY = gql(r"""
 }
 """);
 
-final COMMENT_POST_MUTATION = gql("""
-  mutation (\$post_id: Float!, \$data: ICreateCommentDTO!) {
-    commentPost(post_id: \$post_id, data: \$data) {
+final COMMENT_POST_MUTATION = gql(r"""
+  mutation ($post_id: Float!, $data: ICreateCommentDTO!) {
+    commentPost(post_id: $post_id, data: $data) {
       id
       text
       user {

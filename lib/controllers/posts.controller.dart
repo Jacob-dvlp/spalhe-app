@@ -11,11 +11,11 @@ import 'package:spalhe/utils/routes.dart';
 class PostController extends GetxController {
   List<AutocompletePrediction>? locations = [];
   final picker = ImagePicker();
-  PostModel? posts;
-  PostModel? userPost;
-  PostModel? postMedias;
-  PostModel? mentions;
-  bool loading = false;
+  PostModel posts = PostModel();
+  PostModel userPost = PostModel();
+  PostModel postMedias = PostModel();
+  PostModel mentions = PostModel();
+  bool loading = true;
 
   List<XFile> images = [];
   List<XFile> videos = [];
@@ -23,8 +23,8 @@ class PostController extends GetxController {
 
   @override
   void onReady() {
-    super.onReady();
     getPosts();
+    super.onReady();
   }
 
   @override
@@ -37,17 +37,28 @@ class PostController extends GetxController {
     update();
   }
 
-  getPosts() async {
+  getPosts({Map? filters}) async {
     try {
-      setLoading(true);
+      print(filters);
       final res = await useQuery(GET_POSTS_QUERY, variables: {
-        "filters": {},
+        "filters": filters ?? {},
       });
-      posts = PostModel.fromJson(res.data?['getPosts']);
+      PostModel postsData = PostModel.fromJson(res.data?['getPosts']);
+
+      // if (postsData.data != null) {
+      //   return [];
+      // }
+
+      // print(postsData.data?.length);
+
+      posts.meta = postsData.meta;
+
+      posts.data = [...posts.data ?? [], ...postsData.data!];
+
       setLoading(false);
     } catch (e) {
-      setLoading(false);
       print(e);
+      setLoading(false);
     }
   }
 
@@ -79,7 +90,7 @@ class PostController extends GetxController {
 
   getUserPosts(int id) async {
     try {
-      userPost = null;
+      userPost = PostModel();
       update();
       final res = await useMutation(GET_USER_POSTS_QUERY, variables: {
         'user_id': id,
