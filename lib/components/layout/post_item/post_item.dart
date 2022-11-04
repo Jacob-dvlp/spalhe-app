@@ -146,7 +146,7 @@ class PostItem extends StatelessWidget {
                                                 leading: Icon(
                                                   Icons.bookmark_border_rounded,
                                                 ),
-                                                title: Text('salvar'),
+                                                title: Text('salvar post'),
                                                 onTap: () => {},
                                               ),
                                               if (authuser?.id != post.user?.id)
@@ -156,7 +156,7 @@ class PostItem extends StatelessWidget {
                                                   leading: Icon(
                                                     FeatherIcons.alertTriangle,
                                                   ),
-                                                  title: Text('denunciar'),
+                                                  title: Text('denunciar post'),
                                                   onTap: () => _post
                                                       .reportPost(post.id!),
                                                 ),
