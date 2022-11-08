@@ -61,7 +61,7 @@ class UsernamePage extends StatelessWidget {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      auth.updateUser();
+                      auth.updateUsername();
                     }
                   },
                   child: Text('Salvar'),

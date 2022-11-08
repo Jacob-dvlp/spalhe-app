@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/button/button.dart';
@@ -33,7 +34,7 @@ class LoginPage extends StatelessWidget {
                     child: SizedBox(
                       width: 90,
                       height: 90,
-                      child: Image.asset('assets/icon.png'),
+                      child: SvgPicture.asset('assets/logo.svg'),
                     ),
                   ),
                   Input(

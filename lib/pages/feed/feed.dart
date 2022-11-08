@@ -88,7 +88,7 @@ class FeedPage extends StatelessWidget {
               onLoadingStart: (page) async {
                 debouncer.run(() async {
                   if (_posts.posts.meta?.nextPage == false) return;
-                  await _post.getPosts(
+                  await _post.getPostsPaginated(
                     filters: {
                       'page': page + 1,
                     },
@@ -157,7 +157,7 @@ class FeedPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (totalPosts == 0)
+                if (totalPosts == 0 && !loading)
                   Center(
                     child: Column(
                       children: [

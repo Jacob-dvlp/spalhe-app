@@ -52,19 +52,17 @@ class ExplorePage extends StatelessWidget {
           ),
         ],
       ),
-      body: RefreshIndicator(
+      body: ListViewWraper(
         onRefresh: () async {
           await hashtagsController.getHashtags();
           await userController.getUsers();
           await exploreController.getPostMedia();
         },
-        child: ListViewWraper(
-          children: [
-            HashtagsWidget(),
-            NewUsers(profileController: profileController),
-            ExploreMidias(),
-          ],
-        ),
+        children: [
+          HashtagsWidget(),
+          NewUsers(profileController: profileController),
+          ExploreMidias(),
+        ],
       ),
     );
   }

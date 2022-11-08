@@ -135,6 +135,23 @@ class AuthController extends GetxController {
     }
   }
 
+  void updateUsername() async {
+    try {
+      setLoading(true);
+      final user = auth.user!;
+      await useMutation(UPDATE_USER_MUTATION, variables: {
+        "data": {
+          "username": user.username,
+        }
+      });
+      await getUser();
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      print(e);
+    }
+  }
+
   Map registerData = {"name": '', "email": '', "password": ''};
 
   void setRegisterData(key, value) {

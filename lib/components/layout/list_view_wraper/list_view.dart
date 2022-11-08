@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ListViewWraper extends StatelessWidget {
-  const ListViewWraper({
+  ListViewWraper({
     Key? key,
     required this.children,
+    this.onRefresh = null,
     this.padding = const EdgeInsets.all(0),
   }) : super(key: key);
 
   final EdgeInsets padding;
   final List<Widget> children;
+  final onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: padding,
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
-        ),
+    return RefreshIndicator(
+      onRefresh: onRefresh ?? () async {},
+      child: ListView(
+        padding: padding,
+        children: children,
       ),
     );
   }

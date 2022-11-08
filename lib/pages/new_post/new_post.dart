@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
@@ -111,7 +113,9 @@ class NewPostPage extends StatelessWidget {
                                 width: 80,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
-                                  child: Image.asset(_post.images[index].path),
+                                  child: Image.file(
+                                    File(_post.images[index].path),
+                                  ),
                                 ),
                               ),
                             )

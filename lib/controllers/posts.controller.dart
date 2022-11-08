@@ -37,27 +37,36 @@ class PostController extends GetxController {
     update();
   }
 
-  getPosts({Map? filters}) async {
+  getPostsPaginated({Map? filters}) async {
     try {
-      print(filters);
       final res = await useQuery(GET_POSTS_QUERY, variables: {
         "filters": filters ?? {},
       });
       PostModel postsData = PostModel.fromJson(res.data?['getPosts']);
-
       posts.meta = postsData.meta;
-
       if (postsData.data?.isEmpty == true) {
         setLoading(false);
         return;
       }
-
       posts.data = [...posts.data ?? [], ...postsData.data!];
-
       setLoading(false);
     } catch (e) {
       print(e);
       setLoading(false);
+    }
+  }
+
+  getPosts() async {
+    try {
+      setLoading(true);
+      final res = await useQuery(GET_POSTS_QUERY, variables: {
+        "filters": {},
+      });
+      posts = PostModel.fromJson(res.data?['getPosts']);
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      print(e);
     }
   }
 
@@ -112,8 +121,8 @@ class PostController extends GetxController {
   void addImages() async {
     final XFile? file = await picker.pickImage(
       source: ImageSource.gallery,
-      imageQuality: 80,
-      maxHeight: 500,
+      // imageQuality: 80,
+      // maxHeight: 500,
     );
     if (file == null) {
       return;
