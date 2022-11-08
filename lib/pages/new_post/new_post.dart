@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
+import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/components/layout/loading/loading.dart';
 import 'package:spalhe/components/layout/post_item/post_item.dart';
@@ -29,6 +30,7 @@ class NewPostPage extends StatelessWidget {
           onWillPop: () async {
             bool returnValue = true;
             if (_post.images.isNotEmpty ||
+                _post.videos.isNotEmpty ||
                 postData['location'] != null ||
                 postData['text'] != null) {
               await showDialog(
@@ -115,6 +117,26 @@ class NewPostPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(6),
                                   child: Image.file(
                                     File(_post.images[index].path),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ].toList(),
+                        ),
+                      if (_post.videos.isNotEmpty)
+                        Row(
+                          children: [
+                            ...List.generate(
+                              _post.videos.length,
+                              (index) => Container(
+                                margin: EdgeInsets.symmetric(horizontal: 8)
+                                    .copyWith(right: 0),
+                                width: 80,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: ImageNetwork(
+                                    src:
+                                        'https://lisdermoplastica.com.br/wp-content/uploads/2017/08/video-placeholder.jpg',
                                   ),
                                 ),
                               ),

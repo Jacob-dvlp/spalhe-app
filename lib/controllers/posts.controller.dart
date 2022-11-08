@@ -121,8 +121,7 @@ class PostController extends GetxController {
   void addImages() async {
     final XFile? file = await picker.pickImage(
       source: ImageSource.gallery,
-      // imageQuality: 80,
-      // maxHeight: 500,
+      imageQuality: 50,
     );
     if (file == null) {
       return;
