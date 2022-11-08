@@ -10,6 +10,7 @@ import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/post/post.dart';
+import 'package:spalhe/pages/profile/profile.dart';
 import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
@@ -57,151 +58,158 @@ class PostItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => OnRoute.push(UserPage(
+              GestureDetector(
+                onTap: () {
+                  if (authuser?.id == user?.id) {
+                    OnRoute.push(ProfilePage());
+                  } else {
+                    OnRoute.push(UserPage(
                       userId: user!.id!,
-                    )),
-                    child: Avatar(
+                    ));
+                  }
+                },
+                child: Row(
+                  children: [
+                    Avatar(
                       user: user,
                       width: 38,
                       heigth: 38,
                       iconSize: 10,
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(user?.name?.split(' ').first ?? ''),
-                                  if (post.location != null)
-                                    Flexible(
-                                      child: Text(
-                                        '  •  ${post.location?.name}',
-                                        style: TextStyle(
-                                          color: Colors.grey.shade500,
-                                          fontSize: 12,
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(user?.name?.split(' ').first ?? ''),
+                                    if (post.location != null)
+                                      Flexible(
+                                        child: Text(
+                                          '  •  ${post.location?.name}',
+                                          style: TextStyle(
+                                            color: Colors.grey.shade500,
+                                            fontSize: 12,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                ],
-                              ),
+                                  ],
+                                ),
+                                Text(
+                                  '@${user?.username}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 30),
+                          Row(
+                            children: [
                               Text(
-                                '@${user?.username}',
+                                fromNow(post.createdAt),
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey.shade500,
                                 ),
                               ),
+                              if (showActions)
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      backgroundColor:
+                                          Theme.of(context).cardColor,
+                                      context: context,
+                                      builder: (BuildContext bc) {
+                                        return SafeArea(
+                                          child: Wrap(
+                                            children: [
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
+                                                  Icons.favorite_border,
+                                                ),
+                                                title: Text('quem gostou'),
+                                                onTap: () async {
+                                                  Get.back();
+                                                  _post.getLikesInPost();
+                                                  ShowLikesInPostModal(
+                                                    post: post,
+                                                    context: context,
+                                                  );
+                                                },
+                                              ),
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
+                                                  post.isSaved == true
+                                                      ? Icons.bookmark
+                                                      : Icons
+                                                          .bookmark_border_rounded,
+                                                ),
+                                                title: Text(post.isSaved == true
+                                                    ? 'remover dos salvos'
+                                                    : 'salvar post'),
+                                                onTap: () {
+                                                  _post.savePost();
+                                                  Get.back();
+                                                },
+                                              ),
+                                              if (authuser?.id != post.user?.id)
+                                                ListTile(
+                                                  tileColor: Theme.of(context)
+                                                      .cardColor,
+                                                  leading: Icon(
+                                                    FeatherIcons.alertTriangle,
+                                                  ),
+                                                  title: Text('denunciar post'),
+                                                  onTap: () => _post
+                                                      .reportPost(post.id!),
+                                                ),
+                                              if (authuser?.id == post.user?.id)
+                                                ListTile(
+                                                  tileColor: Theme.of(context)
+                                                      .cardColor,
+                                                  leading: Icon(
+                                                    Icons
+                                                        .delete_outline_outlined,
+                                                  ),
+                                                  title: Text('excluir'),
+                                                  onTap: () => _post
+                                                      .deletePost(post.id!),
+                                                ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Icons.more_vert_rounded,
+                                    ),
+                                  ),
+                                )
                             ],
                           ),
-                        ),
-                        SizedBox(width: 30),
-                        Row(
-                          children: [
-                            Text(
-                              fromNow(post.createdAt),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade500,
-                              ),
-                            ),
-                            if (showActions)
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    backgroundColor:
-                                        Theme.of(context).cardColor,
-                                    context: context,
-                                    builder: (BuildContext bc) {
-                                      return SafeArea(
-                                        child: Wrap(
-                                          children: [
-                                            ListTile(
-                                              tileColor:
-                                                  Theme.of(context).cardColor,
-                                              leading: Icon(
-                                                Icons.favorite_border,
-                                              ),
-                                              title: Text('quem gostou'),
-                                              onTap: () async {
-                                                Get.back();
-                                                _post.getLikesInPost();
-                                                ShowLikesInPostModal(
-                                                  post: post,
-                                                  context: context,
-                                                );
-                                              },
-                                            ),
-                                            ListTile(
-                                              tileColor:
-                                                  Theme.of(context).cardColor,
-                                              leading: Icon(
-                                                post.isSaved == true
-                                                    ? Icons.bookmark
-                                                    : Icons
-                                                        .bookmark_border_rounded,
-                                              ),
-                                              title: Text(post.isSaved == true
-                                                  ? 'remover dos salvos'
-                                                  : 'salvar post'),
-                                              onTap: () {
-                                                _post.savePost();
-                                                Get.back();
-                                              },
-                                            ),
-                                            if (authuser?.id != post.user?.id)
-                                              ListTile(
-                                                tileColor:
-                                                    Theme.of(context).cardColor,
-                                                leading: Icon(
-                                                  FeatherIcons.alertTriangle,
-                                                ),
-                                                title: Text('denunciar post'),
-                                                onTap: () =>
-                                                    _post.reportPost(post.id!),
-                                              ),
-                                            if (authuser?.id == post.user?.id)
-                                              ListTile(
-                                                tileColor:
-                                                    Theme.of(context).cardColor,
-                                                leading: Icon(
-                                                  Icons.delete_outline_outlined,
-                                                ),
-                                                title: Text('excluir'),
-                                                onTap: () =>
-                                                    _post.deletePost(post.id!),
-                                              ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.more_vert_rounded,
-                                  ),
-                                ),
-                              )
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 16),
               Column(

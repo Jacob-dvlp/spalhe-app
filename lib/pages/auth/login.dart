@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(bottom: 40, top: top),
                     child: SizedBox(
-                      width: 90,
+                      width: 190,
                       height: 90,
                       child: SvgPicture.asset('assets/logo.svg'),
                     ),

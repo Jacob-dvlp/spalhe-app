@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/notification.controller.dart';
+import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -34,23 +35,21 @@ class NotificationsPage extends StatelessWidget {
                 (index) {
                   final notification = notifications[index];
 
-                  return Opacity(
-                    opacity: notification.viewed == true ? 0.5 : 1,
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      margin: EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).cardColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
+                  return Stack(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Row(
                                 children: [
                                   CircleAvatar(
                                     radius: 20,
@@ -62,46 +61,54 @@ class NotificationsPage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "@" +
-                                            (notification.user?.username ?? ''),
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "@${notification.user?.username}",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        notification.body ?? '',
-                                        style: TextStyle(),
-                                      ),
-                                    ],
+                                        SizedBox(height: 5),
+                                        Text(
+                                          "${notification.body}",
+                                          style: TextStyle(),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(height: 4),
-                              Opacity(
-                                opacity: 0.4,
-                                child: Text(
-                                  fromNow(notification.createdAt),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
+                            ),
+                            Opacity(
+                              opacity: 0.4,
+                              child: Text(
+                                fromNow(notification.createdAt),
+                                style: TextStyle(
+                                  fontSize: 12,
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      if (notification.viewed == false)
+                        Container(
+                          width: 6,
+                          height: 6,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: primary,
+                          ),
+                        ),
+                    ],
                   );
                 },
               ),
