@@ -74,7 +74,10 @@ class EditProfilePage extends StatelessWidget {
                       initialValue: user.name,
                       validator: Validatorless.multiple([
                         Validatorless.required('nome obrigatório'),
-                        Validatorless.min(10, 'nome inválido'),
+                        Validatorless.min(
+                          3,
+                          'Nome deve ter no mínimo 4 caracteres',
+                        ),
                       ]),
                     ),
                     SizedBox(height: 14),

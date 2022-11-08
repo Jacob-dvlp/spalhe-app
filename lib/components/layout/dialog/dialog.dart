@@ -18,17 +18,18 @@ showDialogModal({
           borderRadius: BorderRadius.circular(4),
         ),
         title: Text(title),
-        content: Text(description),
+        content: SingleChildScrollView(child: Text(description)),
         actions: [
-          TextButton(
-            onPressed: OnRoute.back,
-            child: Text(
-              cancelText ?? 'Cancelar',
-              style: TextStyle(
-                color: Colors.redAccent,
+          if (cancelText != '')
+            TextButton(
+              onPressed: OnRoute.back,
+              child: Text(
+                cancelText ?? 'Cancelar',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                ),
               ),
             ),
-          ),
           TextButton(
             onPressed: () {
               onConfirm();

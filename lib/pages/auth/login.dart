@@ -12,12 +12,11 @@ import 'package:validatorless/validatorless.dart';
 import 'forgot.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
-  final auth = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
+    final auth = Get.put(AuthController());
     final top = MediaQuery.of(context).size.height / 6;
 
     return Scaffold(

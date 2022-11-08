@@ -9,13 +9,15 @@ class SettingsController extends GetxController {
   static final box = GetStorage();
   bool themeDark = box.read('theme') == 'dark' ? true : false;
 
-  void changeTheme(color) {
+  void changeTheme(String color) {
     if (color == 'light') {
       themeDark = false;
       Get.changeThemeMode(ThemeMode.light);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: ColorLight.background,
         statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: ColorLight.background,
+        systemNavigationBarIconBrightness: Brightness.dark,
       ));
     } else {
       themeDark = true;
@@ -23,6 +25,9 @@ class SettingsController extends GetxController {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: ColorDark.cardColor,
         statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: ColorDark.cardColor,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
       ));
     }
     box.write('theme', color);

@@ -141,14 +141,18 @@ class AuthController extends GetxController {
       final user = auth.user!;
       await useMutation(UPDATE_USER_MUTATION, variables: {
         "data": {
+          "name": user.name,
           "username": user.username,
+          "biography": user.biography,
+          "privated": user.privated,
         }
       });
       await getUser();
+      OnRoute.pushOff(LoaderPage());
       setLoading(false);
     } catch (e) {
-      setLoading(false);
       print(e);
+      setLoading(false);
     }
   }
 
