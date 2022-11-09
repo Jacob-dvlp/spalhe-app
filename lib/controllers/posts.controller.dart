@@ -99,15 +99,16 @@ class PostController extends GetxController {
   getUserPosts(int id) async {
     try {
       userPost = PostModel();
-      update();
+      setLoading(true);
       final res = await useMutation(GET_USER_POSTS_QUERY, variables: {
         'user_id': id,
         'filters': {},
       });
       userPost = PostModel.fromJson(res.data?['getUserPosts']);
-      update();
+      setLoading(false);
     } catch (e) {
       print(e);
+      setLoading(false);
     }
   }
 

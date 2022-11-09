@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
+import 'package:spalhe/pages/explore/pages/hashtags_posts/hashtags_posts.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
 import 'package:spalhe/pages/profile/edit_profile.dart';
+import 'package:spalhe/pages/profile/pages/followers/followeds.dart';
+import 'package:spalhe/pages/profile/pages/followers/followers.dart';
 import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
@@ -105,11 +109,14 @@ class ProfilePage extends StatelessWidget {
                               ),
                             ),
                             if (user.username != null)
-                              Text(
-                                '@' + (user.username ?? ''),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
+                              Opacity(
+                                opacity: 0.6,
+                                child: Text(
+                                  '@' + (user.username ?? ''),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                           ],
@@ -129,51 +136,80 @@ class ProfilePage extends StatelessWidget {
                       Column(
                         children: [
                           SizedBox(height: 14),
-                          Text(
-                            user.biography ?? '',
-                            style: TextStyle(
+                          HashTagText(
+                            text: user.biography ?? '',
+                            decorateAtSign: true,
+                            basicStyle: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                              fontSize: 15,
                             ),
-                          ),
+                            decoratedStyle: TextStyle(
+                              color: primary,
+                              fontSize: 18,
+                            ),
+                            onTap: (text) {
+                              if (text.startsWith('#')) {
+                                final hash = text.substring(1);
+                                OnRoute.push(HashtagsPostsPage(hashtag: hash));
+                              } else {}
+                            },
+                          )
                         ],
                       ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 30),
                     Row(
                       children: [
-                        Text(
-                          '${formatToNumberString(user.profileDetails?.followed ?? 0)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          'seguindo',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                        InkWell(
+                          onTap: () => OnRoute.push(FollowedsPage(
+                            userId: user.id!,
+                          )),
+                          child: Row(
+                            children: [
+                              Text(
+                                '${formatToNumberString(user.profileDetails?.followed ?? 0)}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'seguindo',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(width: 20),
-                        Text(
-                          '${formatToNumberString(user.profileDetails?.followers ?? 0)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          'seguidores',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                        InkWell(
+                          onTap: () => OnRoute.push(FollowersPage(
+                            userId: user.id!,
+                          )),
+                          child: Row(
+                            children: [
+                              Text(
+                                '${formatToNumberString(user.profileDetails?.followers ?? 0)}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'seguidores',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

@@ -8,6 +8,8 @@ import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/controllers/users.controller.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
+import 'package:spalhe/pages/profile/pages/followers/followeds.dart';
+import 'package:spalhe/pages/profile/pages/followers/followers.dart';
 import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
@@ -79,17 +81,6 @@ class UserPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          );
-        }
-
-        if (user.id == null && isLoading) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(user.name ?? ''),
-            ),
-            body: Center(
-              child: CircularProgressIndicator(),
             ),
           );
         }
@@ -197,118 +188,137 @@ class UserPage extends StatelessWidget {
                     SizedBox(height: 20),
                     Row(
                       children: [
-                        Text(
-                          '${formatToNumberString(user.profileDetails?.followers ?? 0)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          'seguindo',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                        InkWell(
+                          onTap: () => OnRoute.push(FollowedsPage(
+                            userId: userId,
+                          )),
+                          child: Row(
+                            children: [
+                              Text(
+                                '${formatToNumberString(user.profileDetails?.followed ?? 0)}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'seguindo',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(width: 20),
-                        Text(
-                          '${formatToNumberString(user.profileDetails?.followed ?? 0)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          'seguidores',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                        InkWell(
+                          onTap: () => OnRoute.push(FollowersPage(
+                            userId: userId,
+                          )),
+                          child: Row(
+                            children: [
+                              Text(
+                                '${formatToNumberString(user.profileDetails?.followers ?? 0)}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'seguidores',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (user.followed == 'following')
-                          Flexible(
-                            child: Row(
-                              children: [
-                                Flexible(
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.black87,
-                                        backgroundColor: Colors.grey.shade300,
-                                        elevation: 0,
+                    if (user.id != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (user.followed == 'following')
+                            Flexible(
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.black87,
+                                          backgroundColor: Colors.grey.shade300,
+                                          elevation: 0,
+                                        ),
+                                        onPressed: () =>
+                                            profileController.follow(user.id!),
+                                        child: Text('deixar de seguir'),
                                       ),
-                                      onPressed: () =>
-                                          profileController.follow(user.id!),
-                                      child: Text('deixar de seguir'),
                                     ),
                                   ),
-                                ),
-                                SizedBox(width: 10),
-                                Flexible(
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        backgroundColor: primary,
+                                  SizedBox(width: 10),
+                                  Flexible(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          backgroundColor: primary,
+                                        ),
+                                        onPressed: sendMessage,
+                                        child: Text('mensagem'),
                                       ),
-                                      onPressed: sendMessage,
-                                      child: Text('mensagem'),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        if (user.followed != 'following')
-                          Flexible(
-                            child: Row(
-                              children: [
-                                Flexible(
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 0,
+                          if (user.followed != 'following')
+                            Flexible(
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                        ),
+                                        onPressed: () =>
+                                            profileController.follow(user.id!),
+                                        child: Text('Seguir ${user.name}'),
                                       ),
-                                      onPressed: () =>
-                                          profileController.follow(user.id!),
-                                      child: Text('Seguir ${user.name}'),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        SizedBox(width: 10),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: profileController.showMoreUsers
-                                ? Get.theme.primaryColorDark.withOpacity(0.4)
-                                : Get.theme.primaryColorDark.withOpacity(0.1),
-                          ),
-                          onPressed: profileController.toggleShowMoreUsers,
-                          child: Icon(
-                            profileController.showMoreUsers
-                                ? FeatherIcons.userMinus
-                                : FeatherIcons.userPlus,
-                            size: 20,
-                            color: Get.theme.primaryColorDark,
-                          ),
-                        )
-                      ],
-                    ),
+                          SizedBox(width: 10),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: profileController.showMoreUsers
+                                  ? Get.theme.primaryColorDark.withOpacity(0.4)
+                                  : Get.theme.primaryColorDark.withOpacity(0.1),
+                            ),
+                            onPressed: profileController.toggleShowMoreUsers,
+                            child: Icon(
+                              profileController.showMoreUsers
+                                  ? FeatherIcons.userMinus
+                                  : FeatherIcons.userPlus,
+                              size: 20,
+                              color: Get.theme.primaryColorDark,
+                            ),
+                          )
+                        ],
+                      ),
                     if (profileController.showMoreUsers) SizedBox(height: 20),
                     if (profileController.showMoreUsers)
                       SizedBox(

@@ -4,7 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll/infinite_scroll_list.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/components/skeletons/post_skeleton/post_skeleton.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
@@ -41,13 +43,12 @@ class FeedPage extends StatelessWidget {
               child: Row(
                 children: [
                   SizedBox(width: 8),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: ImageNetwork(
-                      src: user?.avatar ?? '',
-                      width: 40,
-                      height: 40,
-                    ),
+                  Avatar(
+                    user: user,
+                    width: 44,
+                    heigth: 44,
+                    iconSize: 15,
+                    showIcon: true,
                   ),
                   SizedBox(width: 10),
                   Column(
@@ -101,62 +102,7 @@ class FeedPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: MomentsComponent(),
                 ),
-                if (loading)
-                  Skeleton(
-                    themeMode:
-                        _settings.themeDark ? ThemeMode.dark : ThemeMode.light,
-                    child: Container(),
-                    isLoading: true,
-                    skeleton: SkeletonItem(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 8),
-                                SkeletonLine(
-                                  style: SkeletonLineStyle(
-                                    height: 45,
-                                    width: 45,
-                                    borderRadius: BorderRadius.circular(60),
-                                  ),
-                                ),
-                                SizedBox(width: 14),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SkeletonLine(
-                                      style: SkeletonLineStyle(
-                                        height: 8,
-                                        width: 200,
-                                        borderRadius: BorderRadius.circular(60),
-                                      ),
-                                    ),
-                                    SizedBox(height: 6),
-                                    SkeletonLine(
-                                      style: SkeletonLineStyle(
-                                        height: 6,
-                                        width: 100,
-                                        borderRadius: BorderRadius.circular(60),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          SkeletonLine(
-                            style: SkeletonLineStyle(
-                              height: 400,
-                              width: MediaQuery.of(context).size.width,
-                              borderRadius: BorderRadius.circular(0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                if (loading) ...List.generate(2, (index) => PostSkeleton()),
                 if (totalPosts == 0 && !loading)
                   Center(
                     child: Column(

@@ -27,16 +27,16 @@ class SinginPage extends StatelessWidget {
           child: ListViewWraper(
             padding: EdgeInsets.all(20),
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              SizedBox(height: MediaQuery.of(context).size.height / 10),
               Row(
                 children: [
-                  Text('Já tem uma conta?'),
+                  Text('já tem uma conta?'),
                   InkWell(
                     onTap: () => OnRoute.back(),
                     child: Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Text(
-                        'Entar',
+                        'entar na minha conta',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: primary,
@@ -47,15 +47,15 @@ class SinginPage extends StatelessWidget {
                 ],
               ),
               Text(
-                'Nova conta',
+                'criar uma conta',
                 style: TextStyle(
                   fontSize: 38,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 14),
+              SizedBox(height: 54),
               Input(
-                label: 'Nome',
+                label: 'seu nome',
                 onSaved: (v) => setData('name', v),
                 initialValue: data['name'],
                 prefixIcon: Icon(
@@ -65,13 +65,13 @@ class SinginPage extends StatelessWidget {
                   Validatorless.required('nome obrigatório'),
                   Validatorless.min(
                     3,
-                    'Nome deve ter no mínimo 4 caracteres',
+                    'nome deve ter no mínimo 4 caracteres',
                   ),
                 ]),
               ),
               SizedBox(height: 14),
               Input(
-                label: 'Email',
+                label: 'seu melhor email',
                 onSaved: (v) => setData('email', v),
                 initialValue: data['email'],
                 prefixIcon: Icon(
@@ -84,7 +84,7 @@ class SinginPage extends StatelessWidget {
               ),
               SizedBox(height: 14),
               Input(
-                label: 'Senha',
+                label: 'sua senha secreta',
                 obscureText: true,
                 onSaved: (v) => setData('password', v),
                 initialValue: data['password'],
@@ -96,7 +96,7 @@ class SinginPage extends StatelessWidget {
                   Validatorless.min(6, 'senha muito curta'),
                 ]),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               Column(
                 children: [
                   Text(
@@ -110,7 +110,7 @@ class SinginPage extends StatelessWidget {
                         description: TermosDeUso,
                         onConfirm: () {},
                         cancelText: '',
-                        confirmText: 'Aceitar',
+                        confirmText: 'aceitar',
                       );
                     },
                     style: TextButton.styleFrom(
@@ -127,9 +127,9 @@ class SinginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               Button(
-                title: 'Cadastrar-me',
+                title: 'criar minha conta',
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();

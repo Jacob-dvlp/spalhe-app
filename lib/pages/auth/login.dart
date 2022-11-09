@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Get.put(AuthController());
-    final top = MediaQuery.of(context).size.height / 6;
+    final top = MediaQuery.of(context).size.height / 7.5;
 
     return Scaffold(
       body: SafeArea(
@@ -29,47 +29,36 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(bottom: 40, top: top),
+                    padding: EdgeInsets.only(bottom: 50, top: top),
                     child: SizedBox(
-                      width: 190,
+                      width: 160,
                       height: 90,
                       child: SvgPicture.asset('assets/logo.svg'),
                     ),
                   ),
                   Input(
-                    hint: 'Email',
-                    label: 'Email',
+                    hint: 'email',
+                    label: 'email',
                     onSaved: (v) => auth.loginData['email'] = v,
                     initialValue: auth.loginData['email'],
                     keyboardType: TextInputType.emailAddress,
                     prefixIcon: Icon(Icons.email_outlined),
                     validator: Validatorless.multiple([
-                      Validatorless.required('Email obrigatório'),
-                      Validatorless.email('Email não é válido')
+                      Validatorless.required('email obrigatório'),
+                      Validatorless.email('email não é válido')
                     ]),
                   ),
                   SizedBox(height: 10),
                   Input(
                     onSaved: (v) => auth.loginData['password'] = v,
                     initialValue: auth.loginData['password'],
-                    label: 'Senha',
+                    label: 'senha',
                     obscureText: true,
                     prefixIcon: Icon(Icons.lock_outline),
                     validator: Validatorless.multiple([
-                      Validatorless.required('Senha obrigatória'),
-                      Validatorless.min(6, 'Senha muito curta'),
+                      Validatorless.required('senha obrigatória'),
+                      Validatorless.min(6, 'senha muito curta'),
                     ]),
-                  ),
-                  SizedBox(height: 16),
-                  Button(
-                    loading: false,
-                    title: 'Entrar',
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        auth.login();
-                      }
-                    },
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
@@ -78,17 +67,14 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'Esqueceu a senha?',
+                          'esqueceu a senha?',
                           style: TextStyle(
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(0.8),
-                          ),
+                              color: Theme.of(context).primaryColorDark),
                         ),
                         SizedBox(width: 10),
                         InkWell(
                           child: Text(
-                            'Recuperar a conta',
+                            'recuperar senha',
                             style: TextStyle(
                               color: primary,
                             ),
@@ -98,6 +84,40 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Button(
+                    loading: false,
+                    title: 'entrar',
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        auth.login();
+                      }
+                    },
+                  ),
+                  SizedBox(height: 40),
+                  Column(
+                    children: [
+                      Text(
+                        'ainda não tem uma conta?',
+                        style: TextStyle(
+                          color: Theme.of(context)
+                              .primaryColorDark
+                              .withOpacity(0.8),
+                        ),
+                      ),
+                      TextButton(
+                        child: Text(
+                          'criar minha conta',
+                          style: TextStyle(
+                            color: primary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
+                        ),
+                        onPressed: () => OnRoute.push(SinginPage()),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -106,29 +126,13 @@ class LoginPage extends StatelessWidget {
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
-          height: 120,
-          padding: EdgeInsets.all(12),
-          alignment: Alignment.bottomCenter,
-          child: Column(
-            children: [
-              Text(
-                'Não tem uma conta ainda?',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColorDark.withOpacity(0.8),
-                ),
-              ),
-              TextButton(
-                child: Text(
-                  'Criar minha conta',
-                  style: TextStyle(
-                    color: primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-                onPressed: () => OnRoute.push(SinginPage()),
-              ),
-            ],
+          padding: EdgeInsets.all(20),
+          child: Text(
+            'make with ❤️ by @thiagobruno',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Theme.of(context).primaryColorDark.withOpacity(0.8),
+            ),
           ),
         ),
       ),
