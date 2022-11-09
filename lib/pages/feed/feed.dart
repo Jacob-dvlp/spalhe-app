@@ -3,13 +3,10 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll/infinite_scroll_list.dart';
-import 'package:skeletons/skeletons.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
-import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/components/skeletons/post_skeleton/post_skeleton.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
-import 'package:spalhe/controllers/settings.controller.dart';
 import 'package:spalhe/pages/feed/moments/moments.dart';
 import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/profile/profile.dart';
@@ -24,7 +21,6 @@ class FeedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _auth = Get.put(AuthController());
     final _post = Get.put(PostController());
-    final _settings = Get.put(SettingsController());
     final debouncer = new Debouncer(milliseconds: 500);
     final user = _auth.auth.user;
 
@@ -48,7 +44,6 @@ class FeedPage extends StatelessWidget {
                     width: 44,
                     heigth: 44,
                     iconSize: 15,
-                    showIcon: true,
                   ),
                   SizedBox(width: 10),
                   Column(

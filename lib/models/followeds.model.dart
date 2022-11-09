@@ -1,10 +1,30 @@
-class FollowedsModel {
+class FollowedModel {
+  GetFollowed? getFollowed;
+
+  FollowedModel({this.getFollowed});
+
+  FollowedModel.fromJson(Map<String, dynamic> json) {
+    getFollowed = json['getFollowed'] != null
+        ? new GetFollowed.fromJson(json['getFollowed'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.getFollowed != null) {
+      data['getFollowed'] = this.getFollowed!.toJson();
+    }
+    return data;
+  }
+}
+
+class GetFollowed {
   Meta? meta;
   List<Data>? data;
 
-  FollowedsModel({this.meta, this.data});
+  GetFollowed({this.meta, this.data});
 
-  FollowedsModel.fromJson(Map<String, dynamic> json) {
+  GetFollowed.fromJson(Map<String, dynamic> json) {
     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
     if (json['data'] != null) {
       data = <Data>[];
@@ -27,95 +47,79 @@ class FollowedsModel {
 }
 
 class Meta {
-  int? perPage;
+  bool? nextPage;
+  bool? previusPage;
   int? page;
-  String? order;
-  String? orderBy;
+  int? perPage;
   int? total;
 
-  Meta({this.perPage, this.page, this.order, this.orderBy, this.total});
+  Meta({this.nextPage, this.previusPage, this.page, this.perPage, this.total});
 
   Meta.fromJson(Map<String, dynamic> json) {
-    perPage = json['per_page'];
+    nextPage = json['next_page'];
+    previusPage = json['previus_page'];
     page = json['page'];
-    order = json['order'];
-    orderBy = json['order_by'];
+    perPage = json['per_page'];
     total = json['total'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['per_page'] = this.perPage;
+    data['next_page'] = this.nextPage;
+    data['previus_page'] = this.previusPage;
     data['page'] = this.page;
-    data['order'] = this.order;
-    data['order_by'] = this.orderBy;
+    data['per_page'] = this.perPage;
     data['total'] = this.total;
     return data;
   }
 }
 
 class Data {
-  int? id;
-  int? followerId;
-  int? followedId;
   bool? active;
-  String? createdAt;
-  String? updatedAt;
-  Follower? followed;
+  String? status;
+  Followed? followed;
 
-  Data(
-      {this.id,
-      this.followerId,
-      this.followedId,
-      this.active,
-      this.createdAt,
-      this.updatedAt,
-      this.followed});
+  Data({this.active, this.status, this.followed});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    followerId = json['follower_id'];
-    followedId = json['followed_id'];
     active = json['active'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    status = json['status'];
     followed = json['followed'] != null
-        ? new Follower.fromJson(json['follower'])
+        ? new Followed.fromJson(json['followed'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['follower_id'] = this.followerId;
-    data['followed_id'] = this.followedId;
     data['active'] = this.active;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    data['status'] = this.status;
     if (this.followed != null) {
-      data['follower'] = this.followed!.toJson();
+      data['followed'] = this.followed!.toJson();
     }
     return data;
   }
 }
 
-class Follower {
-  String? name;
+class Followed {
   int? id;
+  String? name;
+  String? username;
   String? avatar;
 
-  Follower({this.name, this.id, this.avatar});
+  Followed({this.id, this.name, this.username, this.avatar});
 
-  Follower.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+  Followed.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    name = json['name'];
+    username = json['username'];
     avatar = json['avatar'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
     data['id'] = this.id;
+    data['name'] = this.name;
+    data['username'] = this.username;
     data['avatar'] = this.avatar;
     return data;
   }

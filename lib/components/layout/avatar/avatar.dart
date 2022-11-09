@@ -8,7 +8,6 @@ class Avatar extends StatelessWidget {
   final double width;
   final double heigth;
   final double iconSize;
-  final bool showIcon;
 
   const Avatar({
     Key? key,
@@ -16,7 +15,6 @@ class Avatar extends StatelessWidget {
     this.heigth = 100,
     this.width = 100,
     this.iconSize = 30,
-    this.showIcon = true,
   }) : super(key: key);
 
   @override
@@ -38,7 +36,7 @@ class Avatar extends StatelessWidget {
             ),
           ),
         ),
-        if (showIcon && user?.verified == true)
+        if (user?.verified == true)
           Positioned(
             right: 0,
             bottom: 0,

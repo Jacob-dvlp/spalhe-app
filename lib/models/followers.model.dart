@@ -1,10 +1,30 @@
-class FollowersModel {
+class FollowerModel {
+  GetFollowers? getFollowers;
+
+  FollowerModel({this.getFollowers});
+
+  FollowerModel.fromJson(Map<String, dynamic> json) {
+    getFollowers = json['getFollowers'] != null
+        ? new GetFollowers.fromJson(json['getFollowers'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.getFollowers != null) {
+      data['getFollowers'] = this.getFollowers!.toJson();
+    }
+    return data;
+  }
+}
+
+class GetFollowers {
   Meta? meta;
   List<Data>? data;
 
-  FollowersModel({this.meta, this.data});
+  GetFollowers({this.meta, this.data});
 
-  FollowersModel.fromJson(Map<String, dynamic> json) {
+  GetFollowers.fromJson(Map<String, dynamic> json) {
     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
     if (json['data'] != null) {
       data = <Data>[];
@@ -27,58 +47,43 @@ class FollowersModel {
 }
 
 class Meta {
-  int? perPage;
+  bool? nextPage;
+  bool? previusPage;
   int? page;
-  String? order;
-  String? orderBy;
+  int? perPage;
   int? total;
 
-  Meta({this.perPage, this.page, this.order, this.orderBy, this.total});
+  Meta({this.nextPage, this.previusPage, this.page, this.perPage, this.total});
 
   Meta.fromJson(Map<String, dynamic> json) {
-    perPage = json['per_page'];
+    nextPage = json['next_page'];
+    previusPage = json['previus_page'];
     page = json['page'];
-    order = json['order'];
-    orderBy = json['order_by'];
+    perPage = json['per_page'];
     total = json['total'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['per_page'] = this.perPage;
+    data['next_page'] = this.nextPage;
+    data['previus_page'] = this.previusPage;
     data['page'] = this.page;
-    data['order'] = this.order;
-    data['order_by'] = this.orderBy;
+    data['per_page'] = this.perPage;
     data['total'] = this.total;
     return data;
   }
 }
 
 class Data {
-  int? id;
-  int? followerId;
-  int? followedId;
   bool? active;
-  String? createdAt;
-  String? updatedAt;
+  String? status;
   Follower? follower;
 
-  Data(
-      {this.id,
-      this.followerId,
-      this.followedId,
-      this.active,
-      this.createdAt,
-      this.updatedAt,
-      this.follower});
+  Data({this.active, this.status, this.follower});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    followerId = json['follower_id'];
-    followedId = json['followed_id'];
     active = json['active'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    status = json['status'];
     follower = json['follower'] != null
         ? new Follower.fromJson(json['follower'])
         : null;
@@ -86,12 +91,8 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['follower_id'] = this.followerId;
-    data['followed_id'] = this.followedId;
     data['active'] = this.active;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    data['status'] = this.status;
     if (this.follower != null) {
       data['follower'] = this.follower!.toJson();
     }
@@ -100,22 +101,25 @@ class Data {
 }
 
 class Follower {
-  String? name;
   int? id;
+  String? name;
+  String? username;
   String? avatar;
 
-  Follower({this.name, this.id, this.avatar});
+  Follower({this.id, this.name, this.username, this.avatar});
 
   Follower.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
     id = json['id'];
+    name = json['name'];
+    username = json['username'];
     avatar = json['avatar'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
     data['id'] = this.id;
+    data['name'] = this.name;
+    data['username'] = this.username;
     data['avatar'] = this.avatar;
     return data;
   }

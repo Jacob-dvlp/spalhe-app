@@ -43,7 +43,6 @@ class MomentsComponent extends StatelessWidget {
                         user: user,
                         width: 60,
                         heigth: 60,
-                        showIcon: false,
                       ),
                     ),
                     Positioned(
@@ -82,7 +81,6 @@ class MomentsComponent extends StatelessWidget {
                       user: user,
                       width: 50,
                       heigth: 50,
-                      showIcon: false,
                     ),
                   ),
                 );

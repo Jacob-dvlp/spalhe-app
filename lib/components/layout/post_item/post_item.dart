@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
-import 'package:spalhe/components/layout/post_item/components/showLikesInPostModal.dart';
+import 'package:spalhe/components/layout/post_item/pages/likes.dart';
 import 'package:spalhe/components/layout/video/video.dart';
+import 'package:spalhe/constants/video_types.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
@@ -17,8 +18,6 @@ import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
 import 'package:spalhe/utils/routes.dart';
-
-import '../../../constants/video_types.dart';
 
 class PostItem extends StatelessWidget {
   PostItem({
@@ -72,8 +71,9 @@ class PostItem extends StatelessWidget {
                   }
                 },
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ).copyWith(top: 20),
                   child: Row(
                     children: [
                       Avatar(
@@ -140,22 +140,6 @@ class PostItem extends StatelessWidget {
                                           return SafeArea(
                                             child: Wrap(
                                               children: [
-                                                ListTile(
-                                                  tileColor: Theme.of(context)
-                                                      .cardColor,
-                                                  leading: Icon(
-                                                    Icons.favorite_border,
-                                                  ),
-                                                  title: Text('quem gostou'),
-                                                  onTap: () async {
-                                                    Get.back();
-                                                    _post.getLikesInPost();
-                                                    ShowLikesInPostModal(
-                                                      post: post,
-                                                      context: context,
-                                                    );
-                                                  },
-                                                ),
                                                 ListTile(
                                                   tileColor: Theme.of(context)
                                                       .cardColor,
@@ -270,103 +254,114 @@ class PostItem extends StatelessWidget {
                     ),
                   SizedBox(height: 14),
                   if ((medias?.length ?? 0) > 0)
-                    SizedBox(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.width,
-                      child: PageView(
-                        controller: _pageController,
-                        scrollDirection: Axis.horizontal,
-                        scrollBehavior: ScrollBehavior(),
-                        children: List.generate(medias?.length ?? 0, (index) {
-                          final media = medias![index];
-                          if (VideoTypes.contains(media.type?.toLowerCase())) {
-                            return VideoPlayerComponent(videoUrl: media.url!);
-                          } else
-                            return ClipRRect(
-                              child: ImageNetwork(
-                                src: media.url,
-                                width: Size.infinite.width,
-                              ),
-                            );
-                        }),
+                    GestureDetector(
+                      onDoubleTap: () => _post.likePost(),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.width,
+                        child: PageView(
+                          controller: _pageController,
+                          scrollDirection: Axis.horizontal,
+                          scrollBehavior: ScrollBehavior(),
+                          children: List.generate(
+                            medias?.length ?? 0,
+                            (index) {
+                              final media = medias![index];
+                              if (VideoTypes.contains(
+                                  media.type?.toLowerCase())) {
+                                return VideoPlayerComponent(
+                                    videoUrl: media.url!);
+                              } else
+                                return ClipRRect(
+                                  child: ImageNetwork(
+                                    src: media.url,
+                                    width: Size.infinite.width,
+                                  ),
+                                );
+                            },
+                          ),
+                        ),
                       ),
                     )
                 ],
               ),
               if (showActions) SizedBox(height: 16),
               if (showActions)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Opacity(
-                    opacity: 0.7,
-                    child: Row(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${post.cCount?.likes}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                InkWell(
+                  onTap: () => OnRoute.push(LikesInPostPage(postId: post.id!)),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Opacity(
+                      opacity: 0.7,
+                      child: Row(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${post.cCount?.likes}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              (post.cCount?.likes ?? 0) > 1
-                                  ? 'gosteis'
-                                  : 'gostou',
-                              style: TextStyle(
-                                fontSize: 12,
+                              SizedBox(width: 4),
+                              Text(
+                                (post.cCount?.likes ?? 0) > 1
+                                    ? 'gosteis'
+                                    : 'gostou',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${post.cCount?.comments}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            )
-                          ],
-                        ),
-                        SizedBox(width: 20),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${post.cCount?.comments}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                              SizedBox(width: 4),
+                              Text(
+                                (post.cCount?.comments ?? 0) > 1
+                                    ? 'comentários'
+                                    : 'comentário',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              (post.cCount?.comments ?? 0) > 1
-                                  ? 'comentários'
-                                  : 'comentário',
-                              style: TextStyle(
-                                fontSize: 12,
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${post.cCount?.reposts ?? 0}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(width: 20),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${post.cCount?.reposts ?? 0}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              (post.cCount?.reposts ?? 0) > 1
-                                  ? 'spalharam'
-                                  : 'spalhou',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
+                              SizedBox(width: 4),
+                              Text(
+                                (post.cCount?.reposts ?? 0) > 1
+                                    ? 'spalharam'
+                                    : 'spalhou',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
