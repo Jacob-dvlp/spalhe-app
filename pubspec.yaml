@@ -1,7 +1,7 @@
 name: spalhe
 description: A new Flutter project.
 publish_to: "none"
-version: 3.4.9+41
+version: 3.5.0+42
 
 environment:
   sdk: ">=2.16.2 <3.0.0"

@@ -11,7 +11,6 @@ import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
-import 'package:spalhe/pages/auth/login.dart';
 import 'package:spalhe/pages/loader/loader.dart';
 import 'package:spalhe/services/api.dart';
 import 'package:spalhe/services/gql/hooks.dart';
