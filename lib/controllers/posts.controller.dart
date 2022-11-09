@@ -211,9 +211,12 @@ class PostController extends GetxController {
   }
 
   getPlaces(String text) async {
-    var googlePlace = GooglePlace("AIzaSyDKaVsPe3W7MgICv6kUx4PiG8LwnezD-_8");
-    var result = await googlePlace.queryAutocomplete.get(text, language: 'pt');
-    locations = result?.predictions;
-    update();
+    try {
+      var googlePlace = GooglePlace("AIzaSyDKaVsPe3W7MgICv6kUx4PiG8LwnezD-_8");
+      var result =
+          await googlePlace.queryAutocomplete.get(text, language: 'pt');
+      locations = result?.predictions;
+      update();
+    } catch (e) {}
   }
 }

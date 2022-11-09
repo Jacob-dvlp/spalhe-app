@@ -43,6 +43,7 @@ class MomentsComponent extends StatelessWidget {
                         user: user,
                         width: 60,
                         heigth: 60,
+                        showIcon: false,
                       ),
                     ),
                     Positioned(

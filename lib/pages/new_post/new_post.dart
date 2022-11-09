@@ -145,32 +145,37 @@ class NewPostPage extends StatelessWidget {
                         ),
                       SizedBox(height: 10),
                       if (_post.postData['location']?['name'] != null)
-                        Container(
-                          width: Size.infinite.width,
-                          padding: EdgeInsets.symmetric(horizontal: 14),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  _post.postData['location']['name'],
-                                  style: TextStyle(
-                                    fontSize: 14,
+                        Column(
+                          children: [
+                            Divider(),
+                            Container(
+                              width: Size.infinite.width,
+                              padding: EdgeInsets.symmetric(horizontal: 14),
+                              decoration: BoxDecoration(),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      _post.postData['location']['name'],
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                  SizedBox(width: 20),
+                                  IconButton(
+                                    onPressed: () => _post.clearLocation(),
+                                    icon: Icon(FeatherIcons.x),
+                                  )
+                                ],
                               ),
-                              SizedBox(width: 20),
-                              IconButton(
-                                onPressed: () => _post.clearLocation(),
-                                icon: Icon(FeatherIcons.x),
-                              )
-                            ],
-                          ),
+                            ),
+                            Divider(),
+                          ],
                         ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
