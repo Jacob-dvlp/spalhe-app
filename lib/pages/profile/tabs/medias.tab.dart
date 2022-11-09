@@ -6,12 +6,15 @@ import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class MediasTab extends StatelessWidget {
-  final PostController controller = Get.find();
+  final String? tag;
+
+  MediasTab({this.tag});
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) => GridView(
+    return GetBuilder<PostController>(
+      tag: tag,
+      builder: (controller) => GridView(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

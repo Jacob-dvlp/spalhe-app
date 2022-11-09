@@ -35,6 +35,34 @@ final DocumentNode CREATE_USER_MUTATION = gql(r"""
   }
 """);
 
+final DocumentNode GET_USER_BY_USERNAME_QUERY = gql(r"""
+ query getUserByUsername($username: String!) {
+	getUserByUsername(username: $username){
+		id
+		email
+		name
+		username
+		avatar
+    cover
+		biography
+		active
+    privated
+		verified
+		created_at
+		updated_at
+		following
+		followed
+		profile_details {
+			mentions
+			medias
+			posts
+      followed
+			followers
+		}
+	}
+}
+""");
+
 final DocumentNode GET_USER_QUERY = gql(r"""
  query ($id: Float!) {
 	getUser(id: $id){

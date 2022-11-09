@@ -5,13 +5,16 @@ import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/components/layout/post_item/post_item.dart';
 
 class PostMentionsTab extends StatelessWidget {
-  final PostController controller = Get.find();
+  final String? tag;
+
+  PostMentionsTab({this.tag});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Builder(
-        builder: (context) {
+      child: GetBuilder<PostController>(
+        tag: tag,
+        builder: (controller) {
           final posts = controller.mentions;
           final totalPosts = posts.data?.length ?? 0;
 

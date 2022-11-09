@@ -5,10 +5,15 @@ import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/components/layout/post_item/post_item.dart';
 
 class PostTab extends StatelessWidget {
+  final String? tag;
+
+  PostTab({this.tag});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: GetBuilder<PostController>(
+        tag: tag?.toString(),
         init: PostController(),
         builder: (controller) {
           final posts = controller.userPost.data;

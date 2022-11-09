@@ -58,6 +58,23 @@ class ProfileController extends GetxController {
     }
   }
 
+  Future<UserModel> getUserByUsername(String username) async {
+    try {
+      profile = UserModel();
+      setLoading(true);
+      final res = await useQuery(GET_USER_BY_USERNAME_QUERY, variables: {
+        "username": username,
+      });
+      profile = UserModel.fromJson(res.data?['getUserByUsername']);
+      setLoading(false);
+      return profile;
+    } catch (e) {
+      setLoading(false);
+      print(e);
+      throw e;
+    }
+  }
+
   follow(int userId) async {
     try {
       await useMutation(FOLLOW_USER_MUTATION, variables: {

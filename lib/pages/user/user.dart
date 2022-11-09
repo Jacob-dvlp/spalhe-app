@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
 import 'package:spalhe/controllers/profile.controller.dart';
 import 'package:spalhe/controllers/users.controller.dart';
+import 'package:spalhe/pages/explore/pages/hashtags_posts/hashtags_posts.dart';
 import 'package:spalhe/pages/profile/components/button_tab.dart';
 import 'package:spalhe/pages/profile/pages/followers/followeds.dart';
 import 'package:spalhe/pages/profile/pages/followers/followers.dart';
+import 'package:spalhe/pages/profile/profile.dart';
 import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
@@ -20,32 +24,41 @@ import 'package:spalhe/utils/routes.dart';
 import '../../components/layout/dialog/dialog.dart';
 
 class UserPage extends StatelessWidget {
-  final _posts = Get.put(PostController());
   final _profileController = Get.put(ProfileController());
 
-  final int userId;
+  final int? userId;
+  final String? username;
 
-  UserPage({required this.userId, Key? key}) : super(key: key) {
-    _profileController.reset();
-    _profileController.getUser(userId);
-    _posts.getUserPosts(userId);
-    _posts.getPostMedia(userId);
-    _posts.getPostMentions(userId);
+  UserPage({
+    this.userId,
+    this.username,
+    Key? key,
+  }) : super(key: key) {
+    getUser();
   }
 
-  sendMessage() {
-    final ChatController chatController = Get.put(ChatController());
-    chatController.createChat(userId);
-  }
-
-  blockUser() {
-    showDialogModal(
-      title: 'Bloquear usuário',
-      description: 'Deseja bloquear este usuário?',
-      onConfirm: () {
-        _profileController.blockUser(userId);
-      },
+  getUser() async {
+    final _posts = Get.put(
+      PostController(),
+      tag: username ?? userId.toString(),
     );
+
+    _profileController.reset();
+    _posts.reset();
+    if (username != null) {
+      final user = await _profileController.getUserByUsername(username!);
+
+      _posts.getUserPosts(user.id!);
+      _posts.getPostMedia(user.id!);
+      _posts.getPostMentions(user.id!);
+    }
+
+    if (userId != null) {
+      _profileController.getUser(userId!);
+      _posts.getUserPosts(userId!);
+      _posts.getPostMedia(userId!);
+      _posts.getPostMentions(userId!);
+    }
   }
 
   @override
@@ -56,10 +69,38 @@ class UserPage extends StatelessWidget {
         final user = profileController.profile;
         final isLoading = profileController.isLoading;
 
+        blockUser() {
+          showDialogModal(
+            title: 'Bloquear usuário',
+            description: 'Deseja bloquear este usuário?',
+            onConfirm: () {
+              _profileController.blockUser(user.id!);
+            },
+          );
+        }
+
+        sendMessage() {
+          final ChatController chatController = Get.put(ChatController());
+          chatController.createChat(user.id);
+        }
+
         if (user.id == null && isLoading == false) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(user.name ?? ''),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(user.name ?? ''),
+                  SizedBox(width: 6),
+                  Container(
+                    child: SvgPicture.asset(
+                      'assets/svg/veirified.svg',
+                      width: 20,
+                      height: 20,
+                    ),
+                  )
+                ],
+              ),
             ),
             body: Center(
               child: Column(
@@ -87,7 +128,25 @@ class UserPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(user.name ?? ''),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(user.name ?? ''),
+                if (user.verified == true)
+                  Row(
+                    children: [
+                      SizedBox(width: 6),
+                      Container(
+                        child: SvgPicture.asset(
+                          'assets/svg/veirified.svg',
+                          width: 20,
+                          height: 20,
+                        ),
+                      ),
+                    ],
+                  )
+              ],
+            ),
             actions: [
               IconButton(
                 onPressed: () => showModalBottomSheet(
@@ -134,6 +193,7 @@ class UserPage extends StatelessWidget {
                       user: user,
                       width: 120,
                       heigth: 120,
+                      showIcon: false,
                     ),
                   ],
                 ),
@@ -153,12 +213,25 @@ class UserPage extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              user.name ?? '',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  user.name ?? '',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(width: 6),
+                                if (user.verified == true)
+                                  Container(
+                                    child: SvgPicture.asset(
+                                      'assets/svg/veirified.svg',
+                                      width: 16,
+                                      height: 16,
+                                    ),
+                                  )
+                              ],
                             ),
                             if (user.username != null)
                               Text(
@@ -176,13 +249,34 @@ class UserPage extends StatelessWidget {
                       Column(
                         children: [
                           SizedBox(height: 14),
-                          Text(
-                            user.biography ?? '',
-                            style: TextStyle(
+                          HashTagText(
+                            text: user.biography ?? '',
+                            decorateAtSign: true,
+                            basicStyle: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                              fontSize: 15,
                             ),
-                          ),
+                            decoratedStyle: TextStyle(
+                              color: primary,
+                              fontSize: 18,
+                            ),
+                            onTap: (text) {
+                              if (text.startsWith('@')) {
+                                final username = text.substring(1);
+                                if (user.username == username) {
+                                  OnRoute.push(ProfilePage());
+                                } else {
+                                  OnRoute.push(UserPage(
+                                    username: username,
+                                  ));
+                                }
+                              }
+                              if (text.startsWith('#')) {
+                                final hash = text.substring(1);
+                                OnRoute.push(HashtagsPostsPage(hashtag: hash));
+                              }
+                            },
+                          )
                         ],
                       ),
                     SizedBox(height: 20),
@@ -190,7 +284,7 @@ class UserPage extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () => OnRoute.push(FollowedsPage(
-                            userId: userId,
+                            userId: user.id!,
                           )),
                           child: Row(
                             children: [
@@ -215,7 +309,7 @@ class UserPage extends StatelessWidget {
                         SizedBox(width: 20),
                         InkWell(
                           onTap: () => OnRoute.push(FollowersPage(
-                            userId: userId,
+                            userId: user.id!,
                           )),
                           child: Row(
                             children: [
@@ -452,9 +546,15 @@ class UserPage extends StatelessWidget {
                   return IndexedStack(
                     index: profileController.tab,
                     children: [
-                      PostTab(),
-                      MediasTab(),
-                      PostMentionsTab(),
+                      PostTab(
+                        tag: username ?? userId.toString(),
+                      ),
+                      MediasTab(
+                        tag: username ?? userId.toString(),
+                      ),
+                      PostMentionsTab(
+                        tag: username ?? userId.toString(),
+                      ),
                     ],
                   );
                 },

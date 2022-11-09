@@ -226,10 +226,20 @@ class PostItem extends StatelessWidget {
                           fontSize: 18,
                         ),
                         onTap: (text) {
+                          if (text.startsWith('@')) {
+                            final username = text.substring(1);
+                            if (authuser?.username == username) {
+                              OnRoute.push(ProfilePage());
+                            } else {
+                              OnRoute.push(UserPage(
+                                username: username,
+                              ));
+                            }
+                          }
                           if (text.startsWith('#')) {
                             final hash = text.substring(1);
                             OnRoute.push(HashtagsPostsPage(hashtag: hash));
-                          } else {}
+                          }
                         },
                       ),
                     ),

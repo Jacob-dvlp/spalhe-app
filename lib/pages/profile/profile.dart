@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
@@ -16,6 +17,7 @@ import 'package:spalhe/pages/profile/tabs/medias.tab.dart';
 import 'package:spalhe/pages/profile/tabs/mentions.tab.dart';
 import 'package:spalhe/pages/profile/tabs/post.tab.dart';
 import 'package:spalhe/pages/account/account.dart';
+import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/numbers.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -42,7 +44,25 @@ class ProfilePage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(user.name ?? ''),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(user.name ?? ''),
+                if (user.verified == true)
+                  Row(
+                    children: [
+                      SizedBox(width: 6),
+                      Container(
+                        child: SvgPicture.asset(
+                          'assets/svg/veirified.svg',
+                          width: 20,
+                          height: 20,
+                        ),
+                      ),
+                    ],
+                  )
+              ],
+            ),
             actions: [
               IconButton(
                 onPressed: () => OnRoute.push(AccountPage()),
@@ -72,6 +92,7 @@ class ProfilePage extends StatelessWidget {
                           user: user,
                           width: 120,
                           heigth: 120,
+                          showIcon: false,
                         ),
                       ],
                     ),
@@ -79,9 +100,15 @@ class ProfilePage extends StatelessWidget {
                   Positioned(
                     right: 10,
                     top: 10,
-                    child: IconButton(
-                      onPressed: () => _auth.addCover(context),
-                      icon: Icon(Icons.image),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: primary.withOpacity(0.7),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: IconButton(
+                        onPressed: () => _auth.addCover(context),
+                        icon: Icon(Icons.add_photo_alternate),
+                      ),
                     ),
                   )
                 ],
@@ -101,12 +128,25 @@ class ProfilePage extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              user.name ?? '',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  user.name ?? '',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(width: 6),
+                                if (user.verified == true)
+                                  Container(
+                                    child: SvgPicture.asset(
+                                      'assets/svg/veirified.svg',
+                                      width: 16,
+                                      height: 16,
+                                    ),
+                                  )
+                              ],
                             ),
                             if (user.username != null)
                               Opacity(
@@ -148,10 +188,20 @@ class ProfilePage extends StatelessWidget {
                               fontSize: 18,
                             ),
                             onTap: (text) {
+                              if (text.startsWith('@')) {
+                                final username = text.substring(1);
+                                if (user.username == username) {
+                                  OnRoute.push(ProfilePage());
+                                } else {
+                                  OnRoute.push(UserPage(
+                                    username: username,
+                                  ));
+                                }
+                              }
                               if (text.startsWith('#')) {
                                 final hash = text.substring(1);
                                 OnRoute.push(HashtagsPostsPage(hashtag: hash));
-                              } else {}
+                              }
                             },
                           )
                         ],

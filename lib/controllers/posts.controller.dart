@@ -199,6 +199,17 @@ class PostController extends GetxController {
     setData('location', null);
   }
 
+  reset() {
+    userPost = PostModel();
+    postMedias = PostModel();
+    mentions = PostModel();
+    loading = true;
+    images = [];
+    videos = [];
+    postData = {};
+    postLoading = false;
+  }
+
   getPlaces(String text) async {
     var googlePlace = GooglePlace("AIzaSyDKaVsPe3W7MgICv6kUx4PiG8LwnezD-_8");
     var result = await googlePlace.queryAutocomplete.get(text, language: 'pt');
