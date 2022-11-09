@@ -1,3 +1,5 @@
+import 'package:spalhe/models/user.model.dart';
+
 class FollowerModel {
   GetFollowers? getFollowers;
 
@@ -20,16 +22,16 @@ class FollowerModel {
 
 class GetFollowers {
   Meta? meta;
-  List<Data>? data;
+  List<FollowerData>? data;
 
   GetFollowers({this.meta, this.data});
 
   GetFollowers.fromJson(Map<String, dynamic> json) {
     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <FollowerData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new FollowerData.fromJson(v));
       });
     }
   }
@@ -74,18 +76,18 @@ class Meta {
   }
 }
 
-class Data {
+class FollowerData {
   bool? active;
   String? status;
-  Follower? follower;
+  UserModel? follower;
 
-  Data({this.active, this.status, this.follower});
+  FollowerData({this.active, this.status, this.follower});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  FollowerData.fromJson(Map<String, dynamic> json) {
     active = json['active'];
     status = json['status'];
     follower = json['follower'] != null
-        ? new Follower.fromJson(json['follower'])
+        ? new UserModel.fromJson(json['follower'])
         : null;
   }
 
@@ -96,31 +98,6 @@ class Data {
     if (this.follower != null) {
       data['follower'] = this.follower!.toJson();
     }
-    return data;
-  }
-}
-
-class Follower {
-  int? id;
-  String? name;
-  String? username;
-  String? avatar;
-
-  Follower({this.id, this.name, this.username, this.avatar});
-
-  Follower.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    username = json['username'];
-    avatar = json['avatar'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['username'] = this.username;
-    data['avatar'] = this.avatar;
     return data;
   }
 }

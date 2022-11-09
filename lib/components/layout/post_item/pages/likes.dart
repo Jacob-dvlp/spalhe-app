@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/components/layout/loading/loading.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/likes_in_post.controller.dart';
@@ -44,66 +45,67 @@ class LikesInPostPage extends StatelessWidget {
               );
             }
 
-            return SafeArea(
-              child: Container(
-                padding: EdgeInsets.only(top: 10),
-                child: Wrap(
-                  children: List.generate(
-                    userLiked.length,
-                    (index) {
-                      final user = userLiked[index].user;
+            return Container(
+              padding: EdgeInsets.only(top: 10),
+              child: ListViewWraper(
+                onRefresh: () async {
+                  controlelr.getLikesInPost(postId);
+                },
+                children: List.generate(
+                  userLiked.length,
+                  (index) {
+                    final user = userLiked[index].user;
 
-                      return InkWell(
-                        onTap: () {
-                          if (authuser?.id == user?.id) {
-                            OnRoute.push(ProfilePage());
-                          } else {
-                            OnRoute.push(UserPage(
-                              userId: user!.id!,
-                            ));
-                          }
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          child: Row(
-                            children: [
-                              Avatar(
-                                user: user,
-                                heigth: 45,
-                                width: 45,
-                                iconSize: 15,
-                              ),
-                              SizedBox(width: 16),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    user?.name ?? '',
+                    return InkWell(
+                      onTap: () {
+                        if (authuser?.id == user?.id) {
+                          OnRoute.push(ProfilePage());
+                        } else {
+                          OnRoute.push(UserPage(
+                            userId: user!.id!,
+                          ));
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        child: Row(
+                          children: [
+                            Avatar(
+                              user: user,
+                              heigth: 45,
+                              width: 45,
+                              iconSize: 15,
+                            ),
+                            SizedBox(width: 16),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  user?.name ?? '',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Opacity(
+                                  opacity: 0.6,
+                                  child: Text(
+                                    '@${user?.username ?? ''}',
                                     style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11,
                                     ),
                                   ),
-                                  Opacity(
-                                    opacity: 0.6,
-                                    child: Text(
-                                      '@${user?.username ?? ''}',
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
+                                )
+                              ],
+                            )
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
             );
