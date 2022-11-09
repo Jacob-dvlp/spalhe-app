@@ -22,6 +22,7 @@ final GET_SAVED_POSTS = gql(r'''
 				created_at
 				medias {
 					url
+          thumb
 					type
 					subtype
 				}
@@ -45,6 +46,7 @@ final GET_SAVED_POSTS = gql(r'''
 			}
 			medias {
 				url
+        thumb
 				type
 				subtype
 			}
@@ -96,6 +98,7 @@ final GET_POSTS_BY_HASHTAG = gql(r'''
 			created_at
 			medias {
 				url
+        thumb
 				type
 				subtype
 			}
@@ -130,6 +133,7 @@ final GET_POSTS_BY_HASHTAG = gql(r'''
 				created_at
 				medias {
 					url
+          thumb
 					type
 					subtype
 				}
@@ -230,6 +234,7 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
         created_at
         medias {
           url
+          thumb
           type
           subtype
         }
@@ -264,6 +269,7 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
           created_at
           medias {
             url
+            thumb
             type
             subtype
           }
@@ -316,6 +322,7 @@ final GET_POST_MEDIA_QUERY = gql(r'''
         created_at
         medias {
           url
+          thumb
           type
           subtype
         }
@@ -350,6 +357,7 @@ final GET_POST_MEDIA_QUERY = gql(r'''
           created_at
           medias {
             url
+            thumb
             type
             subtype
           }
@@ -402,6 +410,7 @@ query($user_id: Float!, $filters: IFilters!) {
         created_at
         medias {
           url
+          thumb
           type
           subtype
         }
@@ -436,6 +445,7 @@ query($user_id: Float!, $filters: IFilters!) {
           created_at
           medias {
             url
+            thumb
             type
             subtype
           }
@@ -502,6 +512,7 @@ final DocumentNode GET_POSTS_QUERY = gql(r"""
         created_at
         medias {
           url
+          thumb
           type
           subtype
         }
@@ -536,6 +547,7 @@ final DocumentNode GET_POSTS_QUERY = gql(r"""
           created_at
           medias {
             url
+            thumb
             type
             subtype
           }

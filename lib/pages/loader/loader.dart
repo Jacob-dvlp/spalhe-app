@@ -10,17 +10,14 @@ class LoaderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-      init: AuthController(),
-      builder: (auth) {
-        if (auth.isAuth && auth.auth.user?.username == null) {
-          return UsernamePage();
-        }
-        if (auth.isAuth) {
-          return HomePage();
-        }
-        return LoginPage();
-      },
-    );
+    final AuthController auth = Get.put(AuthController());
+
+    if (auth.isAuth && auth.auth.user?.username == null) {
+      return UsernamePage();
+    }
+    if (auth.isAuth) {
+      return HomePage();
+    }
+    return LoginPage();
   }
 }

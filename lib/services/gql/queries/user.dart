@@ -43,6 +43,7 @@ final DocumentNode GET_USER_QUERY = gql(r"""
 		name
 		username
 		avatar
+    cover
 		biography
 		active
     privated
@@ -106,6 +107,31 @@ query {
 final GET_USERS_QUERY = gql(r"""
   query($filters: IFilters!, $filter_follows: Boolean) {
     getUsers(filters: $filters, filter_follows: $filter_follows) {
+      meta {
+        page
+        per_page
+        previus_page
+        next_page
+        total
+      }
+      data {
+        id
+        name
+        username
+        avatar
+        following
+        verified
+        privated
+        followed
+			  following
+      }
+    }
+  }
+""");
+
+final GET_BLOCKED_USERS_QUERY = gql(r"""
+  query getBlockedUsers($filters: IFilters!) {
+    getBlockedUsers(filters: $filters) {
       meta {
         page
         per_page

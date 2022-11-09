@@ -58,11 +58,9 @@ class AuthController extends GetxController {
       );
       box.write('auth', res.data?['login']);
       auth = AuthModel.fromJson(res.data?['login']);
-
       OneSignal.shared.setExternalUserId(auth.user?.id.toString() ?? '');
-
       setLoading(false);
-      OnRoute.pushOff(LoaderPage());
+      Get.offAll(() => LoaderPage());
     } catch (e) {
       print(e);
       Get.snackbar(
@@ -131,6 +129,7 @@ class AuthController extends GetxController {
         colorText: Colors.white,
         duration: Duration(seconds: 1),
       );
+      OnRoute.back();
     } catch (e) {
       setLoading(false);
       print(e);
@@ -150,8 +149,8 @@ class AuthController extends GetxController {
         }
       });
       await getUser();
-      OnRoute.pushOff(LoaderPage());
       setLoading(false);
+      Get.offAll(() => LoaderPage());
     } catch (e) {
       print(e);
       setLoading(false);
@@ -252,6 +251,6 @@ class AuthController extends GetxController {
     Get.delete<AuthController>(force: true);
     Get.delete<ProfileController>(force: true);
     Get.delete<PostItemController>(force: true);
-    Get.offAll(() => LoginPage());
+    Get.offAll(() => LoaderPage());
   }
 }

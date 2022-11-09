@@ -32,7 +32,7 @@ class MediasTab extends StatelessWidget {
               child: Container(
                 child: ImageNetwork(
                   src: (media?.medias?.length ?? 0) > 0
-                      ? media?.medias?.first.url
+                      ? media?.medias?.first.thumb ?? media?.medias?.first.url
                       : '',
                 ),
               ),

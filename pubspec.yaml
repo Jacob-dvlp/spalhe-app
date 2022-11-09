@@ -30,7 +30,6 @@ dependencies:
   in_app_purchase: ^3.0.8
   onesignal_flutter: ^3.4.2
   visibility_detector: ^0.3.3
-  flutter_hooks: ^0.18.5+1
   infinite_scroll: ^1.1.1
   loader_overlay: ^2.1.0
   video_player: ^2.4.7

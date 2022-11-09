@@ -5,6 +5,7 @@ import 'package:spalhe/services/gql/queries/user.dart';
 
 class UserController extends GetxController {
   UsersModel? users;
+  UsersModel? blockedUsers;
 
   @override
   void onReady() {
@@ -28,6 +29,27 @@ class UserController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+
+  getBlockedUsers({Map? filters}) async {
+    try {
+      final res = await useQuery(GET_BLOCKED_USERS_QUERY, variables: {
+        'filters': filters ?? {},
+      });
+      blockedUsers = UsersModel.fromJson(res.data?['getBlockedUsers']);
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  blockUser(int userId) async {
+    try {
+      await useMutation(BLOCK_USER_MUTATION, variables: {
+        'user_id': userId,
+      });
+      await getBlockedUsers();
+    } catch (e) {}
   }
 
   followUser(userId, [index]) async {

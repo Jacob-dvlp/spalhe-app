@@ -9,6 +9,7 @@ import 'package:spalhe/components/layout/video/video.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
+import 'package:spalhe/pages/explore/pages/hashtags_posts/hashtags_posts.dart';
 import 'package:spalhe/pages/new_post/new_post.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/pages/profile/profile.dart';
@@ -16,6 +17,8 @@ import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
 import 'package:spalhe/utils/routes.dart';
+
+import '../../../constants/video_types.dart';
 
 class PostItem extends StatelessWidget {
   PostItem({
@@ -228,6 +231,12 @@ class PostItem extends StatelessWidget {
                         color: primary,
                         fontSize: 18,
                       ),
+                      onTap: (text) {
+                        if (text.startsWith('#')) {
+                          final hash = text.substring(1);
+                          OnRoute.push(HashtagsPostsPage(hashtag: hash));
+                        } else {}
+                      },
                     ),
                   if (post.repost != null)
                     Container(
@@ -256,23 +265,7 @@ class PostItem extends StatelessWidget {
                         scrollBehavior: ScrollBehavior(),
                         children: List.generate(medias?.length ?? 0, (index) {
                           final media = medias![index];
-                          if ([
-                            'mov',
-                            'mp4',
-                            'avi',
-                            'wmv',
-                            'flv',
-                            'mkv',
-                            '3gp',
-                            'webm',
-                            'mpeg',
-                            'mpg',
-                            'm4v',
-                            'f4v',
-                            'f4p',
-                            'f4a',
-                            'f4b',
-                          ].contains(media.type?.toLowerCase())) {
+                          if (VideoTypes.contains(media.type?.toLowerCase())) {
                             return VideoPlayerComponent(videoUrl: media.url!);
                           } else
                             return ClipRRect(

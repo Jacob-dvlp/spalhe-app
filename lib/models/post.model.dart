@@ -145,6 +145,7 @@ class PostData {
 
 class Medias {
   String? url;
+  String? thumb;
   String? type;
   String? subtype;
 
@@ -154,6 +155,7 @@ class Medias {
     url = json['url'];
     type = json['type'];
     subtype = json['subtype'];
+    thumb = json['thumb'];
   }
 
   Map<String, dynamic> toJson() {
@@ -161,6 +163,7 @@ class Medias {
     data['url'] = this.url;
     data['type'] = this.type;
     data['subtype'] = this.subtype;
+    data['thumb'] = this.thumb;
     return data;
   }
 }

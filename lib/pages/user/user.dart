@@ -129,10 +129,12 @@ class UserPage extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: primary,
-                  image: DecorationImage(
-                    image: NetworkImage(user.cover ?? ''),
-                    fit: BoxFit.cover,
-                  ),
+                  image: user.cover != null
+                      ? DecorationImage(
+                          image: NetworkImage(user.cover ?? ''),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

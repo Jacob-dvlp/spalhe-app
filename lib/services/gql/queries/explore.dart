@@ -17,6 +17,9 @@ final EXPLORE_MEDIAS_QUERY = gql(r"""
 			is_liked
 			medias {
 				url
+        thumb
+        type
+        subtype
 			}
 			location {
 				name

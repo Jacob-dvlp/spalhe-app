@@ -13,7 +13,7 @@ class GQLClient {
     );
 
     final WebSocketLink websocketLink = WebSocketLink(
-      '$webSoketBaseURL',
+      webSoketBaseURL,
       config: SocketClientConfig(
         autoReconnect: true,
         inactivityTimeout: Duration(seconds: 20),
@@ -24,12 +24,16 @@ class GQLClient {
       getToken: () async => 'Bearer ${auth.token}',
     );
 
-    final Link link = Link.split((request) => request.isSubscription,
-        websocketLink, authLink.concat(httpLink));
+    final Link link = Link.split(
+      (request) => request.isSubscription,
+      websocketLink,
+      authLink.concat(httpLink),
+    );
 
     final client = GraphQLClient(
       link: link,
       cache: GraphQLCache(),
+      alwaysRebroadcast: true,
     );
 
     return client;

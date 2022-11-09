@@ -1,0 +1,17 @@
+const VideoTypes = [
+  'mov',
+  'mp4',
+  'avi',
+  'wmv',
+  'flv',
+  'mkv',
+  '3gp',
+  'webm',
+  'mpeg',
+  'mpg',
+  'm4v',
+  'f4v',
+  'f4p',
+  'f4a',
+  'f4b',
+];
