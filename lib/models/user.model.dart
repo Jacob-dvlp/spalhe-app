@@ -4,6 +4,7 @@ class UserModel {
   String? name;
   String? username;
   String? avatar;
+  String? cover;
   String? biography;
   bool? active;
   bool? verified;
@@ -12,23 +13,27 @@ class UserModel {
   String? following;
   String? followed;
   bool? privated;
+  bool? sensitiveContent;
   ProfileDetails? profileDetails;
 
-  UserModel(
-      {this.id,
-      this.email,
-      this.name,
-      this.username,
-      this.avatar,
-      this.biography,
-      this.active,
-      this.verified,
-      this.createdAt,
-      this.updatedAt,
-      this.following,
-      this.followed,
-      this.privated,
-      this.profileDetails});
+  UserModel({
+    this.id,
+    this.email,
+    this.name,
+    this.username,
+    this.avatar,
+    this.biography,
+    this.active,
+    this.verified,
+    this.createdAt,
+    this.updatedAt,
+    this.following,
+    this.followed,
+    this.privated,
+    this.profileDetails,
+    this.cover,
+    this.sensitiveContent,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -36,6 +41,7 @@ class UserModel {
     name = json['name'];
     username = json['username'];
     avatar = json['avatar'];
+    cover = json['cover'];
     biography = json['biography'];
     active = json['active'];
     verified = json['verified'];
@@ -44,6 +50,7 @@ class UserModel {
     following = json['following'];
     followed = json['followed'];
     privated = json['privated'];
+    sensitiveContent = json['sensitive_content'];
     profileDetails = json['profile_details'] != null
         ? new ProfileDetails.fromJson(json['profile_details'])
         : null;
@@ -56,6 +63,7 @@ class UserModel {
     data['name'] = this.name;
     data['username'] = this.username;
     data['avatar'] = this.avatar;
+    data['cover'] = this.cover;
     data['biography'] = this.biography;
     data['active'] = this.active;
     data['verified'] = this.verified;
@@ -64,6 +72,7 @@ class UserModel {
     data['following'] = this.following;
     data['followed'] = this.followed;
     data['privated'] = this.privated;
+    data['sensitive_content'] = this.sensitiveContent;
     if (this.profileDetails != null) {
       data['profile_details'] = this.profileDetails!.toJson();
     }

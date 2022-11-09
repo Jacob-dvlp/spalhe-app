@@ -32,6 +32,8 @@ dependencies:
   visibility_detector: ^0.3.3
   flutter_hooks: ^0.18.5+1
   infinite_scroll: ^1.1.1
+  loader_overlay: ^2.1.0
+  video_player: ^2.4.7
 
 dev_dependencies:
   flutter_test:

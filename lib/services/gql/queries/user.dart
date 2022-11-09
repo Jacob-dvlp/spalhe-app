@@ -90,6 +90,8 @@ query {
 		verified
 		created_at
 		updated_at
+    sensitive_content
+    cover
 		profile_details {
 			mentions
 			medias

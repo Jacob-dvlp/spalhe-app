@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:spalhe/components/layout/dialog/dialog.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
@@ -115,6 +116,7 @@ class AuthController extends GetxController {
           "username": user.username,
           "biography": user.biography,
           "privated": user.privated,
+          "sensitive_content": user.sensitiveContent,
         }
       });
       await getUser();
@@ -210,6 +212,37 @@ class AuthController extends GetxController {
         update();
       }
     }
+  }
+
+  addCover(BuildContext c) async {
+    final file = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+      maxHeight: 500,
+    );
+    if (file != null) {
+      try {
+        c.loaderOverlay.show();
+        dio.FormData formData = dio.FormData.fromMap({
+          "files": await dio.MultipartFile.fromFile(
+            file.path,
+            filename: file.name,
+          ),
+        });
+        final res = await api.post(
+          '/users/upload/cover',
+          data: formData,
+        );
+        await getUser();
+        c.loaderOverlay.hide();
+        update();
+        return res;
+      } catch (e) {
+        c.loaderOverlay.hide();
+        print(e);
+      }
+    }
+    c.loaderOverlay.hide();
   }
 
   logout() {

@@ -48,21 +48,37 @@ class ProfilePage extends StatelessWidget {
           ),
           body: ListViewWraper(
             children: [
-              Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: primary,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Avatar(
-                      user: user,
-                      width: 120,
-                      heigth: 120,
+              Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: primary,
+                      image: DecorationImage(
+                        image: NetworkImage(user.cover ?? ''),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ],
-                ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Avatar(
+                          user: user,
+                          width: 120,
+                          heigth: 120,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    right: 10,
+                    top: 10,
+                    child: IconButton(
+                      onPressed: () => _auth.addCover(context),
+                      icon: Icon(Icons.image),
+                    ),
+                  )
+                ],
               ),
               Container(
                 padding: EdgeInsets.all(20),

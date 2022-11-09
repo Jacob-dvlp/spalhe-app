@@ -159,8 +159,8 @@ class PostController extends GetxController {
         for (int i = 0; medias.length > i; i++) {
           dio.FormData formData = dio.FormData.fromMap({
             "files": await dio.MultipartFile.fromFile(
-              images[i].path,
-              filename: images[i].name,
+              medias[i].path,
+              filename: medias[i].name,
             ),
           });
           try {

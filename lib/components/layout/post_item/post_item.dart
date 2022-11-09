@@ -5,6 +5,7 @@ import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/components/layout/post_item/components/showLikesInPostModal.dart';
+import 'package:spalhe/components/layout/video/video.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/post_item.controller.dart';
 import 'package:spalhe/models/post.model.dart';
@@ -253,17 +254,20 @@ class PostItem extends StatelessWidget {
                         controller: _pageController,
                         scrollDirection: Axis.horizontal,
                         scrollBehavior: ScrollBehavior(),
-                        children: List.generate(
-                          medias?.length ?? 0,
-                          (index) => ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
-                            child: ImageNetwork(
-                              src: medias?[index].url,
-                              width: Size.infinite.width,
-                              height: 300,
-                            ),
-                          ),
-                        ),
+                        children: List.generate(medias?.length ?? 0, (index) {
+                          final media = medias![index];
+                          if (['mov', 'mp4', 'avi'].contains(media.type)) {
+                            return VideoPlayerComponent(videoUrl: media.url!);
+                          } else
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: ImageNetwork(
+                                src: media.url,
+                                width: Size.infinite.width,
+                                height: 300,
+                              ),
+                            );
+                        }),
                       ),
                     )
                 ],
