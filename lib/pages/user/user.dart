@@ -91,14 +91,19 @@ class UserPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(user.name ?? ''),
-                  SizedBox(width: 6),
-                  Container(
-                    child: SvgPicture.asset(
-                      'assets/svg/veirified.svg',
-                      width: 20,
-                      height: 20,
-                    ),
-                  )
+                  if (user.verified == true)
+                    Row(
+                      children: [
+                        SizedBox(width: 6),
+                        Container(
+                          child: SvgPicture.asset(
+                            'assets/svg/veirified.svg',
+                            width: 20,
+                            height: 20,
+                          ),
+                        ),
+                      ],
+                    )
                 ],
               ),
             ),
