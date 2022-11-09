@@ -262,7 +262,7 @@ class PostItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                  SizedBox(height: 14),
+                  if ((medias?.length ?? 0) > 0) SizedBox(height: 14),
                   if ((medias?.length ?? 0) > 0)
                     GestureDetector(
                       onDoubleTap: () => _post.likePost(),
