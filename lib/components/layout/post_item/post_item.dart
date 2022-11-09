@@ -218,7 +218,7 @@ class PostItem extends StatelessWidget {
                         text: post.text ?? '',
                         decorateAtSign: true,
                         basicStyle: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           color: Theme.of(context).primaryColorDark,
                         ),
                         decoratedStyle: TextStyle(

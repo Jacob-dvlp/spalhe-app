@@ -181,11 +181,11 @@ class ProfilePage extends StatelessWidget {
                             decorateAtSign: true,
                             basicStyle: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 15,
+                              fontSize: 14,
                             ),
                             decoratedStyle: TextStyle(
                               color: primary,
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                             onTap: (text) {
                               if (text.startsWith('@')) {
