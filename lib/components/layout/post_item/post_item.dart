@@ -245,10 +245,10 @@ class PostItem extends StatelessWidget {
                         showActions: false,
                       ),
                     ),
-                  SizedBox(height: 6),
+                  SizedBox(height: 14),
                   if ((medias?.length ?? 0) > 0)
                     SizedBox(
-                      width: MediaQuery.of(context).size.width,
+                      width: double.infinity,
                       height: MediaQuery.of(context).size.width,
                       child: PageView(
                         controller: _pageController,
@@ -256,7 +256,23 @@ class PostItem extends StatelessWidget {
                         scrollBehavior: ScrollBehavior(),
                         children: List.generate(medias?.length ?? 0, (index) {
                           final media = medias![index];
-                          if (['mov', 'mp4', 'avi'].contains(media.type)) {
+                          if ([
+                            'mov',
+                            'mp4',
+                            'avi',
+                            'wmv',
+                            'flv',
+                            'mkv',
+                            '3gp',
+                            'webm',
+                            'mpeg',
+                            'mpg',
+                            'm4v',
+                            'f4v',
+                            'f4p',
+                            'f4a',
+                            'f4b',
+                          ].contains(media.type?.toLowerCase())) {
                             return VideoPlayerComponent(videoUrl: media.url!);
                           } else
                             return ClipRRect(
@@ -264,7 +280,6 @@ class PostItem extends StatelessWidget {
                               child: ImageNetwork(
                                 src: media.url,
                                 width: Size.infinite.width,
-                                height: 300,
                               ),
                             );
                         }),

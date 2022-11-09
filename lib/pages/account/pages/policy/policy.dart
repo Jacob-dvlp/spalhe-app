@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
+import 'package:spalhe/pages/account/pages/policy/pages/blocked_users.dart';
 import 'package:spalhe/theme/colors.dart';
 
 class PolicyPage extends StatelessWidget {
@@ -51,6 +52,7 @@ class PolicyPage extends StatelessWidget {
           ),
           SizedBox(height: 20),
           ListTile(
+            onTap: () => Get.to(() => BlockedUsersPage()),
             leading: Icon(FeatherIcons.userX),
             title: Text('usuários bloqueadas'),
           ),
