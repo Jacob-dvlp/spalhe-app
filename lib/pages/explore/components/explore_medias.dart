@@ -8,41 +8,51 @@ class ExploreMidias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ExploreController>(
-      init: ExploreController(),
-      builder: (exploreController) {
-        final medias = exploreController.postMedias?.data ?? [];
+    return Container(
+      color: Get.theme.scaffoldBackgroundColor,
+      child: GetBuilder<ExploreController>(
+        init: ExploreController(),
+        builder: (exploreController) {
+          final medias = exploreController.postMedias?.data ?? [];
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '+ fotos e vídeos',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                color: Get.theme.cardColor,
+                child: Column(
+                  children: [
+                    Divider(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '+ fotos e vídeos',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          // TextButton(onPressed: () {}, child: Text('ver mais'))
+                        ],
+                      ),
                     ),
-                  ),
-                  // TextButton(onPressed: () {}, child: Text('ver mais'))
-                ],
+                    Divider(),
+                  ],
+                ),
               ),
-            ),
-            Divider(),
-            Column(
-              children: List.generate(
-                medias.length,
-                (index) => new PostItem(post: medias[index]),
+              Column(
+                children: List.generate(
+                  medias.length,
+                  (index) => new PostItem(post: medias[index]),
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }

@@ -3,15 +3,24 @@ class MomentModel {
   String? avatar;
   String? username;
   String? name;
+  bool? verified;
   List<Moments>? moments;
 
-  MomentModel({this.id, this.avatar, this.username, this.name, this.moments});
+  MomentModel({
+    this.id,
+    this.avatar,
+    this.username,
+    this.name,
+    this.moments,
+    this.verified,
+  });
 
   MomentModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     avatar = json['avatar'];
     username = json['username'];
     name = json['name'];
+    verified = json['verified'];
     if (json['moments'] != null) {
       moments = <Moments>[];
       json['moments'].forEach((v) {
@@ -26,6 +35,7 @@ class MomentModel {
     data['avatar'] = this.avatar;
     data['username'] = this.username;
     data['name'] = this.name;
+    data['verified'] = this.verified;
     if (this.moments != null) {
       data['moments'] = this.moments!.map((v) => v.toJson()).toList();
     }

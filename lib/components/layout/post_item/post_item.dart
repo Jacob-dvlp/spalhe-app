@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
@@ -56,7 +57,18 @@ class PostItem extends StatelessWidget {
 
         return Container(
           margin: showActions ? EdgeInsets.only(bottom: 10) : null,
-          color: Theme.of(context).cardColor,
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            boxShadow: !showActions
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -65,22 +77,20 @@ class PostItem extends StatelessWidget {
                   if (authuser?.id == user?.id) {
                     OnRoute.push(ProfilePage());
                   } else {
-                    OnRoute.push(UserPage(
-                      userId: user!.id!,
-                    ));
+                    OnRoute.push(UserPage(userId: user!.id!));
                   }
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ).copyWith(top: 20),
+                    horizontal: 12,
+                  ).copyWith(top: 12),
                   child: Row(
                     children: [
                       Avatar(
                         user: user,
                         width: 38,
                         heigth: 38,
-                        iconSize: 17,
+                        showIcon: false,
                       ),
                       SizedBox(width: 8),
                       Expanded(
@@ -94,7 +104,25 @@ class PostItem extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(user?.name?.split(' ').first ?? ''),
+                                      Row(
+                                        children: [
+                                          Text(user?.name?.split(' ').first ??
+                                              ''),
+                                          if (user?.verified == true)
+                                            Row(
+                                              children: [
+                                                SizedBox(width: 5),
+                                                Container(
+                                                  child: SvgPicture.asset(
+                                                    'assets/svg/veirified.svg',
+                                                    width: 13,
+                                                    height: 13,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        ],
+                                      ),
                                       if (post.location != null)
                                         Flexible(
                                           child: Text(
@@ -109,97 +137,88 @@ class PostItem extends StatelessWidget {
                                         ),
                                     ],
                                   ),
-                                  Text(
-                                    '@${user?.username}',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey.shade500,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '@${user?.username}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade500,
+                                        ),
+                                      ),
+                                      Text(
+                                        '  •  ${fromNow(post.createdAt)}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ),
                             SizedBox(width: 30),
-                            Row(
-                              children: [
-                                Text(
-                                  fromNow(post.createdAt),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                                if (showActions)
-                                  GestureDetector(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        backgroundColor:
-                                            Theme.of(context).cardColor,
-                                        context: context,
-                                        builder: (BuildContext bc) {
-                                          return SafeArea(
-                                            child: Wrap(
-                                              children: [
-                                                ListTile(
-                                                  tileColor: Theme.of(context)
-                                                      .cardColor,
-                                                  leading: Icon(
-                                                    post.isSaved == true
-                                                        ? Icons.bookmark
-                                                        : Icons
-                                                            .bookmark_border_rounded,
-                                                  ),
-                                                  title: Text(
-                                                      post.isSaved == true
-                                                          ? 'remover dos salvos'
-                                                          : 'salvar post'),
-                                                  onTap: () {
-                                                    _post.savePost();
-                                                    Get.back();
-                                                  },
-                                                ),
-                                                if (authuser?.id !=
-                                                    post.user?.id)
-                                                  ListTile(
-                                                    tileColor: Theme.of(context)
-                                                        .cardColor,
-                                                    leading: Icon(
-                                                      FeatherIcons
-                                                          .alertTriangle,
-                                                    ),
-                                                    title:
-                                                        Text('denunciar post'),
-                                                    onTap: () => _post
-                                                        .reportPost(post.id!),
-                                                  ),
-                                                if (authuser?.id ==
-                                                    post.user?.id)
-                                                  ListTile(
-                                                    tileColor: Theme.of(context)
-                                                        .cardColor,
-                                                    leading: Icon(
-                                                      Icons
-                                                          .delete_outline_outlined,
-                                                    ),
-                                                    title: Text('excluir'),
-                                                    onTap: () => _post
-                                                        .deletePost(post.id!),
-                                                  ),
-                                              ],
+                            if (showActions)
+                              GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    backgroundColor:
+                                        Theme.of(context).cardColor,
+                                    context: context,
+                                    builder: (BuildContext bc) {
+                                      return SafeArea(
+                                        child: Wrap(
+                                          children: [
+                                            ListTile(
+                                              tileColor:
+                                                  Theme.of(context).cardColor,
+                                              leading: Icon(
+                                                post.isSaved == true
+                                                    ? Icons.bookmark
+                                                    : Icons
+                                                        .bookmark_border_rounded,
+                                              ),
+                                              title: Text(post.isSaved == true
+                                                  ? 'remover dos salvos'
+                                                  : 'salvar post'),
+                                              onTap: () {
+                                                _post.savePost();
+                                                Get.back();
+                                              },
                                             ),
-                                          );
-                                        },
+                                            if (authuser?.id != post.user?.id)
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
+                                                  FeatherIcons.alertTriangle,
+                                                ),
+                                                title: Text('denunciar post'),
+                                                onTap: () =>
+                                                    _post.reportPost(post.id!),
+                                              ),
+                                            if (authuser?.id == post.user?.id)
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
+                                                  Icons.delete_outline_outlined,
+                                                ),
+                                                title: Text('excluir'),
+                                                onTap: () =>
+                                                    _post.deletePost(post.id!),
+                                              ),
+                                          ],
+                                        ),
                                       );
                                     },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.more_vert_rounded,
-                                      ),
-                                    ),
-                                  )
-                              ],
-                            ),
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.more_vert_rounded,
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -207,13 +226,13 @@ class PostItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (post.text != null && post.text != '')
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                       child: HashTagText(
                         text: post.text ?? '',
                         decorateAtSign: true,
@@ -223,7 +242,7 @@ class PostItem extends StatelessWidget {
                         ),
                         decoratedStyle: TextStyle(
                           color: primary,
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                         onTap: (text) {
                           if (text.startsWith('@')) {
@@ -295,12 +314,12 @@ class PostItem extends StatelessWidget {
                     )
                 ],
               ),
-              if (showActions) SizedBox(height: 16),
+              if (showActions) SizedBox(height: 10),
               if (showActions)
                 InkWell(
                   onTap: () => OnRoute.push(LikesInPostPage(postId: post.id!)),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Opacity(
                       opacity: 0.7,
                       child: Row(
@@ -375,10 +394,9 @@ class PostItem extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (showActions) SizedBox(height: 16),
               if (showActions)
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 6),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

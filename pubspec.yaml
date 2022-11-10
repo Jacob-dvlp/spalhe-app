@@ -19,7 +19,7 @@ dependencies:
   cached_network_image: ^3.2.1
   flutter_feather_icons: ^2.0.0+1
   mask_text_input_formatter: ^2.1.0
-  flutter_svg: ^1.1.0
+  flutter_svg: 
   simple_moment: ^1.1.1
   validatorless: ^1.2.3
   get: ^4.6.5
@@ -33,6 +33,7 @@ dependencies:
   infinite_scroll: ^1.1.1
   loader_overlay: ^2.1.0
   video_player: ^2.4.7
+  pubnub: ^4.2.1
 
 dev_dependencies:
   flutter_test:

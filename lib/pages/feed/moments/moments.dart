@@ -80,8 +80,9 @@ class MomentsComponent extends StatelessWidget {
                     ),
                     child: Avatar(
                       user: user,
-                      width: 50,
-                      heigth: 50,
+                      width: 60,
+                      heigth: 60,
+                      showIcon: false,
                     ),
                   ),
                 );

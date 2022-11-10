@@ -26,7 +26,7 @@ class Avatar extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(heigth > 100 ? 4 : 0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: heigth > 100 ? Colors.white : Colors.transparent,
             borderRadius: BorderRadius.circular(100),
           ),
           child: ClipRRect(

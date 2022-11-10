@@ -26,7 +26,9 @@ class MomentController extends GetxController {
       }
       moments = list;
       update();
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   createMoment() async {

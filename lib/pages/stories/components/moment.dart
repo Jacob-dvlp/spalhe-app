@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:spalhe/models/moment.model.dart';
 import 'package:spalhe/utils/date.dart';
 
@@ -195,21 +196,20 @@ class _MomentsPage extends State<StoreStoriesPage>
               left: 10.0,
               right: 10.0,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
-                  children: <Widget>[
+                  children: [
                     Row(
                       children: story
                           .asMap()
                           .map((i, e) {
                             return MapEntry(
-                              i,
-                              AnimatedBar(
-                                animController: _animtionController!,
-                                position: i,
-                                currentIndex: _currentIndex,
-                              ),
-                            );
+                                i,
+                                AnimatedBar(
+                                  animController: _animtionController!,
+                                  position: i,
+                                  currentIndex: _currentIndex,
+                                ));
                           })
                           .values
                           .toList(),
@@ -315,13 +315,30 @@ class UserInfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                user.username ?? '',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w600,
-                ),
+              Row(
+                children: [
+                  Text(
+                    user.username ?? '',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  if (user.verified == true)
+                    Row(
+                      children: [
+                        SizedBox(width: 5),
+                        Container(
+                          child: SvgPicture.asset(
+                            'assets/svg/veirified.svg',
+                            width: 13,
+                            height: 13,
+                          ),
+                        ),
+                      ],
+                    )
+                ],
               ),
               Row(
                 children: [

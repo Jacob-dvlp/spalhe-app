@@ -55,8 +55,8 @@ class ProfilePage extends StatelessWidget {
                       Container(
                         child: SvgPicture.asset(
                           'assets/svg/veirified.svg',
-                          width: 20,
-                          height: 20,
+                          width: 17,
+                          height: 17,
                         ),
                       ),
                     ],
@@ -175,13 +175,13 @@ class ProfilePage extends StatelessWidget {
                     if (user.biography != '' && user.biography != null)
                       Column(
                         children: [
-                          SizedBox(height: 14),
                           HashTagText(
                             text: user.biography ?? '',
                             decorateAtSign: true,
                             basicStyle: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
+                              color: Theme.of(context).primaryColorDark,
                             ),
                             decoratedStyle: TextStyle(
                               color: primary,
@@ -206,7 +206,7 @@ class ProfilePage extends StatelessWidget {
                           )
                         ],
                       ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 14),
                     Row(
                       children: [
                         InkWell(

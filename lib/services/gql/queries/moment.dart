@@ -7,11 +7,12 @@ query {
 		avatar
 		username
 		name
+    verified
 		moments {
 			url
 			created_at
 			type
-			subtype
+			subtype 
 		}
 	}
 }

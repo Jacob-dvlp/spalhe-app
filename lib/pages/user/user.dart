@@ -98,8 +98,8 @@ class UserPage extends StatelessWidget {
                         Container(
                           child: SvgPicture.asset(
                             'assets/svg/veirified.svg',
-                            width: 20,
-                            height: 20,
+                            width: 17,
+                            height: 17,
                           ),
                         ),
                       ],
@@ -144,8 +144,8 @@ class UserPage extends StatelessWidget {
                       Container(
                         child: SvgPicture.asset(
                           'assets/svg/veirified.svg',
-                          width: 20,
-                          height: 20,
+                          width: 17,
+                          height: 17,
                         ),
                       ),
                     ],
@@ -253,13 +253,14 @@ class UserPage extends StatelessWidget {
                     if (user.biography != '' && user.biography != null)
                       Column(
                         children: [
-                          SizedBox(height: 14),
+                          SizedBox(height: 6),
                           HashTagText(
                             text: user.biography ?? '',
                             decorateAtSign: true,
                             basicStyle: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
+                              color: Theme.of(context).primaryColorDark,
                             ),
                             decoratedStyle: TextStyle(
                               color: primary,
@@ -284,7 +285,7 @@ class UserPage extends StatelessWidget {
                           )
                         ],
                       ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 14),
                     Row(
                       children: [
                         InkWell(
@@ -338,7 +339,7 @@ class UserPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 12),
                     if (user.id != null)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -418,7 +419,7 @@ class UserPage extends StatelessWidget {
                           )
                         ],
                       ),
-                    if (profileController.showMoreUsers) SizedBox(height: 20),
+                    if (profileController.showMoreUsers) SizedBox(height: 14),
                     if (profileController.showMoreUsers)
                       SizedBox(
                         height: 150,
