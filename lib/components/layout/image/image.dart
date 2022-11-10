@@ -27,6 +27,7 @@ class ImageNetwork extends StatelessWidget {
       child: src == null || src == ''
           ? Container()
           : CachedNetworkImage(
+              cacheKey: src,
               imageUrl: (src != null && src != '') ? src! : noImage,
               fit: fit,
               errorWidget: (ctx, err, _) => Container(),

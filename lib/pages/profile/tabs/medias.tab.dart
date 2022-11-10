@@ -20,8 +20,8 @@ class MediasTab extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: 1,
-          crossAxisSpacing: 0.5,
-          mainAxisSpacing: 0.5,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
         ),
         children: List.generate(
           controller.postMedias.data?.length ?? 0,

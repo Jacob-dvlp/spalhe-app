@@ -53,7 +53,7 @@ class SinginPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 54),
+              SizedBox(height: 30),
               Input(
                 label: 'seu nome',
                 onSaved: (v) => setData('name', v),
@@ -99,12 +99,9 @@ class SinginPage extends StatelessWidget {
               SizedBox(height: 30),
               Column(
                 children: [
-                  Text(
-                    'ao criar sua conta, você concorda com os',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  TextButton(
-                    onPressed: () {
+                  Text('ao criar sua conta, você estará concordando com os'),
+                  GestureDetector(
+                    onTap: () {
                       showDialogModal(
                         title: 'termos de uso e política de privacidade',
                         description: TermosDeUso,
@@ -113,9 +110,6 @@ class SinginPage extends StatelessWidget {
                         confirmText: 'aceitar',
                       );
                     },
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                    ),
                     child: Text(
                       'termos de uso e política de privacidade',
                       style: TextStyle(
@@ -127,7 +121,7 @@ class SinginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 24),
               Button(
                 title: 'criar minha conta',
                 onPressed: () {

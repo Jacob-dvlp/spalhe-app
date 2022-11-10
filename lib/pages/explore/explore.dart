@@ -16,13 +16,15 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final profileController = Get.put(ProfileController());
     final hashtagsController = Get.put(HashtagsController());
     final userController = Get.put(UserController());
     final exploreController = Get.put(ExploreController());
 
     return Scaffold(
-      backgroundColor: Get.theme.primaryColorLight,
+      backgroundColor: theme.primaryColorLight,
       appBar: AppBar(
         title: Container(
           padding: EdgeInsets.all(2),
@@ -32,13 +34,13 @@ class ExplorePage extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               decoration: BoxDecoration(
-                color: Get.theme.scaffoldBackgroundColor,
+                color: theme.scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
                 'busque pelo nome ou nome de usuário',
                 style: TextStyle(
-                  color: Get.theme.primaryColorDark.withOpacity(0.3),
+                  color: theme.primaryColorDark.withOpacity(0.3),
                   fontSize: 16,
                 ),
               ),

@@ -281,7 +281,7 @@ class PostItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if ((medias?.length ?? 0) > 0) SizedBox(height: 14),
+                  if ((medias?.length ?? 0) > 0) SizedBox(height: 8),
                   if ((medias?.length ?? 0) > 0)
                     GestureDetector(
                       onDoubleTap: () => _post.likePost(),
@@ -314,7 +314,7 @@ class PostItem extends StatelessWidget {
                     )
                 ],
               ),
-              if (showActions) SizedBox(height: 10),
+              if (showActions) SizedBox(height: 12),
               if (showActions)
                 InkWell(
                   onTap: () => OnRoute.push(LikesInPostPage(postId: post.id!)),

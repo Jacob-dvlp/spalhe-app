@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/explore.controller.dart';
-import 'package:spalhe/components/layout/post_item/post_item.dart';
+import 'package:spalhe/pages/post/post.dart';
+import 'package:spalhe/utils/routes.dart';
+// import 'package:spalhe/components/layout/post_item/post_item.dart';
 
 class ExploreMidias extends StatelessWidget {
   const ExploreMidias({Key? key}) : super(key: key);
@@ -9,7 +13,6 @@ class ExploreMidias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Get.theme.scaffoldBackgroundColor,
       child: GetBuilder<ExploreController>(
         init: ExploreController(),
         builder: (exploreController) {
@@ -43,11 +46,32 @@ class ExploreMidias extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                children: List.generate(
-                  medias.length,
-                  (index) => new PostItem(post: medias[index]),
+              new StaggeredGridView.countBuilder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisCount: 4,
+                itemCount: medias.length,
+                itemBuilder: (BuildContext context, index) {
+                  final media = medias[index];
+
+                  return GestureDetector(
+                    onTap: () => OnRoute.push(PostPage(post: media)),
+                    child: Container(
+                      child: ImageNetwork(
+                        src: (media.medias?.length ?? 0) > 0
+                            ? media.medias?.first.thumb ??
+                                media.medias?.first.url
+                            : '',
+                      ),
+                    ),
+                  );
+                },
+                staggeredTileBuilder: (index) => StaggeredTile.count(
+                  2,
+                  (index.isEven || index + 1 == medias.length) ? 3 : 2,
                 ),
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
               ),
             ],
           );

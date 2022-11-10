@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/moments.controller.dart';
+import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/pages/stories/moments.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
@@ -66,9 +67,16 @@ class MomentsComponent extends StatelessWidget {
                 ),
               ),
               ...List.generate(moments?.length ?? 0, (index) {
+                final newUser = UserModel(
+                  id: moments![index].id,
+                  name: moments[index].name,
+                  avatar: moments[index].avatar,
+                  verified: moments[index].verified,
+                );
+
                 return GestureDetector(
                   onTap: () => OnRoute.push(
-                    MomentPage(moments: moments!, index: index),
+                    MomentPage(moments: moments, index: index),
                   ),
                   child: Container(
                     width: 60,
@@ -79,7 +87,7 @@ class MomentsComponent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Avatar(
-                      user: user,
+                      user: newUser,
                       width: 60,
                       heigth: 60,
                       showIcon: false,

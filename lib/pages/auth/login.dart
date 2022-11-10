@@ -33,7 +33,9 @@ class LoginPage extends StatelessWidget {
                     child: SizedBox(
                       width: 160,
                       height: 90,
-                      child: SvgPicture.asset('assets/logo.svg'),
+                      child: SvgPicture.asset(Get.isDarkMode
+                          ? 'assets/logo.svg'
+                          : 'assets/logo_white.svg'),
                     ),
                   ),
                   Input(
