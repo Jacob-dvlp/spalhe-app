@@ -8,6 +8,8 @@ import 'package:spalhe/pages/stories/moments.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
+import '../../../components/layout/list_view_wraper/list_view.dart';
+
 class MomentsComponent extends StatelessWidget {
   MomentsComponent({Key? key}) : super(key: key);
   final _auth = Get.put(AuthController());
@@ -22,7 +24,7 @@ class MomentsComponent extends StatelessWidget {
 
         return SizedBox(
           height: 60,
-          child: ListView(
+          child: ListViewWraper(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             children: [

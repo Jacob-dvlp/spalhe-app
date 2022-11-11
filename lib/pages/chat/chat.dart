@@ -10,9 +10,10 @@ import 'package:spalhe/utils/date.dart';
 class ChatPage extends StatelessWidget {
   final GetChats chat;
   final _authController = Get.put(AuthController());
-  final _messageController = Get.put(MessagesController());
 
   ChatPage({required this.chat}) {
+    final _messageController = Get.put(MessagesController(), tag: '${chat.id}');
+
     _messageController.setChatId(chat.id);
     _messageController.getChatMessages(chat.id!);
     _messageController.setViewedMessages();
@@ -23,9 +24,11 @@ class ChatPage extends StatelessWidget {
     final user = chat.user;
 
     return GetBuilder<MessagesController>(
-      init: _messageController,
+      init: MessagesController(),
       autoRemove: true,
-      global: false,
+      global: true,
+      assignId: true,
+      tag: '${chat.id}',
       builder: (chatController) {
         final _messages = chatController.messages;
         final authUser = _authController.auth.user;

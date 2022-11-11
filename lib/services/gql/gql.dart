@@ -16,6 +16,8 @@ class GQLClient {
       webSoketBaseURL,
       config: SocketClientConfig(
         autoReconnect: true,
+        delayBetweenReconnectionAttempts: Duration(seconds: 15),
+        inactivityTimeout: Duration(hours: 100),
       ),
     );
 

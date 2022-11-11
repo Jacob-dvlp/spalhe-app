@@ -13,6 +13,8 @@ class MessagesController extends GetxController {
 
   String? chatId;
 
+  bool disposed = false;
+
   setChatId(id) {
     chatId = id;
     update();
@@ -20,12 +22,14 @@ class MessagesController extends GetxController {
 
   @override
   void onReady() {
+    disposed = false;
     messageAddSubscription(chatId);
     super.onReady();
   }
 
   @override
   void onClose() {
+    disposed = true;
     super.onClose();
   }
 
@@ -40,6 +44,9 @@ class MessagesController extends GetxController {
         chat_messages?.getChatMessages?.data?.add(
           Messages.fromJson(message.data?['messageAdded']),
         );
+        if (!disposed) {
+          setViewedMessages();
+        }
         update();
       }
     });
