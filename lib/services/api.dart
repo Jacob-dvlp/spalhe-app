@@ -6,9 +6,9 @@ Dio api = new APIConfigure().connect();
 
 const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
-final String baseURL = "https://api.spalhe.com";
+final String baseURL = "https://api.spalhe.com.br";
 
-final webSoketBaseURL = "wss://api.spalhe.com/graphql";
+final String webSoketBaseURL = "wss://api.spalhe.com.br/graphql";
 
 class APIConfigure {
   static final box = GetStorage();
