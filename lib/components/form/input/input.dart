@@ -19,7 +19,8 @@ class Input extends StatelessWidget {
       label,
       fillColor,
       controller,
-      decoration;
+      decoration,
+      autofocus;
 
   const Input({
     Key? key,
@@ -40,6 +41,7 @@ class Input extends StatelessWidget {
     this.fillColor,
     this.controller,
     this.decoration,
+    this.autofocus,
   }) : super(key: key);
 
   @override
@@ -53,7 +55,7 @@ class Input extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
-          autofocus: true,
+          autofocus: autofocus ?? true,
           controller: controller,
           inputFormatters: [maskFormatter],
           onSaved: onSaved,

@@ -32,7 +32,17 @@ class PostItemController extends GetxController {
     } catch (e) {}
   }
 
-  reportPost(int postId) async {
+  reportPost(int postId, [bool? menosPosts]) async {
+    if (menosPosts == true) {
+      try {
+        await useMutation(REPORT_POST_MUTATION, variables: {
+          'post_id': postId,
+        });
+        deleted = true;
+        update();
+        OnRoute.back();
+      } catch (e) {}
+    }
     return showDialogModal(
       title: 'Denunciar publicação',
       description: 'Tem certeza que deseja denunciar essa publicação?',

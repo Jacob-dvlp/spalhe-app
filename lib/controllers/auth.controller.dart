@@ -110,24 +110,14 @@ class AuthController extends GetxController {
       await useMutation(UPDATE_USER_MUTATION, variables: {
         "data": {
           "name": user.name,
-          "username": user.username,
+          "username": user.username?.toLowerCase(),
           "biography": user.biography,
           "privated": user.privated,
           "sensitive_content": user.sensitiveContent,
         }
       });
       await getUser();
-      update();
       setLoading(false);
-      Get.snackbar(
-        'Sucesso',
-        'Seus dados foram atualizados.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green.shade400,
-        borderRadius: 4,
-        colorText: Colors.white,
-        duration: Duration(seconds: 1),
-      );
       OnRoute.back();
     } catch (e) {
       setLoading(false);
@@ -142,7 +132,7 @@ class AuthController extends GetxController {
       await useMutation(UPDATE_USER_MUTATION, variables: {
         "data": {
           "name": user.name,
-          "username": user.username,
+          "username": user.username?.toLowerCase(),
           "biography": user.biography,
           "privated": user.privated,
         }

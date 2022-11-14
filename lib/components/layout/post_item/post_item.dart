@@ -192,6 +192,18 @@ class PostItem extends StatelessWidget {
                                                 tileColor:
                                                     Theme.of(context).cardColor,
                                                 leading: Icon(
+                                                  FeatherIcons.eyeOff,
+                                                ),
+                                                title: Text(
+                                                    'ver menos posts como esse'),
+                                                onTap: () => _post.reportPost(
+                                                    post.id!, true),
+                                              ),
+                                            if (authuser?.id != post.user?.id)
+                                              ListTile(
+                                                tileColor:
+                                                    Theme.of(context).cardColor,
+                                                leading: Icon(
                                                   FeatherIcons.alertTriangle,
                                                 ),
                                                 title: Text('denunciar post'),

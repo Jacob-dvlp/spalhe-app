@@ -82,9 +82,12 @@ class EditProfilePage extends StatelessWidget {
                     ),
                     SizedBox(height: 14),
                     Input(
-                      onSaved: (v) => _auth.setValue('username', v),
+                      onSaved: (v) => _auth.setValue(
+                        'username',
+                        v?.toLowerCase(),
+                      ),
                       label: 'nome de usuário',
-                      initialValue: user.username,
+                      initialValue: user.username?.toLowerCase(),
                       validator: Validatorless.multiple([
                         Validatorless.required('nome de usuario obrigatório'),
                         Validatorless.regex(

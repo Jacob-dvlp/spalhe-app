@@ -40,7 +40,7 @@ class UsernamePage extends StatelessWidget {
                   FeatherIcons.atSign,
                   size: 20,
                 ),
-                onSaved: (v) => auth.setValue('username', v),
+                onSaved: (v) => auth.setValue('username', v?.toLowerCase()),
                 validator: Validatorless.multiple([
                   Validatorless.required('nome de usuario obrigatório'),
                   Validatorless.regex(
