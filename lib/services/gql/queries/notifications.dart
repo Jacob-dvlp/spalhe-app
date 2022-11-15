@@ -26,6 +26,31 @@ query ($filters: IFilters!) {
 				avatar
         verified
 			}
+      post {
+        id
+        text
+        published
+        user_id
+        is_saved
+        is_liked
+        _count {
+          mentions
+          likes
+          comments
+          reposts
+          medias
+        }
+      }
+      comment {
+        id
+        text
+        user {
+          id
+          name
+          avatar
+          verified
+        }
+      }
 		}
 	}
 }

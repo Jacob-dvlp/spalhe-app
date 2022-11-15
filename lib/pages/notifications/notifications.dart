@@ -6,21 +6,37 @@ import 'package:spalhe/controllers/notification.controller.dart';
 import 'package:spalhe/models/notification.model.dart';
 import 'package:spalhe/pages/post/post.dart';
 import 'package:spalhe/pages/post/replies.post.dart';
+import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
-// import 'package:spalhe/utils/routes.dart';
+import 'package:spalhe/utils/routes.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
 
   openNotification(INotification notification) {
-    if (notification.type == 'post') {
-      // OnRoute.push(
-      //   PostPage(
-      //     post: notification.postId,
-      //   ),
-      // );
+    print(notification.type);
+    if (notification.type == 'post' && notification.post != null) {
+      OnRoute.push(
+        PostPage(
+          post: notification.post!,
+        ),
+      );
+    }
+    if (notification.type == 'follow') {
+      OnRoute.push(
+        UserPage(
+          userId: notification.user!.id,
+        ),
+      );
+    }
+    if (notification.type == 'comment' && notification.comment != null) {
+      OnRoute.push(
+        RepliesCommntPostPage(
+          comment: notification.comment!,
+        ),
+      );
     }
   }
 
@@ -84,17 +100,15 @@ class NotificationsPage extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "@${notification.user?.username}",
+                                            "@${notification.title}",
                                             style: TextStyle(
                                               fontSize: 12,
-                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           SizedBox(height: 5),
                                           Text(
                                             "${notification.body}",
-                                            style: TextStyle(),
-                                            maxLines: 2,
+                                            maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ],

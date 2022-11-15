@@ -1,3 +1,7 @@
+import 'package:spalhe/models/comments.model.dart';
+import 'package:spalhe/models/post.model.dart';
+import 'package:spalhe/models/user.model.dart';
+
 class NotificationModel {
   GetNotifications? getNotifications;
 
@@ -80,7 +84,9 @@ class INotification {
   bool? viewed;
   int? myUserId;
   String? createdAt;
-  User? user;
+  UserModel? user;
+  PostData? post;
+  IComment? comment;
 
   INotification({
     this.id,
@@ -95,6 +101,8 @@ class INotification {
     this.myUserId,
     this.createdAt,
     this.user,
+    this.post,
+    this.comment,
   });
 
   INotification.fromJson(Map<String, dynamic> json) {
@@ -109,7 +117,10 @@ class INotification {
     viewed = json['viewed'];
     myUserId = json['my_user_id'];
     createdAt = json['created_at'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
+    post = json['post'] != null ? new PostData.fromJson(json['post']) : null;
+    comment =
+        json['comment'] != null ? new IComment.fromJson(json['comment']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -128,31 +139,12 @@ class INotification {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
-    return data;
-  }
-}
-
-class User {
-  String? name;
-  int? id;
-  String? username;
-  String? avatar;
-
-  User({this.name, this.id, this.username, this.avatar});
-
-  User.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    id = json['id'];
-    username = json['username'];
-    avatar = json['avatar'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['avatar'] = this.avatar;
+    if (this.post != null) {
+      data['post'] = this.post!.toJson();
+    }
+    if (this.comment != null) {
+      data['comment'] = this.comment!.toJson();
+    }
     return data;
   }
 }

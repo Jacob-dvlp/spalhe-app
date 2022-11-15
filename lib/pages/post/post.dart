@@ -30,7 +30,11 @@ class PostPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(post.text ?? 'Publicação'),
+        centerTitle: true,
+        title: Text(
+          post.text ?? 'Publicação',
+          maxLines: 1,
+        ),
       ),
       body: Column(
         children: [
