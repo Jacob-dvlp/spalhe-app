@@ -94,6 +94,7 @@ final GET_COMMENTS_POST = gql(r"""
             username
             avatar
             followed
+            verified
           }
         }
       }

@@ -1,7 +1,11 @@
 import 'package:graphql/client.dart';
 
 final DELETE_CHAT_MUTATION = gql(r"""
-
+mutation deteleChat($chat_id: String!) {
+  deleteChat(chat_id: $chat_id) {
+    id
+  }
+}
 """);
 
 final CREATE_CHAT_MUTATION = gql(r'''

@@ -333,43 +333,44 @@ class PostItem extends StatelessWidget {
                               },
                             ),
                           ),
-                          Positioned(
-                            bottom: 10,
-                            right: 0,
-                            left: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 5,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: primary.withOpacity(0.4),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Row(
-                                    children: List.generate(
-                                      medias?.length ?? 0,
-                                      (index) => Container(
-                                        width: 8,
-                                        height: 8,
-                                        margin: EdgeInsets.only(left: 3),
-                                        decoration: BoxDecoration(
-                                          color: _post.mediaIndex == index
-                                              ? primary
-                                              : Colors.white.withOpacity(0.5),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                          if ((medias?.length ?? 0) > 1)
+                            Positioned(
+                              bottom: 10,
+                              right: 0,
+                              left: 0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 5,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: primary.withOpacity(0.4),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child: Row(
+                                      children: List.generate(
+                                        medias?.length ?? 0,
+                                        (index) => Container(
+                                          width: 10,
+                                          height: 10,
+                                          margin: EdgeInsets.only(left: 3),
+                                          decoration: BoxDecoration(
+                                            color: _post.mediaIndex == index
+                                                ? primary
+                                                : Colors.white.withOpacity(0.5),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
+                                ],
+                              ),
+                            )
                         ],
                       ),
                     )

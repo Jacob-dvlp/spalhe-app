@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/verified/verified.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/users.controller.dart';
 import 'package:spalhe/models/user.model.dart';
@@ -66,12 +67,25 @@ class _UserCardState extends State<UserCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.user.name ?? '',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            widget.user.name ?? '',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        SizedBox(width: 4),
+                        VerifiedComponent(
+                          user: widget.user,
+                          iconSize: 14,
+                        )
+                      ],
                     ),
                     Opacity(
                       opacity: 0.6,
@@ -85,6 +99,7 @@ class _UserCardState extends State<UserCard> {
                   ],
                 ),
               ),
+              SizedBox(width: 20),
               if (authuser?.id != widget.user.id)
                 SizedBox(
                   height: 23,

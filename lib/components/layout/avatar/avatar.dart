@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/models/user.model.dart';
 
@@ -21,36 +20,20 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          padding: EdgeInsets.all(heigth > 100 ? 4 : 0),
-          decoration: BoxDecoration(
-            color: heigth > 100 ? Colors.white : Colors.transparent,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: ImageNetwork(
-              src: user?.avatar,
-              width: width,
-              height: heigth,
-            ),
-          ),
+    return Container(
+      padding: EdgeInsets.all(heigth > 100 ? 4 : 0),
+      decoration: BoxDecoration(
+        color: heigth > 100 ? Colors.white : Colors.transparent,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: ImageNetwork(
+          src: user?.avatar,
+          width: width,
+          height: heigth,
         ),
-        if (showIcon == true && user?.verified == true)
-          Positioned(
-            right: 0,
-            bottom: 0,
-            child: Container(
-              child: SvgPicture.asset(
-                'assets/svg/veirified.svg',
-                width: iconSize,
-                height: iconSize,
-              ),
-            ),
-          )
-      ],
+      ),
     );
   }
 }

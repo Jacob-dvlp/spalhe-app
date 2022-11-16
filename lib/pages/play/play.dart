@@ -16,6 +16,9 @@ class PlayPage extends StatelessWidget {
           ),
         ],
       ),
+      body: Center(
+        child: Text('em breve...'),
+      ),
     );
   }
 }

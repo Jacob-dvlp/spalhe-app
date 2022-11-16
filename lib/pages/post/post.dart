@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
+import 'package:spalhe/components/layout/verified/verified.dart';
 import 'package:spalhe/controllers/comments.controller.dart';
 import 'package:spalhe/models/post.model.dart';
 import 'package:spalhe/components/layout/post_item/post_item.dart';
@@ -172,6 +173,8 @@ class PostPage extends StatelessWidget {
                                             vertical: 10,
                                           ),
                                           child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Avatar(
                                                 user:
@@ -181,29 +184,42 @@ class PostPage extends StatelessWidget {
                                                 iconSize: 8,
                                               ),
                                               SizedBox(width: 10),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    comment.replies?[idx].user
-                                                            ?.name ??
-                                                        '',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 12,
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          comment.replies?[idx]
+                                                                  .user?.name ??
+                                                              '',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 4),
+                                                        VerifiedComponent(
+                                                          user: comment
+                                                              .replies![idx]
+                                                              .user!,
+                                                          iconSize: 14,
+                                                        )
+                                                      ],
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    comment.replies?[idx]
-                                                            .text ??
-                                                        '',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
+                                                    Text(
+                                                      comment.replies?[idx]
+                                                              .text ??
+                                                          '',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),

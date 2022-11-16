@@ -182,6 +182,7 @@ query getPostLikes($id: Float!) {
       username
 			avatar
       followed
+      verified
 		}
 	}
 }
@@ -221,7 +222,7 @@ final DELETE_POST_MUTATION = gql(r"""
   }
 """);
 
-final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
+final GET_POST_MENTIONS_QUERY = gql(r"""
   query($user_id: Float!, $filters: IFilters!) {
 	getPostMentions(user_id: $user_id, filters: $filters) {
 		 meta {

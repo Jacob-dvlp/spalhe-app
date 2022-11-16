@@ -205,8 +205,8 @@ class AuthController extends GetxController {
   addCover(BuildContext c) async {
     final file = await picker.pickImage(
       source: ImageSource.gallery,
-      imageQuality: 80,
-      maxHeight: 500,
+      imageQuality: 30,
+      maxHeight: 400,
     );
     if (file != null) {
       try {

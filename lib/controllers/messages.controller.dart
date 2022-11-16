@@ -134,14 +134,15 @@ class MessagesController extends GetxController {
         previewType: GiphyPreviewType.previewWebp,
       );
 
-      pubController.pubnub.publish('chat:$chatId', {
-        'id': DateTime.now().toString(),
-        'message': "",
-        'created_at': DateTime.now().toIso8601String(),
-        'user': user?.toJson(),
-        'user_id': user?.id,
-        'gif': gif?.toJson(),
-      });
+      if (gif != null)
+        pubController.pubnub.publish('chat:$chatId', {
+          'id': DateTime.now().toString(),
+          'message': "",
+          'created_at': DateTime.now().toIso8601String(),
+          'user': user?.toJson(),
+          'user_id': user?.id,
+          'gif': gif.toJson(),
+        });
     } catch (e) {
       print(e);
     }

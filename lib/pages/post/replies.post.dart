@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/verified/verified.dart';
 import 'package:spalhe/controllers/comments.controller.dart';
 import 'package:spalhe/models/comments.model.dart';
 
@@ -136,32 +137,44 @@ class RepliesCommntPostPage extends StatelessWidget {
                                   vertical: 10,
                                 ),
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Avatar(
                                       user: replies?[idx].user,
                                       width: 32,
                                       heigth: 32,
-                                      iconSize: 8,
+                                      showIcon: false,
                                     ),
                                     SizedBox(width: 10),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          replies?[idx].user?.name ?? '',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                replies?[idx].user?.name ?? '',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(width: 4),
+                                              VerifiedComponent(
+                                                user: replies![idx].user!,
+                                                iconSize: 14,
+                                              )
+                                            ],
                                           ),
-                                        ),
-                                        Text(
-                                          replies?[idx].text ?? '',
-                                          style: TextStyle(
-                                            fontSize: 14,
+                                          Text(
+                                            replies[idx].text ?? '',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

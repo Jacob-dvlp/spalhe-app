@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:spalhe/models/auth.dart';
 import 'package:spalhe/models/user.model.dart';
 import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/user.dart';

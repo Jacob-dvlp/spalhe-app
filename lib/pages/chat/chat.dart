@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/components/layout/image_modal/image_modal.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/messages.controller.dart';
 import 'package:spalhe/models/chat.model.dart';
@@ -123,13 +124,21 @@ class ChatPage extends StatelessWidget {
                                     ),
                                   ),
                                 if (file != null)
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 5),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.memory(
-                                        (base64Decode(file)),
-                                        width: 250,
+                                  GestureDetector(
+                                    onTap: () => showImageModal(
+                                      [file],
+                                      index,
+                                      isBinary: true,
+                                    ),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 5),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.memory(
+                                          (base64Decode(file)),
+                                          width: 250,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -197,9 +206,9 @@ class ChatPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(40),
                           child: TextField(
                             controller: chatController.textController,
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.multiline,
                             decoration: InputDecoration(
-                              hintText: 'Inserir mensagem',
+                              hintText: 'digite sua mensagem',
                               border: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,

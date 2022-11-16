@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
@@ -13,7 +15,7 @@ class ImageListController extends GetxController {
   }
 }
 
-void showImageModal(List<String> urls, int index) {
+void showImageModal(List<String> urls, int index, {bool? isBinary = false}) {
   Navigator.of(Get.context!).push(ModalComponent(
     children: [
       GetBuilder<ImageListController>(
@@ -30,6 +32,14 @@ void showImageModal(List<String> urls, int index) {
                   scrollDirection: Axis.horizontal,
                   scrollBehavior: ScrollBehavior(),
                   children: urls.map((el) {
+                    if (isBinary == true) {
+                      return PhotoView(
+                        imageProvider: MemoryImage(base64Decode(el)),
+                        minScale: PhotoViewComputedScale.contained,
+                        maxScale: PhotoViewComputedScale.contained,
+                        basePosition: Alignment.center,
+                      );
+                    }
                     return PhotoView(
                       imageProvider: NetworkImage(el),
                       minScale: PhotoViewComputedScale.contained,
@@ -49,14 +59,17 @@ void showImageModal(List<String> urls, int index) {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          child: Text(
-                            '${cntler.index + 1}/${urls.length}',
-                            style: TextStyle(
-                              color: Colors.white,
+                        if (urls.length > 1)
+                          Container(
+                            child: Text(
+                              '${cntler.index + 1}/${urls.length}',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                        ),
+                          )
+                        else
+                          Container(),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
