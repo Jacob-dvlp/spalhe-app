@@ -6,13 +6,15 @@ import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/user.dart';
 
 class ProfileController extends GetxController {
-  static final box = GetStorage();
-  AuthModel auth = AuthModel.fromJson(box.read('auth') ?? {});
   UserModel profile = UserModel();
-
   int tab = 0;
   bool showMoreUsers = false;
   bool isLoading = false;
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
 
   toggleShowMoreUsers() {
     showMoreUsers = !showMoreUsers;
@@ -22,15 +24,6 @@ class ProfileController extends GetxController {
   setLoading(bool value) {
     isLoading = value;
     update();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-    if (auth.user != null) {
-      profile = auth.user!;
-      update();
-    }
   }
 
   blockUser(int userId) async {
@@ -45,7 +38,7 @@ class ProfileController extends GetxController {
 
   getUser(int userId) async {
     try {
-      profile = UserModel();
+      // profile = UserModel();
       setLoading(true);
       final res = await useQuery(GET_USER_QUERY, variables: {
         "id": userId,

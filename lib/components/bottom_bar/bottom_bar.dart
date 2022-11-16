@@ -41,6 +41,11 @@ class BottomNavigationComponent extends StatelessWidget {
                 selectedColor: theme.primaryColorDark,
               ),
               SalomonBottomBarItem(
+                title: Text('play'),
+                icon: Icon(FeatherIcons.playCircle),
+                selectedColor: Colors.amber,
+              ),
+              SalomonBottomBarItem(
                 title: Text('chat'),
                 selectedColor: theme.primaryColorDark,
                 icon: GetBuilder<ChatController>(

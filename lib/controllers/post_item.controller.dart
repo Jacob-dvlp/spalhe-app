@@ -11,6 +11,8 @@ class PostItemController extends GetxController {
 
   bool deleted = false;
 
+  int mediaIndex = 0;
+
   @override
   void onReady() {
     super.onReady();
@@ -19,6 +21,11 @@ class PostItemController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  changeMediaIndex(int index) {
+    mediaIndex = index;
+    update();
   }
 
   deletePost(int postId) async {

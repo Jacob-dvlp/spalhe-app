@@ -3,8 +3,9 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/image/image.dart';
+import 'package:spalhe/components/layout/image_modal/image_modal.dart';
 import 'package:spalhe/components/layout/post_item/pages/likes.dart';
 import 'package:spalhe/components/layout/video/video.dart';
 import 'package:spalhe/constants/video_types.dart';
@@ -40,7 +41,7 @@ class PostItem extends StatelessWidget {
     final authuser = authController.auth.user;
 
     return GetBuilder<PostItemController>(
-      global: true,
+      global: false,
       autoRemove: false,
       init: new PostItemController(post: post!),
       tag: post!.id.toString(),
@@ -295,33 +296,81 @@ class PostItem extends StatelessWidget {
                     ),
                   if ((medias?.length ?? 0) > 0) SizedBox(height: 8),
                   if ((medias?.length ?? 0) > 0)
-                    GestureDetector(
-                      onDoubleTap: () => _post.likePost(),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.width,
-                        child: PageView(
-                          controller: _pageController,
-                          scrollDirection: Axis.horizontal,
-                          scrollBehavior: ScrollBehavior(),
-                          children: List.generate(
-                            medias?.length ?? 0,
-                            (index) {
-                              final media = medias![index];
-                              if (VideoTypes.contains(
-                                  media.type?.toLowerCase())) {
-                                return VideoPlayerComponent(
-                                    videoUrl: media.url!);
-                              } else
-                                return PhotoView(
-                                  imageProvider: NetworkImage(media.url!),
-                                  minScale: PhotoViewComputedScale.covered,
-                                  maxScale: PhotoViewComputedScale.covered,
-                                  basePosition: Alignment.center,
-                                );
+                    SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.width,
+                      child: Stack(
+                        children: [
+                          PageView(
+                            controller: _pageController,
+                            onPageChanged: (index) {
+                              _post.changeMediaIndex(index);
                             },
+                            scrollDirection: Axis.horizontal,
+                            scrollBehavior: ScrollBehavior(),
+                            children: List.generate(
+                              medias?.length ?? 0,
+                              (index) {
+                                final media = medias![index];
+                                if (VideoTypes.contains(
+                                    media.type?.toLowerCase())) {
+                                  return VideoPlayerComponent(
+                                      videoUrl: media.url!);
+                                } else
+                                  return GestureDetector(
+                                    onDoubleTap: () => _post.likePost(),
+                                    onTap: () => showImageModal(
+                                      medias.map((e) => e.url!).toList(),
+                                      index,
+                                    ),
+                                    child: ClipRRect(
+                                      child: ImageNetwork(
+                                        src: media.url,
+                                        width: Size.infinite.width,
+                                      ),
+                                    ),
+                                  );
+                              },
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            bottom: 10,
+                            right: 0,
+                            left: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: primary.withOpacity(0.4),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Row(
+                                    children: List.generate(
+                                      medias?.length ?? 0,
+                                      (index) => Container(
+                                        width: 8,
+                                        height: 8,
+                                        margin: EdgeInsets.only(left: 3),
+                                        decoration: BoxDecoration(
+                                          color: _post.mediaIndex == index
+                                              ? primary
+                                              : Colors.white.withOpacity(0.5),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     )
                 ],
@@ -349,7 +398,7 @@ class PostItem extends StatelessWidget {
                               SizedBox(width: 4),
                               Text(
                                 (post.cCount?.likes ?? 0) > 1
-                                    ? 'gosteis'
+                                    ? 'gostaram'
                                     : 'gostou',
                                 style: TextStyle(
                                   fontSize: 12,

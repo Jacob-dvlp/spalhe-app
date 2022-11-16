@@ -1,9 +1,11 @@
+// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
+import 'package:spalhe/components/layout/dialog/dialog.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/controllers/posts.controller.dart';
@@ -21,11 +23,7 @@ import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/numbers.dart';
 import 'package:spalhe/utils/routes.dart';
 
-import '../../components/layout/dialog/dialog.dart';
-
 class UserPage extends StatelessWidget {
-  final _profileController = Get.put(ProfileController());
-
   final int? userId;
   final String? username;
 
@@ -37,44 +35,59 @@ class UserPage extends StatelessWidget {
     getUser();
   }
 
+  ProfileController profileController = ProfileController();
+
   getUser() async {
-    final _posts = Get.put(
-      PostController(),
-      tag: username ?? userId.toString(),
+    profileController = Get.put(
+      ProfileController(),
+      tag: (username ?? userId).toString(),
     );
 
-    _profileController.reset();
-    _posts.reset();
-    if (username != null) {
-      final user = await _profileController.getUserByUsername(username!);
+    print({
+      (username ?? userId).toString(),
+    });
 
-      _posts.getUserPosts(user.id!);
-      _posts.getPostMedia(user.id!);
-      _posts.getPostMentions(user.id!);
-    }
+    final _posts = Get.put(
+      PostController(),
+      tag: (username ?? userId).toString(),
+    );
+
+    profileController.reset();
+    _posts.reset();
 
     if (userId != null) {
-      _profileController.getUser(userId!);
+      profileController.getUser(userId!);
       _posts.getUserPosts(userId!);
       _posts.getPostMedia(userId!);
       _posts.getPostMentions(userId!);
+    } else if (username != null) {
+      final user = await profileController.getUserByUsername(username!);
+      _posts.getUserPosts(user.id!);
+      _posts.getPostMedia(user.id!);
+      _posts.getPostMentions(user.id!);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
-      init: ProfileController(),
+      init: profileController,
+      tag: (username ?? userId).toString(),
+      global: false,
+      autoRemove: false,
+      assignId: true,
       builder: (profileController) {
         final user = profileController.profile;
         final isLoading = profileController.isLoading;
+
+        print({(username ?? userId).toString(), isLoading});
 
         blockUser() {
           showDialogModal(
             title: 'Bloquear usuário',
             description: 'Deseja bloquear este usuário?',
             onConfirm: () {
-              _profileController.blockUser(user.id!);
+              profileController.blockUser(user.id!);
             },
           );
         }
@@ -253,18 +266,18 @@ class UserPage extends StatelessWidget {
                     if (user.biography != '' && user.biography != null)
                       Column(
                         children: [
-                          SizedBox(height: 6),
+                          SizedBox(height: 10),
                           HashTagText(
                             text: user.biography ?? '',
                             decorateAtSign: true,
                             basicStyle: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 15,
+                              fontSize: 14,
                               color: Theme.of(context).primaryColorDark,
                             ),
                             decoratedStyle: TextStyle(
                               color: primary,
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                             onTap: (text) {
                               if (text.startsWith('@')) {

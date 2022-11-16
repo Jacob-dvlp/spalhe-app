@@ -6,6 +6,7 @@ import 'package:spalhe/pages/chat/chats.dart';
 import 'package:spalhe/pages/explore/explore.dart';
 import 'package:spalhe/pages/feed/feed.dart';
 import 'package:spalhe/pages/notifications/notifications.dart';
+import 'package:spalhe/pages/play/play.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,6 +22,7 @@ class HomePage extends StatelessWidget {
             children: [
               FeedPage(),
               ExplorePage(),
+              PlayPage(),
               ChatsPage(),
               NotificationsPage(),
             ],

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_gif_picker/modal_gif_picker.dart';
-import 'package:pubnub/src/dx/_endpoints/presence.dart';
 import 'package:spalhe/constants/pubnub.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/models/chat_message.model.dart';
