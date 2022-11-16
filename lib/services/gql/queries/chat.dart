@@ -1,5 +1,9 @@
 import 'package:graphql/client.dart';
 
+final DELETE_CHAT_MUTATION = gql(r"""
+
+""");
+
 final CREATE_CHAT_MUTATION = gql(r'''
   mutation createChat($data: ICreateChat!) {
     createChat(data: $data){

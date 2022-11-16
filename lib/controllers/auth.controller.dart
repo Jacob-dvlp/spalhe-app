@@ -173,7 +173,7 @@ class AuthController extends GetxController {
   addAvatar() async {
     final file = await picker.pickImage(
       source: ImageSource.gallery,
-      imageQuality: 80,
+      imageQuality: 40,
       maxHeight: 500,
     );
     if (file != null) {

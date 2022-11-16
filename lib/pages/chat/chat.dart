@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/messages.controller.dart';
@@ -14,9 +17,8 @@ class ChatPage extends StatelessWidget {
   ChatPage({required this.chat}) {
     final _messageController = Get.put(MessagesController(), tag: '${chat.id}');
 
-    _messageController.setChatId(chat.id);
-    _messageController.getChatMessages(chat.id!);
-    _messageController.setViewedMessages();
+    _messageController.getMessages(chat.id);
+    _messageController.setViewedMessages(chat.id);
   }
 
   @override
@@ -33,6 +35,8 @@ class ChatPage extends StatelessWidget {
         final _messages = chatController.messages;
         final authUser = _authController.auth.user;
 
+        final isOnline = chatController.isOnline;
+
         return Scaffold(
           appBar: AppBar(
             leadingWidth: 26,
@@ -48,8 +52,25 @@ class ChatPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 6),
-                Text(user?.name ?? ''),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user?.name ?? '',
+                    ),
+                    if (isOnline)
+                      Opacity(
+                        opacity: 0.7,
+                        child: Text(
+                          'Online',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -64,6 +85,9 @@ class ChatPage extends StatelessWidget {
                     children: List.generate(_messages.length, (index) {
                       final message = _messages[index];
                       final byMe = authUser?.id == message.user?.id;
+
+                      final file = message.files?.url;
+                      final gif = message.gif;
 
                       return Column(
                         crossAxisAlignment: byMe
@@ -89,11 +113,39 @@ class ChatPage extends StatelessWidget {
                               ),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Text(
-                              message.message ?? '',
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
+                            child: Column(
+                              children: [
+                                if (file == null && gif == null)
+                                  Text(
+                                    message.message ?? '',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                if (file != null)
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 5),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.memory(
+                                        (base64Decode(file)),
+                                        width: 250,
+                                      ),
+                                    ),
+                                  ),
+                                if (gif != null)
+                                  GiphyRenderImage.original(
+                                    gif: gif,
+                                    width: 150,
+                                    placeholder: Container(
+                                      width: 150,
+                                      height: 150,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ),
+                                  )
+                              ],
                             ),
                           ),
                           SizedBox(height: 2),
@@ -128,17 +180,38 @@ class ChatPage extends StatelessWidget {
                 child: SafeArea(
                   child: Row(
                     children: [
+                      IconButton(
+                        icon: Icon(Icons.image),
+                        onPressed: () {
+                          chatController.sendFile(chat.id!);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.gif),
+                        onPressed: () {
+                          chatController.sendGiphy(chat.id!);
+                        },
+                      ),
                       Expanded(
-                        child: TextField(
-                          controller: chatController.textController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            hintText: 'Inserir mensagem',
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 10,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: TextField(
+                            controller: chatController.textController,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              hintText: 'Inserir mensagem',
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 15,
+                                vertical: 10,
+                              ),
+                              filled: true,
+                              fillColor: Get.theme.scaffoldBackgroundColor,
                             ),
                           ),
                         ),

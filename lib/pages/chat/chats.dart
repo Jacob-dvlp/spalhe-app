@@ -22,7 +22,7 @@ class ChatsPage extends StatelessWidget {
           body: RefreshIndicator(
             onRefresh: () => ChatController().getChats(),
             child: ListView(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(14),
               children: [
                 for (GetChats chat in chats)
                   GestureDetector(

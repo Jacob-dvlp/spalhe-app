@@ -3,8 +3,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hashtagable/hashtagable.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:spalhe/components/layout/avatar/avatar.dart';
-import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/components/layout/post_item/pages/likes.dart';
 import 'package:spalhe/components/layout/video/video.dart';
 import 'package:spalhe/constants/video_types.dart';
@@ -313,11 +313,11 @@ class PostItem extends StatelessWidget {
                                 return VideoPlayerComponent(
                                     videoUrl: media.url!);
                               } else
-                                return ClipRRect(
-                                  child: ImageNetwork(
-                                    src: media.url,
-                                    width: Size.infinite.width,
-                                  ),
+                                return PhotoView(
+                                  imageProvider: NetworkImage(media.url!),
+                                  minScale: PhotoViewComputedScale.covered,
+                                  maxScale: PhotoViewComputedScale.covered,
+                                  basePosition: Alignment.center,
                                 );
                             },
                           ),
