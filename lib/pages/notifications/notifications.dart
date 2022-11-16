@@ -5,7 +5,6 @@ import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
 import 'package:spalhe/controllers/notification.controller.dart';
 import 'package:spalhe/models/notification.model.dart';
 import 'package:spalhe/pages/post/post.dart';
-import 'package:spalhe/pages/post/replies.post.dart';
 import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
@@ -16,27 +15,11 @@ class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
 
   openNotification(INotification notification) {
-    print(notification.type);
     if (notification.type == 'post' && notification.post != null) {
-      OnRoute.push(
-        PostPage(
-          post: notification.post!,
-        ),
-      );
+      OnRoute.push(PostPage(post: notification.post!));
     }
     if (notification.type == 'follow') {
-      OnRoute.push(
-        UserPage(
-          userId: notification.user!.id,
-        ),
-      );
-    }
-    if (notification.type == 'comment' && notification.comment != null) {
-      OnRoute.push(
-        RepliesCommntPostPage(
-          comment: notification.comment!,
-        ),
-      );
+      OnRoute.push(UserPage(userId: notification.user!.id));
     }
   }
 

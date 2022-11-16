@@ -43,16 +43,21 @@ query ($filters: IFilters!) {
         }
       }
       comment {
-        id
-        text
-        user {
-          id
-          name
-          avatar
-          verified
-          followed
-        }
-      }
+				id
+				text
+				user {
+					id
+					username
+					verified
+					avatar
+				}
+				created_at
+				_count {
+					likes
+					replies
+				}
+				is_liked
+			}
 		}
 	}
 }
