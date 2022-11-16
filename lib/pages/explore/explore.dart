@@ -47,12 +47,6 @@ class ExplorePage extends StatelessWidget {
             ),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert_rounded),
-          ),
-        ],
       ),
       body: ListViewWraper(
         onRefresh: () async {

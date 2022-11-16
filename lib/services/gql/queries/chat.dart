@@ -11,9 +11,11 @@ final CREATE_CHAT_MUTATION = gql(r'''
       user {
         id
         name
+        username
         status
         avatar
         verified
+        followed
       }
       last_message {
         message
@@ -63,6 +65,7 @@ final MESSAGE_ADD_SUBSCRIPTION = gql(r'''
 				username
 				avatar
         verified
+        followed
 			}
   } 
 }
@@ -82,7 +85,9 @@ final GET_CHAT_MESSAGE_QUERY = gql(r"""
  query getChatMessages($chat_id: String!){
     getChatMessages(
       chat_id: $chat_id,
-      filters: {}
+      filters: {
+        per_page: 50
+      }
     ) {
       meta {
         next_page
@@ -105,6 +110,7 @@ final GET_CHAT_MESSAGE_QUERY = gql(r"""
           avatar
           username
           verified
+          followed
         }
       }
     }
@@ -122,9 +128,11 @@ final GET_CHATS_QUERY = gql("""
       user {
         id
         name
+        username
         status
         avatar
         verified
+        followed
       }
       last_message {
         message

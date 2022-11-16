@@ -18,6 +18,7 @@ final REPLY_COMMENT_MUTATION = gql(r"""
         name
         avatar
         verified
+        followed
       }
     }
   }
@@ -35,6 +36,7 @@ final GET_ALL_REPLIES_COMMENT_QUERY = gql(r"""
 			name
 			username
       verified
+      followed
 		}
 	}
 }
@@ -50,6 +52,7 @@ final COMMENT_POST_MUTATION = gql(r"""
         name
         avatar
         verified
+        followed
       }
     }
   }
@@ -79,6 +82,7 @@ final GET_COMMENTS_POST = gql(r"""
           avatar
           name
           verified
+          followed
         }
         replies {
           id
@@ -89,6 +93,7 @@ final GET_COMMENTS_POST = gql(r"""
             name
             username
             avatar
+            followed
           }
         }
       }

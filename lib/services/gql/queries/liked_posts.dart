@@ -19,9 +19,12 @@ query getLikedPosts($user_id: Float!, $filters: IFilters!) {
 				type
 			}
 			user {
+        username
 				name
 				id
 				avatar
+        verified
+        followed
 			}
 			location {
 				id

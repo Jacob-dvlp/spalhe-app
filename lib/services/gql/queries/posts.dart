@@ -42,6 +42,7 @@ final GET_SAVED_POSTS = gql(r'''
 					name
 					username
 					avatar
+          followed
 				}
 			}
 			medias {
@@ -67,6 +68,7 @@ final GET_SAVED_POSTS = gql(r'''
 				username
 				avatar
 				verified
+        followed
 			}
 			_count {
 				mentions
@@ -119,6 +121,7 @@ final GET_POSTS_BY_HASHTAG = gql(r'''
 				username
 				avatar
 				verified
+        followed
 			}
 			_count {
 				mentions
@@ -154,6 +157,7 @@ final GET_POSTS_BY_HASHTAG = gql(r'''
 					username
 					avatar
 					verified
+          followed
 				}
 				_count {
 					mentions
@@ -177,6 +181,7 @@ query getPostLikes($id: Float!) {
 			name
       username
 			avatar
+      followed
 		}
 	}
 }
@@ -255,6 +260,7 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
           username
           avatar
           verified
+          followed
         }
         _count {
           mentions
@@ -290,6 +296,7 @@ final DocumentNode GET_POST_MENTIONS_QUERY = gql(r"""
             username
             avatar
             verified
+            followed
           }
           _count {
             mentions
@@ -343,6 +350,7 @@ final GET_POST_MEDIA_QUERY = gql(r'''
           username
           avatar
           verified
+          followed
         }
         _count {
           mentions
@@ -378,6 +386,7 @@ final GET_POST_MEDIA_QUERY = gql(r'''
             username
             avatar
             verified
+            followed
           }
           _count {
             mentions
@@ -431,6 +440,7 @@ query($user_id: Float!, $filters: IFilters!) {
           username
           avatar
           verified
+          followed
         }
         _count {
           mentions
@@ -466,6 +476,7 @@ query($user_id: Float!, $filters: IFilters!) {
             username
             avatar
             verified
+            followed
           }
           _count {
             mentions
@@ -533,6 +544,7 @@ final DocumentNode GET_POSTS_QUERY = gql(r"""
           username
           avatar
           verified
+          followed
         }
         _count {
           mentions
@@ -568,6 +580,7 @@ final DocumentNode GET_POSTS_QUERY = gql(r"""
             username
             avatar
             verified
+            followed
           }
           _count {
             mentions

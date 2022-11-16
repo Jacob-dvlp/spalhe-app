@@ -1,3 +1,5 @@
+import 'package:spalhe/models/user.model.dart';
+
 class ChatModel {
   List<GetChats>? getChats;
 
@@ -27,7 +29,7 @@ class GetChats {
   String? avatar;
   bool? isGroup;
   List<int>? exitUsersIds;
-  User? user;
+  UserModel? user;
   LastMessage? lastMessage;
   bool? viewed;
   int? countUnreadMessages;
@@ -49,7 +51,7 @@ class GetChats {
     avatar = json['avatar'];
     isGroup = json['is_group'];
     exitUsersIds = json['exit_users_ids'].cast<int>();
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? new UserModel.fromJson(json['user']) : null;
     lastMessage = json['last_message'] != null
         ? new LastMessage.fromJson(json['last_message'])
         : null;
@@ -72,31 +74,6 @@ class GetChats {
     }
     data['viewed'] = this.viewed;
     data['count_unread_messages'] = this.countUnreadMessages;
-    return data;
-  }
-}
-
-class User {
-  int? id;
-  String? name;
-  String? status;
-  String? avatar;
-
-  User({this.id, this.name, this.status, this.avatar});
-
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    status = json['status'];
-    avatar = json['avatar'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['status'] = this.status;
-    data['avatar'] = this.avatar;
     return data;
   }
 }

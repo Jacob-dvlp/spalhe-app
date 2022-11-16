@@ -36,6 +36,7 @@ final EXPLORE_MEDIAS_QUERY = gql(r"""
 				username
         avatar
         verified
+        followed
 			}
 			_count {
 				mentions

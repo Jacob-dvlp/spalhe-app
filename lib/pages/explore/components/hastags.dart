@@ -30,7 +30,7 @@ class HashtagsWidget extends StatelessWidget {
         ),
         Divider(),
         SizedBox(
-          height: 55,
+          height: 50,
           child: GetBuilder<HashtagsController>(
             init: HashtagsController(),
             builder: (context) {
@@ -71,7 +71,6 @@ class HashtagsWidget extends StatelessWidget {
             },
           ),
         ),
-        Divider(),
       ],
     );
   }

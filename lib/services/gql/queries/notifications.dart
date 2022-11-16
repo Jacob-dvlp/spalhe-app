@@ -25,6 +25,7 @@ query ($filters: IFilters!) {
 				username
 				avatar
         verified
+        followed
 			}
       post {
         id
@@ -49,6 +50,7 @@ query ($filters: IFilters!) {
           name
           avatar
           verified
+          followed
         }
       }
 		}

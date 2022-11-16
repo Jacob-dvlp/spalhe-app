@@ -37,9 +37,8 @@ class NewUsers extends StatelessWidget {
           ),
         ),
         Divider(),
-        SizedBox(height: 0),
         SizedBox(
-          height: 150,
+          height: 136,
           child: GetBuilder<UserController>(
             init: UserController(),
             builder: (usersController) {
@@ -118,7 +117,6 @@ class NewUsers extends StatelessWidget {
             },
           ),
         ),
-        Divider(),
       ],
     );
   }

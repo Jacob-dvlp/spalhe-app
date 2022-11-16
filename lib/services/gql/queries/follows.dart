@@ -18,6 +18,7 @@ query getFollowers($user_id: Float!, $filters: IFilters!) {
 				name
 				username
 				avatar
+        followed
 			}
 		}
 	}
@@ -42,6 +43,7 @@ query getFollowed($user_id: Float!, $filters: IFilters!) {
 				name
 				username
 				avatar
+        followed
 			}
 		}
 	}

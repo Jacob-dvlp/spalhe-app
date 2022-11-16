@@ -42,7 +42,10 @@ class ExploreMidias extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Divider(),
+                    Divider(
+                      endIndent: 0,
+                      height: 4,
+                    ),
                   ],
                 ),
               ),
@@ -51,6 +54,12 @@ class ExploreMidias extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 4,
                 itemCount: medias.length,
+                staggeredTileBuilder: (index) => StaggeredTile.count(
+                  2,
+                  (index.isEven || index + 1 == medias.length) ? 3 : 2,
+                ),
+                mainAxisSpacing: 2,
+                crossAxisSpacing: 2,
                 itemBuilder: (BuildContext context, index) {
                   final media = medias[index];
 
@@ -66,12 +75,6 @@ class ExploreMidias extends StatelessWidget {
                     ),
                   );
                 },
-                staggeredTileBuilder: (index) => StaggeredTile.count(
-                  2,
-                  (index.isEven || index + 1 == medias.length) ? 3 : 2,
-                ),
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 1,
               ),
             ],
           );

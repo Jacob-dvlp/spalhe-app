@@ -23,7 +23,7 @@ class FollowsController extends GetxController {
       setLoading(true);
       final res = await useQuery(GET_FOLLOWERS_QUERY, variables: {
         "user_id": id,
-        "filters": {"order_by": "created_at"}
+        "filters": {"order_by": "created_at", "per_page": 5000, "page": 1}
       });
       follwersData = FollowerModel.fromJson(res.data!);
       setLoading(false);
@@ -37,7 +37,7 @@ class FollowsController extends GetxController {
       setLoading(true);
       final res = await useQuery(GET_FOLLOWEDS_QUERY, variables: {
         "user_id": id,
-        "filters": {"order_by": "created_at"}
+        "filters": {"order_by": "created_at", "per_page": 5000, "page": 1}
       });
       followedsData = FollowedModel.fromJson(res.data!);
       setLoading(false);
