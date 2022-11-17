@@ -37,13 +37,13 @@ class Messages {
     data['created_at'] = this.createdAt;
     data['user_id'] = this.userId;
     if (this.files != null) {
-      data['files'] = this.files!.toJson();
+      data['files'] = this.files?.toJson();
     }
     if (this.user != null) {
-      data['user'] = this.user!.toJson();
+      data['user'] = this.user?.toJson();
     }
     if (this.gif != null) {
-      data['gif'] = this.gif!.toJson();
+      data['gif'] = this.gif?.toJson();
     }
     return data;
   }

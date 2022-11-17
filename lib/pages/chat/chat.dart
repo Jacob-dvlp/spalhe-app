@@ -88,9 +88,7 @@ class ChatPage extends StatelessWidget {
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: ImageNetwork(
-                                  src: chat.isGroup == true
-                                      ? chat.avatar
-                                      : chat.user?.avatar,
+                                  src: chat.user?.avatar,
                                   width: 30,
                                   height: 30,
                                 ),

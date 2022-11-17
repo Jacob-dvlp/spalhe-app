@@ -14,7 +14,6 @@ class UploadController extends GetxController {
     });
     try {
       final res = await api.post('/v1/upload/files', data: formData);
-      print(res.data);
       return IFile.fromJson(res.data);
     } catch (e) {
       print(e);

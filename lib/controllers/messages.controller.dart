@@ -13,14 +13,13 @@ import 'package:spalhe/services/gql/queries/chat.dart';
 
 class MessagesController extends GetxController {
   static final box = GetStorage();
-
   List<Messages> messages = [];
+
   final TextEditingController textController = TextEditingController();
   final pubController = PubNubController();
   final authController = Get.find<AuthController>();
   final _chatController = Get.find<ChatController>();
   final picker = ImagePicker();
-
   bool isOnline = false;
 
   @override
@@ -52,21 +51,29 @@ class MessagesController extends GetxController {
     }
   }
 
-  addMsgOrUpdate(Messages msg) {
+  addMsgOrUpdate(Messages msg) async {
     final index = messages.indexWhere((element) => element.id == msg.id);
     if (index == -1) {
       messages.add(msg);
     } else {
       messages[index] = msg;
     }
+
     update();
   }
 
   getMessages(chatId) async {
-    final mesgs = box.read('chat:$chatId');
+    getUserOnline(chatId);
+
+    final mesgs = await box.read('chat:$chatId');
+
     if (mesgs != null) {
       mesgs.forEach((element) {
-        addMsgOrUpdate(element);
+        if (element.runtimeType == Messages) {
+          addMsgOrUpdate(element);
+        } else if (element['id'] != null) {
+          addMsgOrUpdate(Messages.fromJson(element));
+        }
       });
     }
 
@@ -76,20 +83,18 @@ class MessagesController extends GetxController {
 
     history.messages.forEach((element) {
       addMsgOrUpdate(Messages.fromJson(element.content));
-      box.write('chat:$chatId', messages);
-      update();
     });
 
-    final subscription = pubController.pubnub.subscribe(channels: {
-      'chat:$chatId',
-    });
-    subscription.messages.listen((msg) {
-      addMsgOrUpdate(Messages.fromJson(msg.content));
-      box.write('chat:$chatId', messages);
-      getUserOnline(chatId);
-    });
+    box.write('chat:$chatId', messages);
 
-    getUserOnline(chatId);
+    pubController.pubnub
+        .subscribe(channels: {'chat:$chatId'})
+        .messages
+        .listen((msg) {
+          addMsgOrUpdate(Messages.fromJson(msg.content));
+          box.write('chat:$chatId', messages);
+          getUserOnline(chatId);
+        });
   }
 
   sendMessage(String chatId, String message) async {
@@ -116,21 +121,36 @@ class MessagesController extends GetxController {
       final user = authController.auth.user;
       final value = await picker.pickImage(
         source: ImageSource.gallery,
+        imageQuality: 80,
         requestFullMetadata: false,
       );
 
-      final res = await UploadController().upload(value!);
+      final msgId = DateTime.now().toString();
 
       pubController.pubnub.publish('chat:$chatId', {
-        'id': DateTime.now().toString(),
+        'id': msgId,
         'message': "",
         'created_at': DateTime.now().toIso8601String(),
         'user': user?.toJson(),
         'user_id': user?.id,
         'files': Files(
-          url: res?.url,
-          type: res?.type,
+          url: '',
+          type: 'jpg',
         ).toJson(),
+      });
+
+      UploadController().upload(value!).then((res) {
+        pubController.pubnub.publish('chat:$chatId', {
+          'id': msgId,
+          'message': "",
+          'created_at': DateTime.now().toIso8601String(),
+          'user': user?.toJson(),
+          'user_id': user?.id,
+          'files': Files(
+            url: res?.url,
+            type: res?.type,
+          ).toJson(),
+        });
       });
 
       useMutation(SEND_MESSAGE_MUTATION, variables: {

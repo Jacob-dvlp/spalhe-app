@@ -94,7 +94,7 @@ class FeedPage extends StatelessWidget {
               padding: EdgeInsets.all(0),
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: MomentsComponent(),
                 ),
                 if (loading) ...List.generate(2, (index) => PostSkeleton()),

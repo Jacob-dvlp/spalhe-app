@@ -26,6 +26,7 @@ class MomentsComponent extends StatelessWidget {
           height: 60,
           child: ListViewWraper(
             shrinkWrap: true,
+            padding: EdgeInsets.only(left: 20),
             scrollDirection: Axis.horizontal,
             children: [
               Container(

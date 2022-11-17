@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:spalhe/components/layout/loading/loading.dart';
+import 'package:spalhe/theme/colors.dart';
 
 class ImageNetwork extends StatelessWidget {
   const ImageNetwork({
@@ -25,12 +27,32 @@ class ImageNetwork extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: src == null || src == ''
-          ? Container()
+          ? Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Loading(
+                    color: primary,
+                  ),
+                ],
+              ),
+            )
           : CachedNetworkImage(
               cacheKey: src,
               imageUrl: (src != null && src != '') ? src! : noImage,
               fit: fit,
-              errorWidget: (ctx, err, _) => Container(),
+              errorWidget: (ctx, err, _) => Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Loading(
+                      color: primary,
+                    ),
+                  ],
+                ),
+              ),
             ),
     );
   }

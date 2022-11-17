@@ -51,7 +51,7 @@ class NewPostPage extends StatelessWidget {
                           returnValue = false;
                           OnRoute.back();
                         },
-                        child: const Text(
+                        child: Text(
                           'Cancelar',
                           style: TextStyle(
                             color: Colors.redAccent,
@@ -64,7 +64,7 @@ class NewPostPage extends StatelessWidget {
                           _post.clearPost();
                           OnRoute.back();
                         },
-                        child: const Text(
+                        child: Text(
                           'Descartar',
                           style: TextStyle(),
                         ),
@@ -96,7 +96,7 @@ class NewPostPage extends StatelessWidget {
                           color: primary,
                           fontSize: 16,
                         ),
-                        maxLines: 6,
+                        maxLines: 14,
                         decoration: InputDecoration(
                           hintText: 'o que você quer espalhar?',
                           border: InputBorder.none,
