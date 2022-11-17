@@ -1,25 +1,30 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:spalhe/constants/pubnub.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
+import 'package:spalhe/controllers/chat.controller.dart';
+import 'package:spalhe/controllers/upload.controller.dart';
 import 'package:spalhe/models/chat_message.model.dart';
 import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/chat.dart';
 
 class MessagesController extends GetxController {
+  static final box = GetStorage();
+
   List<Messages> messages = [];
   final TextEditingController textController = TextEditingController();
   final pubController = PubNubController();
   final authController = Get.find<AuthController>();
+  final _chatController = Get.find<ChatController>();
   final picker = ImagePicker();
 
   bool isOnline = false;
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
   }
 
@@ -47,13 +52,31 @@ class MessagesController extends GetxController {
     }
   }
 
+  addMsgOrUpdate(Messages msg) {
+    final index = messages.indexWhere((element) => element.id == msg.id);
+    if (index == -1) {
+      messages.add(msg);
+    } else {
+      messages[index] = msg;
+    }
+    update();
+  }
+
   getMessages(chatId) async {
+    final mesgs = box.read('chat:$chatId');
+    if (mesgs != null) {
+      mesgs.forEach((element) {
+        addMsgOrUpdate(element);
+      });
+    }
+
     final channel = pubController.pubnub.channel('chat:$chatId');
     final history = await channel.messages();
     await history.fetch();
 
     history.messages.forEach((element) {
-      messages.add(Messages.fromJson(element.content));
+      addMsgOrUpdate(Messages.fromJson(element.content));
+      box.write('chat:$chatId', messages);
       update();
     });
 
@@ -61,8 +84,8 @@ class MessagesController extends GetxController {
       'chat:$chatId',
     });
     subscription.messages.listen((msg) {
-      messages.add(Messages.fromJson(msg.content));
-      update();
+      addMsgOrUpdate(Messages.fromJson(msg.content));
+      box.write('chat:$chatId', messages);
       getUserOnline(chatId);
     });
 
@@ -79,7 +102,6 @@ class MessagesController extends GetxController {
         'user': user?.toJson(),
         'user_id': user?.id,
       });
-
       useMutation(SEND_MESSAGE_MUTATION, variables: {
         'chat_id': chatId,
         'message': message,
@@ -94,14 +116,10 @@ class MessagesController extends GetxController {
       final user = authController.auth.user;
       final value = await picker.pickImage(
         source: ImageSource.gallery,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 30,
         requestFullMetadata: false,
       );
 
-      final bytes = await value?.readAsBytes();
-      final base64 = base64Encode(bytes!);
+      final res = await UploadController().upload(value!);
 
       pubController.pubnub.publish('chat:$chatId', {
         'id': DateTime.now().toString(),
@@ -110,9 +128,14 @@ class MessagesController extends GetxController {
         'user': user?.toJson(),
         'user_id': user?.id,
         'files': Files(
-          url: base64,
-          type: value?.path.split('.').last,
+          url: res?.url,
+          type: res?.type,
         ).toJson(),
+      });
+
+      useMutation(SEND_MESSAGE_MUTATION, variables: {
+        'chat_id': chatId,
+        'message': 'enviou um arquivo',
       });
     } catch (e) {
       print(e);
@@ -134,7 +157,7 @@ class MessagesController extends GetxController {
         previewType: GiphyPreviewType.previewWebp,
       );
 
-      if (gif != null)
+      if (gif != null) {
         pubController.pubnub.publish('chat:$chatId', {
           'id': DateTime.now().toString(),
           'message': "",
@@ -143,26 +166,44 @@ class MessagesController extends GetxController {
           'user_id': user?.id,
           'gif': gif.toJson(),
         });
+
+        useMutation(SEND_MESSAGE_MUTATION, variables: {
+          'chat_id': chatId,
+          'message': 'enviou um gif',
+        });
+      }
     } catch (e) {
       print(e);
     }
   }
 
+  bool isLoadingDelete = false;
   deleteChat(chatId) async {
     try {
+      isLoadingDelete = true;
+      update();
       final channel = pubController.pubnub.channel('chat:$chatId');
       final history = await channel.messages();
       await history.delete();
-      useMutation(DELETE_CHAT_MUTATION, variables: {
+      await useMutation(DELETE_CHAT_MUTATION, variables: {
         'chat_id': chatId,
       });
+      await _chatController.getChats();
+      isLoadingDelete = false;
+      update();
     } catch (e) {
+      isLoadingDelete = false;
+      update();
       print(e);
     }
   }
 
   setViewedMessages(chatId) async {
     try {
+      await useMutation(SET_VIEWED_MESSAGES, variables: {
+        'chat_id': chatId,
+      });
+      _chatController.getChats();
       final user = authController.auth.user;
       pubController.pubnub.publish('viewd_chat:$chatId', {
         'id': DateTime.now().toString(),

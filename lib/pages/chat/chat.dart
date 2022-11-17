@@ -1,15 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/components/layout/image_modal/image_modal.dart';
+import 'package:spalhe/components/layout/loading/loading.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/messages.controller.dart';
 import 'package:spalhe/models/chat.model.dart';
+import 'package:spalhe/pages/user/user.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/date.dart';
+import 'package:spalhe/utils/routes.dart';
 
 class ChatPage extends StatelessWidget {
   final GetChats chat;
@@ -17,7 +19,6 @@ class ChatPage extends StatelessWidget {
 
   ChatPage({required this.chat}) {
     final _messageController = Get.put(MessagesController(), tag: '${chat.id}');
-
     _messageController.getMessages(chat.id);
     _messageController.setViewedMessages(chat.id);
   }
@@ -35,7 +36,6 @@ class ChatPage extends StatelessWidget {
       builder: (chatController) {
         final _messages = chatController.messages;
         final authUser = _authController.auth.user;
-
         final isOnline = chatController.isOnline;
 
         return Scaffold(
@@ -74,6 +74,64 @@ class ChatPage extends StatelessWidget {
                 ),
               ],
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        height: 200,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: ImageNetwork(
+                                  src: chat.isGroup == true
+                                      ? chat.avatar
+                                      : chat.user?.avatar,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                              ),
+                              title: Text('ver perfil'),
+                              onTap: () async {
+                                OnRoute.back();
+                                await OnRoute.push(
+                                  UserPage(
+                                    userId: user!.id,
+                                  ),
+                                );
+                              },
+                            ),
+                            GetBuilder<MessagesController>(
+                              init: MessagesController(),
+                              builder: (msgController) {
+                                return ListTile(
+                                  leading: msgController.isLoadingDelete
+                                      ? Loading(color: primary)
+                                      : Icon(FeatherIcons.trash),
+                                  title: Text(msgController.isLoadingDelete
+                                      ? 'apagando...'
+                                      : 'apagar chat'),
+                                  onTap: () async {
+                                    await msgController.deleteChat(chat.id);
+                                    OnRoute.back();
+                                    OnRoute.back();
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                icon: Icon(Icons.more_vert),
+              ),
+            ],
           ),
           body: Column(
             children: [
@@ -83,98 +141,102 @@ class ChatPage extends StatelessWidget {
                   padding: EdgeInsets.all(20),
                   physics: BouncingScrollPhysics(),
                   child: Column(
-                    children: List.generate(_messages.length, (index) {
-                      final message = _messages[index];
-                      final byMe = authUser?.id == message.user?.id;
+                    children: List.generate(
+                      _messages.length,
+                      (index) {
+                        final message = _messages[index];
+                        final byMe = authUser?.id == message.user?.id;
+                        final file = message.files?.url;
+                        final gif = message.gif;
 
-                      final file = message.files?.url;
-                      final gif = message.gif;
-
-                      return Column(
-                        crossAxisAlignment: byMe
-                            ? CrossAxisAlignment.end
-                            : CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: !byMe
-                                    ? [
-                                        primary,
-                                        Color.fromARGB(255, 255, 214, 68)
-                                      ]
-                                    : [
-                                        Color.fromARGB(255, 201, 201, 201),
-                                        Color.fromARGB(255, 233, 231, 231)
-                                      ],
+                        return Column(
+                          crossAxisAlignment: byMe
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
                               ),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Column(
-                              children: [
-                                if (file == null && gif == null)
-                                  Text(
-                                    message.message ?? '',
-                                    style: TextStyle(
-                                      color: Colors.black,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: !byMe
+                                      ? [
+                                          primary,
+                                          Color.fromARGB(255, 255, 214, 68)
+                                        ]
+                                      : [
+                                          Color.fromARGB(255, 201, 201, 201),
+                                          Color.fromARGB(255, 233, 231, 231)
+                                        ],
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Column(
+                                children: [
+                                  if (file == null && gif == null)
+                                    Text(
+                                      message.message ?? '',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                if (file != null)
-                                  GestureDetector(
-                                    onTap: () => showImageModal(
-                                      [file],
-                                      index,
-                                      isBinary: true,
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 5),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.memory(
-                                          (base64Decode(file)),
-                                          width: 250,
+                                  if (file != null)
+                                    GestureDetector(
+                                      onTap: () =>
+                                          showImageModal([file], index),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 5),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: ImageNetwork(
+                                            src: file,
+                                            width: 250,
+                                            height: 250,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                if (gif != null)
-                                  GiphyRenderImage.original(
-                                    gif: gif,
-                                    width: 150,
-                                    placeholder: Container(
+                                  if (gif != null)
+                                    GiphyRenderImage.original(
+                                      gif: gif,
                                       width: 150,
+                                      fit: BoxFit.cover,
                                       height: 150,
-                                      child: Center(
-                                        child: CircularProgressIndicator(),
+                                      renderGiphyOverlay: false,
+                                      placeholder: Container(
+                                        width: 150,
+                                        height: 150,
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
                                       ),
-                                    ),
-                                  )
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 2),
-                          Row(
-                            mainAxisAlignment: byMe
-                                ? MainAxisAlignment.end
-                                : MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(
-                                  fromNow(message.createdAt),
-                                  style: TextStyle(fontSize: 10),
-                                ),
+                                    )
+                                ],
                               ),
-                            ],
-                          )
-                        ],
-                      );
-                    }),
+                            ),
+                            SizedBox(height: 2),
+                            Row(
+                              mainAxisAlignment: byMe
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    fromNow(message.createdAt),
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
