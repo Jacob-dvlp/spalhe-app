@@ -17,7 +17,7 @@ class UsersPage extends StatelessWidget {
       body: GetBuilder<UserController>(
         init: UserController(),
         builder: (usersController) {
-          final users = usersController.users?.data;
+          final users = usersController.users.data;
 
           return RefreshIndicator(
             onRefresh: () async {

@@ -21,7 +21,7 @@ class BlockedUsersPage extends StatelessWidget {
       body: GetBuilder<UserController>(
         init: UserController(),
         builder: (usersController) {
-          final users = usersController.blockedUsers?.data;
+          final users = usersController.blockedUsers.data;
 
           return RefreshIndicator(
             onRefresh: () async {

@@ -4,8 +4,8 @@ import 'package:spalhe/services/gql/hooks.dart';
 import 'package:spalhe/services/gql/queries/user.dart';
 
 class UserController extends GetxController {
-  UsersModel? users;
-  UsersModel? blockedUsers;
+  UsersModel users = UsersModel();
+  UsersModel blockedUsers = UsersModel();
 
   @override
   void onReady() {
@@ -55,10 +55,10 @@ class UserController extends GetxController {
   followUser(userId, [index]) async {
     try {
       if (index != null) {
-        if (users!.data![index].followed == 'following') {
-          users!.data![index].followed = 'not_following';
+        if (users.data![index].followed == 'following') {
+          users.data![index].followed = 'not_following';
         } else {
-          users!.data![index].followed = 'following';
+          users.data![index].followed = 'following';
         }
         users = users;
         update();

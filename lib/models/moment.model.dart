@@ -44,6 +44,7 @@ class MomentModel {
 }
 
 class Moments {
+  int? id;
   String? url;
   String? createdAt;
   String? type;
@@ -52,6 +53,7 @@ class Moments {
   Moments({this.url, this.createdAt, this.type, this.subtype});
 
   Moments.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     url = json['url'];
     createdAt = json['created_at'];
     type = json['type'];
@@ -60,6 +62,7 @@ class Moments {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['url'] = this.url;
     data['created_at'] = this.createdAt;
     data['type'] = this.type;

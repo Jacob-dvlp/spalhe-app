@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:spalhe/controllers/moments.controller.dart';
 import 'package:spalhe/models/moment.model.dart';
 import 'package:spalhe/utils/date.dart';
 
@@ -86,12 +89,15 @@ class _MomentsPage extends State<StoreStoriesPage>
   }
 
   void _loadMoment({Moments? story, bool animateToPage = true}) {
+    final controller = Get.put(MomentController());
+    controller.viewMoment(story!.id!);
+
     _animtionController?.stop();
     _animtionController?.reset();
 
-    if (story?.type != null) {
+    if (story.type != null) {
       Image _image = new Image.network(
-        '${story?.url ?? ''}',
+        '${story.url ?? ''}',
       );
 
       _image.image.resolve(new ImageConfiguration()).addListener(
@@ -224,6 +230,38 @@ class _MomentsPage extends State<StoreStoriesPage>
                 ),
               ),
             ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: GetBuilder<MomentController>(
+                init: MomentController(),
+                builder: (controller) {
+                  final views = controller.momentViews;
+
+                  return SafeArea(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Icon(
+                            FeatherIcons.eye,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            '${views.length}',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -250,7 +288,7 @@ class AnimatedBar extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Stack(
-              children: <Widget>[
+              children: [
                 _buildContainer(
                   double.infinity,
                   position < currentIndex
