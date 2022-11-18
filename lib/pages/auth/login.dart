@@ -20,6 +20,7 @@ class LoginPage extends StatelessWidget {
     final top = MediaQuery.of(context).size.height / 7.5;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).cardColor,
       body: SafeArea(
         child: ListViewWraper(
           padding: EdgeInsets.all(20),
@@ -124,18 +125,6 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Text(
-            'make with ❤️ by @thiagobruno',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).primaryColorDark.withOpacity(0.8),
-            ),
-          ),
         ),
       ),
     );

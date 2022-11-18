@@ -141,7 +141,14 @@ class AuthController extends GetxController {
       setLoading(false);
       Get.offAll(() => LoaderPage());
     } catch (e) {
-      print(e);
+      Get.snackbar(
+        'Ops..',
+        'Esse nome de usuário já está em uso.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.shade400,
+        borderRadius: 4,
+        colorText: Colors.white,
+      );
       setLoading(false);
     }
   }

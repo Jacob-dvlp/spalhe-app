@@ -2,12 +2,11 @@ import 'package:get/get.dart';
 import 'package:spalhe/components/form/input/input.dart';
 import 'package:spalhe/components/layout/button/button.dart';
 import 'package:flutter/material.dart';
-import 'package:spalhe/components/layout/dialog/dialog.dart';
 import 'package:spalhe/components/layout/list_view_wraper/list_view.dart';
-import 'package:spalhe/constants/terms.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:validatorless/validatorless.dart';
 
 class SinginPage extends StatelessWidget {
@@ -21,6 +20,7 @@ class SinginPage extends StatelessWidget {
     final setData = authController.setRegisterData;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).cardColor,
       body: SafeArea(
         child: Form(
           key: formKey,
@@ -36,7 +36,7 @@ class SinginPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Text(
-                        'entar na minha conta',
+                        'entrar na minha conta',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: primary,
@@ -72,7 +72,7 @@ class SinginPage extends StatelessWidget {
               SizedBox(height: 14),
               Input(
                 label: 'seu melhor email',
-                onSaved: (v) => setData('email', v),
+                onSaved: (v) => setData('email', (v ?? '')?.toLowerCase()),
                 initialValue: data['email'],
                 prefixIcon: Icon(
                   Icons.email_outlined,
@@ -97,29 +97,25 @@ class SinginPage extends StatelessWidget {
                 ]),
               ),
               SizedBox(height: 30),
-              Column(
-                children: [
-                  Text('ao criar sua conta, você estará concordando com os'),
-                  GestureDetector(
-                    onTap: () {
-                      showDialogModal(
-                        title: 'termos de uso e política de privacidade',
-                        description: TermosDeUso,
-                        onConfirm: () {},
-                        cancelText: '',
-                        confirmText: 'aceitar',
-                      );
-                    },
-                    child: Text(
-                      'termos de uso e política de privacidade',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: primary,
+              Center(
+                child: Column(
+                  children: [
+                    Text('ao criar uma conta, você estará concordando com as'),
+                    GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse('https://spalhe.com/policy'));
+                      },
+                      child: Text(
+                        'políticas de privacidade',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: primary,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 24),
               Button(

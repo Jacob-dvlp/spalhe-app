@@ -8,6 +8,7 @@ class ForgotPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(
         title: Text('Recuperação de conta'),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

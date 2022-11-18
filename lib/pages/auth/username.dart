@@ -15,6 +15,7 @@ class UsernamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).cardColor,
       body: SafeArea(
         child: Form(
           key: formKey,

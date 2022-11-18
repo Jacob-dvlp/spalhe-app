@@ -34,6 +34,14 @@ query ($filters: IFilters!) {
         user_id
         is_saved
         is_liked
+        user {
+          name
+          id
+          username
+          avatar
+          verified
+          followed
+        }
         _count {
           mentions
           likes
@@ -46,11 +54,13 @@ query ($filters: IFilters!) {
 				id
 				text
 				user {
-					id
-					username
-					verified
-					avatar
-				}
+          name
+          id
+          username
+          avatar
+          verified
+          followed
+        }
 				created_at
 				_count {
 					likes
