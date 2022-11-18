@@ -8,6 +8,7 @@ import 'package:spalhe/pages/auth/singin.dart';
 import 'package:flutter/material.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:validatorless/validatorless.dart';
 import 'forgot.dart';
 
@@ -127,6 +128,36 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: SafeArea(
+          child: SizedBox(
+        height: 80,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Spalhe © 2022',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 6),
+            GestureDetector(
+              onTap: () {
+                launchUrl(Uri.parse('https://spalhe.com/policy'));
+              },
+              child: Text(
+                'política de privacidade',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: primary,
+                ),
+              ),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }
