@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spalhe/models/moment.model.dart';
-import 'package:spalhe/pages/stories/components/moment.dart';
+import 'package:spalhe/pages/moments/components/moment.dart';
 
 class MomentPage extends StatefulWidget {
   final List<MomentModel> moments;
