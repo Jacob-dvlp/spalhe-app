@@ -30,13 +30,13 @@ class SinginPage extends StatelessWidget {
               SizedBox(height: MediaQuery.of(context).size.height / 10),
               Row(
                 children: [
-                  Text('já tem uma conta?'),
+                  Text('have_account_message'.tr),
                   InkWell(
                     onTap: () => OnRoute.back(),
                     child: Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Text(
-                        'entrar na minha conta',
+                        'enter_my_account'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: primary,
@@ -47,7 +47,7 @@ class SinginPage extends StatelessWidget {
                 ],
               ),
               Text(
-                'criar uma conta',
+                'sign up'.tr,
                 style: TextStyle(
                   fontSize: 38,
                   fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class SinginPage extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Input(
-                label: 'seu nome',
+                label: 'your_name'.tr,
                 onSaved: (v) => setData('name', v),
                 initialValue: data['name'],
                 prefixIcon: Icon(
@@ -71,15 +71,15 @@ class SinginPage extends StatelessWidget {
               ),
               SizedBox(height: 14),
               Input(
-                label: 'seu melhor email',
+                label: 'your_best_email'.tr,
                 onSaved: (v) => setData('email', (v ?? '')?.toLowerCase()),
                 initialValue: data['email'],
                 prefixIcon: Icon(
                   Icons.email_outlined,
                 ),
                 validator: Validatorless.multiple([
-                  Validatorless.required('email não pode ser vazio'),
-                  Validatorless.email('email não é válido')
+                  Validatorless.required('email_required'.tr),
+                  Validatorless.email('email_is_not_valid'.tr)
                 ]),
               ),
               SizedBox(height: 14),
@@ -92,21 +92,21 @@ class SinginPage extends StatelessWidget {
                   Icons.lock_outline,
                 ),
                 validator: Validatorless.multiple([
-                  Validatorless.required('senha obrigatória'),
-                  Validatorless.min(6, 'senha muito curta'),
+                  Validatorless.required('password_required'.tr),
+                  Validatorless.min(6, 'password_too_short'.tr),
                 ]),
               ),
               SizedBox(height: 30),
               Center(
                 child: Column(
                   children: [
-                    Text('ao criar uma conta, você estará concordando com as'),
+                    Text('accept_policy_message'.tr),
                     GestureDetector(
                       onTap: () {
                         launchUrl(Uri.parse('https://spalhe.com/policy'));
                       },
                       child: Text(
-                        'políticas de privacidade',
+                        'privacy_policies'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

@@ -18,9 +18,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Get.put(AuthController());
-    final top = MediaQuery.of(context).size.height / 7.5;
+    final top = MediaQuery.of(context).size.height / 7.5 - 80;
 
     return Scaffold(
+      appBar: AppBar(elevation: 0),
       backgroundColor: Theme.of(context).cardColor,
       body: SafeArea(
         child: ListViewWraper(
@@ -48,20 +49,19 @@ class LoginPage extends StatelessWidget {
                     keyboardType: TextInputType.emailAddress,
                     prefixIcon: Icon(Icons.email_outlined),
                     validator: Validatorless.multiple([
-                      Validatorless.required('email obrigatório'),
-                      Validatorless.email('email não é válido')
+                      Validatorless.required('email_required'.tr),
+                      Validatorless.email('email_is_not_valid'.tr)
                     ]),
                   ),
                   SizedBox(height: 10),
                   Input(
                     onSaved: (v) => auth.loginData['password'] = v,
                     initialValue: auth.loginData['password'],
-                    label: 'senha',
+                    label: 'password'.tr,
                     obscureText: true,
                     prefixIcon: Icon(Icons.lock_outline),
                     validator: Validatorless.multiple([
-                      Validatorless.required('senha obrigatória'),
-                      Validatorless.min(6, 'senha muito curta'),
+                      Validatorless.required('password_required'.tr),
                     ]),
                   ),
                   Padding(
@@ -71,14 +71,14 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'esqueceu a senha?',
+                          'forgot_password_message'.tr,
                           style: TextStyle(
                               color: Theme.of(context).primaryColorDark),
                         ),
                         SizedBox(width: 10),
                         InkWell(
                           child: Text(
-                            'recuperar senha',
+                            'forgot_password_button'.tr,
                             style: TextStyle(
                               color: primary,
                             ),
@@ -90,7 +90,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   Button(
                     loading: false,
-                    title: 'entrar',
+                    title: 'signin'.tr,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
@@ -102,7 +102,7 @@ class LoginPage extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'ainda não tem uma conta?',
+                        'dont_have_account'.tr,
                         style: TextStyle(
                           color: Theme.of(context)
                               .primaryColorDark
@@ -111,7 +111,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       TextButton(
                         child: Text(
-                          'criar minha conta',
+                          'signup'.tr,
                           style: TextStyle(
                             color: primary,
                             fontWeight: FontWeight.bold,

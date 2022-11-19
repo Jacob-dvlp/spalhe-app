@@ -3,6 +3,7 @@ import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:spalhe/constants/translator.dart';
 import 'package:spalhe/controllers/settings.controller.dart';
 import 'package:spalhe/pages/loader/loader.dart';
 import 'package:spalhe/theme/dark.dart';
@@ -15,7 +16,7 @@ void main() async {
   await WidgetsFlutterBinding.ensureInitialized();
 
   final theme = GetStorage().read('theme') ?? 'dark';
-  SettingsController().changeTheme('dark');
+  SettingsController().changeTheme(theme);
 
   await OneSignal.shared.setAppId("e888ff4c-1b79-4b66-82d1-5a73c713f22d");
   OneSignal.shared.promptUserForPushNotificationPermission();
@@ -30,6 +31,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: GetMaterialApp(
+        translations: TransalationsMessages(),
+        locale: Locale('en', 'US'),
+        // locale: Get.deviceLocale,
+        fallbackLocale: Locale('en', 'US'),
         defaultGlobalState: true,
         navigatorKey: customRoute,
         debugShowCheckedModeBanner: false,
