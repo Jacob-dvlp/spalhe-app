@@ -25,7 +25,7 @@ class FollowedsPage extends StatelessWidget {
         if (isLoading) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('seguindo'),
+              title: Text('following'.tr),
             ),
             body: Center(
               child: Loading(
@@ -37,7 +37,7 @@ class FollowedsPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('seguindo'),
+            title: Text('following'.tr),
           ),
           body: SafeArea(
             child: ListViewWraper(

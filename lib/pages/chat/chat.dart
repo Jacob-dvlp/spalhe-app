@@ -79,12 +79,14 @@ class ChatPage extends StatelessWidget {
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
+                    backgroundColor: Theme.of(context).cardColor,
                     builder: (context) {
                       return Container(
                         height: 200,
                         child: Column(
                           children: [
                             ListTile(
+                              tileColor: Theme.of(context).cardColor,
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: ImageNetwork(
@@ -93,7 +95,7 @@ class ChatPage extends StatelessWidget {
                                   height: 30,
                                 ),
                               ),
-                              title: Text('ver perfil'),
+                              title: Text('view_profile'.tr),
                               onTap: () async {
                                 OnRoute.back();
                                 await OnRoute.push(
@@ -107,12 +109,13 @@ class ChatPage extends StatelessWidget {
                               init: MessagesController(),
                               builder: (msgController) {
                                 return ListTile(
+                                  tileColor: Theme.of(context).cardColor,
                                   leading: msgController.isLoadingDelete
                                       ? Loading(color: primary)
                                       : Icon(FeatherIcons.trash),
                                   title: Text(msgController.isLoadingDelete
-                                      ? 'apagando...'
-                                      : 'apagar chat'),
+                                      ? 'erasing'.tr
+                                      : 'delete_chat'.tr),
                                   onTap: () async {
                                     await msgController.deleteChat(chat.id);
                                     OnRoute.back();
@@ -226,7 +229,7 @@ class ChatPage extends StatelessWidget {
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
                                     fromNow(message.createdAt),
-                                    style: TextStyle(fontSize: 10),
+                                    style: TextStyle(fontSize: 9),
                                   ),
                                 ),
                               ],
@@ -268,7 +271,7 @@ class ChatPage extends StatelessWidget {
                             controller: chatController.textController,
                             keyboardType: TextInputType.multiline,
                             decoration: InputDecoration(
-                              hintText: 'digite sua mensagem',
+                              hintText: 'chat_screen_input_placeholder'.tr,
                               border: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,

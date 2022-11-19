@@ -38,7 +38,7 @@ class SearchPage extends StatelessWidget {
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
-                    hintText: 'busque pelo nome ou nome de usuário',
+                    hintText: 'search_users_explore'.tr,
                     hintStyle: TextStyle(
                       color: Colors.grey,
                     ),

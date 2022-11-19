@@ -103,8 +103,8 @@ class NewUsers extends StatelessWidget {
                                       users[index].id!, index);
                                 },
                                 child: followed
-                                    ? Text('seguindo')
-                                    : Text('seguir'),
+                                    ? Text('following'.tr)
+                                    : Text('follow'.tr),
                               ),
                             )
                           ],

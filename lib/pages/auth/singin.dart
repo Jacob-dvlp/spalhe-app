@@ -62,10 +62,10 @@ class SinginPage extends StatelessWidget {
                   Icons.person_outline,
                 ),
                 validator: Validatorless.multiple([
-                  Validatorless.required('nome obrigatório'),
+                  Validatorless.required('required_name'.tr),
                   Validatorless.min(
                     3,
-                    'nome deve ter no mínimo 4 caracteres',
+                    'name_must_be_at_least_4_char'.tr,
                   ),
                 ]),
               ),

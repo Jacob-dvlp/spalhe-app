@@ -114,7 +114,7 @@ class _UserCardState extends State<UserCard> {
                       });
                       userController.followUser(widget.user.id!);
                     },
-                    child: followed ? Text('seguindo') : Text('seguir'),
+                    child: followed ? Text('following'.tr) : Text('follow'.tr),
                   ),
                 )
             ],

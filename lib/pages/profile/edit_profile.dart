@@ -16,7 +16,7 @@ class EditProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('editar perfil'),
+        title: Text('edit_profile'.tr),
       ),
       body: GetBuilder<AuthController>(
         global: true,
@@ -69,14 +69,14 @@ class EditProfilePage extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     Input(
-                      label: 'nome',
+                      label: 'name'.tr,
                       onSaved: (v) => _auth.setValue('name', v),
                       initialValue: user.name,
                       validator: Validatorless.multiple([
-                        Validatorless.required('nome obrigatório'),
+                        Validatorless.required('required_name'.tr),
                         Validatorless.min(
                           3,
-                          'Nome deve ter no mínimo 4 caracteres',
+                          'name_must_be_at_least_4_char'.tr,
                         ),
                       ]),
                     ),
@@ -86,23 +86,23 @@ class EditProfilePage extends StatelessWidget {
                         'username',
                         v?.toLowerCase(),
                       ),
-                      label: 'nome de usuário',
+                      label: 'username'.tr,
                       initialValue: user.username?.toLowerCase(),
                       validator: Validatorless.multiple([
-                        Validatorless.required('nome de usuario obrigatório'),
+                        Validatorless.required('required_username'.tr),
                         Validatorless.regex(
                           RegExp(
                             r'^[a-z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-z0-9]){3,18}[a-z0-9]$',
                             caseSensitive: false,
                           ),
-                          'nome de usuário inválido',
+                          'invalid_username'.tr,
                         ),
                       ]),
                     ),
                     SizedBox(height: 14),
                     Input(
                       onSaved: (v) => _auth.setValue('biography', v),
-                      label: 'biografia',
+                      label: 'biography'.tr,
                       initialValue: user.biography,
                       maxLines: 4,
                     ),
@@ -120,7 +120,7 @@ class EditProfilePage extends StatelessWidget {
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'conta privada',
+                            'private_account'.tr,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class EditProfilePage extends StatelessWidget {
                             _auth.updateUser();
                           }
                         },
-                        child: Text('salvar'),
+                        child: Text('save'.tr),
                       ),
                     ),
                   ],

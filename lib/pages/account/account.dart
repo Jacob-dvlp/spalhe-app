@@ -19,7 +19,7 @@ class AccountPage extends StatelessWidget {
         builder: (settingsController) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('minha conta'),
+              title: Text('my_account'.tr),
             ),
             body: ListViewWraper(
               padding: EdgeInsets.symmetric(vertical: 20),
@@ -39,7 +39,7 @@ class AccountPage extends StatelessWidget {
                       ),
                       SizedBox(width: 10),
                       Text(
-                        'modo escuro',
+                        'dark_mode'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -52,31 +52,26 @@ class AccountPage extends StatelessWidget {
                 ListTile(
                   onTap: () => Get.to(() => LikedPostsPage()),
                   leading: Icon(Icons.favorite_border),
-                  title: Text('publicações que eu curti'),
+                  title: Text('publications_i_liked'.tr),
                 ),
                 SizedBox(height: 2),
                 ListTile(
                   onTap: () => Get.to(() => SavedPostsPage()),
                   leading: Icon(Icons.bookmark_border_rounded),
-                  title: Text('publicações salvas'),
+                  title: Text('saved_posts'.tr),
                 ),
                 SizedBox(height: 2),
                 ListTile(
                   onTap: () => Get.to(() => PolicyPage()),
                   leading: Icon(Icons.security_rounded),
-                  title: Text('dados e privacidade'),
-                ),
-                SizedBox(height: 2),
-                ListTile(
-                  leading: Icon(Icons.email_outlined),
-                  title: Text('email e telefone'),
+                  title: Text('data_and_privacy'.tr),
                 ),
                 SizedBox(height: 10),
                 TextButton(
                   onPressed: () {
                     authController.logout();
                   },
-                  child: Text('sair da minha conta'),
+                  child: Text('log_out_of_my_account'.tr),
                 )
               ],
             ),

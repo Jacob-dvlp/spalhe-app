@@ -168,7 +168,7 @@ class ProfilePage extends StatelessWidget {
                             elevation: 0,
                           ),
                           onPressed: () => OnRoute.push(EditProfilePage()),
-                          child: Text('editar perfil'),
+                          child: Text('edit_profile'.tr),
                         ),
                       ],
                     ),
@@ -224,7 +224,7 @@ class ProfilePage extends StatelessWidget {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                'seguindo',
+                                'following'.tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
@@ -249,7 +249,7 @@ class ProfilePage extends StatelessWidget {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                'seguidores',
+                                'followers'.tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
@@ -276,7 +276,7 @@ class ProfilePage extends StatelessWidget {
                     child: Row(
                       children: [
                         ButtonTabProfile(
-                          title: 'posts',
+                          title: 'posts'.tr,
                           total: user.profileDetails?.posts ?? 0,
                           onPress: () {
                             profileController.changeIndex(0);
@@ -284,7 +284,7 @@ class ProfilePage extends StatelessWidget {
                           isActive: profileController.tab == 0,
                         ),
                         ButtonTabProfile(
-                          title: 'midias',
+                          title: 'media'.tr,
                           total: user.profileDetails?.medias ?? 0,
                           onPress: () {
                             profileController.changeIndex(1);
@@ -292,7 +292,7 @@ class ProfilePage extends StatelessWidget {
                           isActive: profileController.tab == 1,
                         ),
                         ButtonTabProfile(
-                          title: 'menções',
+                          title: 'mentions'.tr,
                           total: user.profileDetails?.mentions ?? 0,
                           onPress: () {
                             profileController.changeIndex(2);

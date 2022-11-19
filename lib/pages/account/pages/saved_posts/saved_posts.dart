@@ -15,7 +15,7 @@ class SavedPostsPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('publicações salvas'),
+            title: Text('saved_posts'.tr),
           ),
           body: controller.isLoading
               ? const Center(

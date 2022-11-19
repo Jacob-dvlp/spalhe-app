@@ -31,7 +31,7 @@ class PostMentionsTab extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Nenhuma publicação encontrada',
+                  'no_publication_found'.tr,
                   style: TextStyle(
                     fontSize: 16,
                   ),

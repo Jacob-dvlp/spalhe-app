@@ -17,7 +17,7 @@ class LikedPostsPage extends StatelessWidget {
       builder: (likedController) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('publicações que eu curti'),
+            title: Text('publications_i_liked'.tr),
           ),
           body: ListView.builder(
             itemCount: likedController.posts.length,

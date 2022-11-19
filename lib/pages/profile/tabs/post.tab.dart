@@ -35,7 +35,7 @@ class PostTab extends StatelessWidget {
                     width: double.infinity,
                   ),
                   Text(
-                    'nenhuma publicação encontrada',
+                    'no_publication_found'.tr,
                     style: TextStyle(
                       fontSize: 16,
                     ),

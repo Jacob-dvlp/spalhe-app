@@ -15,7 +15,7 @@ class PolicyPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('dados e privacidade'),
+        title: Text('data_and_privacy'.tr),
       ),
       body: ListView(
         children: [
@@ -41,7 +41,7 @@ class PolicyPage extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  'filtrar conteúdo sensível',
+                  'filter_sensitive_content'.tr,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -54,18 +54,18 @@ class PolicyPage extends StatelessWidget {
           ListTile(
             onTap: () => Get.to(() => BlockedUsersPage()),
             leading: Icon(FeatherIcons.userX),
-            title: Text('usuários bloqueadas'),
+            title: Text('blocked_users'.tr),
           ),
           SizedBox(height: 4),
           ListTile(
             leading: Icon(FeatherIcons.alertTriangle),
-            title: Text('publicações denunciadas'),
+            title: Text('reported_posts'.tr),
           ),
           SizedBox(height: 4),
           ListTile(
             onTap: () => authController.deleteAccount(),
             leading: Icon(FeatherIcons.trash),
-            title: Text('apagar minha conta'),
+            title: Text('delete_my_account'.tr),
           ),
           SizedBox(height: 4),
         ],

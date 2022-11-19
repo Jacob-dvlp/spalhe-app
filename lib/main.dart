@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
     return GlobalLoaderOverlay(
       child: GetMaterialApp(
         translations: TransalationsMessages(),
-        locale: Locale('en', 'US'),
-        // locale: Get.deviceLocale,
+        locale: Get.deviceLocale,
         fallbackLocale: Locale('en', 'US'),
         defaultGlobalState: true,
         navigatorKey: customRoute,

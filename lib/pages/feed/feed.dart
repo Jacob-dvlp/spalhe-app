@@ -109,7 +109,7 @@ class FeedPage extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         Text(
-                          'Nenhuma publicação encontrada',
+                          'no_publication_found'.tr,
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -117,7 +117,7 @@ class FeedPage extends StatelessWidget {
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () => OnRoute.push(UsersPage()),
-                          child: Text('encontrar amigos'),
+                          child: Text('meet_friends'.tr),
                         )
                       ],
                     ),

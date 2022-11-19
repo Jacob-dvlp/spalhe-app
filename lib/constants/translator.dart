@@ -1,34 +1,9 @@
 import 'package:get/get.dart';
-
-final TABS_PT_BR = {
-  'home': 'home',
-  'explore': 'explorar',
-  'play': 'play',
-  'chat': 'chat',
-  'notifications': 'notificações',
-};
-
-final TABS_EN_US = {
-  'home': 'home',
-  'explore': 'explore',
-  'play': 'play',
-  'chat': 'chat',
-  'notifications': 'notifications',
-};
-
-final EXPLORE_PT_BR = {
-  'popular_hashtags': 'hashtags populares',
-  'recommended_users': 'usuários recomendados',
-  'photos_and_videos': '+ fotos e vídeos',
-  'search_users_explore': 'busque pelo nome ou nome de usuário',
-};
-
-final EXPLORE_EN_US = {
-  'popular_hashtags': 'popular hashtags',
-  'recommended_users': 'recommended users',
-  'photos_and_videos': '+ photos and videos',
-  'search_users_explore': 'search by name or username',
-};
+import 'package:spalhe/language/account.dart';
+import 'package:spalhe/language/explore.dart';
+import 'package:spalhe/language/tabs.dart';
+import 'package:spalhe/language/user_profile.dart';
+import 'package:spalhe/language/validations.dart';
 
 class TransalationsMessages extends Translations {
   @override
@@ -39,10 +14,6 @@ class TransalationsMessages extends Translations {
           'signin': 'sign in',
           'password': 'password',
           // login
-          'email_required': 'email is required',
-          'password_required': 'password is required',
-          'password_too_short': 'password too short',
-          'email_is_not_valid': 'email is not valid',
           'have_account_message': 'already have an account?',
           'enter_my_account': 'enter my account',
           'your_name': 'your name',
@@ -54,7 +25,7 @@ class TransalationsMessages extends Translations {
               'by creating an account, you are agreeing to the',
           'privacy_policies': 'privacy policies',
           // home
-          'hello': 'hello',
+          'hello': 'hello,',
           // posts
           'post': 'post',
           'new_post': 'new post',
@@ -70,8 +41,23 @@ class TransalationsMessages extends Translations {
           'choose_location': 'choose location',
           'enter_the_address': 'enter the address',
           'enter_your_comment': 'enter your comment',
+          'following': 'following',
+          'followed': 'followed',
+          'follow': 'follow',
+          'no_publication_found': 'No publication found',
+          'meet_friends': 'meet friends',
+          'edit_profile': 'edit profile',
+          'followers': 'followers',
+          'posts': 'posts',
+          'media': 'media',
+          'mentions': 'mentions',
+          'save': 'save',
           ...TABS_EN_US,
           ...EXPLORE_EN_US,
+          ...VALIDATIONS_LANGUAGES_EN_US,
+          ...USER_PROFILE_LANGUAGE_EN_US,
+          ...ACCOUNT_LANGUAGE_EN_US,
+          'chat_screen_input_placeholder': 'type a message',
         },
         'pt_BR': {
           'forgot_password_message': 'esqueceu a senha?',
@@ -79,10 +65,6 @@ class TransalationsMessages extends Translations {
           'signin': 'entrar',
           'password': 'senha',
           // login
-          'email_required': 'email obrigatório',
-          'password_required': 'senha obrigatória',
-          'password_too_short': 'senha muito curta',
-          'email_is_not_valid': 'email não é válido',
           'have_account_message': 'já tem uma conta?',
           'enter_my_account': 'entrar na minha conta',
           'your_name': 'seu nome',
@@ -94,7 +76,7 @@ class TransalationsMessages extends Translations {
               'ao criar uma conta, você estará concordando com as',
           'privacy_policies': 'políticas de privacidade',
           // home
-          'hello': 'olá',
+          'hello': 'olá,',
           // post
           'post': 'publicação',
           'new_post': 'novo post',
@@ -109,8 +91,23 @@ class TransalationsMessages extends Translations {
           'see_less_posts_like_this': 'ver menos posts como este',
           'choose_location': 'escolher localização',
           'enter_the_address': 'digite o endereço',
+          'following': 'seguindo',
+          'followed': 'seguido',
+          'follow': 'seguir',
+          'followers': 'seguidores',
+          'no_publication_found': 'nenhuma publicação encontrada',
+          'meet_friends': 'encontrar amigos',
+          'edit_profile': 'editar perfil',
+          'posts': 'publicações',
+          'media': 'mídias',
+          'mentions': 'menções',
+          'save': 'salvar',
           ...TABS_PT_BR,
           ...EXPLORE_PT_BR,
+          ...VALIDATIONS_LANGUAGES_PT_BR,
+          ...USER_PROFILE_LANGUAGE_PT_BR,
+          ...ACCOUNT_LANGUAGE_PT_BR,
+          'chat_screen_input_placeholder': 'digite sua mensagem',
         }
       };
 }

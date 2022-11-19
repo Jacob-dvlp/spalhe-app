@@ -36,20 +36,20 @@ class UsernamePage extends StatelessWidget {
               ),
               SizedBox(height: 14),
               Input(
-                label: 'Nome de usuário',
+                label: 'username'.tr,
                 prefixIcon: Icon(
                   FeatherIcons.atSign,
                   size: 20,
                 ),
                 onSaved: (v) => auth.setValue('username', v?.toLowerCase()),
                 validator: Validatorless.multiple([
-                  Validatorless.required('nome de usuario obrigatório'),
+                  Validatorless.required('required_username'.tr),
                   Validatorless.regex(
                     RegExp(
                       r'^[a-z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-z0-9]){3,18}[a-z0-9]$',
                       caseSensitive: false,
                     ),
-                    'nome de usuário inválido',
+                    'invalid_username'.tr,
                   ),
                 ]),
               ),
@@ -65,7 +65,7 @@ class UsernamePage extends StatelessWidget {
                       auth.updateUsername();
                     }
                   },
-                  child: Text('Salvar'),
+                  child: Text('save'.tr),
                 ),
               ),
               SizedBox(height: 14),

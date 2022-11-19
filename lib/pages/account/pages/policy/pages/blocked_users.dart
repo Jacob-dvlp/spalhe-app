@@ -16,7 +16,7 @@ class BlockedUsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('usuários bloqueadas'),
+        title: Text('blocked_users'.tr),
       ),
       body: GetBuilder<UserController>(
         init: UserController(),
@@ -34,7 +34,7 @@ class BlockedUsersPage extends StatelessWidget {
                 if (users?.isEmpty == true)
                   Expanded(
                     child: Center(
-                      child: Text('nenhum usuário bloqueado'),
+                      child: Text('no_user_blocked'.tr),
                     ),
                   ),
                 Expanded(
@@ -93,7 +93,7 @@ class BlockedUsersPage extends StatelessWidget {
                                       usersController
                                           .blockUser(users[index].id!);
                                     },
-                                    child: Text('desbloquear'),
+                                    child: Text('unlock'.tr),
                                   ),
                                 )
                               ],

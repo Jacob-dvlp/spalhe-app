@@ -77,9 +77,9 @@ class AuthController extends GetxController {
   deleteAccount() async {
     try {
       showDialogModal(
-        title: 'Tem certeza?',
-        description: 'Você não poderá desfazer essa ação.',
-        confirmText: 'Sim, tenho certeza',
+        title: 'he_is_sure'.tr,
+        description: 'not_undo_this_action'.tr,
+        confirmText: 'yes_delete_my_account'.tr,
         onConfirm: () async {
           await useMutation(DELETE_ACCOUNT_MUTATION);
           logout();
