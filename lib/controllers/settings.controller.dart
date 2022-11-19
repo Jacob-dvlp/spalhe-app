@@ -8,6 +8,24 @@ import 'package:spalhe/theme/colors.dart';
 class SettingsController extends GetxController {
   static final box = GetStorage();
   bool themeDark = box.read('theme') == 'dark' ? true : false;
+  Locale locale = Get.deviceLocale!;
+
+  @override
+  void onInit() {
+    if (box.read('language') != null) {
+      locale = Locale(box.read('language'));
+      update();
+      Get.updateLocale(locale);
+    }
+    super.onInit();
+  }
+
+  changeLocale(Locale locale) {
+    this.locale = locale;
+    box.write('language', locale.toString());
+    Get.updateLocale(locale);
+    update();
+  }
 
   void changeTheme(String color) {
     if (color == 'light') {

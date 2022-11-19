@@ -58,6 +58,7 @@ class TransalationsMessages extends Translations {
           ...USER_PROFILE_LANGUAGE_EN_US,
           ...ACCOUNT_LANGUAGE_EN_US,
           'chat_screen_input_placeholder': 'type a message',
+          'language': 'language',
         },
         'pt_BR': {
           'forgot_password_message': 'esqueceu a senha?',
@@ -108,6 +109,7 @@ class TransalationsMessages extends Translations {
           ...USER_PROFILE_LANGUAGE_PT_BR,
           ...ACCOUNT_LANGUAGE_PT_BR,
           'chat_screen_input_placeholder': 'digite sua mensagem',
+          'language': 'idioma',
         }
       };
 }
