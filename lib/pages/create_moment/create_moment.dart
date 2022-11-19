@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 import 'package:spalhe/components/layout/image/image.dart';
-import 'package:spalhe/pages/create_moment/components/hours/hours.dart';
+import 'package:spalhe/pages/create_moment/components/stickers/components/hours/hours.dart';
+import 'package:spalhe/pages/create_moment/components/stickers/stickers.dart';
+import 'package:spalhe/pages/create_moment/components/tab_change/tap_change.dart';
 import 'package:spalhe/pages/create_moment/controller/create_moment.controller.dart';
 import 'package:spalhe/pages/create_moment/models/item_moment.model.dart';
 
@@ -34,24 +37,11 @@ class CreateMomentPage extends StatelessWidget {
                     context: context,
                     builder: (c) {
                       return Container(
-                        height: MediaQuery.of(context).size.height,
+                        height: double.infinity,
                         color: Colors.black.withOpacity(0.5),
                         child: ListView(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                controller.addItem(ItemMoment(
-                                  sticker: Sticker(
-                                    name: 'hours',
-                                    type: StickerType.hours,
-                                  ),
-                                  position: Matrix4.identity(),
-                                  type: ItemType.sticker,
-                                ));
-                              },
-                              child: HourMoment(),
-                            ),
-                          ],
+                          padding: EdgeInsets.all(20),
+                          children: [StickerComponent()],
                         ),
                       );
                     },
@@ -80,12 +70,11 @@ class CreateMomentPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Stack(
                 fit: StackFit.expand,
-                alignment: Alignment.center,
                 children: [
                   MatrixGestureDetector(
-                    clipChild: true,
+                    clipChild: false,
                     shouldRotate: true,
-                    shouldTranslate: true,
+                    shouldTranslate: false,
                     focalPointAlignment: Alignment.center,
                     onMatrixUpdate: (m, c, a, b) =>
                         controller.onUpdateCurrentImage(m),
@@ -108,18 +97,24 @@ class CreateMomentPage extends StatelessWidget {
                         final sticker = item.sticker;
 
                         if (sticker?.type == StickerType.hours) {
-                          return MatrixGestureDetector(
-                            shouldRotate: true,
-                            shouldTranslate: true,
-                            clipChild: true,
-                            focalPointAlignment: Alignment.center,
-                            onMatrixUpdate: (m, tm, sm, rm) {
+                          return ItemMomentComponent(
+                            index: index,
+                            child: HourMoment(),
+                            position: item.position!,
+                            onChangePosition: (m) {
                               controller.onUpdateItemPosition(index, m);
                             },
-                            child: Transform(
-                              transform: item.position!,
-                              child: HourMoment(),
-                            ),
+                          );
+                        }
+
+                        if (sticker?.type == StickerType.sticker) {
+                          return ItemMomentComponent(
+                            index: index,
+                            child: SvgPicture.asset(sticker?.path ?? ''),
+                            position: item.position!,
+                            onChangePosition: (m) {
+                              controller.onUpdateItemPosition(index, m);
+                            },
                           );
                         }
 
@@ -127,7 +122,38 @@ class CreateMomentPage extends StatelessWidget {
                       }
                       return Container();
                     },
-                  )
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    left: 0,
+                    right: 0,
+                    child: AnimatedOpacity(
+                      opacity: controller.showDelete ? 1 : 0,
+                      duration: Duration(milliseconds: 100),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            width: controller.largerDelete ? 80 : 50,
+                            height: controller.largerDelete ? 80 : 50,
+                            decoration: BoxDecoration(
+                              color: controller.largerDelete
+                                  ? Colors.redAccent
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Icon(
+                              FeatherIcons.trash,
+                              color: controller.largerDelete
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

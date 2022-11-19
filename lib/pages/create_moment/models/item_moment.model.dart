@@ -7,7 +7,7 @@ enum StickerType { sticker, hours, music }
 class ItemMoment {
   Matrix4? position;
   ItemType? type;
-  Sticker? sticker;
+  StickerModel? sticker;
 
   ItemMoment({
     this.position,
@@ -88,15 +88,15 @@ class TextStyleMoment {
   }
 }
 
-class Sticker {
+class StickerModel {
   String? name;
   String? path;
   StickerType? type;
 
-  Sticker({this.name, this.path, this.type});
+  StickerModel({this.name, this.path, this.type});
 
-  factory Sticker.fromJson(Map<String, dynamic> json) {
-    return Sticker(
+  factory StickerModel.fromJson(Map<String, dynamic> json) {
+    return StickerModel(
       name: json['name'],
       path: json['path'],
       type: StickerType.values[json['type']],

@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/pages/create_moment/models/item_moment.model.dart';
+import 'package:spalhe/utils/debouncer.dart';
 import 'package:spalhe/utils/routes.dart';
 
 class CreateMomentController extends GetxController {
   Matrix4 currentImage = Matrix4.identity();
   List<ItemMoment> items = [];
+  final debounce = new Debouncer(milliseconds: 2000);
+  final debounce2 = new Debouncer(milliseconds: 100);
+
+  bool showDelete = false;
+  bool largerDelete = false;
+
+  changeShowDelete(bool value) {
+    showDelete = value;
+    update();
+  }
+
+  changeLargerDelete(bool value) {
+    largerDelete = value;
+    update();
+  }
 
   void onUpdateCurrentImage(m) {
     currentImage = m;
@@ -14,6 +30,11 @@ class CreateMomentController extends GetxController {
 
   onUpdateItemPosition(int index, Matrix4 m) {
     items[index].position = m;
+    update();
+  }
+
+  removeItem(int index) {
+    items.removeAt(index);
     update();
   }
 
