@@ -147,7 +147,7 @@ class LoginPage extends StatelessWidget {
                 launchUrl(Uri.parse('https://spalhe.com/policy'));
               },
               child: Text(
-                'política de privacidade',
+                'privacy_policies'.tr,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,

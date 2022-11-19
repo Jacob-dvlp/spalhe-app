@@ -31,22 +31,22 @@ class BottomNavigationComponent extends StatelessWidget {
             onTap: tab.changeIndex,
             items: [
               SalomonBottomBarItem(
-                title: Text('home'),
+                title: Text('home'.tr),
                 icon: Icon(FeatherIcons.home),
                 selectedColor: theme.primaryColorDark,
               ),
               SalomonBottomBarItem(
-                title: Text('explorar'),
+                title: Text('explore'.tr),
                 icon: Icon(FeatherIcons.hash),
                 selectedColor: theme.primaryColorDark,
               ),
               SalomonBottomBarItem(
-                title: Text('play'),
+                title: Text('play'.tr),
                 icon: Icon(FeatherIcons.playCircle),
                 selectedColor: Colors.amber,
               ),
               SalomonBottomBarItem(
-                title: Text('chat'),
+                title: Text('chat'.tr),
                 selectedColor: theme.primaryColorDark,
                 icon: GetBuilder<ChatController>(
                     init: ChatController(),
@@ -86,7 +86,7 @@ class BottomNavigationComponent extends StatelessWidget {
                     }),
               ),
               SalomonBottomBarItem(
-                title: Text('notificações'),
+                title: Text('notifications'.tr),
                 selectedColor: Colors.redAccent,
                 icon: GetBuilder<NotificationController>(
                   init: NotificationController(),

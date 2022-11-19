@@ -78,7 +78,7 @@ class NewPostPage extends StatelessWidget {
           },
           child: Scaffold(
             appBar: AppBar(
-              title: Text('nova publicação'),
+              title: Text('new_post'.tr),
             ),
             body: ListViewWraper(
               padding: EdgeInsets.all(0),
@@ -98,7 +98,7 @@ class NewPostPage extends StatelessWidget {
                         ),
                         maxLines: 14,
                         decoration: InputDecoration(
-                          hintText: 'o que você quer espalhar?',
+                          hintText: 'what_do_you_want_to_spread'.tr,
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -217,7 +217,7 @@ class NewPostPage extends StatelessWidget {
                                     },
                               child: _post.postLoading
                                   ? Loading()
-                                  : Text('postar'),
+                                  : Text('post_button'.tr),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
                                 padding: EdgeInsets.symmetric(

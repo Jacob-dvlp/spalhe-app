@@ -51,9 +51,9 @@ class PostItemController extends GetxController {
       } catch (e) {}
     }
     return showDialogModal(
-      title: 'Denunciar publicação',
-      description: 'Tem certeza que deseja denunciar essa publicação?',
-      confirmText: 'Denunciar',
+      title: 'report_post'.tr,
+      description: 'report_post_message'.tr,
+      confirmText: 'report_post'.tr,
       onConfirm: () async {
         try {
           await useMutation(REPORT_POST_MUTATION, variables: {

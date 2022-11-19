@@ -174,6 +174,15 @@ class PostItem extends StatelessWidget {
                                             ListTile(
                                               tileColor:
                                                   Theme.of(context).cardColor,
+                                              leading: Icon(FeatherIcons.heart),
+                                              title: Text('see_who_liked'.tr),
+                                              onTap: () => OnRoute.push(
+                                                  LikesInPostPage(
+                                                      postId: post.id!)),
+                                            ),
+                                            ListTile(
+                                              tileColor:
+                                                  Theme.of(context).cardColor,
                                               leading: Icon(
                                                 post.isSaved == true
                                                     ? Icons.bookmark
@@ -181,8 +190,8 @@ class PostItem extends StatelessWidget {
                                                         .bookmark_border_rounded,
                                               ),
                                               title: Text(post.isSaved == true
-                                                  ? 'remover dos salvos'
-                                                  : 'salvar post'),
+                                                  ? 'remove_save_post'.tr
+                                                  : 'save_post'.tr),
                                               onTap: () {
                                                 _post.savePost();
                                                 Get.back();
@@ -196,7 +205,8 @@ class PostItem extends StatelessWidget {
                                                   FeatherIcons.eyeOff,
                                                 ),
                                                 title: Text(
-                                                    'ver menos posts como esse'),
+                                                    'see_less_posts_like_this'
+                                                        .tr),
                                                 onTap: () => _post.reportPost(
                                                     post.id!, true),
                                               ),
@@ -207,7 +217,7 @@ class PostItem extends StatelessWidget {
                                                 leading: Icon(
                                                   FeatherIcons.alertTriangle,
                                                 ),
-                                                title: Text('denunciar post'),
+                                                title: Text('report_post'.tr),
                                                 onTap: () =>
                                                     _post.reportPost(post.id!),
                                               ),
@@ -218,7 +228,7 @@ class PostItem extends StatelessWidget {
                                                 leading: Icon(
                                                   Icons.delete_outline_outlined,
                                                 ),
-                                                title: Text('excluir'),
+                                                title: Text('delete_post'.tr),
                                                 onTap: () =>
                                                     _post.deletePost(post.id!),
                                               ),
@@ -376,89 +386,9 @@ class PostItem extends StatelessWidget {
                     )
                 ],
               ),
-              if (showActions) SizedBox(height: 12),
-              if (showActions)
-                InkWell(
-                  onTap: () => OnRoute.push(LikesInPostPage(postId: post.id!)),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Opacity(
-                      opacity: 0.7,
-                      child: Row(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${post.cCount?.likes}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                (post.cCount?.likes ?? 0) > 1
-                                    ? 'gostaram'
-                                    : 'gostou',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(width: 20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${post.cCount?.comments}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                (post.cCount?.comments ?? 0) > 1
-                                    ? 'comentários'
-                                    : 'comentário',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${post.cCount?.reposts ?? 0}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                (post.cCount?.reposts ?? 0) > 1
-                                    ? 'spalharam'
-                                    : 'spalhou',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               if (showActions)
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 6).copyWith(top: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -475,7 +405,8 @@ class PostItem extends StatelessWidget {
                                 color: isLiked ? Colors.red : null,
                               ),
                             ),
-                            SizedBox(width: 16),
+                            Text('${post.cCount?.likes ?? 0}'),
+                            SizedBox(width: 28),
                             IconButton(
                               onPressed: () => inPostItem
                                   ? null
@@ -485,7 +416,8 @@ class PostItem extends StatelessWidget {
                                 size: 22,
                               ),
                             ),
-                            SizedBox(width: 16),
+                            Text('${post.cCount?.comments ?? 0}'),
+                            SizedBox(width: 28),
                             IconButton(
                               onPressed: () {
                                 Get.to(
@@ -501,6 +433,7 @@ class PostItem extends StatelessWidget {
                                 size: 22,
                               ),
                             ),
+                            Text('${post.cCount?.reposts ?? 0}'),
                             Expanded(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,

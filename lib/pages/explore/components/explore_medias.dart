@@ -32,7 +32,7 @@ class ExploreMidias extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '+ fotos e vídeos',
+                            'photos_and_videos'.tr,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

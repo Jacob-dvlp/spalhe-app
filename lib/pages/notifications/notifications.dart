@@ -32,7 +32,7 @@ class NotificationsPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('notificações'),
+            title: Text('notifications'.tr),
           ),
           body: VisibilityDetector(
             onVisibilityChanged: (info) {

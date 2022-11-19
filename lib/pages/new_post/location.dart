@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_workers/utils/debouncer.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:spalhe/components/form/input/input.dart';
@@ -15,7 +16,7 @@ class LocationPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('escolher localização'),
+        title: Text('choose_location'.tr),
       ),
       body: GetBuilder<PostController>(
         builder: (_post) {
@@ -23,7 +24,7 @@ class LocationPage extends StatelessWidget {
             padding: EdgeInsets.all(20),
             children: [
               Input(
-                label: 'digite o endereço',
+                label: 'enter_the_address'.tr,
                 onChanged: (v) {
                   debouncer.call(() {
                     _post.getPlaces(v);

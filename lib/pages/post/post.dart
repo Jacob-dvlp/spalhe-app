@@ -33,7 +33,7 @@ class PostPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          post.text ?? 'Publicação',
+          post.text ?? 'post'.tr,
           maxLines: 1,
         ),
       ),
@@ -274,7 +274,7 @@ class PostPage extends StatelessWidget {
                       controller: _inputController,
                       onChanged: (v) => commentsController.comment = v,
                       decoration: InputDecoration(
-                        hintText: 'Insira seu comentário',
+                        hintText: 'enter_your_comment'.tr,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,

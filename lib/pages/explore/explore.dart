@@ -38,7 +38,7 @@ class ExplorePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                'busque pelo nome ou nome de usuário',
+                'search_users_explore'.tr,
                 style: TextStyle(
                   color: theme.primaryColorDark.withOpacity(0.3),
                   fontSize: 16,

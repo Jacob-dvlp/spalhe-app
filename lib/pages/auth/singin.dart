@@ -119,7 +119,7 @@ class SinginPage extends StatelessWidget {
               ),
               SizedBox(height: 24),
               Button(
-                title: 'criar minha conta',
+                title: 'signup'.tr,
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();

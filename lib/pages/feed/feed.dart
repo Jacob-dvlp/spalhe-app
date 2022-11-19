@@ -52,7 +52,7 @@ class FeedPage extends StatelessWidget {
                       Opacity(
                         opacity: 0.6,
                         child: Text(
-                          'Olá,',
+                          'hello'.tr,
                           style: TextStyle(fontSize: 12),
                         ),
                       ),
