@@ -1,5 +1,24 @@
 import 'package:graphql/client.dart';
 
+final GET_MUSICS_QUERY = gql(r'''
+query searchMusicMoment($search: String!){
+	searchMusicMoment(search: $search) {
+		data {
+			id
+			title
+			preview
+			duration
+			link
+			album {
+				id
+				title
+				cover
+			}
+		}
+	}
+}
+''');
+
 final GET_MOMENT_VIEW = gql(r'''
 query getMomentViews($id: Float!){
 	getMomentViews(moment_id: $id) {

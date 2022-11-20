@@ -39,6 +39,7 @@ dependencies:
   modal_gif_picker: ^0.0.2
   url_launcher: ^6.1.6
   matrix_gesture_detector: ^0.2.0-nullsafety.1
+  just_audio: ^0.9.30
   # camera_deep_ar: ^0.0.2+3
 
 dev_dependencies:

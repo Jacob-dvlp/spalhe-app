@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +8,7 @@ import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/pages/create_moment/components/stickers/components/hours/hours.dart';
 import 'package:spalhe/pages/create_moment/components/stickers/stickers.dart';
-import 'package:spalhe/pages/create_moment/components/tab_change/tap_change.dart';
+import 'package:spalhe/pages/create_moment/components/item_moment/item_moment.dart';
 import 'package:spalhe/pages/create_moment/controller/create_moment.controller.dart';
 import 'package:spalhe/pages/create_moment/models/item_moment.model.dart';
 
@@ -36,12 +38,18 @@ class CreateMomentPage extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     context: context,
                     builder: (c) {
-                      return Container(
-                        height: double.infinity,
-                        color: Colors.black.withOpacity(0.5),
-                        child: ListView(
-                          padding: EdgeInsets.all(20),
-                          children: [StickerComponent()],
+                      return BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 10.0,
+                          sigmaY: 10.0,
+                        ),
+                        child: Container(
+                          height: double.infinity,
+                          color: Colors.black.withOpacity(0.5),
+                          child: ListView(
+                            padding: EdgeInsets.all(20),
+                            children: [StickerComponent()],
+                          ),
                         ),
                       );
                     },

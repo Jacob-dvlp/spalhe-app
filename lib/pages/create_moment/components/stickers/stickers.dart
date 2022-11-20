@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spalhe/pages/create_moment/components/stickers/components/hours/hours.dart';
+import 'package:spalhe/pages/create_moment/components/stickers/components/music/music_list.dart';
 import 'package:spalhe/pages/create_moment/components/stickers/components/music/music_moment.dart';
 import 'package:spalhe/pages/create_moment/components/stickers/list_stickers/stickers.dart';
 import 'package:spalhe/pages/create_moment/controller/create_moment.controller.dart';
@@ -28,7 +31,29 @@ class StickerComponent extends StatelessWidget {
 
                   if (item.type == StickerType.music) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          isScrollControlled: true,
+                          useSafeArea: true,
+                          isDismissible: true,
+                          enableDrag: true,
+                          builder: (c) {
+                            return BackdropFilter(
+                              filter: ImageFilter.blur(
+                                sigmaX: 10.0,
+                                sigmaY: 10.0,
+                              ),
+                              child: Container(
+                                height: double.infinity,
+                                color: Colors.black.withOpacity(0.5),
+                                child: MusicList(),
+                              ),
+                            );
+                          },
+                        );
+                      },
                       child: MusicMoment(),
                     );
                   }

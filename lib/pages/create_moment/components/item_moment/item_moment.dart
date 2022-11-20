@@ -70,7 +70,6 @@ class ItemMomentComponent extends StatelessWidget {
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 child: child,
-                width: 200,
               ),
             ],
           ),
