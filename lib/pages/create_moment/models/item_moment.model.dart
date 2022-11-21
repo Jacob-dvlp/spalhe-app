@@ -92,14 +92,18 @@ class StickerModel {
   String? name;
   String? path;
   StickerType? type;
+  HoursModel? hours;
+  MusicModel? music;
 
-  StickerModel({this.name, this.path, this.type});
+  StickerModel({this.name, this.path, this.type, this.hours, this.music});
 
   factory StickerModel.fromJson(Map<String, dynamic> json) {
     return StickerModel(
       name: json['name'],
       path: json['path'],
       type: StickerType.values[json['type']],
+      hours: json['hours'] != null ? HoursModel.fromJson(json['hours']) : null,
+      music: json['music'] != null ? MusicModel.fromJson(json['music']) : null,
     );
   }
 
@@ -108,6 +112,58 @@ class StickerModel {
       'name': name,
       'path': path,
       'type': type?.index,
+      'hours': hours?.toJson(),
+      'music': music?.toJson(),
+    };
+  }
+}
+
+class HoursModel {
+  String? hours;
+
+  HoursModel({this.hours});
+
+  factory HoursModel.fromJson(Map<String, dynamic> json) {
+    return HoursModel(
+      hours: json['hours'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'hours': hours,
+    };
+  }
+}
+
+class MusicModel {
+  String? title;
+  String? url;
+  String? preview;
+  String? artistName;
+
+  MusicModel({
+    this.title,
+    this.preview,
+    this.url,
+    this.artistName,
+  });
+
+  factory MusicModel.fromJson(Map<String, dynamic> json) {
+    return MusicModel(
+      title: json['title'],
+      preview: json['preview'],
+      url: json['url'],
+      artistName: json['artistName'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'preview': preview,
+      'url': url,
+      'artistName': artistName,
     };
   }
 }

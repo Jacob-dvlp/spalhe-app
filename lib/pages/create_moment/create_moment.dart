@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 import 'package:spalhe/components/layout/image/image.dart';
 import 'package:spalhe/pages/create_moment/components/stickers/components/hours/hours.dart';
+import 'package:spalhe/pages/create_moment/components/stickers/components/music/music_card.dart';
 import 'package:spalhe/pages/create_moment/components/stickers/stickers.dart';
 import 'package:spalhe/pages/create_moment/components/item_moment/item_moment.dart';
 import 'package:spalhe/pages/create_moment/controller/create_moment.controller.dart';
@@ -108,6 +109,17 @@ class CreateMomentPage extends StatelessWidget {
                           return ItemMomentComponent(
                             index: index,
                             child: HourMoment(),
+                            position: item.position!,
+                            onChangePosition: (m) {
+                              controller.onUpdateItemPosition(index, m);
+                            },
+                          );
+                        }
+
+                        if (sticker?.type == StickerType.music) {
+                          return ItemMomentComponent(
+                            index: index,
+                            child: MusicCardMoment(music: sticker!.music!),
                             position: item.position!,
                             onChangePosition: (m) {
                               controller.onUpdateItemPosition(index, m);

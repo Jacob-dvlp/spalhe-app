@@ -44,6 +44,8 @@ class SearchMusicMoment {
 class IMusicMoment {
   int? id;
   String? title;
+  String? titleShort;
+  Artist? artist;
   String? preview;
   int? duration;
   String? link;
@@ -52,6 +54,8 @@ class IMusicMoment {
   IMusicMoment(
       {this.id,
       this.title,
+      this.titleShort,
+      this.artist,
       this.preview,
       this.duration,
       this.link,
@@ -60,6 +64,9 @@ class IMusicMoment {
   IMusicMoment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
+    titleShort = json['title_short'];
+    artist =
+        json['artist'] != null ? new Artist.fromJson(json['artist']) : null;
     preview = json['preview'];
     duration = json['duration'];
     link = json['link'];
@@ -70,12 +77,35 @@ class IMusicMoment {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['title'] = this.title;
+    data['title_short'] = this.titleShort;
+    if (this.artist != null) {
+      data['artist'] = this.artist!.toJson();
+    }
     data['preview'] = this.preview;
     data['duration'] = this.duration;
     data['link'] = this.link;
     if (this.album != null) {
       data['album'] = this.album!.toJson();
     }
+    return data;
+  }
+}
+
+class Artist {
+  String? name;
+  String? picture;
+
+  Artist({this.name, this.picture});
+
+  Artist.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    picture = json['picture'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['picture'] = this.picture;
     return data;
   }
 }

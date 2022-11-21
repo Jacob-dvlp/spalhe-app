@@ -161,6 +161,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.1"
+  ezanimation:
+    dependency: "direct main"
+    description:
+      name: ezanimation
+      sha256: d197e83f1746e9c362150c66a7c55e1fa57f514bf9654fcd30a001139b7a7a92
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   fake_async:
     dependency: transitive
     description:

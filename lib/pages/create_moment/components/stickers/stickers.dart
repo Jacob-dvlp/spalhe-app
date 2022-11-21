@@ -36,9 +36,9 @@ class StickerComponent extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           context: context,
                           isScrollControlled: true,
-                          useSafeArea: true,
-                          isDismissible: true,
-                          enableDrag: true,
+                          useSafeArea: false,
+                          isDismissible: false,
+                          enableDrag: false,
                           builder: (c) {
                             return BackdropFilter(
                               filter: ImageFilter.blur(
@@ -48,7 +48,25 @@ class StickerComponent extends StatelessWidget {
                               child: Container(
                                 height: double.infinity,
                                 color: Colors.black.withOpacity(0.5),
-                                child: MusicList(),
+                                child: MusicList(
+                                  onMusicSelect: (music) {
+                                    controller.addItem(ItemMoment(
+                                      sticker: StickerModel(
+                                        type: StickerType.music,
+                                        name: music.title,
+                                        music: MusicModel(
+                                          preview: music.album?.cover,
+                                          title: music.title,
+                                          url: music.preview,
+                                          artistName: music.artist?.name,
+                                        ),
+                                      ),
+                                      position: Matrix4.identity(),
+                                      type: ItemType.sticker,
+                                    ));
+                                    controller.onBackAndStop();
+                                  },
+                                ),
                               ),
                             );
                           },

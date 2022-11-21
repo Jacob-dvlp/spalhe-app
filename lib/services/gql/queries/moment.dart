@@ -4,16 +4,21 @@ final GET_MUSICS_QUERY = gql(r'''
 query searchMusicMoment($search: String!){
 	searchMusicMoment(search: $search) {
 		data {
-			id
-			title
-			preview
-			duration
-			link
-			album {
-				id
-				title
-				cover
-			}
+      id
+      title
+      title_short
+      artist {
+        name
+        picture
+      }
+      preview
+      duration
+      link
+      album {
+        id
+        title
+        cover
+      }
 		}
 	}
 }
