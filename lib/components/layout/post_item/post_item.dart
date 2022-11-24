@@ -60,15 +60,6 @@ class PostItem extends StatelessWidget {
           margin: showActions ? EdgeInsets.only(bottom: 10) : null,
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
-            boxShadow: !showActions
-                ? null
-                : [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 5,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,8 +80,8 @@ class PostItem extends StatelessWidget {
                     children: [
                       Avatar(
                         user: user,
-                        width: 38,
-                        heigth: 38,
+                        width: 30,
+                        heigth: 30,
                         showIcon: false,
                       ),
                       SizedBox(width: 8),
@@ -105,48 +96,26 @@ class PostItem extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Text(user?.name?.split(' ').first ??
-                                              ''),
-                                          if (user?.verified == true)
-                                            Row(
-                                              children: [
-                                                SizedBox(width: 5),
-                                                Container(
-                                                  child: SvgPicture.asset(
-                                                    'assets/svg/veirified.svg',
-                                                    width: 13,
-                                                    height: 13,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                        ],
-                                      ),
-                                      if (post.location != null)
-                                        Flexible(
-                                          child: Text(
-                                            '  •  ${post.location?.name}',
-                                            style: TextStyle(
-                                              color: Colors.grey.shade500,
-                                              fontSize: 12,
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
                                       Text(
-                                        '@${user?.username}',
+                                        '${user?.username}',
                                         style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade500,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
+                                      if (user?.verified == true)
+                                        Row(
+                                          children: [
+                                            SizedBox(width: 5),
+                                            Container(
+                                              child: SvgPicture.asset(
+                                                'assets/svg/veirified.svg',
+                                                width: 13,
+                                                height: 13,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       Text(
                                         '  •  ${fromNow(post.createdAt)}',
                                         style: TextStyle(
@@ -156,6 +125,17 @@ class PostItem extends StatelessWidget {
                                       ),
                                     ],
                                   ),
+                                  if (post.location?.name != null)
+                                    Text(
+                                      '${post.location?.name}',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade500,
+                                        fontSize: 11,
+                                        height: 1.2,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                 ],
                               ),
                             ),
@@ -167,7 +147,7 @@ class PostItem extends StatelessWidget {
                                     backgroundColor:
                                         Theme.of(context).cardColor,
                                     context: context,
-                                    builder: (BuildContext bc) {
+                                    builder: (bc) {
                                       return SafeArea(
                                         child: Wrap(
                                           children: [
@@ -177,8 +157,9 @@ class PostItem extends StatelessWidget {
                                               leading: Icon(FeatherIcons.heart),
                                               title: Text('see_who_liked'.tr),
                                               onTap: () => OnRoute.push(
-                                                  LikesInPostPage(
-                                                      postId: post.id!)),
+                                                LikesInPostPage(
+                                                    postId: post.id!),
+                                              ),
                                             ),
                                             ListTile(
                                               tileColor:
@@ -249,7 +230,7 @@ class PostItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -262,10 +243,12 @@ class PostItem extends StatelessWidget {
                         basicStyle: TextStyle(
                           fontSize: 16,
                           color: Theme.of(context).primaryColorDark,
+                          fontFamily: 'Poppins',
                         ),
                         decoratedStyle: TextStyle(
                           color: primary,
                           fontSize: 16,
+                          fontFamily: 'Poppins',
                         ),
                         onTap: (text) {
                           if (text.startsWith('@')) {
@@ -304,157 +287,222 @@ class PostItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if ((medias?.length ?? 0) > 0) SizedBox(height: 8),
+                  if ((medias?.length ?? 0) > 0) SizedBox(height: 10),
                   if ((medias?.length ?? 0) > 0)
                     SizedBox(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.width,
-                      child: Stack(
-                        children: [
-                          PageView(
-                            controller: _pageController,
-                            onPageChanged: (index) {
-                              _post.changeMediaIndex(index);
-                            },
-                            scrollDirection: Axis.horizontal,
-                            scrollBehavior: ScrollBehavior(),
-                            children: List.generate(
-                              medias?.length ?? 0,
-                              (index) {
-                                final media = medias![index];
-                                if (VideoTypes.contains(
-                                    media.type?.toLowerCase())) {
-                                  return VideoPlayerComponent(
-                                      videoUrl: media.url!);
-                                } else
-                                  return GestureDetector(
-                                    onDoubleTap: () => _post.likePost(),
-                                    onTap: () => showImageModal(
-                                      medias.map((e) => e.url!).toList(),
-                                      index,
-                                    ),
-                                    child: ClipRRect(
-                                      child: ImageNetwork(
-                                        src: media.url,
-                                        width: Size.infinite.width,
-                                      ),
-                                    ),
-                                  );
-                              },
-                            ),
-                          ),
-                          if ((medias?.length ?? 0) > 1)
-                            Positioned(
-                              bottom: 10,
-                              right: 0,
-                              left: 0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 5,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: primary.withOpacity(0.4),
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Row(
-                                      children: List.generate(
-                                        medias?.length ?? 0,
-                                        (index) => Container(
-                                          width: 10,
-                                          height: 10,
-                                          margin: EdgeInsets.only(left: 3),
-                                          decoration: BoxDecoration(
-                                            color: _post.mediaIndex == index
-                                                ? primary
-                                                : Colors.white.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                      height: MediaQuery.of(context).size.width + 100,
+                      child: PageView(
+                        controller: _pageController,
+                        onPageChanged: (index) {
+                          _post.changeMediaIndex(index);
+                        },
+                        scrollDirection: Axis.horizontal,
+                        scrollBehavior: ScrollBehavior(),
+                        children: List.generate(
+                          medias?.length ?? 0,
+                          (index) {
+                            final media = medias![index];
+                            if (VideoTypes.contains(
+                                media.type?.toLowerCase())) {
+                              return VideoPlayerComponent(videoUrl: media.url!);
+                            } else
+                              return GestureDetector(
+                                onDoubleTap: () => _post.likePost(),
+                                onTap: () => showImageModal(
+                                  medias.map((e) => e.url!).toList(),
+                                  index,
+                                ),
+                                child: ClipRRect(
+                                  child: ImageNetwork(
+                                    src: media.url,
+                                    width: Size.infinite.width,
                                   ),
-                                ],
-                              ),
-                            )
-                        ],
+                                ),
+                              );
+                          },
+                        ),
                       ),
                     )
                 ],
               ),
+              SizedBox(height: 13),
               if (showActions)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6).copyWith(top: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: _post.likePost,
-                              icon: Icon(
-                                isLiked
-                                    ? Icons.favorite
-                                    : Icons.favorite_border_outlined,
-                                size: 24,
-                                color: isLiked ? Colors.red : null,
+                InkWell(
+                  onTap: () => OnRoute.push(LikesInPostPage(postId: post.id!)),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 18),
+                    child: Opacity(
+                      opacity: 0.6,
+                      child: Row(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${post.cCount?.likes}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text('${post.cCount?.likes ?? 0}'),
-                            SizedBox(width: 28),
-                            IconButton(
-                              onPressed: () => inPostItem
-                                  ? null
-                                  : OnRoute.push(PostPage(post: post)),
-                              icon: Icon(
-                                FeatherIcons.messageSquare,
-                                size: 22,
+                              SizedBox(width: 4),
+                              Text(
+                                (post.cCount?.likes ?? 0) > 1
+                                    ? 'curtidas'.tr
+                                    : 'curtida'.tr,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${post.cCount?.comments}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text('${post.cCount?.comments ?? 0}'),
-                            SizedBox(width: 28),
-                            IconButton(
-                              onPressed: () {
-                                Get.to(
-                                  () => NewPostPage(
-                                    post: post.repost != null
-                                        ? post.repost
-                                        : post,
+                              SizedBox(width: 4),
+                              Text(
+                                (post.cCount?.comments ?? 0) > 1
+                                    ? 'comentários'
+                                    : 'comentário',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${post.cCount?.reposts ?? 0}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                (post.cCount?.reposts ?? 0) > 1
+                                    ? 'spalharam'
+                                    : 'spalhou',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              if (showActions)
+                Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  onPressed: _post.likePost,
+                                  icon: Icon(
+                                    isLiked
+                                        ? Icons.favorite
+                                        : Icons.favorite_border_outlined,
+                                    size: 24,
+                                    color: isLiked ? Colors.red : null,
                                   ),
-                                );
-                              },
-                              icon: Icon(
-                                FeatherIcons.repeat,
-                                size: 22,
-                              ),
+                                ),
+                                IconButton(
+                                  onPressed: () => inPostItem
+                                      ? null
+                                      : OnRoute.push(PostPage(post: post)),
+                                  icon: Icon(FeatherIcons.messageSquare,
+                                      size: 22),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Get.to(
+                                      () => NewPostPage(
+                                        post: post.repost != null
+                                            ? post.repost
+                                            : post,
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(FeatherIcons.repeat, size: 22),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                        onPressed: _post.savePost,
+                                        icon: Icon(
+                                          post.isSaved == true
+                                              ? Icons.bookmark
+                                              : Icons.bookmark_border_rounded,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text('${post.cCount?.reposts ?? 0}'),
-                            Expanded(
+                          ),
+                        ],
+                      ),
+                    ),
+                    if ((medias?.length ?? 0) > 1)
+                      Positioned(
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                    onPressed: _post.savePost,
-                                    icon: Icon(
-                                      post.isSaved == true
-                                          ? Icons.bookmark
-                                          : Icons.bookmark_border_rounded,
-                                      size: 24,
+                                children: List.generate(
+                                  medias?.length ?? 0,
+                                  (index) => Container(
+                                    width: 8,
+                                    height: 8,
+                                    margin: EdgeInsets.only(left: 5),
+                                    decoration: BoxDecoration(
+                                      color: _post.mediaIndex == index
+                                          ? primary
+                                          : Colors.grey.withOpacity(0.3),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
+                      )
+                  ],
                 ),
               if (showActions) SizedBox(height: 10),
             ],

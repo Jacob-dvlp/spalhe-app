@@ -34,6 +34,7 @@ query ($filters: IFilters!) {
         user_id
         is_saved
         is_liked
+        created_at
         user {
           name
           id

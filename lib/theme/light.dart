@@ -48,28 +48,29 @@ ThemeData themeLight(context) => ThemeData(
       hintColor: Colors.grey.withOpacity(0.4),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primary,
-          ),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primary,
-            width: 2,
-          ),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primary,
-          ),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
-        fillColor: Colors.white,
+        fillColor: Colors.grey.withOpacity(0.14),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 14,
+          vertical: 18,
+        ),
+        labelStyle: TextStyle(
+          fontSize: 16,
+        ),
+        floatingLabelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
         ),
       ),
       textTheme: GoogleFonts.poppinsTextTheme(

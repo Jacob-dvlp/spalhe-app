@@ -1,8 +1,8 @@
 import 'package:graphql/client.dart';
 
 final GET_LIKED_POSTS_QUERY = gql(r"""
-query getLikedPosts($user_id: Float!, $filters: IFilters!) {
-	getLikedPosts(user_id: $user_id, filters: $filters) {
+query getLikedPosts($filters: IFilters!) {
+	getLikedPosts(filters: $filters) {
 		meta {
 			page
 			per_page
@@ -17,6 +17,7 @@ query getLikedPosts($user_id: Float!, $filters: IFilters!) {
 			is_liked
 			medias {
 				type
+        url
 			}
 			user {
         username
@@ -34,13 +35,6 @@ query getLikedPosts($user_id: Float!, $filters: IFilters!) {
 				mentions
 				likes
 				comments
-			}
-			mentions {
-				user {
-					name
-					id
-					avatar
-				}
 			}
 		}
 	}

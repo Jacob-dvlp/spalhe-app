@@ -16,6 +16,7 @@ final GET_SAVED_POSTS = gql(r'''
 			text
 			is_liked
 			is_saved
+      created_at
 			repost {
 				id
 				text
@@ -29,13 +30,6 @@ final GET_SAVED_POSTS = gql(r'''
 				location {
 					id
 					name
-				}
-				mentions {
-					user {
-						id
-						name
-						avatar
-					}
 				}
 				user {
 					id
@@ -54,13 +48,6 @@ final GET_SAVED_POSTS = gql(r'''
 			location {
 				id
 				name
-			}
-			mentions {
-				user {
-					id
-					name
-					avatar
-				}
 			}
 			user {
 				id
@@ -108,13 +95,6 @@ final GET_POSTS_BY_HASHTAG = gql(r'''
 				id
 				name
 			}
-			mentions {
-				user {
-					id
-					name
-					avatar
-				}
-			}
 			user {
 				id
 				name
@@ -143,13 +123,6 @@ final GET_POSTS_BY_HASHTAG = gql(r'''
 				location {
 					id
 					name
-				}
-				mentions {
-					user {
-						id
-						name
-						avatar
-					}
 				}
 				user {
 					id
@@ -248,13 +221,6 @@ final GET_POST_MENTIONS_QUERY = gql(r"""
           id
           name
         }
-        mentions {
-          user {
-            id
-            name
-            avatar
-          }
-        }
         user {
           id
           name
@@ -283,13 +249,6 @@ final GET_POST_MENTIONS_QUERY = gql(r"""
           location {
             id
             name
-          }
-          mentions {
-            user {
-              id
-              name
-              avatar
-            }
           }
           user {
             id
@@ -338,13 +297,6 @@ final GET_POST_MEDIA_QUERY = gql(r'''
           id
           name
         }
-        mentions {
-          user {
-            id
-            name
-            avatar
-          }
-        }
         user {
           id
           name
@@ -373,13 +325,6 @@ final GET_POST_MEDIA_QUERY = gql(r'''
           location {
             id
             name
-          }
-          mentions {
-            user {
-              id
-              name
-              avatar
-            }
           }
           user {
             id
@@ -428,13 +373,6 @@ query($user_id: Float!, $filters: IFilters!) {
           id
           name
         }
-        mentions {
-          user {
-            id
-            name
-            avatar
-          }
-        }
         user {
           id
           name
@@ -463,13 +401,6 @@ query($user_id: Float!, $filters: IFilters!) {
           location {
             id
             name
-          }
-          mentions {
-            user {
-              id
-              name
-              avatar
-            }
           }
           user {
             id
@@ -532,13 +463,6 @@ final DocumentNode GET_POSTS_QUERY = gql(r"""
           id
           name
         }
-        mentions {
-          user {
-            id
-            name
-            avatar
-          }
-        }
         user {
           id
           name
@@ -567,13 +491,6 @@ final DocumentNode GET_POSTS_QUERY = gql(r"""
           location {
             id
             name
-          }
-          mentions {
-            user {
-              id
-              name
-              avatar
-            }
           }
           user {
             id

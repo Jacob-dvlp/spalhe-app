@@ -4,8 +4,8 @@ import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/controllers/auth.controller.dart';
 import 'package:spalhe/controllers/moments.controller.dart';
 import 'package:spalhe/models/user.model.dart';
+import 'package:spalhe/pages/create_moment/camera.dart';
 import 'package:spalhe/pages/moments/moments.dart';
-import 'package:spalhe/pages/create_moment/create_moment.dart';
 import 'package:spalhe/theme/colors.dart';
 import 'package:spalhe/utils/routes.dart';
 
@@ -42,7 +42,7 @@ class MomentsComponent extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        OnRoute.push(CreateMomentPage());
+                        OnRoute.push(CameraComponent());
                       },
                       child: Avatar(
                         user: user,

@@ -15,6 +15,7 @@ final EXPLORE_MEDIAS_QUERY = gql(r"""
 			text
 			published
 			is_liked
+      created_at
 			medias {
 				url
         thumb
@@ -23,12 +24,6 @@ final EXPLORE_MEDIAS_QUERY = gql(r"""
 			}
 			location {
 				name
-			}
-			mentions {
-				user {
-					id
-					name
-				}
 			}
 			user {
         id

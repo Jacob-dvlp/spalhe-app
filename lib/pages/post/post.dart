@@ -66,9 +66,15 @@ class PostPage extends StatelessWidget {
                                 horizontal: 20,
                                 vertical: 10,
                               ),
-                              margin: EdgeInsets.only(bottom: 3),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).cardColor,
+                                border: Border(
+                                  top: BorderSide(
+                                    color: Theme.of(context)
+                                        .dividerColor
+                                        .withOpacity(0.07),
+                                  ),
+                                ),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,35 +83,32 @@ class PostPage extends StatelessWidget {
                                     children: [
                                       Avatar(
                                         user: comment.user,
-                                        width: 32,
-                                        heigth: 32,
+                                        width: 28,
+                                        heigth: 28,
                                         iconSize: 8,
                                       ),
                                       SizedBox(width: 10),
                                       Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                        child: Row(
                                           children: [
                                             Text(
-                                              comment.user?.name ?? '',
-                                              style: TextStyle(),
-                                            ),
-                                            Opacity(
-                                              opacity: .6,
-                                              child: Text(
-                                                '@${comment.user?.username}',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                ),
+                                              '${comment.user?.username}',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
+                                            SizedBox(width: 5),
+                                            VerifiedComponent(
+                                              user: comment.user!,
+                                              iconSize: 14,
+                                            )
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 6),
+                                  SizedBox(height: 4),
                                   Text(
                                     comment.text ?? '',
                                     style: TextStyle(
@@ -136,10 +139,10 @@ class PostPage extends StatelessWidget {
                                       Text(
                                         comment.cCount?.likes?.toString() ?? '',
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize: 11,
                                         ),
                                       ),
-                                      SizedBox(width: 30),
+                                      SizedBox(width: 20),
                                       GestureDetector(
                                         onTap: () => Get.to(
                                           () => RepliesCommntPostPage(
@@ -157,7 +160,7 @@ class PostPage extends StatelessWidget {
                                         comment.cCount?.replies?.toString() ??
                                             '',
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ],

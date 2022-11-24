@@ -40,26 +40,30 @@ ThemeData themeDark(context) => ThemeData(
       hintColor: Colors.white.withOpacity(0.4),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primary,
-          ),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.2),
-          ),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
+        fillColor: Colors.grey.withOpacity(0.14),
         iconColor: Colors.white.withOpacity(0.6),
-        floatingLabelStyle: TextStyle(color: Colors.white),
-        fillColor: Colors.white.withOpacity(0.05),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 18,
+        ),
+        labelStyle: TextStyle(
+          fontSize: 16,
+        ),
+        floatingLabelStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
         ),
       ),
       textTheme: GoogleFonts.poppinsTextTheme(

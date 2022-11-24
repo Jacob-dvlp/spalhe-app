@@ -20,7 +20,9 @@ class ChatsPage extends StatelessWidget {
             title: Text('chats'),
           ),
           body: RefreshIndicator(
-            onRefresh: () => ChatController().getChats(),
+            onRefresh: () async {
+              chatController.getChats();
+            },
             child: ListView(
               padding: EdgeInsets.all(14),
               children: [

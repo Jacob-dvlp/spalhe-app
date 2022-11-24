@@ -42,6 +42,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   Input(
+                    autofocus: false,
                     hint: 'email',
                     label: 'email',
                     onSaved: (v) => auth.loginData['email'] = v,
@@ -55,6 +56,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Input(
+                    autofocus: false,
                     onSaved: (v) => auth.loginData['password'] = v,
                     initialValue: auth.loginData['password'],
                     label: 'password'.tr,

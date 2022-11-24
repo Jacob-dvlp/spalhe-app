@@ -528,9 +528,10 @@ class UserPage extends StatelessWidget {
                       color: Get.theme.primaryColorLight,
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ButtonTabProfile(
-                          title: 'posts',
+                          icon: FeatherIcons.alignCenter,
                           total: user.profileDetails?.posts ?? 0,
                           onPress: () {
                             profileController.changeIndex(0);
@@ -538,7 +539,7 @@ class UserPage extends StatelessWidget {
                           isActive: profileController.tab == 0,
                         ),
                         ButtonTabProfile(
-                          title: 'midias',
+                          icon: FeatherIcons.grid,
                           total: user.profileDetails?.medias ?? 0,
                           onPress: () {
                             profileController.changeIndex(1);
@@ -546,7 +547,7 @@ class UserPage extends StatelessWidget {
                           isActive: profileController.tab == 1,
                         ),
                         ButtonTabProfile(
-                          title: 'menções',
+                          icon: FeatherIcons.atSign,
                           total: user.profileDetails?.mentions ?? 0,
                           onPress: () {
                             profileController.changeIndex(2);

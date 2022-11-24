@@ -72,46 +72,28 @@ class ProfilePage extends StatelessWidget {
           ),
           body: ListViewWraper(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: primary,
-                      image: user.cover != null
-                          ? DecorationImage(
-                              image: NetworkImage(user.cover ?? ''),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: primary,
+                  image: user.cover != null
+                      ? DecorationImage(
+                          image: NetworkImage(user.cover ?? ''),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Avatar(
+                      user: user,
+                      width: 120,
+                      heigth: 120,
+                      showIcon: false,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Avatar(
-                          user: user,
-                          width: 120,
-                          heigth: 120,
-                          showIcon: false,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    right: 10,
-                    top: 10,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: primary.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: IconButton(
-                        onPressed: () => _auth.addCover(context),
-                        icon: Icon(Icons.add_photo_alternate),
-                      ),
-                    ),
-                  )
-                ],
+                  ],
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(20),
@@ -175,6 +157,7 @@ class ProfilePage extends StatelessWidget {
                     if (user.biography != '' && user.biography != null)
                       Column(
                         children: [
+                          SizedBox(height: 10),
                           HashTagText(
                             text: user.biography ?? '',
                             decorateAtSign: true,
@@ -274,9 +257,10 @@ class ProfilePage extends StatelessWidget {
                       color: Theme.of(context).primaryColorLight,
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ButtonTabProfile(
-                          title: 'posts'.tr,
+                          icon: FeatherIcons.alignCenter,
                           total: user.profileDetails?.posts ?? 0,
                           onPress: () {
                             profileController.changeIndex(0);
@@ -284,7 +268,7 @@ class ProfilePage extends StatelessWidget {
                           isActive: profileController.tab == 0,
                         ),
                         ButtonTabProfile(
-                          title: 'media'.tr,
+                          icon: FeatherIcons.grid,
                           total: user.profileDetails?.medias ?? 0,
                           onPress: () {
                             profileController.changeIndex(1);
@@ -292,7 +276,7 @@ class ProfilePage extends StatelessWidget {
                           isActive: profileController.tab == 1,
                         ),
                         ButtonTabProfile(
-                          title: 'mentions'.tr,
+                          icon: FeatherIcons.atSign,
                           total: user.profileDetails?.mentions ?? 0,
                           onPress: () {
                             profileController.changeIndex(2);

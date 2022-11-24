@@ -42,7 +42,9 @@ class NotificationsPage extends StatelessWidget {
             },
             key: Key("unique key"),
             child: ListViewWraper(
-              padding: EdgeInsets.all(16),
+              onRefresh: () async {
+                return ntf.getNotifications();
+              },
               children: List.generate(
                 notifications.length,
                 (index) {
