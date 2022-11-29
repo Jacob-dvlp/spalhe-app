@@ -41,7 +41,11 @@ dependencies:
   matrix_gesture_detector: ^0.2.0-nullsafety.1
   just_audio: ^0.9.30
   ezanimation: ^0.6.0
-  camera_deep_ar: ^0.0.2+3
+  firebase_core: ^2.3.0
+  firebase_auth: ^4.1.4
+  firebase_storage: ^11.0.6
+  font_awesome_flutter: ^10.2.1
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:

@@ -59,5 +59,16 @@
 		<string>Allows you to capture your best moment</string>
 	<key>NSMicrophoneUsageDescription</key>
 		<string>Needs access to your mic to help your record voice notes on chat/message conversations</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1013324345184-heod7ohcu8peurlj9864ct8v4fkpi4up</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
