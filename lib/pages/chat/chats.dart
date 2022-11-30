@@ -4,7 +4,7 @@ import 'package:spalhe/components/layout/avatar/avatar.dart';
 import 'package:spalhe/controllers/chat.controller.dart';
 import 'package:spalhe/models/chat.model.dart';
 import 'package:spalhe/pages/chat/chat.dart';
-import 'package:spalhe/utils/date.dart';
+// import 'package:spalhe/utils/date.dart';
 
 class ChatsPage extends StatelessWidget {
   const ChatsPage({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class ChatsPage extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    chat.lastMessage?.message ?? '',
+                                    chat.lastMessage ?? '',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -72,12 +72,12 @@ class ChatsPage extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(
-                                  fromNow(chat.lastMessage?.createdAt),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                // Text(
+                                //   fromNow(chat.lastMessage?.createdAt),
+                                //   style: TextStyle(
+                                //     fontSize: 12,
+                                //   ),
+                                // ),
                                 if (chat.countUnreadMessages! > 0)
                                   Container(
                                     width: 20,

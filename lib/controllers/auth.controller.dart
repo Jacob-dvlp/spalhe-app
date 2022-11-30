@@ -43,6 +43,38 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> loginWithCredentials(credential) async {
+    try {
+      setLoading(true);
+      final res = await useMutation(LOGIN_OAUTH, variables: {
+        "data": {
+          "accessToken": credential.accessToken,
+          "idToken": credential.idToken,
+          "providerId": credential.providerId,
+          "signInMethod": credential.signInMethod,
+          "secret": credential.secret,
+          "token": credential.token,
+        },
+      });
+      box.write('auth', res.data?['loginInWithCredential']);
+      auth = AuthModel.fromJson(res.data?['loginInWithCredential']);
+      OneSignal.shared.setExternalUserId(auth.user?.id.toString() ?? '');
+      setLoading(false);
+      Get.offAll(() => LoaderPage());
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        'Ops..',
+        'Seus dados parecem incorretos.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.shade400,
+        borderRadius: 4,
+        colorText: Colors.white,
+      );
+      setLoading(false);
+    }
+  }
+
   Future<void> login() async {
     try {
       setLoading(true);

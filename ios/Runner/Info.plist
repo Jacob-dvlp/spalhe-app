@@ -20,10 +20,31 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1013324345184-heod7ohcu8peurlj9864ct8v4fkpi4up</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allows you to capture your best moment</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Needs access to your mic to help your record voice notes on chat/message conversations</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allows you to capture your best moment</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Precisamos do acesso à galeria para poder alterar a imagem do perfil</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -49,26 +70,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-		<string>Precisamos do acesso à galeria para poder alterar a imagem do perfil</string>
-	<key>NSCameraUsageDescription</key>
-		<string>Allows you to capture your best moment</string>
 	<key>io.flutter.embedded_views_preview</key>
-		<true/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>Allows you to capture your best moment</string>
-	<key>NSMicrophoneUsageDescription</key>
-		<string>Needs access to your mic to help your record voice notes on chat/message conversations</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.1013324345184-heod7ohcu8peurlj9864ct8v4fkpi4up</string>
-			</array>
-		</dict>
-	</array>
+	<true/>
 </dict>
 </plist>

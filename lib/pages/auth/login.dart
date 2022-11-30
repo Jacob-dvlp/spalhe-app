@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -135,30 +137,32 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 14),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: OutlinedButton(
-                      child: Row(
-                        children: [
-                          Icon(FontAwesomeIcons.facebook),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: Text(
-                              'entrar com facebook',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
+                  if (Platform.isIOS)
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: OutlinedButton(
+                        child: Row(
+                          children: [
+                            Icon(FontAwesomeIcons.apple),
+                            SizedBox(width: 20),
+                            Expanded(
+                              child: Text(
+                                'entrar com a apple',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          SizedBox(width: 30),
-                        ],
+                            SizedBox(width: 30),
+                          ],
+                        ),
+                        onPressed: () =>
+                            socialLoginController.signInWithApple(),
                       ),
-                      onPressed: () => OnRoute.push(SinginPage()),
                     ),
-                  ),
                   SizedBox(height: 40),
                   Column(
                     children: [

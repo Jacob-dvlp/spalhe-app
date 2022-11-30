@@ -15,24 +15,15 @@ final CREATE_CHAT_MUTATION = gql(r'''
       name
       avatar
       is_group
-      exit_users_ids
       user {
         id
         name
         username
-        status
         avatar
         verified
         followed
       }
-      last_message {
-        message
-        created_at
-        files {
-          id
-          url
-        }
-      }
+      last_message
       count_unread_messages
     }
   }
@@ -69,7 +60,6 @@ final MESSAGE_ADD_SUBSCRIPTION = gql(r'''
 			user {
 				id
 				name
-        status
 				username
 				avatar
         verified
@@ -114,7 +104,6 @@ final GET_CHAT_MESSAGE_QUERY = gql(r"""
         user {
           id
           name
-          status
           avatar
           username
           verified
@@ -132,24 +121,15 @@ final GET_CHATS_QUERY = gql("""
       name
       avatar
       is_group
-      exit_users_ids
       user {
         id
         name
         username
-        status
         avatar
         verified
         followed
       }
-      last_message {
-        message
-        created_at
-        files {
-          id
-          url
-        }
-      }
+      last_message
       count_unread_messages
     }
   }
